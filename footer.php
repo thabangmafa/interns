@@ -6,3 +6,6 @@
                     
                 </div>
             </footer>
+<?php
+CloseCon($conn);
+?>

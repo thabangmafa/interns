@@ -1,3 +1,7 @@
+<?php
+include 'admin/connect.php';
+$conn = OpenCon();
+?>
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
                 <div class="sidebar-header">
@@ -143,18 +147,18 @@
 
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
-                                <i class="bi bi-collection-fill"></i>
+                                <i class="bi bi-stack <?php if($menu_item == "6"){ echo "active"; } ?>"></i>
                                 <span>Manage Components</span>
                             </a>
-                            <ul class="submenu ">
+                            <ul class="submenu <?php if($menu_item == "6"){ echo "active"; } ?>"">
                                 <li class="submenu-item ">
                                     <a href="extra-component-avatar.html">Countries</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="extra-component-sweetalert.html">Provices</a>
                                 </li>
-                                <li class="submenu-item ">
-                                    <a href="extra-component-toastify.html">Institutions</a>
+                                <li class="submenu-item <?php if($title == "Host Institutions"){ echo "active"; } ?>">
+                                    <a href="institution.php">Host Institutions</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="extra-component-rating.html">Languages</a>
