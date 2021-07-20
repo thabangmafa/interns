@@ -158,7 +158,7 @@ $conn = OpenCon();
                                     <a href="extra-component-sweetalert.html">Provices</a>
                                 </li>
                                 <li class="submenu-item <?php if($title == "Host Institutions"){ echo "active"; } ?>">
-                                    <a href="institution.php">Host Institutions</a>
+                                    <a href="institutions.php">Host Institutions</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="extra-component-rating.html">Languages</a>

@@ -15,6 +15,12 @@ if(isset($_POST["search"]["value"]))
  WHERE Name LIKE "%'.$_POST["search"]["value"].'%" || Status LIKE "%'.$_POST["search"]["value"].'%" || Description LIKE "%'.$_POST["search"]["value"].'%"';
 }
 
+if(isset($_POST["rowid"]))
+{
+ $query .= '
+ WHERE InstitutionId = "'.$_POST["rowid"].'" ';
+}
+
 if(isset($_POST["order"]))
 {
  $query .= 'ORDER BY '.$columns[$_POST['order']['0']['column']].' '.$_POST['order']['0']['dir'].' ';
@@ -26,26 +32,147 @@ else
 
 $query1 = '';
 
-if($_POST["length"] != -1)
+if(@$_POST["length"] != -1 && !isset($_POST["rowid"]))
 {
- $query1 = 'LIMIT ' . $_POST['start'] . ', ' . $_POST['length'];
+ $query1 = 'LIMIT ' . @$_POST['start'] . ', ' . @$_POST['length'];
+}
+
+$result = mysqli_query($conn,$query. $query1);
+
+$status = mysqli_query($conn,"SELECT distinct * FROM LookupStatus");
+
+while($stat = mysqli_fetch_array($status))
+	{
+		$st[] = $stat;
+	}
+	
+
+$InstitutionTypes = mysqli_query($conn,"SELECT distinct * FROM LookupInstitutionTypes");
+
+while($types = mysqli_fetch_array($InstitutionTypes))
+	{
+		$type[] = $types;
+	}
+
+$data = array();
+
+
+if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
+{
+	echo '<div class="col-md-12 col-12">
+				<div class="form-group">
+					<label for="first-name-column">Institution Name</label>
+					<input type="text" id="name" class="form-control" name="name" value="">
+				</div>
+			</div>';
+			
+		echo '<div class="col-md-12 col-12">
+				<div class="form-group">
+					<label for="last-name-column">Institution Type</label>
+					<fieldset class="form-group">
+				<select class="form-select" name="type" id="type">' ?>
+
+				<?php foreach ($type as $t){ 
+				
+				echo '<option value="'.$t['InstitutionTypeId'].'" >'.$t['Description'].'</option>'; 
+				} 
+				
+				echo '
+				</select>
+			</fieldset>
+				</div>
+			</div>';
+			
+		echo '<div class="col-md-12 col-12">
+				<div class="form-group">
+					<label for="last-name-column">Status</label>
+					<fieldset class="form-group">
+				<select class="form-select" name="status" id="status">' ?>
+
+				<?php foreach ($st as $sta){ 
+
+				echo '<option value="'.$sta['StatusId'].'">'.$sta['Status'].'</option>'; 
+				} 
+				
+				echo '
+				</select>
+			</fieldset>
+				</div>
+			</div>';
+			
+			exit;
 }
 
 
-$result = mysqli_query($conn,$query . $query1);
 
-$data = array();
+if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
+{
+	while($row = mysqli_fetch_array($result))
+	{
+		echo '<input type="hidden" id="InstitutionId" class="form-control" name="InstitutionId" value="' . $row["InstitutionId"] . '">';
+		echo '<div class="col-md-12 col-12">
+				<div class="form-group">
+					<label for="first-name-column">Institution Name</label>
+					<input type="text" id="name" class="form-control" name="name" value="' . $row["Name"] . '">
+				</div>
+			</div>';
+			
+		echo '<div class="col-md-12 col-12">
+				<div class="form-group">
+					<label for="last-name-column">Institution Type</label>
+					<fieldset class="form-group">
+				<select class="form-select" name="type" id="type">' ?>
+
+				<?php foreach ($type as $t){ 
+				$select = '';
+				if($row["Description"] === $t['Description']){
+					$select = 'selected="selected"';
+				}
+				echo '<option value="'.$t['InstitutionTypeId'].'" '.$select.'>'.$t['Description'].'</option>'; 
+				} 
+				
+				echo '
+				</select>
+			</fieldset>
+				</div>
+			</div>';
+			
+		echo '<div class="col-md-12 col-12">
+				<div class="form-group">
+					<label for="last-name-column">Status</label>
+					<fieldset class="form-group">
+				<select class="form-select" name="status" id="status">' ?>
+
+				<?php foreach ($st as $sta){ 
+				$select = '';
+				if($row["Status"] === $sta['Status']){
+					$select = 'selected="selected"';
+				}
+				echo '<option value="'.$sta['StatusId'].'" '.$select.'>'.$sta['Status'].'</option>'; 
+				} 
+				
+				echo '
+				</select>
+			</fieldset>
+				</div>
+			</div>';
+	}
+	exit;
+}
+
 
 while($row = mysqli_fetch_array($result))
 {
  	
  $sub_array = array();
- $sub_array[] = '<div contenteditable class="update" data-id="'.$row["InstitutionId"].'" data-column="Name">' . $row["Name"] . '</div>';
- $sub_array[] = '<div contenteditable class="update" data-id="'.$row["InstitutionId"].'" data-column="InstitutionTypeId">' . $row["Description"] . '</div>';
- $sub_array[] = '<div contenteditable class="update" data-id="'.$row["InstitutionId"].'" data-column="IsActive">' . $row["Status"] . '</div>';
-
+ $sub_array[] = '<div data-id="'.$row["InstitutionId"].'" data-column="Name">' . $row["Name"] . '</div>';
+ $sub_array[] = '<div data-id="'.$row["InstitutionId"].'" data-column="InstitutionTypeId">' . $row["Description"] . '</div>';
+ $sub_array[] = '<div data-id="'.$row["InstitutionId"].'" data-column="IsActive">' . $row["Status"] . '</div>';
+	$sub_array[] = '<div class="icon dripicons-document-edit" data-id="'.$row["InstitutionId"].'" data-bs-toggle="modal" data-bs-target="#manage_institution"></div>';
  $data[] = $sub_array;
 }
+
+
 
 function get_all_data($conn)
 {
@@ -57,7 +184,7 @@ function get_all_data($conn)
 }
 
 $output = array(
- "draw"    => intval($_POST["draw"]),
+ "draw"    => intval(@$_POST["draw"]),
  "recordsTotal"  =>  get_all_data($conn),
  "recordsFiltered" => $result->num_rows,
  "data"    => $data

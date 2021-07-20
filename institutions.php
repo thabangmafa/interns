@@ -62,20 +62,20 @@ $title = "Host Institutions";
                             <div class="card">
                                 <div class="card-header alert alert-primary alert-dismissible fade show">
 									<ul>
-										<li>List of host institutions that have been registered on the system.</li>
+										<li>Filtered list of host institutions that have been registered on the system.</li>
 										<li>You can increase number of entries to display on a page by click "Show Entries" dropdown</li>
 										<li>Search for Host Institution by typing on the search box</li>
 										<li>Click "Add Host Institution" button to add a new entry</li>
-										<li>To edit click on item that you want to change and click out when done</li>
+										<li>To edit click on the edit icon of the record</li>
 									</ul>
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form">
+                                        
                                             <div class="row">
 							<div id="alert_message"></div>				
 							<div class="col-12 d-flex justify-content-end">
-								<button type="button" name="add" id="add" class="btn btn-primary me-1 mb-1">Add Host Institution</button>
+								<button type="button" name="new" id="new" class="btn btn-primary me-1 mb-1" data-id="000" data-bs-toggle="modal" data-bs-target="#manage_institution">Add Host Institution</button>
 							</div>								
 
 							<table id="user_data" class="table table-bordered table-striped">
@@ -84,16 +84,57 @@ $title = "Host Institutions";
 							   <th>Institution</th>
 								<th>Type</th>
 								<th>Status</th>
+								<th>Edit</th>
 							  </tr>
 							 </thead>
 							</table>
-
-										
+									
 											
 							
 							<div class="col-12 d-flex justify-content-end">
-								<button type="button" name="add" id="add" class="btn btn-primary me-1 mb-1">Add Host Institution</button>
+								<button type="button" name="new" id="new" class="btn btn-primary me-1 mb-1" data-id="000" data-bs-toggle="modal" data-bs-target="#manage_institution">Add Host Institution</button>
+			
 							</div>
+							
+							
+							<form class="form">
+							<!--primary theme Modal -->
+                                                    <div class="modal fade text-left" id="manage_institution" tabindex="-1"
+                                                        role="dialog" aria-labelledby="myModalLabel160"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                                                            role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header bg-success">
+                                                                    <h5 class="modal-title white" id="myModalLabel160">
+                                                                        Edit Host Institution
+                                                                    </h5>
+                                                                    <button type="button" class="close"
+                                                                        data-bs-dismiss="modal" aria-label="Close">
+                                                                        <i data-feather="x"></i>
+                                                                    </button>
+                                                                </div>
+																
+                                                                <div class="modal-body">
+                                                                    <div class="fetched-data"></div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button"
+                                                                        class="btn btn-light-secondary"
+                                                                        data-bs-dismiss="modal">
+                                                                        <i class="bx bx-x d-block d-sm-none"></i>
+                                                                        <span class="d-none d-sm-block">Cancel</span>
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-primary ml-1"
+                                                                        data-bs-dismiss="modal" id="updateHost">
+                                                                        <i class="bx bx-check d-block d-sm-none"></i>
+                                                                        <span class="d-none d-sm-block">Submit</span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+							
 
                                         </form>
                                     </div>
@@ -109,15 +150,11 @@ $title = "Host Institutions";
             <?php require_once("footer.php"); ?>
         </div>
     </div>
-    <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
 	
 	<script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
-    <script>
-        // Simple Datatable
-        let table1 = document.querySelector('#table1');
-        let dataTable = new simpleDatatables.DataTable(table1);
-    </script>
+
 
     <script src="assets/js/main.js"></script>
 </body>
@@ -142,6 +179,25 @@ $title = "Host Institutions";
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript" language="javascript" >
  $(document).ready(function(){
+	 
+
+    $('#manage_institution').on('show.bs.modal', function (e) {
+        var rowid = $(e.relatedTarget).data('id');
+	
+        $.ajax({
+            type : 'post',
+            url : 'admin/institutions/fetch.php', //Here you will fetch records 
+            data :  'rowid='+ rowid, //Pass $id
+            success : function(data){
+            $('.fetched-data').html(data);//Show fetched data from database
+			if(rowid == '000'){
+				$('#updateHost').attr('id', 'insert');
+			}
+			
+            }
+        });
+     });
+
   
   fetch_data();
 
@@ -158,12 +214,18 @@ $title = "Host Institutions";
    });
   }
   
-  function update_data(id, column_name, value)
-  {
+
+
+  $(document).on('click', '#updateHost', function(){
+   var id = $("#InstitutionId").val();
+   var name = $("#name").val();
+   var type = $("#type").val();
+   var status = $("#status").val();
+
    $.ajax({
     url:"admin/institutions/update.php",
     method:"POST",
-    data:{id:id, column_name:column_name, value:value},
+    data:{id:id, name:name, type:type, status:status},
     success:function(data)
     {
      $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
@@ -172,76 +234,47 @@ $title = "Host Institutions";
     }
    });
    setInterval(function(){
+	   location.reload();
     $('#alert_message').html('');
-   }, 5000);
-  }
+   }, 2000);
+   
+   
+   
+  });
+  
 
-  $(document).on('blur', '.update', function(){
-   var id = $(this).data("id");
-   var column_name = $(this).data("column");
-   var value = $(this).text();
-   update_data(id, column_name, value);
-  });
-  
-  $('#add').click(function(){
-   var html = '<tr>';
-   html += '<td contenteditable id="data1"></td>';
-   html += '<td contenteditable id="data2"></td>';
-   html += '<td contenteditable id="data3"></td>';
-   html += '<td><button type="button" name="insert" id="insert" class="btn btn-success btn-xs">Insert</button></td>';
-   html += '</tr>';
-   $('#user_data tbody').prepend(html);
-  });
-  
 
   
   $(document).on('click', '#insert', function(){
-   var Name = $('#data1').text();
-   var Type = $('#data2').text();
-   var Status = $('#data3').text();
+   var name = $("#name").val();
+   var type = $("#type").val();
+   var status = $("#status").val();
    
    
-   if(Name != '' && Type != '' && Status != '')
+   if(name != '')
    {
     $.ajax({
      url:"admin/institutions/insert.php",
      method:"POST",
-     data:{Name:Name, Type:Type, Status:Status},
+     data:{name:name, type:type, status:status},
      success:function(data)
      {
       $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
       $('#user_data').DataTable().destroy();
       fetch_data();
+	  
      }
     });
     setInterval(function(){
+		location.reload();
      $('#alert_message').html('');
-    }, 5000);
+    }, 2000);
    }
    else
    {
-    alert("Name, Type, and Status fields are required!");
+    alert("Institution Name is required!");
    }
   });
   
-  $(document).on('click', '.delete', function(){
-   var id = $(this).attr("id");
-   if(confirm("Are you sure you want to remove this?"))
-   {
-    $.ajax({
-     url:"admin/institutions/delete.php",
-     method:"POST",
-     data:{id:id},
-     success:function(data){
-      $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
-      $('#user_data').DataTable().destroy();
-      fetch_data();
-     }
-    });
-    setInterval(function(){
-     $('#alert_message').html('');
-    }, 5000);
-   }
-  });
  });
 </script>
