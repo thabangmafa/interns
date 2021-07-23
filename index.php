@@ -5,6 +5,10 @@ include 'admin/connect.php';
 $menu_item = "1";
 $title = "";
 
+$sql = "SELECT * FROM users WHERE id='".$_SESSION['id']."' ";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
+print_r($row);
  ?>
 	<?php require_once("admin/header.php"); ?>
 	<?php require_once("menu.php"); ?>
