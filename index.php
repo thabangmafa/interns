@@ -1,19 +1,13 @@
 <?php 
 
-session_start();
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 include 'admin/connect.php';
 $conn = OpenCon();
 
-print_r($_SESSION);
 if (isset($_SESSION['id']) && isset($_SESSION['username'])) {
 	
 	}else{
-     //header("Location: login.php");
+     header("Location: login.php");
      exit();
 }
 

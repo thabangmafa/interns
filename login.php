@@ -1,9 +1,9 @@
 <?php 
-$error = '';
-session_start(); 
+
+//session_start(); 
 include 'admin/connect.php';
 $conn = OpenCon();
-
+$error = '';
 if (isset($_POST['Username']) && isset($_POST['Password'])) {
 	
 
