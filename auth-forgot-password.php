@@ -17,7 +17,7 @@ if (isset($_POST['Email']))
 		$result = mysqli_query($conn, $sql);
 		$row = mysqli_fetch_assoc($result);
 		
-
+		print_r($row);
 			if (mysqli_num_rows($result) > 0) { //if the given email is in database, ie. registered
 				$message_success=" Please check your email inbox or spam folder and follow the steps";
 				//generating the random key
