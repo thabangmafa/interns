@@ -6,10 +6,6 @@ $conn = OpenCon();
 $menu_item = "1";
 $title = "";
 
-$sql = "SELECT * FROM users WHERE id='".$_SESSION['id']."' ";
-$result = mysqli_query($conn, $sql);
-$row = mysqli_fetch_assoc($result);
-print_r($row);
  ?>
 	<?php require_once("admin/header.php"); ?>
 	<?php require_once("menu.php"); ?>
@@ -44,6 +40,7 @@ print_r($row);
                 <section class="row">
 				
                     <div class="col-12 col-lg-9">
+					<?php if(@$_SESSION['user_type'] == 'administrator'){ ?>
                         <div class="row">
                             <div class="col-6 col-lg-3 col-md-6">
                                 <div class="card">
@@ -93,14 +90,14 @@ print_r($row);
                                                 <h6 class="font-extrabold mb-0">
 												<?php
 				
-															$query = "SELECT count(*) inst FROM LookupInstitutions WHERE IsActive = '1'";
-															$result = mysqli_query($conn, $query);
+													$query = "SELECT count(*) inst FROM LookupInstitutions WHERE IsActive = '1'";
+													$result = mysqli_query($conn, $query);
 
-															while($institution = mysqli_fetch_array($result)) {
-															 echo '<a href="/institutions.php">' . $institution['inst'] . '</a>';
-															}
+													while($institution = mysqli_fetch_array($result)) {
+													 echo '<a href="/institutions.php">' . $institution['inst'] . '</a>';
+													}
 
-														?>
+												?>
 												
 												</h6>
                                             </div>
@@ -138,6 +135,8 @@ print_r($row);
                                 </div>
                             </div>
                         </div>
+						
+						<?php } ?>
 						<div class="row">
                             <div class="col-12 col-xl-12">
                                 <div class="card">
@@ -207,6 +206,9 @@ print_r($row);
                     
                     </div>
 					
+					
+					<?php if(@$_SESSION['user_type'] == 'administrator'){ ?>
+					
                     <div class="col-12 col-lg-3">
                         
                         <div class="card">
@@ -226,10 +228,9 @@ print_r($row);
                             </div>
                         </div>
 						
-						
-						
-						
                     </div>
+					
+					<?php } ?>
 					
 					<div class="row">
                             <div class="col-12 col-xl-12">

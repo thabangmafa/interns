@@ -107,7 +107,7 @@
 								
                             </ul>
                         </li>
-						
+						<?php if(@$_SESSION['user_type'] == 'administrator'){ ?>
 						<li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-stack <?php if($menu_item == "3"){ echo "active"; } ?>"></i>
@@ -206,7 +206,7 @@
                                 </li>
                             </ul>
                         </li>
-
+						<?php } ?>
                         <li class="sidebar-item  ">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-life-preserver"></i>

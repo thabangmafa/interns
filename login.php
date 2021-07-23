@@ -38,6 +38,7 @@ if (isset($_POST['Username']) && isset($_POST['Password'])) {
             	$_SESSION['username'] = $row['username'];
             	$_SESSION['email'] = $row['email'];
             	$_SESSION['id'] = $row['id'];
+				$_SESSION['user_type'] = $row['user_type'];
             	header("Location: index.php");
 		        exit();
             }else{
