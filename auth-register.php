@@ -1,3 +1,90 @@
+<?php 
+session_start(); 
+include 'admin/connect.php';
+$conn = OpenCon();
+
+if (isset($_POST['Username']) && isset($_POST['Password'])
+    && isset($_POST['Username']) && isset($_POST['Re_Password'])) {
+
+	function validate($data){
+       $data = trim($data);
+	   $data = stripslashes($data);
+	   $data = htmlspecialchars($data);
+	   return $data;
+	}
+
+	$uname = validate($_POST['Username']);
+	$pass = validate($_POST['Password']);
+
+	$re_pass = validate($_POST['Re_Password']);
+	$email = validate($_POST['Email']);
+
+	$user_data = 'uname='. $uname. '&email='. $email;
+
+
+	if (empty($uname)) {
+		$error = 'User Name is required.';
+	}else if(empty($pass)){
+		$error = 'Password is required.';
+	}
+	else if(empty($re_pass)){
+		$error = 'Re Password is requiredr.';
+	}
+	else if(empty($email)){
+		$error = 'Email is required.';
+	}
+	else if($pass !== $re_pass){
+		$error = 'The confirmation password  does not match.';
+	}
+
+	else{
+
+		// hashing the password
+        $pass = md5($pass);
+
+	    $sql = "SELECT * FROM users WHERE username='$uname' or email='$email' ";
+		$result = mysqli_query($conn, $sql);
+		$row = mysqli_fetch_assoc($result);
+		$error = '';
+		if($row['email'] === $email){
+			$error .= 'Email is already registered.';
+		}
+		
+		if($row['username'] === $uname){
+			if($error){
+				$error .= '<br />Username is taken try another.';
+			}else{
+				$error .= 'Username is taken try another.';
+			}
+			
+		}
+		
+		if ($error) {
+			$error = $error;
+		}else {
+           $sql2 = "INSERT INTO users(username, password, email) VALUES('$uname', '$pass', '$email')";
+           $result2 = mysqli_query($conn, $sql2);
+           if ($result2) {
+			   
+				$subject = "HSRC Interns Portal Registration";
+				$txt = "Welcome to the HSRC's Interns Portal.";
+				$headers = "From: noreply@hsrc.ac.za" . "\r\n";
+
+				mail($email,$subject,$txt,$headers);  
+           	 header("Location: login.php");
+	         exit();
+           }else {
+			   $error = 'Unknown error occurred.';
+           }
+		}
+	}
+	
+}else{
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,28 +110,30 @@
                     </div>
 
                     <p class="auth-subtitle mb-5">HSRC Interns Management System.</p>
-
-                    <form action="index.php">
+					<?php if(@$error){ ?>	
+					<div class="alert alert-warning" role="alert"><?php echo @$error; ?></div>
+					<?php } ?>
+                    <form action="" method="post">
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" placeholder="Email">
+                            <input type="text" class="form-control form-control-xl" placeholder="Email" name="Email" id="Email" required="required">
                             <div class="form-control-icon">
                                 <i class="bi bi-envelope"></i>
                             </div>
                         </div>
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" placeholder="Username">
+                            <input type="text" class="form-control form-control-xl" placeholder="Username" name="Username" id="Username" required="required">
                             <div class="form-control-icon">
                                 <i class="bi bi-person"></i>
                             </div>
                         </div>
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="password" class="form-control form-control-xl" placeholder="Password">
+                            <input type="password" class="form-control form-control-xl" placeholder="Password" name="Password" id="Password" required="required">
                             <div class="form-control-icon">
                                 <i class="bi bi-shield-lock"></i>
                             </div>
                         </div>
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="password" class="form-control form-control-xl" placeholder="Confirm Password">
+                            <input type="password" class="form-control form-control-xl" placeholder="Confirm Password" name="Re_Password" id="Re_Password" required="required">
                             <div class="form-control-icon">
                                 <i class="bi bi-shield-lock"></i>
                             </div>

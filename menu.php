@@ -1,6 +1,14 @@
 <?php
 include 'admin/connect.php';
 $conn = OpenCon();
+session_start();
+
+if (isset($_SESSION['id']) && isset($_SESSION['username'])) {
+	
+	}else{
+     header("Location: login.php");
+     exit();
+}
 ?>
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">

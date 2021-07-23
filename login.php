@@ -1,3 +1,62 @@
+<?php 
+$error = '';
+session_start(); 
+include 'admin/connect.php';
+$conn = OpenCon();
+
+if (isset($_POST['Username']) && isset($_POST['Password'])) {
+	
+
+	
+
+	function validate($data){
+       $data = trim($data);
+	   $data = stripslashes($data);
+	   $data = htmlspecialchars($data);
+	   return $data;
+	}
+
+	$uname = validate($_POST['Username']);
+	$pass = validate($_POST['Password']);
+
+	if (empty($uname)) {
+		$error = 'Username is required.';
+	}else if(empty($pass)){
+		$error = 'Password is required.';
+	}else{
+		// hashing the password
+        $pass = md5($pass);
+
+        
+		$sql = "SELECT * FROM users WHERE username='$uname' AND password='$pass'";
+
+		$result = mysqli_query($conn, $sql);
+		
+		
+
+		if (mysqli_num_rows($result) === 1) {
+			$row = mysqli_fetch_assoc($result);
+            if ($row['username'] === $uname && $row['password'] === $pass) {
+            	$_SESSION['username'] = $row['username'];
+            	$_SESSION['email'] = $row['email'];
+            	$_SESSION['id'] = $row['id'];
+            	header("Location: index.php");
+		        exit();
+            }else{
+				$error = 'Incorrect username or password.';
+			}
+		}else{
+			$error = 'Incorrect username or password.';
+
+		}
+	}
+	
+}else{
+
+
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,16 +81,18 @@
                         <a href="index.php"><img src="assets/images/logo/logo.png" alt="Logo"></a>
                     </div>
                     <p class="auth-subtitle mb-5">HSRC Interns Management System.</p>
-
-                    <form action="index.php">
+					<?php if(@$error){ ?>	
+					<div class="alert alert-warning" role="alert"><?php echo @$error; ?></div>
+					<?php } ?>
+                    <form action="" method="post">
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" placeholder="Username">
+                            <input type="text" class="form-control form-control-xl" name="Username" id="Username" placeholder="Username" required="required">
                             <div class="form-control-icon">
                                 <i class="bi bi-person"></i>
                             </div>
                         </div>
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="password" class="form-control form-control-xl" placeholder="Password">
+                            <input type="password" class="form-control form-control-xl" placeholder="Password" name="Password" id="Password" required="required">
                             <div class="form-control-icon">
                                 <i class="bi bi-shield-lock"></i>
                             </div>
