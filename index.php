@@ -55,10 +55,6 @@ $title = "";
                     </div>
                 </div>
 				
-				
-			
-			
-			
             <div class="page-content">
                 <section class="row">
 				
@@ -109,7 +105,19 @@ $title = "";
                                             </div>
                                             <div class="col-md-8">
                                                 <h6 class="text-muted font-semibold">Host Institutions</h6>
-                                                <h6 class="font-extrabold mb-0">8</h6>
+                                                <h6 class="font-extrabold mb-0">
+												<?php
+				
+															$query = "SELECT count(*) inst FROM LookupInstitutions WHERE IsActive = '1'";
+															$result = mysqli_query($conn, $query);
+
+															while($institution = mysqli_fetch_array($result)) {
+															 echo '<a href="/institutions.php">' . $institution['inst'] . '</a>';
+															}
+
+														?>
+												
+												</h6>
                                             </div>
                                         </div>
                                     </div>
