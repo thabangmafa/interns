@@ -1,4 +1,4 @@
-<?php
+<?php phpinfo(); exit;
 error_reporting(0);
 include 'admin/connect.php';
 $conn = OpenCon();
