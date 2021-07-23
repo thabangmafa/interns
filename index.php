@@ -1,4 +1,15 @@
-<?php 
+<?php
+include 'admin/connect.php';
+$conn = OpenCon();
+session_start();
+
+if (isset($_SESSION['id']) && isset($_SESSION['username'])) {
+	
+	}else{
+     header("Location: login.php");
+     exit();
+}
+
 
 $menu_item = "1";
 $title = "";
