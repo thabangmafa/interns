@@ -1,6 +1,7 @@
 <?php 
 
 include 'admin/connect.php';
+$conn = OpenCon();
 
 $menu_item = "1";
 $title = "";
