@@ -17,7 +17,6 @@ if (isset($_POST['Email']))
 		$result = mysqli_query($conn, $sql);
 		$row = mysqli_fetch_assoc($result);
 		
-		print_r($row);
 			if (mysqli_num_rows($result) > 0) { //if the given email is in database, ie. registered
 				$message_success=" Please check your email inbox or spam folder and follow the steps";
 				//generating the random key
@@ -25,11 +24,12 @@ if (isset($_POST['Email']))
 				//insert this temporary key into database
 				$sql_insert=mysqli_query($conn,"INSERT INTO forget_password(email,temp_key) VALUES('$email','$key')");
 				//sending email about update
-				$to      = $email;
+
 				$subject = 'HSRC Interns Portal - Password Reset';
-				$msg = "Please copy the link and paste in your browser address bar". "\r\n"."interns.hsrc.ac.za/auth-forgot-password_reset.php?key=".$key."&email=".$email;
-				$headers = 'From:Human Science Research Council' . "\r\n";
-				mail($to, $subject, $msg, $headers);
+				$txt = "Please copy the link and paste in your browser address bar". "\r\n"."interns.hsrc.ac.za/auth-forgot-password_reset.php?key=".$key."&email=".$email;
+				$headers = "From: noreply@hsrc.ac.za" . "\r\n";
+
+				mail($email,$subject,$txt,$headers); 
 			}
 			else{
 				$message="Sorry! no account associated with this email";
@@ -62,8 +62,11 @@ if (isset($_POST['Email']))
                         <a href="index.php"><img src="assets/images/logo/logo.png" alt="Logo"></a>
                     </div>
                     <p class="auth-subtitle mb-5">HSRC Interns Management System.</p>
-					<?php if(@$error){ ?>	
-					<div class="alert alert-warning" role="alert"><?php echo @$error; ?></div>
+					<?php if(@$message){ ?>	
+					<div class="alert alert-warning" role="alert"><?php echo @$message; ?></div>
+					<?php } ?>
+					<?php if(@$message_success){ ?>	
+					<div class="alert alert-success" role="alert"><?php echo @$message_success; ?></div>
 					<?php } ?>
                     <form action="" method="post">
                         <div class="form-group position-relative has-icon-left mb-4">
