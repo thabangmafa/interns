@@ -20,12 +20,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $password1=mysqli_real_escape_string($conn,$_POST['Password1']);
         $password2=mysqli_real_escape_string($conn,$_POST['Password2']);
         if ($password2==$password1) {
-            $message_success="New password has been set for ".$email;
+            
             $password=md5($password1);
             //destroy the key from table
             mysqli_query($conn,"DELETE FROM forget_password where email='$email' and temp_key='$key'");
             //update password in database
-            mysqli_query($conn,"UPDATE user set password='$password' where email='$email'");
+            mysqli_query($conn,"UPDATE users set password='$password' where email='$email'");
+			$message_success="Password updated.";
         }
         else{
             $message="Verify your password";
