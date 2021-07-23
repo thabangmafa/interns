@@ -1,10 +1,10 @@
 <?php 
 include 'admin/connect.php';
 $menu_item = "6";
-$title = "Host Institutions";
+$title = "Funding Opportunities";
 
  ?>
-		<?php require_once("admin/header.php"); ?>
+<?php require_once("admin/header.php"); ?>
         <?php require_once("menu.php"); ?>
         <div id="main">
             <header class="mb-3">
@@ -38,10 +38,10 @@ $title = "Host Institutions";
                             <div class="card">
                                 <div class="card-header alert alert-primary alert-dismissible fade show">
 									<ul>
-										<li>Filtered list of host institutions that have been registered on the system.</li>
+										<li>Filtered list of Funding Opportunities that have been registered on the system.</li>
 										<li>You can increase number of entries to display on a page by click "Show Entries" dropdown</li>
-										<li>Search for Host Institution by typing on the search box</li>
-										<li>Click "Add Host Institution" button to add a new entry</li>
+										<li>Search for Funding Opportunities by typing on the search box</li>
+										<li>Click "Add Funding Opportunity" button to add a new entry</li>
 										<li>To edit click on the edit icon of the record</li>
 									</ul>
                                 </div>
@@ -51,15 +51,16 @@ $title = "Host Institutions";
                                             <div class="row">
 							<div id="alert_message"></div>				
 							<div class="col-12 d-flex justify-content-end">
-								<button type="button" name="new" id="new" class="btn btn-primary me-1 mb-1" data-id="000" data-bs-toggle="modal" data-bs-target="#manage_institution">Add Host Institution</button>
+								<button type="button" name="new" id="new" class="btn btn-primary me-1 mb-1" data-id="000" data-bs-toggle="modal" data-bs-target="#manage_institution">Add Funding Opportunities</button>
 							</div>								
 
 							<table id="user_data" class="table table-bordered table-striped">
 							 <thead>
 							  <tr>
-							   <th>Institution</th>
-								<th>Type</th>
-								<th>Status</th>
+							   <th>Title</th>
+								<th>Open Date</th>
+								<th>Closing Date</th>
+								<th>Documents</th>
 								<th>Edit</th>
 							  </tr>
 							 </thead>
@@ -68,7 +69,7 @@ $title = "Host Institutions";
 											
 							
 							<div class="col-12 d-flex justify-content-end">
-								<button type="button" name="new" id="new" class="btn btn-primary me-1 mb-1" data-id="000" data-bs-toggle="modal" data-bs-target="#manage_institution">Add Host Institution</button>
+								<button type="button" name="new" id="new" class="btn btn-primary me-1 mb-1" data-id="000" data-bs-toggle="modal" data-bs-target="#manage_institution">Add Funding Opportunities</button>
 			
 							</div>
 							
