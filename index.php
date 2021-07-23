@@ -2,11 +2,11 @@
 include 'admin/connect.php';
 $conn = OpenCon();
 session_start();
-
+print_r($_SESSION);
 if (isset($_SESSION['id']) && isset($_SESSION['username'])) {
 	
 	}else{
-     header("Location: login.php");
+     //header("Location: login.php");
      exit();
 }
 
