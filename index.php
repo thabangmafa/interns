@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 include 'admin/connect.php';
 $conn = OpenCon();
 session_start();
