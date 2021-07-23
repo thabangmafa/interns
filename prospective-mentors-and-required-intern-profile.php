@@ -1,7 +1,15 @@
 <?php 
 include 'admin/connect.php';
+$conn = OpenCon();
 $menu_item = "3";
 $title = "Prospective Mentors and Required Intern Profile";
+
+
+if (isset($_POST['Sendemail'])) {
+
+echo 'Here';
+
+}
 
  ?>
 <?php require_once("admin/header.php"); ?>
@@ -47,7 +55,7 @@ $title = "Prospective Mentors and Required Intern Profile";
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form">
+                                        <form class="form" action="" method="post">
                                             <div class="row">
 											
 											
@@ -76,7 +84,7 @@ $title = "Prospective Mentors and Required Intern Profile";
 										<td>HSRC</td>
 										<td>I agree to be a mentor</td>
 										<td>Yes</td>
-										<td>Send Email</td>
+										<td><div class="icon dripicons-mail sendmail" id="tmafa@hsrc.ac.za"></div></td>
                                         <td><div class="icon dripicons-document-edit" data-bs-toggle="modal" data-bs-target="#edit-qualification"></div></td>
 										<td><div class="icon dripicons-wrong" data-bs-toggle="modal" data-bs-target="#primary"></div></td>
                                     </tr>
@@ -376,12 +384,25 @@ $title = "Prospective Mentors and Required Intern Profile";
     <script src="assets/js/bootstrap.bundle.min.js"></script>
 	
 	<script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
-	<script>
+	<script type="text/javascript" language="javascript" >
         // Simple Datatable
         let table1 = document.querySelector('#table1');
         let dataTable = new simpleDatatables.DataTable(table1);
+		 
     </script>
     <script src="assets/js/main.js"></script>
 </body>
 
 </html>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript" language="javascript" >
+
+$(document).ready(function(){
+			$(document).on('click', '.sendmail', function(){
+			   alert("Email sent!");
+			   
+			  });
+		  });
+
+
+</script>
