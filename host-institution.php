@@ -85,10 +85,18 @@ $title = "Host Institution";
                                                     <div class="form-group">
                                                         <label for="country-floating">Name of Institution</label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="disabledSelect">
+                                                    <select class="form-select" id="disabledSelect" >
                                                         <option></option>
-                                                        <option>Red</option>
-                                                        <option>Blue</option>
+														<?php
+				
+															$query = "SELECT * FROM LookupInstitutions WHERE IsActive = '1' ORDER BY Name asc";
+															$result = mysqli_query($conn, $query);
+
+															while($institution = mysqli_fetch_array($result)) {
+															 echo '<option value="'.$institution['InstitutionId'].'">'.ucwords($institution['Name']).'</option>';
+															}
+
+														?>
                                                     </select>
                                                 </fieldset>
                                                     </div>
