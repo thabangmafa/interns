@@ -142,8 +142,7 @@ $conn = OpenCon();
                             </ul>
                         </li>
 						
-
-                        
+                      
 
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
@@ -159,6 +158,9 @@ $conn = OpenCon();
                                 </li>
                                 <li class="submenu-item <?php if($title == "Host Institutions"){ echo "active"; } ?>">
                                     <a href="institutions.php">Host Institutions</a>
+                                </li>
+								<li class="submenu-item <?php if($title == "Funding Opportunities"){ echo "active"; } ?>">
+                                    <a href="funding-opportunities.php">Funding Opportunities</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="extra-component-rating.html">Languages</a>
