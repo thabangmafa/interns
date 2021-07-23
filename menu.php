@@ -210,7 +210,7 @@
                         <li class="sidebar-item  ">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-life-preserver"></i>
-                                <span>Documentation</span>
+                                <span>FAQ</span>
                             </a>
                         </li>
 
