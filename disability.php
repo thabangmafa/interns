@@ -1,7 +1,33 @@
 <?php 
 include 'admin/connect.php';
+$conn = OpenCon();
 $menu_item = "2";
 $title = "Disability";
+unset($row);
+$sql = "SELECT distinct * FROM UserDisability WHERE userid='".$_SESSION['id']."' ";
+		$result = mysqli_query($conn, $sql);
+		$row = mysqli_fetch_assoc($result);
+
+if (isset($_POST['description'])) {
+	
+	$disability = $_POST['disability'];
+	$description = $_POST['description'];
+	
+	if($disability == 'No'){
+		$description = '';
+	}
+	
+	if (mysqli_num_rows($result) > 0) {
+		mysqli_query($conn,"UPDATE UserDisability SET description = '$description', disability = '$disability' WHERE userid = '".$_SESSION['id']."'");
+	}else{
+		mysqli_query($conn,"INSERT INTO UserDisability(userid,description,disability) VALUES('".$_SESSION['id']."','$description','$disability')");
+	} 
+	
+}
+
+$sql = "SELECT distinct * FROM UserDisability WHERE userid='".$_SESSION['id']."' ";
+		$result = mysqli_query($conn, $sql);
+		$row = mysqli_fetch_assoc($result);
 
  ?>
 <?php require_once("admin/header.php"); ?>
@@ -30,7 +56,7 @@ $title = "Disability";
                     </div>
                 </div>
 
-
+				
                 <!-- // Basic multiple Column Form section start -->
                 <section id="multiple-column-form">
                     <div class="row match-height">
@@ -41,227 +67,50 @@ $title = "Disability";
 									<li>An * at the end of a field label within a section denotes a compulsory field, and the section will not be saved unless all compulsory fields have been completed.</li>
 									<li>Additional funding to cater for a disablity of a team member and/or a student in terms of the proposed research, can be requsted under the budgetary item "Research Materials and Supplies".</li>
 									<li>Note that funding support to cater for a diability will only be allotted to people with disabilities as specified in the "Code of Good Practice on Employment of People with Disabilities" as in the Employment Equity Act No. 55 of 1998 below.</li>
-									<li>In order to edit an existing medical certificate, click on the delete icon and unpload a new version.</li></ul>
+									<!--li>In order to edit an existing medical certificate, click on the delete icon and unpload a new version.</li--></ul>
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form">
+                                        <form class="form" action="" method="post">
                                             <div class="row">
-											
-											
-											
-												<table class="table table-striped" id="table1">
-                                <thead>
-                                    <tr>
-                                        <th>Describe Disability</th>
-                                        <th>Medical Certificate</th>
-                                        <th>Edit</th>
-										<th>Delete</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Sight problem</td>
-                                        <td>Manager</td>
-                                        <td><div class="icon dripicons-document-edit" data-bs-toggle="modal" data-bs-target="#edit-qualification"></div></td>
-										<td><div class="icon dripicons-wrong" data-bs-toggle="modal" data-bs-target="#primary"></div></td>
-                                    </tr>
-                                    
-                                </tbody>
-                            </table>
-							<div class="col-12 d-flex justify-content-end">
-     
-													<div class="btn btn-primary me-1 mb-1" data-bs-toggle="modal" data-bs-target="#capture-new">Add Another</div>
-                                                   
-                                                </div>
-							
-							
-							
-							
-							<!--primary theme Modal -->
-                                                    <div class="modal fade text-left" id="primary" tabindex="-1"
-                                                        role="dialog" aria-labelledby="myModalLabel160"
-                                                        aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-                                                            role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header bg-danger">
-                                                                    <h5 class="modal-title white" id="myModalLabel160">
-                                                                        Confirm Delete Disability
-                                                                    </h5>
-                                                                    <button type="button" class="close"
-                                                                        data-bs-dismiss="modal" aria-label="Close">
-                                                                        <i data-feather="x"></i>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    Are you sure you want to delete this Disability? Please click Yes if you want to delete this Disability. Once it has been deleted you will not be able to retrieve it again.
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button"
-                                                                        class="btn btn-light-secondary"
-                                                                        data-bs-dismiss="modal">
-                                                                        <i class="bx bx-x d-block d-sm-none"></i>
-                                                                        <span class="d-none d-sm-block">No</span>
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-primary ml-1"
-                                                                        data-bs-dismiss="modal">
-                                                                        <i class="bx bx-check d-block d-sm-none"></i>
-                                                                        <span class="d-none d-sm-block">Yes</span>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+											<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="last-name-column">Do you have any disability?</label>
+                                                        <fieldset class="form-group">
+                                                    <select class="form-select" id="disability" name="disability">
+													<option><?php echo @$row['disability']; ?></option>
+                                                        <option>Yes</option>
+                                                        <option>No</option>
+                                                    </select>
+                                                </fieldset>
                                                     </div>
-												
-												
-												
-												
+                                                </div>
+												<div class="col-md-12 col-12">
+                                                    
 													
-												
-												
-												
-							
+													<div class="form-group" id="disabilityDiv" <?php if(@$row['disability'] == '' || @$row['disability'] == 'No'){ echo 'style="display:none;"';} ?>>
+                                                        
+                                        <label for="exampleFormControlTextarea1" class="form-label">Disablity Description</label>
+                                        <textarea class="form-control" id="disablity" name="description" id="description"
+                                            rows="3" ><?php echo @$row['description']; ?></textarea>
+                                    
+                                                    </div>
+                                                </div>
+                               
+                                                <div class="col-12 d-flex justify-content-end">
+                                                    <button type="submit"
+                                                        class="btn btn-primary me-1 mb-1">Submit</button>
+                                                    <button type="reset"
+                                                        class="btn btn-light-secondary me-1 mb-1">Reset</button>
+                                                </div>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
-                            </div>
                         </div>
                     </div>
-                </section>
+					</section>
 				
-				
-				
-				
-				
-				
-				<!--Modal Xl size -->
-                                        <div class="me-1 mb-1 d-inline-block">
-                  
-
-                                            <!--Extra Large Modal -->
-                                            <div class="modal fade text-left w-100" id="capture-new" tabindex="-1"
-                                                role="dialog" aria-labelledby="myModalLabel16" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"
-                                                    role="document">
-                                                    <div class="modal-content">
-                                                        
-														<div class="modal-header bg-success">
-                                                                    <h5 class="modal-title white" id="myModalLabel160">
-                                                                        Add New Disability
-                                                                    </h5>
-                                                                    <button type="button" class="close"
-                                                                        data-bs-dismiss="modal" aria-label="Close">
-                                                                        <i data-feather="x"></i>
-                                                                    </button>
-                                                                </div>
-														
-                                                        <div class="modal-body">
-                                                            <form class="form">
-                                            <div class="row">
-											
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="first-name-column">Description</label>
-                                                        <input type="text" id="first-name-column" class="form-control"
-                                                             name="fname-column">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="first-name-column">Medical Certificate </label>
-                                                        <input type="file" id="first-name-column" class="form-control"
-                                                             name="fname-column">
-                                                    </div>
-                                                </div>
-												
-												
-												
-                                            </div>
-                                        </form>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-light-secondary"
-                                                                data-bs-dismiss="modal">
-                                                                <i class="bx bx-x d-block d-sm-none"></i>
-                                                                <span class="d-none d-sm-block">Close</span>
-                                                            </button>
-                                                            <button type="button" class="btn btn-primary ml-1"
-                                                                data-bs-dismiss="modal">
-                                                                <i class="bx bx-check d-block d-sm-none"></i>
-                                                                <span class="d-none d-sm-block">Accept</span>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-										
-										<!--Modal Xl size -->
-                                        <div class="me-1 mb-1 d-inline-block">
-                  
-
-                                            <!--Extra Large Modal -->
-                                            <div class="modal fade text-left w-100" id="edit-qualification" tabindex="-1"
-                                                role="dialog" aria-labelledby="myModalLabel16" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"
-                                                    role="document">
-                                                    <div class="modal-content">
-                                                        
-														<div class="modal-header bg-success">
-                                                                    <h5 class="modal-title white" id="myModalLabel160">
-                                                                        Edit Disability
-                                                                    </h5>
-                                                                    <button type="button" class="close"
-                                                                        data-bs-dismiss="modal" aria-label="Close">
-                                                                        <i data-feather="x"></i>
-                                                                    </button>
-                                                                </div>
-																
-                                                        <div class="modal-body">
-                                                            <form class="form">
-                                            <div class="row">
-											
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="first-name-column">Description</label>
-                                                        <input type="text" id="first-name-column" class="form-control"
-                                                             name="fname-column">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="first-name-column">Medical Certificate </label>
-                                                        <input type="file" id="first-name-column" class="form-control"
-                                                             name="fname-column">
-                                                    </div>
-                                                </div>
-												
-												
-												
-                                            </div>
-                                        </form>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-light-secondary"
-                                                                data-bs-dismiss="modal">
-                                                                <i class="bx bx-x d-block d-sm-none"></i>
-                                                                <span class="d-none d-sm-block">Close</span>
-                                                            </button>
-                                                            <button type="button" class="btn btn-primary ml-1"
-                                                                data-bs-dismiss="modal">
-                                                                <i class="bx bx-check d-block d-sm-none"></i>
-                                                                <span class="d-none d-sm-block">Update</span>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
 				
 				
             </div>
@@ -273,13 +122,28 @@ $title = "Disability";
     <script src="assets/js/bootstrap.bundle.min.js"></script>
 	
 	<script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
-    <script>
-        // Simple Datatable
-        let table1 = document.querySelector('#table1');
-        let dataTable = new simpleDatatables.DataTable(table1);
-    </script>
+
 
     <script src="assets/js/main.js"></script>
 </body>
 
 </html>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript">
+ $(document).ready(function(){
+	
+	
+	
+
+$('#disability').change(function() {
+	var val = $(this).val();
+    if(val === "Yes") {
+		$('#disabilityDiv').show();
+	}else{
+		$('#disabilityDiv').hide();
+	}
+});
+
+
+});
+</script>
