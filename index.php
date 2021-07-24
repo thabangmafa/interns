@@ -291,9 +291,165 @@ $title = "";
     <script src="assets/js/bootstrap.bundle.min.js"></script>
 
     <script src="assets/vendors/apexcharts/apexcharts.js"></script>
-    <script src="assets/js/pages/dashboard.js"></script>
-
     <script src="assets/js/main.js"></script>
 </body>
 
 </html>
+<?php
+//include 'admin/connect.php';
+$conn = OpenCon();
+$query = "SELECT count(*) disabled FROM UserDisability WHERE disability = 'Yes'";
+$result = mysqli_query($conn, $query);
+
+$row = mysqli_fetch_array($result);
+$disabled = $row['disabled'];	
+
+$query = "SELECT count(*) notdisabled FROM UserDisability WHERE disability = 'No'";
+$result = mysqli_query($conn, $query);
+
+$row = mysqli_fetch_array($result);
+$notdisabled = $row['notdisabled'];													
+?>
+<script>
+var disabled = <?php echo $disabled; ?>;
+var notdisabled = <?php echo $notdisabled; ?>;
+var optionsProfileVisit = {
+	annotations: {
+		position: 'back'
+	},
+	dataLabels: {
+		enabled:false
+	},
+	chart: {
+		type: 'bar',
+		height: 300
+	},
+	fill: {
+		opacity:1
+	},
+	plotOptions: {
+	},
+	series: [{
+		name: 'Interns',
+		data: [9,20,30,20,10,20,30,20,10]
+	}],
+	colors: '#435ebe',
+	xaxis: {
+		categories: ["Eastern Cape","Free State","Gauteng","KwaZulu-Natal","Limpopo","Mpumalanga","North West", "Northern Cape","Western Cape"],
+	},
+}
+let optionsVisitorsProfile  = {
+	series: [notdisabled, disabled],
+	labels: ['Not Disabled', 'Disabled'],
+	colors: ['#435ebe','#55c6e8'],
+	chart: {
+		type: 'donut',
+		width: '100%',
+		height:'350px'
+	},
+	legend: {
+		position: 'bottom'
+	},
+	plotOptions: {
+		pie: {
+			donut: {
+				size: '30%'
+			}
+		}
+	}
+}
+ 
+let optionsInternsQualifications  = {
+	series: [70, 30, 40],
+	labels: ['Masters', 'Honours','B Degree'],
+	colors: ['#435ebe','#55c6e8','#0C2D48'],
+	chart: {
+		type: 'donut',
+		width: '100%',
+		height:'350px'
+	},
+	legend: {
+		position: 'bottom'
+	},
+	plotOptions: {
+		pie: {
+			donut: {
+				size: '30%'
+			}
+		}
+	}
+}
+
+var optionsEurope = {
+	series: [{
+		name: 'series1',
+		data: [310, 800, 600, 430, 540, 340, 605, 805,430, 540, 340, 605]
+	}],
+	chart: {
+		height: 80,
+		type: 'area',
+		toolbar: {
+			show:false,
+		},
+	},
+	colors: ['#5350e9'],
+	stroke: {
+		width: 2,
+	},
+	grid: {
+		show:false,
+	},
+	dataLabels: {
+		enabled: false
+	},
+	xaxis: {
+		type: 'datetime',
+		categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z","2018-09-19T07:30:00.000Z","2018-09-19T08:30:00.000Z","2018-09-19T09:30:00.000Z","2018-09-19T10:30:00.000Z","2018-09-19T11:30:00.000Z"],
+		axisBorder: {
+			show:false
+		},
+		axisTicks: {
+			show:false
+		},
+		labels: {
+			show:false,
+		}
+	},
+	show:false,
+	yaxis: {
+		labels: {
+			show:false,
+		},
+	},
+	tooltip: {
+		x: {
+			format: 'dd/MM/yy HH:mm'
+		},
+	},
+};
+
+let optionsAmerica = {
+	...optionsEurope,
+	colors: ['#008b75'],
+}
+let optionsIndonesia = {
+	...optionsEurope,
+	colors: ['#dc3545'],
+}
+
+
+
+var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit"), optionsProfileVisit);
+var chartVisitorsProfile = new ApexCharts(document.getElementById('chart-visitors-profile'), optionsVisitorsProfile)
+var chartInternsQualifications = new ApexCharts(document.getElementById('chart-interns-qualifications'), optionsInternsQualifications)
+var chartEurope = new ApexCharts(document.querySelector("#chart-europe"), optionsEurope);
+var chartAmerica = new ApexCharts(document.querySelector("#chart-america"), optionsAmerica);
+var chartIndonesia = new ApexCharts(document.querySelector("#chart-indonesia"), optionsIndonesia);
+
+chartIndonesia.render();
+chartAmerica.render();
+chartEurope.render();
+chartProfileVisit.render();
+chartVisitorsProfile.render()
+chartInternsQualifications.render()
+</script>
