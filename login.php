@@ -39,6 +39,8 @@ if (isset($_POST['Username']) && isset($_POST['Password'])) {
             	$_SESSION['email'] = $row['email'];
             	$_SESSION['id'] = $row['id'];
 				$_SESSION['user_type'] = $row['user_type'];
+				$_SESSION['last_activity'] = time();
+				$_SESSION['expire_time'] = 10 * 60; 
             	header("Location: index.php");
 		        exit();
             }else{

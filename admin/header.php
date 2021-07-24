@@ -3,10 +3,19 @@ $conn = OpenCon();
 
 if (isset($_SESSION['id']) && isset($_SESSION['username'])) {
 	
+	if( $_SESSION['last_activity'] < time()-$_SESSION['expire_time'] ) { 
+    header('Location: logout.php');
+	} else{ 
+		$_SESSION['last_activity'] = time(); 
+	}
+	
 	}else{
      header("Location: login.php");
      exit();
 }
+
+
+
 ?>
 
 <!DOCTYPE html>
