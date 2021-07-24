@@ -1,7 +1,24 @@
 <?php 
 include 'admin/connect.php';
+$conn = OpenCon();
 $menu_item = "2";
 $title = "Personal Profile";
+
+$sql = "SELECT distinct * FROM UserProfile WHERE userid='".$_SESSION['id']."' ";
+		$result = mysqli_query($conn, $sql);
+		$row = mysqli_fetch_assoc($result);
+
+if (isset($_POST['profile'])) {
+	
+	$profile = $_POST['profile'];
+	
+	if (mysqli_num_rows($result) > 0) {
+		mysqli_query($conn,"UPDATE UserProfile SET description = '$profile' WHERE userid = '".$_SESSION['id']."'");
+	}else{
+		mysqli_query($conn,"INSERT INTO UserProfile(userid,description) VALUES('".$_SESSION['id']."','$profile')");
+	} 
+	
+}
 
  ?>
 <?php require_once("admin/header.php"); ?>
@@ -46,14 +63,14 @@ $title = "Personal Profile";
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form">
+                                        <form class="form" action="" method="post">
                                             <div class="row">
 												<div class="col-md-12 col-12">
                                                     <div class="form-group">
                                                         
                                         <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                                        <textarea class="form-control" id="exampleFormControlTextarea1"
-                                            rows="3"></textarea>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" name="profile" id="profile"
+                                            rows="3"><?php echo @$row['description']; ?></textarea>
                                     
                                                     </div>
                                                 </div>
