@@ -70,6 +70,7 @@ if (isset($_POST['Username']) && isset($_POST['Password'])) {
     <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="stylesheet" href="assets/css/pages/auth.css">
+	<link rel="shortcut icon" href="assets/images/logo/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
