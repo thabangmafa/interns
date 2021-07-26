@@ -18,6 +18,8 @@ if (isset($_POST['Username']) && isset($_POST['Password'])
 
 	$re_pass = validate($_POST['Re_Password']);
 	$email = validate($_POST['Email']);
+	
+	$user_type = validate($_POST['user_type']);
 
 	$user_data = 'uname='. $uname. '&email='. $email;
 
@@ -62,7 +64,7 @@ if (isset($_POST['Username']) && isset($_POST['Password'])
 		if ($error) {
 			$error = $error;
 		}else {
-           $sql2 = "INSERT INTO users(username, password, email) VALUES('$uname', '$pass', '$email')";
+           $sql2 = "INSERT INTO users(username, password, email, user_type) VALUES('$uname', '$pass', '$email', '$user_type')";
            $result2 = mysqli_query($conn, $sql2);
            if ($result2) {
 			   
@@ -121,6 +123,19 @@ if (isset($_POST['Username']) && isset($_POST['Password'])
                                 <i class="bi bi-envelope"></i>
                             </div>
                         </div>
+						<div class="col-md-6 col-12">
+							<div class="form-group">
+								<label for="last-name-column">User Type</label>
+								<fieldset class="form-group">
+							<select class="form-select" id="user_type" name="user_type">
+								<option value="4">Intern</option>
+								<option value="3">Mentor</option>
+								<option value="2">Host Institution Admin</option>
+								<option value="1">System Admin</option>
+							</select>
+						</fieldset>
+							</div>
+						</div>
                         <div class="form-group position-relative has-icon-left mb-4">
                             <input type="text" class="form-control form-control-xl" placeholder="Username" name="Username" id="Username" required="required">
                             <div class="form-control-icon">
