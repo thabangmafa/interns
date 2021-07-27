@@ -13,7 +13,7 @@ if (isset($_POST['Email']))
 	
 	$email = validate($_POST['Email']);
 	
-	$sql = "SELECT * FROM users WHERE email='$email' ";
+	$sql = "SELECT * FROM users WHERE Email='$email' ";
 		$result = mysqli_query($conn, $sql);
 		$row = mysqli_fetch_assoc($result);
 		
@@ -22,7 +22,7 @@ if (isset($_POST['Email']))
 				//generating the random key
 				$key=md5(time()+123456789% rand(4000, 55000000));
 				//insert this temporary key into database
-				$sql_insert=mysqli_query($conn,"INSERT INTO forget_password(email,temp_key) VALUES('$email','$key')");
+				$sql_insert=mysqli_query($conn,"INSERT INTO forget_password(Email,TempKey) VALUES('$email','$key')");
 				//sending email about update
 
 				$subject = 'HSRC Interns Portal - Password Reset';

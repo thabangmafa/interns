@@ -4,7 +4,7 @@ $conn = OpenCon();
 $menu_item = "2";
 $title = "Disability";
 unset($row);
-$sql = "SELECT distinct * FROM UserDisability WHERE userid='".$_SESSION['id']."' ";
+$sql = "SELECT distinct * FROM UserDisability WHERE UserID='".$_SESSION['id']."' ";
 		$result = mysqli_query($conn, $sql);
 		$row = mysqli_fetch_assoc($result);
 
@@ -18,14 +18,14 @@ if (isset($_POST['description'])) {
 	}
 	
 	if (mysqli_num_rows($result) > 0) {
-		mysqli_query($conn,"UPDATE UserDisability SET description = '$description', disability = '$disability' WHERE userid = '".$_SESSION['id']."'");
+		mysqli_query($conn,"UPDATE UserDisability SET Description = '$description', Disability = '$disability' WHERE UserID = '".$_SESSION['id']."'");
 	}else{
-		mysqli_query($conn,"INSERT INTO UserDisability(userid,description,disability) VALUES('".$_SESSION['id']."','$description','$disability')");
+		mysqli_query($conn,"INSERT INTO UserDisability(UserID,Description,Disability) VALUES('".$_SESSION['id']."','$description','$disability')");
 	} 
 	
 }
 
-$sql = "SELECT distinct * FROM UserDisability WHERE userid='".$_SESSION['id']."' ";
+$sql = "SELECT distinct * FROM UserDisability WHERE UserID='".$_SESSION['id']."' ";
 		$result = mysqli_query($conn, $sql);
 		$row = mysqli_fetch_assoc($result);
 

@@ -46,7 +46,7 @@ if (isset($_POST['Username']) && isset($_POST['Password'])
 		// hashing the password
         $pass = md5($pass);
 
-	    $sql = "SELECT * FROM users WHERE username='$uname' or email='$email' ";
+	    $sql = "SELECT * FROM users WHERE UserName='$uname' or Email='$email' ";
 		$result = mysqli_query($conn, $sql);
 		$row = mysqli_fetch_assoc($result);
 		$error = '';
@@ -66,7 +66,7 @@ if (isset($_POST['Username']) && isset($_POST['Password'])
 		if ($error) {
 			$error = $error;
 		}else {
-           $sql2 = "INSERT INTO users(username, password, email, user_type) VALUES('$uname', '$pass', '$email', '$user_type')";
+           $sql2 = "INSERT INTO users(UserName, Password, Email, UserType) VALUES('$uname', '$pass', '$email', '$user_type')";
 
            $result2 = mysqli_query($conn, $sql2);
            if ($result2) {

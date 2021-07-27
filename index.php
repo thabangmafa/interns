@@ -40,7 +40,7 @@ $title = "";
                 <section class="row">
 				
                     <div class="col-12 col-lg-9">
-					<?php if(@$_SESSION['user_type'] == 'administrator'){ ?>
+					<?php if(@$_SESSION['user_type'] == '1'){ ?>
                         <div class="row">
                             <div class="col-6 col-lg-3 col-md-6">
                                 <div class="card">

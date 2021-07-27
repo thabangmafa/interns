@@ -4,7 +4,7 @@ $conn = OpenCon();
 $menu_item = "2";
 $title = "Personal Profile";
 
-$sql = "SELECT distinct * FROM UserProfile WHERE userid='".$_SESSION['id']."' ";
+$sql = "SELECT distinct * FROM UserProfile WHERE UserID='".$_SESSION['id']."' ";
 		$result = mysqli_query($conn, $sql);
 		$row = mysqli_fetch_assoc($result);
 
@@ -13,9 +13,9 @@ if (isset($_POST['profile'])) {
 	$profile = $_POST['profile'];
 	
 	if (mysqli_num_rows($result) > 0) {
-		mysqli_query($conn,"UPDATE UserProfile SET description = '$profile' WHERE userid = '".$_SESSION['id']."'");
+		mysqli_query($conn,"UPDATE UserProfile SET Description = '$profile' WHERE UserID = '".$_SESSION['id']."'");
 	}else{
-		mysqli_query($conn,"INSERT INTO UserProfile(userid,description) VALUES('".$_SESSION['id']."','$profile')");
+		mysqli_query($conn,"INSERT INTO UserProfile(UserID,Description) VALUES('".$_SESSION['id']."','$profile')");
 	} 
 	
 }
