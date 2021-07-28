@@ -1,12 +1,12 @@
 <?php 
 include 'admin/connect.php';
 $conn = OpenCon();
-$menu_item = "4";
+$menu_item = "3";
 $title = "List of Applications";
 
 if(isset($_POST['AppID']))
 {
-	$UpdateApplication = "UPDATE UserApplications SET Status = 'Withdrawn' WHERE CallID = '".$_POST['AppID']."'";
+	$UpdateApplication = "UPDATE HostApplications SET Status = 'Withdrawn' WHERE CallID = '".$_POST['AppID']."'";
 	
 	 if(mysqli_query($conn,$UpdateApplication))
 	 {
@@ -84,9 +84,9 @@ if(isset($_POST['AppID']))
                                 <tbody>
                                     <?php
 				
-										$query = "SELECT * FROM UserApplications a 
+										$query = "SELECT * FROM HostApplications a 
 										left join HostInstitutionCalls b on b.ID = a.CallID
-										WHERE a.UserID = '".$_SESSION['id']."'";
+										WHERE a.InstitutionID = '".$_SESSION['id']."'";
 										$result = mysqli_query($conn, $query);
 										
 

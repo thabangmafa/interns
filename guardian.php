@@ -1,7 +1,20 @@
 <?php 
 include 'admin/connect.php';
+$conn = OpenCon();
 $menu_item = "2";
 $title = "Parent / Guardian";
+
+if (isset($_POST['Submit'])) {
+	
+	function validate($data){
+       $data = trim($data);
+	   $data = stripslashes($data);
+	   $data = htmlspecialchars($data);
+	   return $data;
+	}
+	$id = $_SESSION['id'];
+	
+}
 
  ?>
 <?php require_once("admin/header.php"); ?>
@@ -61,33 +74,25 @@ $title = "Parent / Guardian";
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Thabang</td>
-                                        <td>Husband</td>
-                                        <td>0123022615</td>
-                                        <td>0730749335</td>
-										<td>8 Ibis Street, Chantelle, Akasia</td>
-                                        <td><div class="icon dripicons-document-edit" data-bs-toggle="modal" data-bs-target="#edit-qualification"></div></td>
-										<td><div class="icon dripicons-wrong" data-bs-toggle="modal" data-bs-target="#primary"></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Thabang</td>
-                                        <td>Husband</td>
-                                        <td>0123022615</td>
-                                        <td>0730749335</td>
-										<td>8 Ibis Street, Chantelle, Akasia</td>
-                                        <td><div class="icon dripicons-document-edit" data-bs-toggle="modal" data-bs-target="#edit-qualification"></div></td>
-										<td><div class="icon dripicons-wrong" data-bs-toggle="modal" data-bs-target="#primary"></div></td>
-                                    </tr>
-									<tr>
-                                        <td>Thabang</td>
-                                        <td>Husband</td>
-                                        <td>0123022615</td>
-                                        <td>0730749335</td>
-										<td>8 Ibis Street, Chantelle, Akasia</td>
-                                        <td><div class="icon dripicons-document-edit" data-bs-toggle="modal" data-bs-target="#edit-qualification"></div></td>
-										<td><div class="icon dripicons-wrong" data-bs-toggle="modal" modal-title="Confirm Delete Item" data-bs-target="#primary"></div></td>
-                                    </tr>
+								
+								<?php
+									$query = "SELECT * FROM ParentGuardian
+											WHERE UserID = '".$_SESSION['id']."'";
+											$result = mysqli_query($conn, $query);
+
+												while($ParentGuardian = mysqli_fetch_array($result)) {
+												echo '<tr>';
+													echo '<td>' . @$ParentGuardian['Name'] . '</td>';
+													echo '<td>' . @$ParentGuardian['Relationship'] . '</td>';
+													echo '<td>' . @$ParentGuardian['Telephone'] . '</td>';
+													echo '<td>' . @$ParentGuardian['Cellphone'] . '</td>';
+													echo '<td>' . @$ParentGuardian['Address'] . '</td>';
+													echo '<td><div class="icon dripicons-document-edit" data-bs-toggle="modal" data-bs-target="#edit-qualification"></div></td>';
+													echo '<td><div class="icon dripicons-wrong" data-bs-toggle="modal" data-bs-target="#primary"></div></td>';
+												}
+
+								?>
+                                    
                                 </tbody>
                             </table>
 							<div class="col-12 d-flex justify-content-end">
@@ -185,39 +190,39 @@ $title = "Parent / Guardian";
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="first-name-column">Name</label>
-                                                        <input type="text" id="first-name-column" class="form-control"
-                                                             name="fname-column">
+                                                        <input type="text" id="Name" class="form-control"
+                                                             name="Name">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="first-name-column">Relationship to you</label>
-                                                        <input type="text" id="first-name-column" class="form-control"
-                                                             name="fname-column">
+                                                        <input type="text" id="Relationship" class="form-control"
+                                                             name="Relationship">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="first-name-column">Telephone Number</label>
-                                                        <input type="number" id="first-name-column" class="form-control"
-                                                             name="fname-column">
+                                                        <input type="text" id="Telephone" class="form-control"
+                                                             name="Telephone">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="first-name-column">Cellphone Number</label>
-                                                        <input type="number" id="first-name-column" class="form-control"
-                                                             name="fname-column">
+                                                        <input type="text" id="Cellnumber" class="form-control"
+                                                             name="Cellnumber">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="first-name-column">Address</label>
-                                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                        <textarea class="form-control" id="Address" name="Address" rows="3"></textarea>
                                                     </div>
                                                 </div>
 												

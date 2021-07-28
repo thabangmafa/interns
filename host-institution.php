@@ -364,7 +364,8 @@ $title = "Host Institution";
     </div>
     <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
-	
+	<!-- Include Choices CSS -->
+    <link rel="stylesheet" href="assets/vendors/choices.js/choices.min.css" />
 	<!-- Include Choices JavaScript -->
     <script src="assets/vendors/choices.js/choices.min.js"></script>
 

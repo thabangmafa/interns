@@ -207,7 +207,7 @@ $title = "";
                     </div>
 					
 					
-					<?php if(@$_SESSION['user_type'] == 'administrator'){ ?>
+					<?php if(@$_SESSION['user_type'] == '1'){ ?>
 					
                     <div class="col-12 col-lg-3">
                         

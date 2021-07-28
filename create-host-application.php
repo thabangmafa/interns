@@ -1,13 +1,13 @@
 <?php 
 include 'admin/connect.php';
 $conn = OpenCon();
-$menu_item = "4";
-$title = "Create Application";
+$menu_item = "3";
+$title = "Create Host Application";
 
 
-if(isset($_POST['CALLID']))
+if(isset($_POST['CallID']))
 {
-	$InsertCall = "INSERT INTO UserApplications (UserID, CallID)VALUES('".$_SESSION['id']."','".$_POST['CALLID']."')";
+	$InsertApplication = "INSERT INTO HostApplications (InstitutionID, CallID, UserID)VALUES('".$_POST['InstitutionID']."','".$_POST['CallID']."','".$_SESSION['id']."')";
 	
 	 if(mysqli_query($conn,$InsertCall))
 	 {
@@ -83,7 +83,7 @@ if(isset($_POST['CALLID']))
                                     
 									<?php
 				
-										$query = "SELECT * FROM HostInstitutionCalls WHERE IsActive = '1' AND ID not in (SELECT CallID FROM UserApplications WHERE UserID = '".$_SESSION['id']."')";
+										$query = "SELECT * FROM HostInstitutionCalls WHERE IsActive = '1'";
 										$result = mysqli_query($conn, $query);
 
 										while($calls = mysqli_fetch_array($result)) {

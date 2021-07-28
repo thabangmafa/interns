@@ -26,7 +26,7 @@ if (isset($_POST['Username']) && isset($_POST['Password'])) {
         $pass = md5($pass);
 
         
-		$sql = "SELECT * FROM users WHERE username='$uname' AND password='$pass'";
+		$sql = "SELECT * FROM users WHERE UserName='$uname' AND Password='$pass'";
 
 		$result = mysqli_query($conn, $sql);
 		
@@ -34,11 +34,11 @@ if (isset($_POST['Username']) && isset($_POST['Password'])) {
 
 		if (mysqli_num_rows($result) === 1) {
 			$row = mysqli_fetch_assoc($result);
-            if ($row['username'] === $uname && $row['password'] === $pass) {
-            	$_SESSION['username'] = $row['username'];
-            	$_SESSION['email'] = $row['email'];
-            	$_SESSION['id'] = $row['id'];
-				$_SESSION['user_type'] = $row['user_type'];
+            if ($row['UserName'] === $uname && $row['Password'] === $pass) {
+            	$_SESSION['username'] = $row['UserName'];
+            	$_SESSION['email'] = $row['Email'];
+            	$_SESSION['id'] = $row['UserID'];
+				$_SESSION['user_type'] = $row['UserType'];
 				$_SESSION['last_activity'] = time();
 				$_SESSION['expire_time'] = 10 * 60; 
             	header("Location: /");

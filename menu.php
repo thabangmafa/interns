@@ -1,4 +1,11 @@
+<?php 
 
+$query = "SELECT * FROM UserDisability 	
+	WHERE UserID = '".$_SESSION['id']."'";
+	$result = mysqli_query($conn, $query);
+	$details = mysqli_fetch_array($result);
+	
+?>
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
                 <div class="sidebar-header">
@@ -33,13 +40,10 @@
                                     <a href="personal-profile.php">Personal Profile</a>
                                 </li>
 								<li class="submenu-item <?php if($title == "Disability"){ echo "active"; } ?>">
-                                    <a href="disability.php">Disability</a>
+                                    <a href="disability.php">Disability <span class="glyphicon glyphicon-ok green" style="color:green"></span></a> 
                                 </li>
 								<li class="submenu-item <?php if($title == "Registration Details"){ echo "active"; } ?>">
                                     <a href="user-registration.php">Registration Details</a>
-                                </li>
-								<li class="submenu-item <?php if($title == "Contact Details"){ echo "active"; } ?>">
-                                    <a href="contact-details.php">Contact Details</a>
                                 </li>
 								<li class="submenu-item <?php if($title == "Parent / Guardian"){ echo "active"; } ?>">
                                     <a href="guardian.php">Parent / Guardian</a>
@@ -68,9 +72,9 @@
 								<li class="submenu-item <?php if($title == "References"){ echo "active"; } ?>">
                                     <a href="references.php">References</a>
                                 </li>
-                                <li class="submenu-item <?php if($title == "Position Applied For"){ echo "active"; } ?>">
+                                <!--li class="submenu-item <?php if($title == "Position Applied For"){ echo "active"; } ?>">
                                     <a href="position-applied-for.php">Position Applied For</a>
-                                </li>
+                                </li-->
                             </ul>
                         </li>
 						
@@ -84,6 +88,7 @@
 								<li class="submenu-item <?php if($title == "Create Application"){ echo "active"; } ?>">
                                     <a href="create-application.php">Create Application</a>
                                 </li>
+								
 								<li class="submenu-item <?php if($title == "List of Applications"){ echo "active"; } ?>">
                                     <a href="list-applications.php">List of Applications</a>
                                 </li>
@@ -93,7 +98,7 @@
 						
 						<li class="sidebar-item  has-sub ">
                             <a href="#" class='sidebar-link '>
-                                <i class="bi bi-stack <?php if($menu_item == "5"){ echo "active"; } ?>"></i>
+                                <i class="bi bi-stack <?php if($menu_item == "7"){ echo "active"; } ?>"></i>
                                 <span>My Progress Reports</span>
                             </a>
                             <ul class="submenu <?php if($menu_item == "5"){ echo "active"; } ?>">
@@ -101,25 +106,32 @@
 								<li class="submenu-item <?php if($title == "Create Progress Report"){ echo "active"; } ?>">
                                     <a href="create-progress-report.php">Create Progress Report</a>
                                 </li>
+								
 								<li class="submenu-item <?php if($title == "List of Progress Reports"){ echo "active"; } ?>">
                                     <a href="progress-reports.php">List of Progress Reports</a>
                                 </li>
 								
                             </ul>
                         </li>
-						<?php if(@$_SESSION['user_type'] == 'administrator'){ ?>
+						<?php if(@$_SESSION['user_type'] == '1'){ ?>
 						<li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-stack <?php if($menu_item == "3"){ echo "active"; } ?>"></i>
                                 <span>Manage Host Institution</span>
                             </a>
                             <ul class="submenu <?php if($menu_item == "3"){ echo "active"; } ?>">
-                                <li class="submenu-item <?php if($title == "Registration Details"){ echo "active"; } ?>">
+							<li class="submenu-item <?php if($title == "Create Host Application"){ echo "active"; } ?>">
+                                    <a href="create-host-application.php">Create Host Application</a>
+                                </li>
+								<li class="submenu-item <?php if($title == "List of Applications"){ echo "active"; } ?>">
+                                    <a href="list-host-applications.php">List of Applications</a>
+                                </li>
+                                <!--li class="submenu-item <?php if($title == "Registration Details"){ echo "active"; } ?>">
                                     <a href="user-registration.php">Call Information Documents</a>
-                                </li>
-								<li class="submenu-item <?php if($title == "Registration Details"){ echo "active"; } ?>">
+                                </li-->
+								<!--li class="submenu-item <?php if($title == "Registration Details"){ echo "active"; } ?>">
                                     <a href="user-registration.php">Registration Details</a>
-                                </li>
+                                </li-->
 								<li class="submenu-item <?php if($title == "Contact Details"){ echo "active"; } ?>">
                                     <a href="contact-details.php">Contact Details</a>
                                 </li>
@@ -139,8 +151,14 @@
                             </ul>
                         </li>
 						
-                      
-
+						<li class="sidebar-item  <?php if($menu_item == "7"){ echo "active"; } ?> ">
+                            <a href="host-institution-calls.php" class='sidebar-link '>
+                                <i class="bi bi-stack <?php if($menu_item == "7"){ echo "active"; } ?>"></i>
+                                <span>Manage Calls</span>
+                            </a>
+                            
+                        </li>
+						
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-stack <?php if($menu_item == "6"){ echo "active"; } ?>"></i>

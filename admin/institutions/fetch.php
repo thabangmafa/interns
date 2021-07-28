@@ -7,7 +7,7 @@ $columns = array('InstitutionId', 'Name', 'InstitutionTypeId', 'IsActive');
 
 $query = "SELECT * FROM `LookupInstitutions` a 
 left join `LookupInstitutionTypes` b on b.`InstitutionTypeId` = a.`InstitutionTypeId`
-left join `LookupStatus` c on c.`StatusId` = a.`IsActive`";
+left join `LookupIsActive` c on c.`StatusId` = a.`IsActive`";
 
 if(isset($_POST["search"]["value"]))
 {
@@ -39,7 +39,7 @@ if(@$_POST["length"] != -1 && !isset($_POST["rowid"]))
 
 $result = mysqli_query($conn,$query. $query1);
 
-$status = mysqli_query($conn,"SELECT distinct * FROM LookupStatus");
+$status = mysqli_query($conn,"SELECT distinct * FROM LookupIsActive");
 
 while($stat = mysqli_fetch_array($status))
 	{
@@ -178,7 +178,7 @@ function get_all_data($conn)
 {
  $query = "SELECT * FROM `LookupInstitutions` a 
 	left join `LookupInstitutionTypes` b on b.`InstitutionTypeId` = a.`InstitutionTypeId`
-	left join `LookupStatus` c on c.`StatusId` = a.`IsActive`";
+	left join `LookupIsActive` c on c.`StatusId` = a.`IsActive`";
  $result = mysqli_query($conn,$query);
  return $result->num_rows;
 }

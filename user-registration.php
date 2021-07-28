@@ -30,6 +30,10 @@ if (isset($_POST['Submit'])) {
 	$first_name = validate($_POST['first_name']);
 	$initials = validate($_POST['initials']);
 	$utitle = validate($_POST['title']);
+	$province = validate($_POST['province']);
+	$city_town = validate($_POST['city_town']);
+	$postal_code = validate($_POST['postal_code']);
+	$street_address = validate($_POST['street_address']);
 	
 	
 	$query = "SELECT * FROM RegistrationDetails WHERE UserID = '".$_SESSION['id']."'";
@@ -54,7 +58,11 @@ if (isset($_POST['Submit'])) {
 						LastName,
 						FirstName,
 						Initials,
-						Title
+						Title,
+						Province,
+						CityTown,
+						PostalCode,
+						StreetAddress
 ) VALUES(
 						'$id',
 						'$current_organisation',
@@ -72,7 +80,11 @@ if (isset($_POST['Submit'])) {
 						'$last_name',
 						'$first_name',
 						'$initials',
-						'$utitle'
+						'$utitle',
+						'$province',
+						'$city_town',
+						'$postal_code',
+						'$street_address'
 
 )";
 
@@ -98,8 +110,11 @@ if (isset($_POST['Submit'])) {
 						LastName = '$last_name',
 						FirstName = '$first_name',
 						Initials = '$initials',
-						Title = '$utitle'
-	
+						Title = '$utitle',
+						Province = '$province',
+						CityTown = '$city_town',
+						PostalCode = '$postal_code',
+						StreetAddress = '$street_address'
 	
 	WHERE UserID = '".$id."'";
 
@@ -118,6 +133,7 @@ if (isset($_POST['Submit'])) {
 	while($userdetails = mysqli_fetch_array($result)) {
 			$UserConfirmEmail = $userdetails['Email'];
 			$UserCurrentOrganisation = $userdetails['CurrentOrganisation'];
+			$UserProvince = $userdetails['Province'];
 			$UserStudent = $userdetails['Student'];
 			$UserMobileNumber = $userdetails['MobileNumber'];
 			$UserAlternativeEmail = $userdetails['AlternativeEmail'];
@@ -133,6 +149,9 @@ if (isset($_POST['Submit'])) {
 			$UserFirstName = $userdetails['FirstName'];
 			$UserInitials = $userdetails['Initials'];
 			$UserTitle = $userdetails['Title'];
+			$UserCityTown = $userdetails['CityTown'];
+			$UserPostalCode = $userdetails['PostalCode'];
+			$UserStreetAddress = $userdetails['StreetAddress'];
 
 	}
  ?>
@@ -288,7 +307,7 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="last-name-column">ID Type</label>
+                                                        <label for="id_type">ID Type</label>
                                                         <fieldset class="form-group">
                                                     <select class="form-select" id="id_type" name="id_type" required="required">
 														<option></option>
@@ -312,7 +331,7 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="last-name-column">ID/Passport Number</label>
+                                                        <label for="id_number">ID/Passport Number</label>
                                                         <input type="text" id="id_number" name="id_number" value="<?php echo $UserIDNumber; ?>" class="form-control" required="required">
                                                     </div>
                                                 </div>
@@ -322,7 +341,7 @@ if (isset($_POST['Submit'])) {
 												
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="city-column">Race</label>
+                                                        <label for="race">Race</label>
                                                         <fieldset class="form-group">
                                                     <select class="form-select" id="race" name="race" required="required">
 													<option></option>
@@ -345,7 +364,7 @@ if (isset($_POST['Submit'])) {
                                                 </div>
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="country-floating">Gender</label>
+                                                        <label for="gender">Gender</label>
                                                         <fieldset class="form-group">
                                                     <select class="form-select" id="gender" name="gender" required="required">
                                                         <option></option>
@@ -372,7 +391,7 @@ if (isset($_POST['Submit'])) {
 												
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="company-column">Date of Birth</label>
+                                                        <label for="date_of_birth">Date of Birth</label>
                                                         <input type="date" id="date_of_birth" class="form-control"
                                                             name="date_of_birth" value="<?php echo $UserDateOfBirth; ?>" required="required">
                                                     </div>
@@ -380,7 +399,7 @@ if (isset($_POST['Submit'])) {
 												
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="email-id-column">Primary Email Address</label>
+                                                        <label for="email">Primary Email Address</label>
                                                         <input type="email" id="email" value="<?php echo $UserConfirmEmail; ?>" class="form-control"
                                                             name="email" required="required">
                                                     </div>
@@ -388,7 +407,7 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="email-id-column">Confirm Primary Email Address</label>
+                                                        <label for="confirm_email">Confirm Primary Email Address</label>
                                                         <input type="email" value="<?php echo $UserConfirmEmail; ?>" id="confirm_email" class="form-control"
                                                             name="confirm_email" required="required">
                                                     </div>
@@ -396,7 +415,7 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="email-id-column">Alternate Email Address</label>
+                                                        <label for="alternative_email">Alternate Email Address</label>
                                                         <input type="email" value="<?php echo $UserAlternativeEmail; ?>" id="alternative_email" class="form-control"
                                                             name="alternative_email" required="required">
                                                     </div>
@@ -404,15 +423,17 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="country-floating">Mobile Number</label>
+                                                        <label for="mobile_number">Mobile Number</label>
                                                         <input type="text" value="<?php echo $UserMobileNumber; ?>" id="mobile_number" class="form-control"
                                                             name="mobile_number" required="required">
                                                     </div>
                                                 </div>
 												
+												
+												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="country-floating">Are you a full time student?</label>
+                                                        <label for="student">Are you a full time student?</label>
                                                         <fieldset class="form-group">
                                                     <select class="form-select" id="student" name="student" required="required">
                                                         <option></option>
@@ -436,7 +457,7 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="country-floating">Current organisation</label>
+                                                        <label for="current_organisation">Current organisation</label>
                                                         <fieldset class="form-group">
                                                     <select class="form-select" id="current_organisation" name="current_organisation" required="required">
 													<option>N/A</option>
@@ -448,8 +469,8 @@ if (isset($_POST['Submit'])) {
 
 															while($institution = mysqli_fetch_array($result)) {
 																$select = "";
-																if($UserCurrentOrganisation == $institution['ID']){ $select = "selected='selected'"; }
-															 echo '<option value="'.$institution['ID'].'" '.$select.'>'.ucwords($institution['Name']).'</option>';
+																if($UserCurrentOrganisation == $institution['InstitutionId']){ $select = "selected='selected'"; }
+															 echo '<option value="'.$institution['InstitutionId'].'" '.$select.'>'.ucwords($institution['Name']).'</option>';
 															}
 
 														?>
@@ -457,6 +478,56 @@ if (isset($_POST['Submit'])) {
                                                 </fieldset>
                                                     </div>
 													
+                                                </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        
+													<label for="street_address" class="form-label">Home Street Address </label>
+													<input type="text" id="street_address" class="form-control" value="<?php echo $UserStreetAddress; ?>"
+                                                             name="street_address" required="required">
+                                    
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="city_town">Home City/Town</label>
+                                                        <input type="text" id="city_town" class="form-control" value="<?php echo $UserCityTown; ?>"
+                                                             name="city_town" required="required">
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="postal_code">Home Postal Code</label>
+                                                        <input type="text" id="postal_code" class="form-control" value="<?php echo $UserPostalCode; ?>"
+                                                             name="postal_code" required="required">
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="province">Home Province/State</label>
+                                                        <fieldset class="form-group">
+                                                    <select class="form-select" id="province" name="province" required="required">
+                                                        <option></option>
+                                                        <?php
+				
+															$query = "SELECT * FROM LookupProvince WHERE IsActive = '1' ORDER BY Name asc";
+															$result = mysqli_query($conn, $query);
+															
+
+															while($province = mysqli_fetch_array($result)) {
+																$select = "";
+																if($UserProvince == $province['ID']){ $select = "selected='selected'"; }
+															 echo '<option value="'.$province['ID'].'" '.$select.'>'.ucwords($province['Name']).'</option>';
+															}
+
+														?>
+                                                    </select>
+                                                </fieldset>
+                                                    </div>
                                                 </div>
 												
                                

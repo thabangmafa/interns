@@ -1,24 +1,10 @@
 <?php 
 include 'admin/connect.php';
-$conn = OpenCon();
-$menu_item = "4";
-$title = "Create Application";
-
-
-if(isset($_POST['CALLID']))
-{
-	$InsertCall = "INSERT INTO UserApplications (UserID, CallID)VALUES('".$_SESSION['id']."','".$_POST['CALLID']."')";
-	
-	 if(mysqli_query($conn,$InsertCall))
-	 {
-		$message = 'Application Submitted Successful';
-	 }else{
-		 $message =  'Oops. Something went wrong. Try Again.';
-	 }
-}
+$menu_item = "7";
+$title = "Applicants Calls";
 
  ?>
-<?php require_once("admin/header.php"); ?>
+		<?php require_once("admin/header.php"); ?>
         <?php require_once("menu.php"); ?>
         <div id="main">
             <header class="mb-3">
@@ -51,56 +37,81 @@ if(isset($_POST['CALLID']))
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header alert alert-primary alert-dismissible fade show">
-                                    <ul>
-									<li>Check your intended institution’s internal closing date as it will be prior to the closing date listed for applications, where applicable.</li>
-<li>A timeout will appear when there is no activity on the system for 25 minutes. Click on the refresh button (in the popup box) as this will enable the continuation/completion of the application. When clicking on the close button the system will close.</li>
-<li>Due to potential international review of applications and progress reports, the NRF requires that all applications and progress reports be completed in English.</li>
-<li>Please consult the Funding Framework and Funding & Application Guide for more information to assist you in your choices. These documents can be accessed at https://www.nrf.ac.za/funding/framework-documents.</li>
-<li>Ensure that you complete or update your CV. This is very important as applications without an updated CV will not be considered.</li>
-<li>Please ensure that you update your CV before creating a application/progress report to ensure that the latest information reflects on the progress report.</li></ul>
+									<ul>
+										<li>Filtered list of host institutions that have been registered on the system.</li>
+										<li>You can increase number of entries to display on a page by click "Show Entries" dropdown</li>
+										<li>Search for Host Institution by typing on the search box</li>
+										<li>Click "Add Host Institution" button to add a new entry</li>
+										<li>To edit click on the edit icon of the record</li>
+									</ul>
                                 </div>
                                 <div class="card-content">
-								<?php if(@$message){ ?>	
-								<div class="alert alert-success" role="alert"><?php echo @$message; ?></div>
-								<?php } ?>
                                     <div class="card-body">
-                                        <form class="form">
+                                        
                                             <div class="row">
-											
-											
-											
-												<table class="table table-striped" id="table1">
-                                <thead>
-                                    <tr>
-                                        <th>Title</th>
-										<th>Description</th>
-										<th>Open Date</th>
-										<th>Closing Date</th>
-										<th>Create</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-									<?php
-				
-										$query = "SELECT * FROM HostInstitutionCalls WHERE IsActive = '1' AND ID not in (SELECT CallID FROM UserApplications WHERE UserID = '".$_SESSION['id']."')";
-										$result = mysqli_query($conn, $query);
+							<div id="alert_message"></div>				
+							<div class="col-12 d-flex justify-content-end">
+								<button type="button" name="new" id="new" class="btn btn-primary me-1 mb-1" data-id="000" data-bs-toggle="modal" data-bs-target="#manage_institution">Add Host Institution</button>
+							</div>								
 
-										while($calls = mysqli_fetch_array($result)) {
-										echo '<tr>';
-											 echo '<td>' . $calls['Title'] . '</td>';
-											 echo '<td>' . $calls['Description'] . '</td>';
-											 echo '<td>' . $calls['OpenDate'] . '</td>';
-											 echo '<td>' . $calls['ClosingDate'] . '</td>';
-											 echo '<td><div class="icon dripicons-enter" data-id="'.$calls["ID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div></td>';
-											 echo '</tr>';
-										}
-
-									?>
-                                </tbody>
-                            </table>
-												
+							<table id="user_data" class="table table-bordered table-striped">
+							 <thead>
+							  <tr>
+							   <th>Budget Year</th>
+								<th>Type</th>
+								<th>Status</th>
+								<th>Edit</th>
+							  </tr>
+							 </thead>
+							</table>
+									
+											
 							
+							<div class="col-12 d-flex justify-content-end">
+								<button type="button" name="new" id="new" class="btn btn-primary me-1 mb-1" data-id="000" data-bs-toggle="modal" data-bs-target="#manage_institution">Add Host Institution</button>
+			
+							</div>
+							
+							
+							<form class="form">
+							<!--primary theme Modal -->
+                                                    <div class="modal fade text-left" id="manage_institution" tabindex="-1"
+                                                        role="dialog" aria-labelledby="myModalLabel160"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                                                            role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header bg-success">
+                                                                    <h5 class="modal-title white" id="myModalLabel160">
+                                                                        Edit Host Institution
+                                                                    </h5>
+                                                                    <button type="button" class="close"
+                                                                        data-bs-dismiss="modal" aria-label="Close">
+                                                                        <i data-feather="x"></i>
+                                                                    </button>
+                                                                </div>
+																
+                                                                <div class="modal-body">
+                                                                    <div class="fetched-data"></div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button"
+                                                                        class="btn btn-light-secondary"
+                                                                        data-bs-dismiss="modal">
+                                                                        <i class="bx bx-x d-block d-sm-none"></i>
+                                                                        <span class="d-none d-sm-block">Cancel</span>
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-primary ml-1"
+                                                                        data-bs-dismiss="modal" id="updateHost">
+                                                                        <i class="bx bx-check d-block d-sm-none"></i>
+                                                                        <span class="d-none d-sm-block">Submit</span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+							
+
                                         </form>
                                     </div>
                                 </div>
@@ -110,76 +121,16 @@ if(isset($_POST['CALLID']))
                 </section>
 				
 				
-				
-				
-				
-				
-				<!--Modal Xl size -->
-									<form class="form" action="" method="POST">
-                                        <div class="me-1 mb-1 d-inline-block">
-                  
-
-                                            <!--Extra Large Modal -->
-                                            <div class="modal fade text-left w-100" id="capture-new" tabindex="-1"
-                                                role="dialog" aria-labelledby="myModalLabel16" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"
-                                                    role="document">
-                                                    <div class="modal-content">
-                                                        
-														<div class="modal-header bg-success">
-                                                                    <h5 class="modal-title white" id="myModalLabel160">
-                                                                        Registration Details
-                                                                    </h5>
-                                                                    <button type="button" class="close"
-                                                                        data-bs-dismiss="modal" aria-label="Close">
-                                                                        <i data-feather="x"></i>
-                                                                    </button>
-                                                                </div>
-														<div class="card-header alert alert-primary alert-dismissible fade show">
-                                    <ul>
-									<li>In order to ensure that we have your correct information, please confirm that the details below are correct. If not, please provide the correct information.</li></ul>
-                                </div>
-                                                        <div class="modal-body">
-														
-                                                            
-																<div class="fetched-data"></div>
-                                            
-															
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-light-secondary"
-                                                                data-bs-dismiss="modal">
-                                                                <i class="bx bx-x d-block d-sm-none"></i>
-                                                                <span class="d-none d-sm-block">Close</span>
-                                                            </button>
-                                                            <button type="submit" class="btn btn-primary ml-1">
-                                                                <i class="bx bx-check d-block d-sm-none"></i>
-                                                                <span class="d-none d-sm-block">Accept</span>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-										
-										</form>
-					
-				
-				
             </div>
 
             <?php require_once("footer.php"); ?>
         </div>
     </div>
-    <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
 	
 	<script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
-	<!-- Include Choices JavaScript -->
-    <script src="assets/vendors/choices.js/choices.min.js"></script>
 
-    <!-- Include Choices CSS -->
-    <link rel="stylesheet" href="assets/vendors/choices.js/choices.min.css" />
 
     <script src="assets/js/main.js"></script>
 </body>
@@ -202,18 +153,16 @@ if(isset($_POST['CALLID']))
   <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
-  
-
 <script type="text/javascript" language="javascript" >
  $(document).ready(function(){
 	 
 
-    $('#capture-new').on('show.bs.modal', function (e) {
+    $('#manage_institution').on('show.bs.modal', function (e) {
         var rowid = $(e.relatedTarget).data('id');
 	
         $.ajax({
             type : 'post',
-            url : 'admin/user/fetch.php', //Here you will fetch records 
+            url : 'admin/institutions/fetch.php', //Here you will fetch records 
             data :  'rowid='+ rowid, //Pass $id
             success : function(data){
             $('.fetched-data').html(data);//Show fetched data from database
@@ -224,7 +173,7 @@ if(isset($_POST['CALLID']))
             }
         });
      });
-	 
+
   
   fetch_data();
 
@@ -235,11 +184,73 @@ if(isset($_POST['CALLID']))
     "serverSide" : true,
     "order" : [],
     "ajax" : {
-     url:"admin/calls/institutions/fetch.php",
+     url:"admin/institutions/fetch.php",
      type:"POST"
     }
    });
   }
+  
+
+
+  $(document).on('click', '#updateHost', function(){
+   var id = $("#InstitutionId").val();
+   var name = $("#name").val();
+   var type = $("#type").val();
+   var status = $("#status").val();
+
+   $.ajax({
+    url:"admin/institutions/update.php",
+    method:"POST",
+    data:{id:id, name:name, type:type, status:status},
+    success:function(data)
+    {
+     $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
+     $('#user_data').DataTable().destroy();
+     fetch_data();
+    }
+   });
+   setInterval(function(){
+	   location.reload();
+    $('#alert_message').html('');
+   }, 2000);
+   
+   
+   
+  });
+  
+
+
+  
+  $(document).on('click', '#insert', function(){
+   var name = $("#name").val();
+   var type = $("#type").val();
+   var status = $("#status").val();
+   
+   
+   if(name != '')
+   {
+    $.ajax({
+     url:"admin/institutions/insert.php",
+     method:"POST",
+     data:{name:name, type:type, status:status},
+     success:function(data)
+     {
+      $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
+      $('#user_data').DataTable().destroy();
+      fetch_data();
+	  
+     }
+    });
+    setInterval(function(){
+		location.reload();
+     $('#alert_message').html('');
+    }, 2000);
+   }
+   else
+   {
+    alert("Institution Name is required!");
+   }
+  });
   
  });
 </script>

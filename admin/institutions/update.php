@@ -11,9 +11,9 @@ if(isset($_POST["id"]))
  
  $query = "UPDATE `LookupInstitutions` SET 
  Name='".$name."',
- InstitutionTypeId='".$type."',
+ ID='".$type."',
  IsActive='".$status."'
- WHERE InstitutionId = '".$_POST["id"]."'";
+ WHERE ID = '".$_POST["id"]."'";
  
 
  if(mysqli_query($conn,$query))
