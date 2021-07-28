@@ -56,14 +56,7 @@ while($row = mysqli_fetch_array($result))
 {
  	
  $sub_array = array();
- //$sub_array[] = '<div data-id="'.$row["CID"].'" data-column="BudgetYear">' . $row["Budgy"] . '</div>';
- //$sub_array[] = '<div data-id="'.$row["CID"].'" data-column="Title">' . $row["Title"] . '</div>';
- //$sub_array[] = '<div data-id="'.$row["CID"].'" data-column="Description">' . $row["Description"] . '</div>';
- //$sub_array[] = '<div data-id="'.$row["CID"].'" data-column="OpenDate">' . $row["OpenDate"] . '</div>';
- //$sub_array[] = '<div data-id="'.$row["CID"].'" data-column="ClosingDate">' . $row["ClosingDate"] . '</div>';
- //$sub_array[] = '<div data-id="'.$row["CID"].'" data-column="Status">' . $row["Status"] . '</div>';
- //$sub_array[] = '<div class="icon dripicons-enter" data-id="'.$row["CID"].'" data-bs-toggle="modal" data-bs-target="#link_institution"></div>';
- 
+
 	$sub_array[] = '<div class="icon dripicons-document-edit" data-id="'.$row["CALLID"].'" data-bs-toggle="modal" data-bs-target="#manage_institution"></div>';
  $data[] = $sub_array;
 }
