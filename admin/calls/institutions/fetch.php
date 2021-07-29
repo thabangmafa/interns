@@ -5,7 +5,7 @@ $conn = OpenCon();
 
 $columns = array('BudgetYear', 'Title', 'IsActive');
 
-$query = "SELECT distinct a.ID AS CID,a.BudgetYear,a.Title, a.OpenDate, a.ClosingDate,a.Description, c.*, e.Name as Budgy FROM `HostInstitutionCalls` a 
+$query = "SELECT distinct a.ID AS CID,a.BudgetYear,a.Title, a.OpenDate, a.ClosingDate,a.Description,a.HostRequirementsFile, a.ApplicantRequirementsFile, c.*, e.Name as Budgy FROM `HostInstitutionCalls` a 
 left join `LookupIsActive` c on c.`StatusId` = a.`IsActive`
 left join `LookupBudgetYear` e on e.`ID` = a.`BudgetYear`";
 
@@ -69,7 +69,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 	
 	echo '<div class="col-md-12 col-12">
 				<div class="form-group">
-					<label for="last-name-column">Budget Year</label>
+					<label for="BudgetYear">Budget Year</label>
 					<fieldset class="form-group">
 				<select class="form-select" name="BudgetYear" id="BudgetYear">' ?>
 
@@ -86,15 +86,15 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 			
 	echo '<div class="col-md-12 col-12">
 				<div class="form-group">
-					<label for="first-name-column">Title</label>
-					<input type="text" id="Title" class="form-control" name="Title" value="">
+					<label for="Title">Title</label>
+					<input type="text" id="Title" class="form-control" name="Title" value="" required="required">
 				</div>
 			</div>';
 			
 		echo '<div class="col-md-12 col-12">
 				<div class="form-group">
-					<label for="first-name-column">Description</label>
-					<textarea class="form-control" id="Description" name="Description" rows="3"></textarea>
+					<label for="Description">Description</label>
+					<textarea class="form-control" id="Description" name="Description" rows="3" required="required"></textarea>
 				</div>
 			</div>';
 			
@@ -102,18 +102,18 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 			
 		echo '<div class="col-md-12 col-12">
 				<div class="form-group">
-					<label for="first-name-column">Open Date</label>
-					<input type="date" id="OpenDate" class="form-control" name="OpenDate" value="">
+					<label for="OpenDate">Open Date</label>
+					<input type="date" id="OpenDate" class="form-control" name="OpenDate" value="" required="required">
 				</div>
 			</div>';
 			
 			echo '<div class="col-md-12 col-12">
 				<div class="form-group">
-					<label for="first-name-column">Closing Date</label>
-					<input type="date" id="ClosingDate" class="form-control" name="ClosingDate" value="">
+					<label for="ClosingDate">Closing Date</label>
+					<input type="date" id="ClosingDate" class="form-control" name="ClosingDate" value="" required="required">
 				</div>
 			</div>';
-			
+						
 			
 		echo '<div class="col-md-12 col-12">
 				<div class="form-group">
@@ -165,30 +165,40 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 			echo '<div class="col-md-12 col-12">
 				<div class="form-group">
 					<label for="first-name-column">Title</label>
-					<input type="text" id="Title" class="form-control" name="Title" value="' . $row["Title"] . '">
+					<input type="text" id="Title" class="form-control" name="Title" value="' . $row["Title"] . '" required="required">
 				</div>
 			</div>';
 			
 			echo '<div class="col-md-12 col-12">
 				<div class="form-group">
 					<label for="first-name-column">Description</label>
-					<textarea class="form-control" id="Description" name="Description" rows="3">' . $row["Description"] . '</textarea>
+					<textarea class="form-control" id="Description" name="Description" rows="3" required="required">' . $row["Description"] . '</textarea>
 				</div>
 			</div>';
 		
 			echo '<div class="col-md-12 col-12">
 				<div class="form-group">
 					<label for="first-name-column">Open Date</label>
-					<input type="date" id="OpenDate" class="form-control" name="OpenDate" value="' . $row["OpenDate"] . '">
+					<input type="date" id="OpenDate" class="form-control" name="OpenDate" value="' . $row["OpenDate"] . '" required="required">
 				</div>
 			</div>';
 			
 			echo '<div class="col-md-12 col-12">
 				<div class="form-group">
 					<label for="first-name-column">Closing Date</label>
-					<input type="date" id="ClosingDate" class="form-control" name="ClosingDate" value="' . $row["ClosingDate"] . '">
+					<input type="date" id="ClosingDate" class="form-control" name="ClosingDate" value="' . $row["ClosingDate"] . '" required="required">
 				</div>
 			</div>';
+			
+			echo '<div class="form-group">
+				<label for="HostRequirementsFile">Host Requirements</label>
+				<input type="file" class="form-control-file" id="HostRequirementsFile" name="HostRequirementsFile">
+			  </div>';
+			  
+			  echo '<div class="form-group">
+				<label for="ApplicantRequirementsFile">Applicant Requirements</label>
+				<input type="file" class="form-control-file" id="ApplicantRequirementsFile" name="ApplicantRequirementsFile">
+			  </div>';
 				
 			
 		echo '<div class="col-md-12 col-12">
@@ -219,7 +229,19 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 
 while($row = mysqli_fetch_array($result))
 {
- 	
+ 
+ $hostReq = 'No Host Document';
+ $appReq = 'No Applicant Document';
+ 
+ if($row["HostRequirementsFile"]){
+	 $hostReq = '<a target="_blank" href="../../../uploads/calls/'.$row["CID"].'/'.$row["HostRequirementsFile"].'">Host Requirements</a>';
+ }
+ 
+ if($row["ApplicantRequirementsFile"]){
+	 $appReq = '<a href="../../../uploads/calls/'.$row["CID"].'/'.$row["ApplicantRequirementsFile"].'">Applicant Requirements</a>';
+ }
+ 
+ 
  $sub_array = array();
  $sub_array[] = '<div data-id="'.$row["CID"].'" data-column="BudgetYear">' . $row["Budgy"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["CID"].'" data-column="Title">' . $row["Title"] . '</div>';
@@ -227,6 +249,7 @@ while($row = mysqli_fetch_array($result))
  $sub_array[] = '<div data-id="'.$row["CID"].'" data-column="OpenDate">' . $row["OpenDate"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["CID"].'" data-column="ClosingDate">' . $row["ClosingDate"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["CID"].'" data-column="Status">' . $row["Status"] . '</div>';
+ $sub_array[] = '<div data-id="'.$row["CID"].'" data-column="Documents">' .$hostReq. '<br />'.$appReq. '</div>';
  $sub_array[] = '<div class="icon dripicons-enter" data-id="'.$row["CID"].'" data-bs-toggle="modal" data-bs-target="#link_institution"></div>';
  
 	$sub_array[] = '<div class="icon dripicons-document-edit" data-id="'.$row["CID"].'" data-bs-toggle="modal" data-bs-target="#manage_institution"></div>';
@@ -237,7 +260,7 @@ while($row = mysqli_fetch_array($result))
 
 function get_all_data($conn)
 {
- $query = "SELECT distinct a.ID AS CID,a.BudgetYear,a.Title, a.OpenDate, a.ClosingDate,a.Description, c.*, e.Name as Budgy FROM `HostInstitutionCalls` a 
+ $query = "SELECT distinct a.ID AS CID,a.BudgetYear,a.Title, a.OpenDate, a.ClosingDate,a.Description,a.HostRequirementsFile, a.ApplicantRequirementsFile, c.*, e.Name as Budgy FROM `HostInstitutionCalls` a 
 left join `LookupIsActive` c on c.`StatusId` = a.`IsActive`
 left join `LookupBudgetYear` e on e.`ID` = a.`BudgetYear`";
 

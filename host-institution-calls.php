@@ -63,6 +63,7 @@ $title = "Manage Calls";
 								<th>Open Date</th>
 								<th>Closing Date</th>
 								<th>Status</th>
+								<th>Documents</th>
 								<th>Host Link</th>
 								<th>Edit</th>
 							  </tr>
@@ -77,7 +78,7 @@ $title = "Manage Calls";
 							</div>
 							
 							
-											<form class="form">
+											<form class="form" method="post" id="HostDetails" enctype="multipart/form-data">
 											<!--primary theme Modal -->
                                                     <div class="modal fade text-left" id="manage_institution" tabindex="-1"
                                                         role="dialog" aria-labelledby="myModalLabel160"
@@ -119,7 +120,7 @@ $title = "Manage Calls";
                                         </form>
 										
 										
-										<form class="form" id="UpdateLink">
+										<form class="form" id="UpdateLink" method="post" enctype="multipart/form-data">
 											<!--primary theme Modal -->
                                                     <div class="modal fade text-left" id="link_institution" tabindex="-1"
                                                         role="dialog" aria-labelledby="myModalLabel160"
@@ -260,38 +261,30 @@ $title = "Manage Calls";
    });
   }
   
-
-
-  $(document).on('click', '#updateHost', function(){
-	var ID = $("#ID").val();
-   var BudgetYear = $("#BudgetYear").val();
-   var Title = $("#Title").val();
-   var Description = $("#Description").val();
-   var OpenDate = $("#OpenDate").val();
-   var ClosingDate = $("#ClosingDate").val();
-   var Institutions = $("#Institutions").val();   
-   var Status = $("#Status").val(); 
-
-   $.ajax({
-    url:"admin/calls/institutions/update.php",
-    method:"POST",
-    data:{ID:ID, BudgetYear:BudgetYear, Title:Title, Description:Description, OpenDate:OpenDate, ClosingDate:ClosingDate, Institutions:Institutions, Status:Status},
-    success:function(data)
-    {
-     $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
-     $('#user_data').DataTable().destroy();
-     fetch_data();
-    }
-   });
-   setInterval(function(){
-	   //location.reload();
-    $('#alert_message').html('');
-   }, 2000);
-   
-   
-   
-  });
   
+  
+      $("#updateHost").click(function(){
+		  
+		  
+		  var form = $('#HostDetails')[0];
+        var formData = new FormData(form);
+        event.preventDefault();
+        $.ajax({
+            url: "admin/calls/institutions/update.php", // the endpoint
+            type: "POST", // http method
+            processData: false,
+            contentType: false,
+            data: formData,        
+              success: function(response){
+                 location.reload();
+             
+           }
+        });
+
+    });
+	
+
+ 
 
 	$(document).on('click', '#updateHostLink', function(){
 	var ID = $("#ID").val();
@@ -310,7 +303,7 @@ $title = "Manage Calls";
     }
    });
    setInterval(function(){
-	   //location.reload();
+	   location.reload();
     $('#alert_message').html('');
    }, 2000);
    
@@ -342,7 +335,7 @@ $title = "Manage Calls";
      }
     });
     setInterval(function(){
-		//location.reload();
+		location.reload();
      $('#alert_message').html('');
     }, 2000);
    }
