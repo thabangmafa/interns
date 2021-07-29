@@ -238,7 +238,7 @@ while($row = mysqli_fetch_array($result))
  }
  
  if($row["ApplicantRequirementsFile"]){
-	 $appReq = '<a href="../../../uploads/calls/'.$row["CID"].'/'.$row["ApplicantRequirementsFile"].'">Applicant Requirements</a>';
+	 $appReq = '<a target="_blank" href="../../../uploads/calls/'.$row["CID"].'/'.$row["ApplicantRequirementsFile"].'">Applicant Requirements</a>';
  }
  
  
