@@ -1,8 +1,156 @@
 <?php 
 include 'admin/connect.php';
+$conn = OpenCon();
 $menu_item = "2";
 $title = "Contact Details";
 
+if (isset($_POST['FullTimeStudent'])) {
+	
+	function validate($data){
+       $data = trim($data);
+	   $data = stripslashes($data);
+	   $data = htmlspecialchars($data);
+	   return $data;
+	}
+	
+	$id = $_SESSION['id'];
+	$FullTimeStudent = validate($_POST['FullTimeStudent']);
+	$CurrentOrganisation = validate($_POST['CurrentOrganisation']);
+	$IsOrganisationFundingSalary = validate($_POST['IsOrganisationFundingSalary']);
+	$OrganisationFundingSalary = validate($_POST['OrganisationFundingSalary']);
+	$DepartmentSchoolInstitution = validate($_POST['DepartmentSchoolInstitution']);
+	$Faculty = validate($_POST['Faculty']);
+	$WorkPostalAddress = validate($_POST['WorkPostalAddress']);
+	$HomePhysicalAddress = validate($_POST['HomePhysicalAddress']);
+	$WorkCityTown = validate($_POST['WorkCityTown']);
+	$HomeCityTown = validate($_POST['HomeCityTown']);
+	$WorkPostalCode = validate($_POST['WorkPostalCode']);
+	$HomePostalCode = validate($_POST['HomePostalCode']);
+	$WorkProvince = validate($_POST['WorkProvince']);
+	$TelephoneNumber = validate($_POST['TelephoneNumber']);
+	$MobileNumber = validate($_POST['MobileNumber']);
+	$PrimaryEmail = validate($_POST['PrimaryEmail']);
+	$ConfirmEmail = validate($_POST['ConfirmEmail']);
+	$AlternativeEmail = validate($_POST['AlternativeEmail']);
+	$HomeProvince = validate($_POST['HomeProvince']);
+	$Country = validate($_POST['Country']);
+	
+	$query = "SELECT * FROM UserContactDetails WHERE UserID = '".$_SESSION['id']."'";
+	$result = mysqli_query($conn, $query);
+	if (mysqli_num_rows($result) === 0) {
+	
+	$sql2 = "INSERT INTO UserContactDetails(
+						UserID,
+						  FullTimeStudent,
+						  CurrentOrganisation,
+						  IsOrganisationFundingSalary,
+						  OrganisationFundingSalary,
+						  DepartmentSchoolInstitution,
+						  Faculty,
+						  WorkPostalAddress,
+						  HomePhysicalAddress,
+						  WorkCityTown,
+						  HomeCityTown,
+						  WorkPostalCode,
+						  HomePostalCode,
+						  WorkProvince,
+						  TelephoneNumber,
+						  MobileNumber,
+						  PrimaryEmail,
+						  ConfirmEmail,
+						  AlternativeEmail,
+						  HomeProvince,
+						  Country
+) VALUES(
+						'$id',
+						  '$FullTimeStudent',
+						  '$CurrentOrganisation',
+						  '$IsOrganisationFundingSalary',
+						  '$OrganisationFundingSalary',
+						  '$DepartmentSchoolInstitution',
+						  '$Faculty',
+						  '$WorkPostalAddress',
+						  '$HomePhysicalAddress',
+						  '$WorkCityTown',
+						  '$HomeCityTown',
+						  '$WorkPostalCode',
+						  '$HomePostalCode',
+						  '$WorkProvince',
+						  '$TelephoneNumber',
+						  '$MobileNumber',
+						  '$PrimaryEmail',
+						  '$ConfirmEmail',
+						  '$AlternativeEmail',
+						  '$HomeProvince',
+						  '$Country'
+
+)";
+
+
+    $result2 = mysqli_query($conn, $sql2);
+	$message = "Details successfully captured.";
+	unset($_POST);
+	}else{
+		
+	$sql2 = "UPDATE UserContactDetails SET 
+						FullTimeStudent = '$FullTimeStudent',
+						  CurrentOrganisation = '$CurrentOrganisation',
+						  IsOrganisationFundingSalary = '$IsOrganisationFundingSalary',
+						  OrganisationFundingSalary = '$OrganisationFundingSalary',
+						  DepartmentSchoolInstitution = '$DepartmentSchoolInstitution',
+						  Faculty = '$Faculty',
+						  WorkPostalAddress = '$WorkPostalAddress',
+						  HomePhysicalAddress = '$HomePhysicalAddress',
+						  WorkCityTown = '$WorkCityTown',
+						  HomeCityTown = '$HomeCityTown',
+						  WorkPostalCode = '$WorkPostalCode',
+						  HomePostalCode = '$HomePostalCode',
+						  WorkProvince = '$WorkProvince',
+						  TelephoneNumber = '$TelephoneNumber',
+						  MobileNumber = '$MobileNumber',
+						  PrimaryEmail = '$PrimaryEmail',
+						  ConfirmEmail = '$ConfirmEmail',
+						  AlternativeEmail = '$AlternativeEmail',
+						  HomeProvince = '$HomeProvince',
+						  Country = '$Country'
+	
+	WHERE UserID = '".$id."'";
+
+	$result2 = mysqli_query($conn, $sql2);
+	$message = "Details successfully updated.";
+	unset($_POST);	
+	}
+	
+}
+
+	$query = "SELECT a.*, b.Email FROM UserContactDetails a
+	left join users b on b.UserID = a.UserID
+	WHERE a.UserID = '".$_SESSION['id']."'";
+	$result = mysqli_query($conn, $query);
+
+	while($userdetails = mysqli_fetch_array($result)) {
+			$FullTimeStudent = $userdetails['FullTimeStudent'];
+			 $CurrentOrganisation = $userdetails['CurrentOrganisation'];
+						  $IsOrganisationFundingSalary = $userdetails['IsOrganisationFundingSalary'];
+						  $OrganisationFundingSalary = $userdetails['OrganisationFundingSalary'];
+						  $DepartmentSchoolInstitution = $userdetails['DepartmentSchoolInstitution'];
+						  $Faculty = $userdetails['Faculty'];
+						  $WorkPostalAddress = $userdetails['WorkPostalAddress'];
+						  $HomePhysicalAddress = $userdetails['HomePhysicalAddress'];
+						  $WorkCityTown = $userdetails['WorkCityTown'];
+						  $HomeCityTown = $userdetails['HomeCityTown'];
+						  $WorkPostalCode = $userdetails['WorkPostalCode'];
+						  $HomePostalCode = $userdetails['HomePostalCode'];
+						  $WorkProvince = $userdetails['WorkProvince'];
+						  $TelephoneNumber = $userdetails['TelephoneNumber'];
+						  $MobileNumber = $userdetails['MobileNumber'];
+						  $PrimaryEmail = $userdetails['PrimaryEmail'];
+						  $ConfirmEmail = $userdetails['ConfirmEmail'];
+						  $AlternativeEmail = $userdetails['AlternativeEmail'];
+						  $HomeProvince = $userdetails['HomeProvince'];
+						  $Country = $userdetails['Country'];
+
+	}
  ?>
 <?php require_once("admin/header.php"); ?>
         <?php require_once("menu.php"); ?>
@@ -44,14 +192,14 @@ $title = "Contact Details";
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form">
+                                        <form class="form" action="" method="post">
                                             <div class="row">
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="first-name-column">Are you a full time student?</label>
+                                                        <label for="FullTimeStudent">Are you a full time student?</label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="disabledSelect">
-													<option></option>
+                                                    <select class="form-select" id="FullTimeStudent" name="FullTimeStudent">
+													<option><?php echo @$FullTimeStudent; ?></option>
                                                         <option>Yes</option>
 														<option>No</option>
 														
@@ -61,22 +209,35 @@ $title = "Contact Details";
                                                 </div>
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="country-floating">Current organisation</label>
+                                                        <label for="CurrentOrganisation">Current organisation</label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="disabledSelect">
-                                                        <option></option>
-                                                        <option>Red</option>
-                                                        <option>Blue</option>
+                                                    <select class="form-select" id="CurrentOrganisation" name="CurrentOrganisation" required="required">
+													<option>N/A</option>
+                                                        <?php
+				
+															$query = "SELECT * FROM LookupInstitutions WHERE IsActive = '1' ORDER BY Name asc";
+															$result = mysqli_query($conn, $query);
+															
+
+															while($institution = mysqli_fetch_array($result)) {
+																$select = "";
+																if($CurrentOrganisation == $institution['InstitutionId']){ $select = "selected='selected'"; }
+															 echo '<option value="'.$institution['InstitutionId'].'" '.$select.'>'.ucwords($institution['Name']).'</option>';
+															}
+
+														?>
                                                     </select>
                                                 </fieldset>
                                                     </div>
+													
                                                 </div>
+												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="first-name-column">Is this the organisation that funds your salary?</label>
+                                                        <label for="IsOrganisationFundingSalary">Is this the organisation that funds your salary?</label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="disabledSelect">
-													<option></option>
+                                                    <select class="form-select" id="IsOrganisationFundingSalary" name="IsOrganisationFundingSalary">
+													<option><?php echo @$IsOrganisationFundingSalary; ?></option>
                                                         <option>Yes</option>
 														<option>No</option>
 														
@@ -84,32 +245,29 @@ $title = "Contact Details";
                                                 </fieldset>
                                                     </div>
                                                 </div>
-												<div class="col-md-6 col-12">
+
+												
+												<div class="col-md-6 col-12 OrganisationFundingSalary" <?php if(@$IsOrganisationFundingSalary == '' || @$IsOrganisationFundingSalary == 'Yes'){ echo 'style="display:none;"';} ?>>
                                                     <div class="form-group">
-                                                        <label for="first-name-column">Primary organisation which funds your salary?</label>
-                                                        <fieldset class="form-group">
-                                                    <select class="form-select" id="disabledSelect">
-													<option></option>
-                                                        <option>Yes</option>
-														<option>No</option>
-														
-                                                    </select>
-                                                </fieldset>
-                                                    </div>
-                                                </div>
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="first-name-column">Department/School/Institution</label>
-                                                        <input type="text" id="first-name-column" class="form-control"
-                                                             name="fname-column">
+                                                        <label for="OrganisationFundingSalary">Primary organisation which funds your salary?</label>
+                                                        <input type="text" id="OrganisationFundingSalary" class="form-control"
+                                                             name="OrganisationFundingSalary" value="<?php echo @$OrganisationFundingSalary; ?>">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="first-name-column">Faculty</label>
-                                                        <input type="text" id="first-name-column" class="form-control"
-                                                             name="fname-column">
+                                                        <label for="DepartmentSchoolInstitution">Department/School/Institution</label>
+                                                        <input type="text" id="DepartmentSchoolInstitution" class="form-control"
+                                                             name="DepartmentSchoolInstitution" value="<?php echo @$DepartmentSchoolInstitution; ?>">
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="Faculty">Faculty</label>
+                                                        <input type="text" id="Faculty" class="form-control"
+                                                             name="Faculty" value="<?php echo @$Faculty; ?>">
                                                     </div>
                                                 </div>
 											
@@ -119,170 +277,179 @@ $title = "Contact Details";
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         
-                                        <label for="exampleFormControlTextarea1" class="form-label">Work Postal Address (excluding department) </label>
-                                        <textarea class="form-control" id="exampleFormControlTextarea1"
-                                            rows="3"></textarea>
+                                        <label for="WorkPostalAddress" class="form-label">Work Postal Address (excluding department) </label>
+                                        <textarea class="form-control" id="WorkPostalAddress" name="WorkPostalAddress"
+                                            rows="3"><?php echo @$WorkPostalAddress; ?></textarea>
                                     
                                                     </div>
                                                 </div>
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         
-                                        <label for="exampleFormControlTextarea1" class="form-label">Home Physical Address </label>
-                                        <textarea class="form-control" id="exampleFormControlTextarea1"
-                                            rows="3"></textarea>
+                                        <label for="HomePhysicalAddress" class="form-label">Home Physical Address </label>
+                                        <textarea class="form-control" id="HomePhysicalAddress" name="HomePhysicalAddress"
+                                            rows="3"><?php echo @$HomePhysicalAddress; ?></textarea>
                                     
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="last-name-column">Work City/Town</label>
-                                                        <input type="text" id="last-name-column" class="form-control"
-                                                             name="lname-column">
+                                                        <label for="WorkCityTown">Work City/Town</label>
+                                                        <input type="text" id="WorkCityTown" class="form-control"
+                                                             name="WorkCityTown" value="<?php echo @$WorkCityTown; ?>">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="last-name-column">Home City/Town</label>
-                                                        <input type="text" id="last-name-column" class="form-control"
-                                                             name="lname-column">
+                                                        <label for="HomeCityTown">Home City/Town</label>
+                                                        <input type="text" id="HomeCityTown" class="form-control"
+                                                             name="HomeCityTown" value="<?php echo @$HomeCityTown; ?>">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="last-name-column">Work Postal Code</label>
-                                                        <input type="text" id="last-name-column" class="form-control"
-                                                             name="lname-column">
+                                                        <label for="WorkPostalCode">Work Postal Code</label>
+                                                        <input type="text" id="WorkPostalCode" class="form-control"
+                                                             name="WorkPostalCode" value="<?php echo @$WorkPostalCode; ?>">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="last-name-column">Home Postal Code</label>
-                                                        <input type="text" id="last-name-column" class="form-control"
-                                                             name="lname-column">
+                                                        <label for="HomePostalCode">Home Postal Code</label>
+                                                        <input type="text" id="HomePostalCode" class="form-control"
+                                                             name="HomePostalCode" value="<?php echo @$HomePostalCode; ?>">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="country-floating">Work Province/State</label>
+                                                        <label for="WorkProvince">Work Province/State</label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="disabledSelect">
+                                                    <select class="form-select" id="WorkProvince" name="WorkProvince" required="required">
                                                         <option></option>
-                                                        <option>Red</option>
-                                                        <option>Blue</option>
+                                                        <?php
+				
+															$query = "SELECT * FROM LookupProvince WHERE IsActive = '1' ORDER BY Name asc";
+															$result = mysqli_query($conn, $query);
+															
+
+															while($province = mysqli_fetch_array($result)) {
+																$select = "";
+																if($WorkProvince == $province['ID']){ $select = "selected='selected'"; }
+															 echo '<option value="'.$province['ID'].'" '.$select.'>'.ucwords($province['Name']).'</option>';
+															}
+
+														?>
                                                     </select>
                                                 </fieldset>
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="country-floating">Home Province/State</label>
-                                                        <fieldset class="form-group">
-                                                    <select class="form-select" id="disabledSelect">
-                                                        <option></option>
-                                                        <option>Red</option>
-                                                        <option>Blue</option>
-                                                    </select>
-                                                </fieldset>
-                                                    </div>
-                                                </div>
+												
+												
+												
+												
+												
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="country-floating">Work Country</label>
-                                                        <fieldset class="form-group">
-                                                    <select class="form-select" id="disabledSelect">
-                                                        <option></option>
-                                                        <option>Yes</option>
-                                                        <option>No</option>
-                                                    </select>
-                                                </fieldset>
+                                                        <label for="TelephoneNumber">Primary Telephone Number</label>
+                                                        <input type="text" id="TelephoneNumber" class="form-control"
+                                                             name="TelephoneNumber" value="<?php echo @$HomePostalCode; ?>">
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="country-floating">Home Country</label>
-                                                        <fieldset class="form-group">
-                                                    <select class="form-select" id="disabledSelect">
-                                                        <option></option>
-                                                        <option>Yes</option>
-                                                        <option>No</option>
-                                                    </select>
-                                                </fieldset>
-                                                    </div>
-                                                </div>
+												
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="last-name-column">Primary Telephone Number</label>
-                                                        <input type="text" id="last-name-column" class="form-control"
-                                                             name="lname-column">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="last-name-column">Fax Number</label>
-                                                        <input type="text" id="last-name-column" class="form-control"
-                                                             name="lname-column">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="last-name-column">Mobile Number</label>
-                                                        <input type="text" id="last-name-column" class="form-control"
-                                                             name="lname-column">
+                                                        <label for="MobileNumber">Mobile Number</label>
+                                                        <input type="text" value="<?php echo $MobileNumber; ?>" id="MobileNumber" class="form-control"
+                                                            name="MobileNumber" required="required">
                                                     </div>
                                                 </div>
 												
 												
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="email-id-column">Primary Email Address</label>
-                                                        <input type="email" id="email-id-column" class="form-control"
-                                                            name="email-id-column">
+                                                        <label for="PrimaryEmail">Primary Email Address</label>
+                                                        <input type="email" id="PrimaryEmail" value="<?php echo $PrimaryEmail; ?>" class="form-control"
+                                                            name="PrimaryEmail" required="required">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="email-id-column">Confirm Primary Email Address</label>
-                                                        <input type="email" id="email-id-column" class="form-control"
-                                                            name="email-id-column">
+                                                        <label for="ConfirmEmail">Confirm Primary Email Address</label>
+                                                        <input type="email" value="<?php echo $ConfirmEmail; ?>" id="ConfirmEmail" class="form-control"
+                                                            name="ConfirmEmail" required="required">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="email-id-column">Alternate Email Address</label>
-                                                        <input type="email" id="email-id-column" class="form-control"
-                                                            name="email-id-column">
+                                                        <label for="AlternativeEmail">Alternate Email Address</label>
+                                                        <input type="email" value="<?php echo $AlternativeEmail; ?>" id="AlternativeEmail" class="form-control"
+                                                            name="AlternativeEmail" required="required">
                                                     </div>
                                                 </div>
 												
+								
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="country-floating">Web Address</label>
-                                                        <input type="text" id="country-floating" class="form-control"
-                                                            name="country-floating">
+                                                        <label for="HomeProvince">Home Province</label>
+                                                        <fieldset class="form-group">
+                                                    <select class="form-select" id="HomeProvince" name="HomeProvince" required="required">
+                                                        <option></option>
+                                                        <?php
+				
+															$query = "SELECT * FROM LookupProvince WHERE IsActive = '1' ORDER BY Name asc";
+															$result = mysqli_query($conn, $query);
+															
+
+															while($province = mysqli_fetch_array($result)) {
+																$select = "";
+																if($HomeProvince == $province['ID']){ $select = "selected='selected'"; }
+															 echo '<option value="'.$province['ID'].'" '.$select.'>'.ucwords($province['Name']).'</option>';
+															}
+
+														?>
+                                                    </select>
+                                                </fieldset>
                                                     </div>
                                                 </div>
-												
-												
-												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="Country">Home Country</label>
+                                                        <fieldset class="form-group">
+                                                    <select class="form-select" id="Country" name="Country" required="required">
+													<option> </option>
+                                                        <?php
+				
+															$query = "SELECT * FROM LookupCountry WHERE IsActive = '1' ORDER BY Country asc";
+															$result = mysqli_query($conn, $query);
+															
+															
+															while($country = mysqli_fetch_array($result)) {
+																$select = '';
+																if($Country == $country['ID']){ $select = "selected='selected'"; }
+															 echo '<option value="'.$country['ID'].'" '.$select.'>'.ucwords($country['Country']).'</option>';
+															}
+
+														?>
+                                                    </select>
+                                                </fieldset>
+                                                    </div>
+                                                </div>
 												
 												
                                
                                                 <div class="col-12 d-flex justify-content-end">
                                                     <button type="submit"
-                                                        class="btn btn-primary me-1 mb-1">Submit</button>
+                                                        class="btn btn-primary me-1 mb-1" name="Submit" value="Submit">Submit</button>
                                                     <button type="reset"
                                                         class="btn btn-light-secondary me-1 mb-1">Reset</button>
                                                 </div>
@@ -307,3 +474,23 @@ $title = "Contact Details";
 </body>
 
 </html>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript">
+ $(document).ready(function(){
+	
+	
+	
+
+$('#IsOrganisationFundingSalary').change(function() {
+	var val = $(this).val();
+		if(val === "No") {
+			$('.OrganisationFundingSalary').show();
+		}else{
+			$('.OrganisationFundingSalary').hide();
+		}
+	});
+
+
+});
+</script>

@@ -2,7 +2,7 @@
 include 'admin/connect.php';
 $conn = OpenCon();
 $menu_item = "2";
-$title = "Parent / Guardian";
+$title = "Next of Kin";
 
 if (isset($_POST['Submit'])) {
 	

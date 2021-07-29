@@ -70,7 +70,7 @@ if (isset($_POST['profile'])) {
                                                         
                                         <label for="exampleFormControlTextarea1" class="form-label">Description</label>
                                         <textarea class="form-control" id="exampleFormControlTextarea1" name="profile" id="profile"
-                                            rows="3"><?php echo @$row['description']; ?></textarea>
+                                            rows="3"><?php echo @$row['Description']; ?></textarea>
                                     
                                                     </div>
                                                 </div>

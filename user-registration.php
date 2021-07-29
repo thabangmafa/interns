@@ -13,11 +13,7 @@ if (isset($_POST['Submit'])) {
 	   return $data;
 	}
 	$id = $_SESSION['id'];
-	$confirm_email = validate($_POST['confirm_email']);
-	$current_organisation = validate($_POST['current_organisation']);
-	$student = validate($_POST['student']);
-	$mobile_number = validate($_POST['mobile_number']);
-	$alternative_email = validate($_POST['alternative_email']);
+	
 	$date_of_birth = validate($_POST['date_of_birth']);
 	$gender = validate($_POST['gender']);
 	$race = validate($_POST['race']);
@@ -30,10 +26,8 @@ if (isset($_POST['Submit'])) {
 	$first_name = validate($_POST['first_name']);
 	$initials = validate($_POST['initials']);
 	$utitle = validate($_POST['title']);
-	$province = validate($_POST['province']);
-	$city_town = validate($_POST['city_town']);
-	$postal_code = validate($_POST['postal_code']);
-	$street_address = validate($_POST['street_address']);
+	$Disability = validate($_POST['Disability']);
+	$DisabilityDetails = validate($_POST['DisabilityDetails']);
 	
 	
 	$query = "SELECT * FROM RegistrationDetails WHERE UserID = '".$_SESSION['id']."'";
@@ -43,10 +37,6 @@ if (isset($_POST['Submit'])) {
 	mysqli_query($conn, $sql);
 	$sql2 = "INSERT INTO RegistrationDetails(
 						UserID,
-						CurrentOrganisation,
-						Student,
-						MobileNumber,
-						AlternativeEmail,
 						DateOfBirth,
 						Gender,
 						Race,
@@ -59,16 +49,10 @@ if (isset($_POST['Submit'])) {
 						FirstName,
 						Initials,
 						Title,
-						Province,
-						CityTown,
-						PostalCode,
-						StreetAddress
+						Disability,
+						DisabilityDetails
 ) VALUES(
 						'$id',
-						'$current_organisation',
-						'$student',
-						'$mobile_number',
-						'$alternative_email',
 						'$date_of_birth',
 						'$gender',
 						'$race',
@@ -81,10 +65,8 @@ if (isset($_POST['Submit'])) {
 						'$first_name',
 						'$initials',
 						'$utitle',
-						'$province',
-						'$city_town',
-						'$postal_code',
-						'$street_address'
+						 '$Disability',
+						 '$DisabilityDetails'
 
 )";
 
@@ -95,10 +77,6 @@ if (isset($_POST['Submit'])) {
 	}else{
 		
 	$sql2 = "UPDATE RegistrationDetails SET 
-						CurrentOrganisation = '$current_organisation',
-						Student = '$student',
-						MobileNumber = '$mobile_number',
-						AlternativeEmail = '$alternative_email',
 						DateOfBirth = '$date_of_birth',
 						Gender = '$gender',
 						Race = '$race',
@@ -111,10 +89,8 @@ if (isset($_POST['Submit'])) {
 						FirstName = '$first_name',
 						Initials = '$initials',
 						Title = '$utitle',
-						Province = '$province',
-						CityTown = '$city_town',
-						PostalCode = '$postal_code',
-						StreetAddress = '$street_address'
+						Disability = '$Disability',
+						DisabilityDetails = '$DisabilityDetails'
 	
 	WHERE UserID = '".$id."'";
 
@@ -131,12 +107,7 @@ if (isset($_POST['Submit'])) {
 	$result = mysqli_query($conn, $query);
 
 	while($userdetails = mysqli_fetch_array($result)) {
-			$UserConfirmEmail = $userdetails['Email'];
-			$UserCurrentOrganisation = $userdetails['CurrentOrganisation'];
-			$UserProvince = $userdetails['Province'];
-			$UserStudent = $userdetails['Student'];
-			$UserMobileNumber = $userdetails['MobileNumber'];
-			$UserAlternativeEmail = $userdetails['AlternativeEmail'];
+
 			$UserDateOfBirth = $userdetails['DateOfBirth'];
 			$UserGender = $userdetails['Gender'];
 			$UserRace = $userdetails['Race'];
@@ -149,9 +120,8 @@ if (isset($_POST['Submit'])) {
 			$UserFirstName = $userdetails['FirstName'];
 			$UserInitials = $userdetails['Initials'];
 			$UserTitle = $userdetails['Title'];
-			$UserCityTown = $userdetails['CityTown'];
-			$UserPostalCode = $userdetails['PostalCode'];
-			$UserStreetAddress = $userdetails['StreetAddress'];
+			$UserDisability = $userdetails['Disability'];
+			$UserDisabilityDetails = $userdetails['DisabilityDetails'];
 
 	}
  ?>
@@ -233,9 +203,6 @@ if (isset($_POST['Submit'])) {
                                                         <input type="text" id="initials" name="initials" class="form-control" value="<?php echo $UserInitials; ?>" required="required">
                                                     </div>
                                                 </div>
-											
-											
-											
 											
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
@@ -396,137 +363,28 @@ if (isset($_POST['Submit'])) {
                                                             name="date_of_birth" value="<?php echo $UserDateOfBirth; ?>" required="required">
                                                     </div>
                                                 </div>
-												
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="email">Primary Email Address</label>
-                                                        <input type="email" id="email" value="<?php echo $UserConfirmEmail; ?>" class="form-control"
-                                                            name="email" required="required">
-                                                    </div>
-                                                </div>
-												
+
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="confirm_email">Confirm Primary Email Address</label>
-                                                        <input type="email" value="<?php echo $UserConfirmEmail; ?>" id="confirm_email" class="form-control"
-                                                            name="confirm_email" required="required">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="alternative_email">Alternate Email Address</label>
-                                                        <input type="email" value="<?php echo $UserAlternativeEmail; ?>" id="alternative_email" class="form-control"
-                                                            name="alternative_email" required="required">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="mobile_number">Mobile Number</label>
-                                                        <input type="text" value="<?php echo $UserMobileNumber; ?>" id="mobile_number" class="form-control"
-                                                            name="mobile_number" required="required">
-                                                    </div>
-                                                </div>
-												
-												
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="student">Are you a full time student?</label>
+                                                        <label for="Disability">Do you have any disability?</label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="student" name="student" required="required">
-                                                        <option></option>
-                                                        <?php
-				
-															$query = "SELECT * FROM LookupYesNo WHERE IsActive = '1' ORDER BY YesNo asc";
-															$result = mysqli_query($conn, $query);
-															
-
-															while($YesNo = mysqli_fetch_array($result)) {
-																$select = "";
-																if($UserStudent == $YesNo['ID']){ $select = "selected='selected'"; }
-															 echo '<option value="'.$YesNo['ID'].'" '.$select.'>'.ucwords($YesNo['YesNo']).'</option>';
-															}
-
-														?>
+                                                    <select class="form-select" id="Disability" name="Disability">
+													<option><?php echo @$UserDisability; ?></option>
+                                                        <option>Yes</option>
+                                                        <option>No</option>
                                                     </select>
                                                 </fieldset>
                                                     </div>
                                                 </div>
-												
 												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="current_organisation">Current organisation</label>
-                                                        <fieldset class="form-group">
-                                                    <select class="form-select" id="current_organisation" name="current_organisation" required="required">
-													<option>N/A</option>
-                                                        <?php
-				
-															$query = "SELECT * FROM LookupInstitutions WHERE IsActive = '1' ORDER BY Name asc";
-															$result = mysqli_query($conn, $query);
-															
-
-															while($institution = mysqli_fetch_array($result)) {
-																$select = "";
-																if($UserCurrentOrganisation == $institution['InstitutionId']){ $select = "selected='selected'"; }
-															 echo '<option value="'.$institution['InstitutionId'].'" '.$select.'>'.ucwords($institution['Name']).'</option>';
-															}
-
-														?>
-                                                    </select>
-                                                </fieldset>
-                                                    </div>
+                                                    
 													
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
+													<div class="form-group" id="disabilityDiv" <?php if(@$UserDisability == '' || @$UserDisability == 'No'){ echo 'style="display:none;"';} ?>>
                                                         
-													<label for="street_address" class="form-label">Home Street Address </label>
-													<input type="text" id="street_address" class="form-control" value="<?php echo $UserStreetAddress; ?>"
-                                                             name="street_address" required="required">
+                                        <label for="DisabilityDetails" class="form-label">Disablity Details</label>
+                                        <textarea class="form-control" id="DisabilityDetails" name="DisabilityDetails" 
+                                            rows="3" ><?php echo @$UserDisabilityDetails; ?></textarea>
                                     
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="city_town">Home City/Town</label>
-                                                        <input type="text" id="city_town" class="form-control" value="<?php echo $UserCityTown; ?>"
-                                                             name="city_town" required="required">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="postal_code">Home Postal Code</label>
-                                                        <input type="text" id="postal_code" class="form-control" value="<?php echo $UserPostalCode; ?>"
-                                                             name="postal_code" required="required">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="province">Home Province/State</label>
-                                                        <fieldset class="form-group">
-                                                    <select class="form-select" id="province" name="province" required="required">
-                                                        <option></option>
-                                                        <?php
-				
-															$query = "SELECT * FROM LookupProvince WHERE IsActive = '1' ORDER BY Name asc";
-															$result = mysqli_query($conn, $query);
-															
-
-															while($province = mysqli_fetch_array($result)) {
-																$select = "";
-																if($UserProvince == $province['ID']){ $select = "selected='selected'"; }
-															 echo '<option value="'.$province['ID'].'" '.$select.'>'.ucwords($province['Name']).'</option>';
-															}
-
-														?>
-                                                    </select>
-                                                </fieldset>
                                                     </div>
                                                 </div>
 												
@@ -558,3 +416,23 @@ if (isset($_POST['Submit'])) {
 </body>
 
 </html>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript">
+ $(document).ready(function(){
+	
+	
+	
+
+$('#Disability').change(function() {
+	var val = $(this).val();
+    if(val === "Yes") {
+		$('#disabilityDiv').show();
+	}else{
+		$('#disabilityDiv').hide();
+	}
+});
+
+
+});
+</script>

@@ -35,46 +35,42 @@ $query = "SELECT * FROM UserDisability
                                 <span>My Profile</span>
                             </a>
                             <ul class="submenu <?php if($menu_item == "2"){ echo "active"; } ?>">
-							
-								<li class="submenu-item <?php if($title == "Personal Profile"){ echo "active"; } ?>">
-                                    <a href="personal-profile.php">Personal Profile</a>
+								<li class="submenu-item <?php if($title == "Absence from Research"){ echo "active"; } ?>">
+                                    <a href="absence-from-research.php">Absence from Research</a>
                                 </li>
-								<li class="submenu-item <?php if($title == "Disability"){ echo "active"; } ?>">
-                                    <a href="disability.php">Disability <span class="glyphicon glyphicon-ok green" style="color:green"></span></a> 
+								<li class="submenu-item <?php if($title == "Attachments"){ echo "active"; } ?>">
+                                    <a href="attachments.php">Attachments</a>
                                 </li>
-								<li class="submenu-item <?php if($title == "Registration Details"){ echo "active"; } ?>">
-                                    <a href="user-registration.php">Registration Details</a>
-                                </li>
-								<li class="submenu-item <?php if($title == "Parent / Guardian"){ echo "active"; } ?>">
-                                    <a href="guardian.php">Parent / Guardian</a>
+								<li class="submenu-item <?php if($title == "Contact Details"){ echo "active"; } ?>">
+                                    <a href="contact-details.php">Contact Details</a>
                                 </li>
 								<li class="submenu-item <?php if($title == "Language Proficiency"){ echo "active"; } ?>">
                                     <a href="language-proficiency.php">Language Proficiency</a>
                                 </li>
+								<li class="submenu-item <?php if($title == "Next of Kin"){ echo "active"; } ?>">
+                                    <a href="guardian.php">Next of Kin</a>
+                                </li>
+								
+								<li class="submenu-item <?php if($title == "Personal Profile"){ echo "active"; } ?>">
+                                    <a href="personal-profile.php">Personal Profile</a>
+                                </li>
 								<li class="submenu-item <?php if($title == "Qualifications"){ echo "active"; } ?>">
                                     <a href="qualification.php">Qualifications</a>
-                                </li>							
-                                <li class="submenu-item <?php if($title == "Attachments"){ echo "active"; } ?>">
-                                    <a href="attachments.php">Attachments</a>
+                                </li>
+								<li class="submenu-item <?php if($title == "Registration Details"){ echo "active"; } ?>">
+                                    <a href="user-registration.php">Registration Details</a>
                                 </li>
 								<li class="submenu-item <?php if($title == "Student Supervision Record"){ echo "active"; } ?>">
                                     <a href="student-supervision-record.php">Student Supervision Record</a>
                                 </li>
-								<li class="submenu-item <?php if($title == "Career Profile"){ echo "active"; } ?>">
-                                    <a href="career-profile.php">Career Profile</a>
-                                </li>
-								<li class="submenu-item <?php if($title == "Absence from Research"){ echo "active"; } ?>">
-                                    <a href="absence-from-research.php">Absence from Research</a>
-                                </li>
+								
                                 <li class="submenu-item <?php if($title == "Research Expertise"){ echo "active"; } ?>">
                                     <a href="research-expertise.php">Research Expertise</a>
                                 </li>
 								<li class="submenu-item <?php if($title == "References"){ echo "active"; } ?>">
                                     <a href="references.php">References</a>
                                 </li>
-                                <!--li class="submenu-item <?php if($title == "Position Applied For"){ echo "active"; } ?>">
-                                    <a href="position-applied-for.php">Position Applied For</a>
-                                </li-->
+                                
                             </ul>
                         </li>
 						

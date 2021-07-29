@@ -47,12 +47,11 @@ $title = "Host Institution";
                                 <div class="card-content">
                                     <div class="card-body">
                                         <form class="form">
-                                            <div class="row">
-												<div class="col-md-6 col-12">
+										<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="first-name-column">Interested in participating in the DST-NRF Internship Programme</label>
+                                                        <label for="InterestedInHosting">Interested in participating in the HSRC Internship Programme</label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="disabledSelect">
+                                                    <select class="form-select" id="InterestedInHosting" name="InterestedInHosting">
 													<option></option>
                                                         <option>Yes</option>
 														<option>No</option>
@@ -61,11 +60,16 @@ $title = "Host Institution";
                                                 </fieldset>
                                                     </div>
                                                 </div>
+                                            <div class="row mainDetails" <?php if(@$UserInterestedInHosting == '' || @$UserInterestedInHosting == 'No'){ echo 'style="display:none;"';} ?>>
+												
+												
+										
+												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="country-floating">Name of Institution</label>
+                                                        <label for="Institution">Name of Institution</label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="disabledSelect" >
+                                                    <select class="form-select" id="Institution" name="Institution">
                                                         <option></option>
 														<?php
 				
@@ -83,27 +87,43 @@ $title = "Host Institution";
                                                 </div>
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="first-name-column">Categorise Institution</label>
+                                                        <label for="CategoriseInstitution">Categorise Institution</label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="disabledSelect">
+                                                    <select class="form-select" id="CategoriseInstitution" name="CategoriseInstitution">
 													<option></option>
-                                                        <option>Government Agency</option> 
+                                                        <?php
+				
+															$query = "SELECT * FROM LookupCategoriseInstitution WHERE IsActive = '1' ORDER BY Category asc";
+															$result = mysqli_query($conn, $query);
 
-<option>Government Sector</option> 
+															while($category = mysqli_fetch_array($result)) {
+															 echo '<option value="'.$category['ID'].'">'.ucwords($category['Category']).'</option>';
+															}
 
-<option>Industry</option> 
+														?>
+														
+                                                    </select>
+                                                </fieldset>
+                                                    </div>
+                                                </div>
+												
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="Province">Province</label>
+                                                        <fieldset class="form-group">
+                                                    <select class="form-select" id="Province" name="Province">
+													<option></option>
+                                                        <?php
+				
+															$query = "SELECT * FROM LookupProvince WHERE IsActive = '1' ORDER BY Name asc";
+															$result = mysqli_query($conn, $query);
 
-<option>Museum</option> 
+															while($province = mysqli_fetch_array($result)) {
+															 echo '<option value="'.$province['ID'].'">'.ucwords($province['Name']).'</option>';
+															}
 
-<option>National Facility</option> 
-
-<option>Public and Private Universities</option> 
-
-<option>Research Institute</option> 
-
-<option>Science Centre</option> 
-
-<option>Science Council</option>
+														?>
 														
                                                     </select>
                                                 </fieldset>
@@ -112,49 +132,9 @@ $title = "Host Institution";
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        
-                                        <label for="exampleFormControlTextarea1" class="form-label">Work Postal Address (excluding department) </label>
-                                        <textarea class="form-control" id="exampleFormControlTextarea1"
-                                            rows="3"></textarea>
-                                    
-                                                    </div>
-                                                </div>
-												
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="first-name-column">Province</label>
+                                                        <label for="HostedInternsBefore">Have you previously hosted DST interns?</label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="disabledSelect">
-													<option></option>
-                                                        <option>Eastern Cape</option> 
-
-<option>Free State</option> 
-
-<option>Gauteng</option> 
-
-<option>KwaZulu-Natal</option> 
-
-<option>Limpopo</option> 
-
-<option>Mpumalanga</option> 
-
-<option>North West</option> 
-
-<option>Northern Cape</option> 
-
-<option>Western Cape</option>
-														
-                                                    </select>
-                                                </fieldset>
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="country-floating">Have you previously hosted DST/NRF interns from the 2018/19 and 2019/20 cohorts?</label>
-                                                        <fieldset class="form-group">
-                                                    <select class="form-select" id="disabledSelect">
+                                                    <select class="form-select" id="HostedInternsBefore" name="HostedInternsBefore">
                                                         <option></option>
                                                         <option>Yes</option>
                                                         <option>No</option>
@@ -163,34 +143,24 @@ $title = "Host Institution";
                                                     </div>
                                                 </div>
 												
+								
 												
-												
-												<div class="col-md-6 col-12">
+												<div class="col-md-6 col-12"  id="internsHistory" <?php if(@$UserHostedInternsBefore == '' || @$UserHostedInternsBefore == 'No'){ echo 'style="display:none;"';} ?>>
                                                     <div class="form-group">
-                                                        <label for="first-name-column">Number of interns hosted</label>
-                                                        <input type="number" id="first-name-column" class="form-control"
-                                                             name="fname-column">
+                                                        <label for="NumberOfInternsHosted">Provide details of previous host</label>
+
+															 <textarea class="form-control" id="NumberOfInternsHosted" name="NumberOfInternsHosted" 
+                                            rows="3" placeholder="Capture historical data e.g. specify number of interns hosted, year hosted, status post the internship."><?php echo @$UserNumberOfInternsHosted; ?></textarea>
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="country-floating">Do you have sufficient or adequate resources?</label>
-                                                        <fieldset class="form-group">
-                                                    <select class="form-select" id="disabledSelect">
-                                                        <option></option>
-                                                        <option>Yes</option>
-                                                        <option>No</option>
-                                                    </select>
-                                                </fieldset>
-                                                    </div>
-                                                </div>
+												
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="country-floating">List the basic available resources</label>
+                                                        <label for="SufficientResources">Do you have sufficient or adequate resources?</label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="disabledSelect">
+                                                    <select class="form-select" id="SufficientResources" name="SufficientResources">
                                                         <option></option>
                                                         <option>Yes</option>
                                                         <option>No</option>
@@ -203,15 +173,18 @@ $title = "Host Institution";
 												<div class="col-md-6 mb-4">
                                                 
                                                 <div class="form-group">
-												<label for="country-floating">List the basic available resources</label>
-                                                    <select class="choices form-select" multiple="multiple">
-                                                        <option value="square">Square</option>
-                                                        <option value="rectangle">Rectangle</option>
-                                                        <option value="rombo">Rombo</option>
-                                                        <option value="romboid">Romboid</option>
-                                                        <option value="trapeze">Trapeze</option>
-                                                        <option value="traible">Triangle</option>
-                                                        <option value="polygon">Polygon</option>
+												<label for="Resources">List the basic available resources</label>
+                                                    <select class="choices form-select" multiple="multiple" id="Resources" name="Resources">
+                                                        <?php
+				
+															$query = "SELECT * FROM LookupResources WHERE IsActive = '1' ORDER BY Resource asc";
+															$result = mysqli_query($conn, $query);
+
+															while($resource = mysqli_fetch_array($result)) {
+															 echo '<option value="'.$resource['ID'].'">'.ucwords($resource['Resource']).'</option>';
+															}
+
+														?>
                                                     </select>
                                                 </div>
                                             </div>
@@ -224,9 +197,9 @@ $title = "Host Institution";
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="first-name-column">Faculty</label>
-                                                        <input type="text" id="first-name-column" class="form-control"
-                                                             name="fname-column">
+                                                        <label for="Faculty">Faculty</label>
+                                                        <input type="text" id="Faculty" class="form-control"
+                                                             name="Faculty">
                                                     </div>
                                                 </div>
 											
@@ -236,8 +209,8 @@ $title = "Host Institution";
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         
-                                        <label for="exampleFormControlTextarea1" class="form-label">Work Postal Address (excluding department) </label>
-                                        <textarea class="form-control" id="exampleFormControlTextarea1"
+                                        <label for="PostalAddress" class="form-label">Work Postal Address (excluding department) </label>
+                                        <textarea class="form-control" id="PostalAddress" name="PostalAddress"
                                             rows="3"></textarea>
                                     
                                                     </div>
@@ -252,66 +225,66 @@ $title = "Host Institution";
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="last-name-column">Postal Code</label>
-                                                        <input type="text" id="last-name-column" class="form-control"
-                                                             name="lname-column">
+                                                        <label for="PostalCode">Postal Code</label>
+                                                        <input type="text" id="PostalCode" class="form-control"
+                                                             name="PostalCode">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="last-name-column">Primary Telephone Number</label>
-                                                        <input type="text" id="last-name-column" class="form-control"
-                                                             name="lname-column">
+                                                        <label for="TelephoneNumber">Primary Telephone Number</label>
+                                                        <input type="text" id="TelephoneNumber" class="form-control"
+                                                             name="TelephoneNumber">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="last-name-column">Fax Number</label>
-                                                        <input type="text" id="last-name-column" class="form-control"
-                                                             name="lname-column">
+                                                        <label for="FaxNumber">Fax Number</label>
+                                                        <input type="text" id="FaxNumber" class="form-control"
+                                                             name="FaxNumber">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="last-name-column">Mobile Number</label>
-                                                        <input type="text" id="last-name-column" class="form-control"
-                                                             name="lname-column">
+                                                        <label for="MobileNumber">Mobile Number</label>
+                                                        <input type="text" id="MobileNumber" class="form-control"
+                                                             name="MobileNumber">
                                                     </div>
                                                 </div>
 												
 												
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="email-id-column">Primary Email Address</label>
-                                                        <input type="email" id="email-id-column" class="form-control"
-                                                            name="email-id-column">
+                                                        <label for="PrimaryEmail">Primary Email Address</label>
+                                                        <input type="email" id="PrimaryEmail" class="form-control"
+                                                            name="PrimaryEmail">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="email-id-column">Confirm Primary Email Address</label>
-                                                        <input type="email" id="email-id-column" class="form-control"
-                                                            name="email-id-column">
+                                                        <label for="ConfirmPrimaryEmail">Confirm Primary Email Address</label>
+                                                        <input type="email" id="ConfirmPrimaryEmail" class="form-control"
+                                                            name="ConfirmPrimaryEmail">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="email-id-column">Alternate Email Address</label>
-                                                        <input type="email" id="email-id-column" class="form-control"
-                                                            name="email-id-column">
+                                                        <label for="AlternateEmail">Alternate Email Address</label>
+                                                        <input type="email" id="AlternateEmail" class="form-control"
+                                                            name="AlternateEmail">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="country-floating">Web Address</label>
-                                                        <input type="text" id="country-floating" class="form-control"
-                                                            name="country-floating">
+                                                        <label for="WebAddress">Web Address</label>
+                                                        <input type="text" id="WebAddress" class="form-control"
+                                                            name="WebAddress">
                                                     </div>
                                                 </div>
 												
@@ -321,8 +294,16 @@ $title = "Host Institution";
                                                         <fieldset class="form-group">
                                                     <select class="form-select" id="disabledSelect">
                                                         <option></option>
-                                                        <option>Yes</option>
-                                                        <option>No</option>
+                                                        <?php
+				
+															$query = "SELECT * FROM LookupCountry WHERE IsActive = '1' ORDER BY Country asc";
+															$result = mysqli_query($conn, $query);
+
+															while($country = mysqli_fetch_array($result)) {
+															 echo '<option value="'.$country['ID'].'">'.ucwords($country['Country']).'</option>';
+															}
+
+														?>
                                                     </select>
                                                 </fieldset>
                                                     </div>
@@ -334,21 +315,30 @@ $title = "Host Institution";
                                                         <fieldset class="form-group">
                                                     <select class="form-select" id="disabledSelect">
                                                         <option></option>
-                                                        <option>Red</option>
-                                                        <option>Blue</option>
+                                                        <?php
+				
+															$query = "SELECT * FROM LookupProvince WHERE IsActive = '1' ORDER BY Name asc";
+															$result = mysqli_query($conn, $query);
+
+															while($province = mysqli_fetch_array($result)) {
+															 echo '<option value="'.$province['ID'].'">'.ucwords($province['Name']).'</option>';
+															}
+
+														?>
                                                     </select>
                                                 </fieldset>
                                                     </div>
                                                 </div>
 												
-                               
-                                                <div class="col-12 d-flex justify-content-end">
+												
+                                                
+                                            </div>
+											<div class="col-12 d-flex justify-content-end">
                                                     <button type="submit"
                                                         class="btn btn-primary me-1 mb-1">Submit</button>
                                                     <button type="reset"
                                                         class="btn btn-light-secondary me-1 mb-1">Reset</button>
                                                 </div>
-                                            </div>
                                         </form>
                                     </div>
                                 </div>
@@ -373,3 +363,31 @@ $title = "Host Institution";
 </body>
 
 </html>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript">
+ $(document).ready(function(){
+	
+	
+	
+
+$('#HostedInternsBefore').change(function() {
+	var val = $(this).val();
+    if(val === "Yes") {
+		$('#internsHistory').show();
+	}else{
+		$('#internsHistory').hide();
+	}
+});
+
+$('#InterestedInHosting').change(function() {
+	var val = $(this).val();
+    if(val === "Yes") {
+		$('.mainDetails').show();
+	}else{
+		$('.mainDetails').hide();
+	}
+});
+
+
+});
+</script>
