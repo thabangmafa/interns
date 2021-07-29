@@ -27,7 +27,7 @@ if(isset($_POST["order"]))
 }
 else
 {
- $query .= 'ORDER BY Name ASC ';
+ $query .= 'ORDER BY IsActive DESC, Name ASC ';
 }
 
 $query1 = '';
