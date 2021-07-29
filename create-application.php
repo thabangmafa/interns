@@ -76,6 +76,7 @@ if(isset($_POST['CALLID']))
 										<th>Description</th>
 										<th>Open Date</th>
 										<th>Closing Date</th>
+										<th>Requirements Document</th>
 										<th>Create</th>
                                     </tr>
                                 </thead>
@@ -83,15 +84,22 @@ if(isset($_POST['CALLID']))
                                     
 									<?php
 				
-										$query = "SELECT * FROM HostInstitutionCalls WHERE IsActive = '1' AND ID not in (SELECT CallID FROM UserApplications WHERE UserID = '".$_SESSION['id']."')";
+										$query = "SELECT * FROM HostInstitutionCalls WHERE IsActive = '1' AND `ClosingDate` >= CURDATE() AND ID not in (SELECT CallID FROM UserApplications WHERE UserID = '".$_SESSION['id']."')";
 										$result = mysqli_query($conn, $query);
 
 										while($calls = mysqli_fetch_array($result)) {
+										
+										$appReq = 'No Document';
+										 if($calls["ApplicantRequirementsFile"]){
+											 $appReq = '<a target="_blank" href="uploads/calls/'.$calls["ID"].'/'.$calls["ApplicantRequirementsFile"].'">Open Document</a>';
+										 }	
+										
 										echo '<tr>';
 											 echo '<td>' . $calls['Title'] . '</td>';
 											 echo '<td>' . $calls['Description'] . '</td>';
 											 echo '<td>' . $calls['OpenDate'] . '</td>';
 											 echo '<td>' . $calls['ClosingDate'] . '</td>';
+											 echo '<td>' . $appReq . '</td>';
 											 echo '<td><div class="icon dripicons-enter" data-id="'.$calls["ID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div></td>';
 											 echo '</tr>';
 										}
