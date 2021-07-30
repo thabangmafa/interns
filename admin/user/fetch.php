@@ -12,56 +12,29 @@ left join LookupInstitutions c on c.InstitutionId = e.CurrentOrganisation
 left join users d on d.UserID = a.UserID
 WHERE a.UserID = '".$_SESSION["id"]."'";
 
+
+$query = "SELECT * FROM LookupInstitutions
+
+WHERE InstitutionId = '".$_POST["InstitutionID"]."'";
+
 $result = mysqli_query($conn,$query);
 $row = mysqli_fetch_array($result);
 $data = array();
 
 
-if(isset($_POST["rowid"]))
+if(isset($_POST["CallID"]) && isset($_POST["InstitutionID"]))
 {
 
-	echo '<input type="hidden" id="CALLID" class="form-control" name="CALLID" value="' . $_POST["rowid"] . '">';
+	echo '<input type="hidden" id="CALLID" class="form-control" name="CALLID" value="' . $_POST["CallID"] . '">';
+	echo '<input type="hidden" id="InstitutionID" class="form-control" name="InstitutionID" value="' . $_POST["InstitutionID"] . '">';
 	echo '<div class="row">
 											<table>
 											<tr>
-												<td>Title</td>
-												<td>'.$row["Title"].'</td>
+												<td>Institution</td>
+												<td>'.$row["Name"].'</td>
 											</tr>
-											<tr>
-												<td>Surname</td>
-												<td>'.$row["LastName"].'</td>
-											</tr>
-											<tr>
-												<td>Initials</td>
-												<td>'.$row["Initials"].'</td>
-											</tr>
-											<tr>
-												<td>First Name</td>
-												<td>'.$row["FirstName"].'</td>
-											</tr>
-											<tr>
-												<td>ID/Passport Number</td>
-												<td>'.$row["IDNumber"].'</td>
-											</tr>
-											<tr>
-												<td>Primary Email Address</td>
-												<td>'.$row["Email"].'</td>
-											</tr>
-											<tr>
-												<td>Mobile Number</td>
-												<td>'.$row["MobileNumber"].'</td>
-											</tr>
-											<tr>
-												<td>Primary Telephone Number</td>
-												<td>'.$row["TelephoneNumber"].'</td>
-											</tr>
-											<tr>
-												<td>Current Organisation</td>
-												<td>'.$row["Institution"].'</td>
-											</tr>
+											
 											</table>
-											
-											
 
                                             </div>';
 	

@@ -97,7 +97,7 @@ $query = "SELECT * FROM UserDisability
                                 <i class="bi bi-stack <?php if($menu_item == "7"){ echo "active"; } ?>"></i>
                                 <span>My Progress Reports</span>
                             </a>
-                            <ul class="submenu <?php if($menu_item == "5"){ echo "active"; } ?>">
+                            <ul class="submenu <?php if($menu_item == "7"){ echo "active"; } ?>">
 							
 								<li class="submenu-item <?php if($title == "Create Progress Report"){ echo "active"; } ?>">
                                     <a href="create-progress-report.php">Create Progress Report</a>
@@ -160,63 +160,60 @@ $query = "SELECT * FROM UserDisability
                                 <i class="bi bi-stack <?php if($menu_item == "6"){ echo "active"; } ?>"></i>
                                 <span>Manage Components</span>
                             </a>
-                            <ul class="submenu <?php if($menu_item == "6"){ echo "active"; } ?>"">
+                            <ul class="submenu <?php if($menu_item == "6"){ echo "active"; } ?>">
                                 <li class="submenu-item ">
-                                    <a href="extra-component-avatar.html">Countries</a>
+                                    <a href="#">Countries</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="extra-component-sweetalert.html">Provices</a>
+                                    <a href="#">Provices</a>
                                 </li>
                                 <li class="submenu-item <?php if($title == "Host Institutions"){ echo "active"; } ?>">
                                     <a href="institutions.php">Host Institutions</a>
                                 </li>
-								<li class="submenu-item <?php if($title == "Funding Opportunities"){ echo "active"; } ?>">
-                                    <a href="funding-opportunities.php">Funding Opportunities</a>
+                                <li class="submenu-item ">
+                                    <a href="#">Languages</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="extra-component-rating.html">Languages</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="extra-component-divider.html">Titles</a>
+                                    <a href="#">Titles</a>
                                 </li>
 								<li class="submenu-item ">
-                                    <a href="extra-component-divider.html">Qualification Status</a>
+                                    <a href="#">Qualification Status</a>
                                 </li>
 								<li class="submenu-item ">
-                                    <a href="extra-component-divider.html">Citizenship Status</a>
+                                    <a href="#">Citizenship Status</a>
                                 </li>
 								<li class="submenu-item ">
-                                    <a href="extra-component-divider.html">ID Types</a>
+                                    <a href="#">ID Types</a>
                                 </li>
 								<li class="submenu-item ">
-                                    <a href="extra-component-divider.html">Race</a>
+                                    <a href="#">Race</a>
                                 </li>
 								<li class="submenu-item ">
-                                    <a href="extra-component-divider.html">Gender</a>
+                                    <a href="#">Gender</a>
                                 </li>
 								<li class="submenu-item ">
-                                    <a href="extra-component-divider.html">Institution Categories</a>
+                                    <a href="#">Institution Categories</a>
                                 </li>
 								<li class="submenu-item ">
-                                    <a href="extra-component-divider.html">Basic Available Resources</a>
+                                    <a href="#">Basic Available Resources</a>
                                 </li>
 								<li class="submenu-item ">
-                                    <a href="extra-component-divider.html">Sector</a>
+                                    <a href="#">Sector</a>
                                 </li>
 								<li class="submenu-item ">
-                                    <a href="extra-component-divider.html">Career Profile Type</a>
+                                    <a href="#">Career Profile Type</a>
                                 </li>
 								<li class="submenu-item ">
-                                    <a href="extra-component-divider.html">Funding Period</a>
+                                    <a href="#">Funding Period</a>
                                 </li>
 								<li class="submenu-item ">
-                                    <a href="extra-component-divider.html">Discipline (of degree to be funded)</a>
+                                    <a href="#">Discipline (of degree to be funded)</a>
                                 </li>
 								<li class="submenu-item ">
-                                    <a href="extra-component-divider.html">Completion time for undergraduate degree</a>
+                                    <a href="#">Completion time for undergraduate degree</a>
                                 </li>
 								<li class="submenu-item ">
-                                    <a href="extra-component-divider.html">Language Proficiency</a>
+                                    <a href="#">Language Proficiency</a>
                                 </li>
                             </ul>
                         </li>

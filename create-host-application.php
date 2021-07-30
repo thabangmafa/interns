@@ -53,11 +53,8 @@ if(isset($_POST['CallID']))
                                 <div class="card-header alert alert-primary alert-dismissible fade show">
                                     <ul>
 									<li>Check your intended institution’s internal closing date as it will be prior to the closing date listed for applications, where applicable.</li>
-<li>A timeout will appear when there is no activity on the system for 25 minutes. Click on the refresh button (in the popup box) as this will enable the continuation/completion of the application. When clicking on the close button the system will close.</li>
-<li>Due to potential international review of applications and progress reports, the NRF requires that all applications and progress reports be completed in English.</li>
-<li>Please consult the Funding Framework and Funding & Application Guide for more information to assist you in your choices. These documents can be accessed at https://www.nrf.ac.za/funding/framework-documents.</li>
-<li>Ensure that you complete or update your CV. This is very important as applications without an updated CV will not be considered.</li>
-<li>Please ensure that you update your CV before creating a application/progress report to ensure that the latest information reflects on the progress report.</li></ul>
+									<li>Due to potential international review of applications and progress reports, the HSRC requires that all applications and progress reports be completed in English.</li>
+									<li>Please consult the Funding Framework and Funding & Application Guide for more information to assist you in your choices. These documents can be accessed on the FAQ section.</li>
                                 </div>
                                 <div class="card-content">
 								<?php if(@$message){ ?>	
@@ -67,54 +64,32 @@ if(isset($_POST['CallID']))
                                         <form class="form">
                                             <div class="row">
 											
-											
-											
-												<table class="table table-striped" id="table1">
-                                <thead>
-                                    <tr>
-                                        <th>Title</th>
-										<th>Description</th>
-										<th>Open Date</th>
-										<th>Closing Date</th>
-										<th>Requirements Document</th>
-										<th>Create</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-									<?php
+											<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="Organisation">Select organisation applying for</label>
+                                                        <fieldset class="form-group">
+                                                    <select class="form-select" id="Organisation" name="Organisation" required="required">
+													<option value="N/A"></option>
+                                                        <?php
 				
-										$query = "SELECT HostInstitutionCalls.*, d.* FROM HostInstitutionCalls 
-										left join `CallInstitutionLink` d on d.CallID = HostInstitutionCalls.ID 
-										WHERE d.ID != '' AND d.InstitutionID is not null and
-										HostInstitutionCalls.IsActive = 1
-										AND HostRequirementsFile != '' 
-										AND HostRequirementsFile IS NOT NULL 
-										AND ApplicantRequirementsFile != '' 
-										AND ApplicantRequirementsFile IS NOT NULL 
-										AND `HostSubmissionDueDate` >= CURDATE()";
-										$result = mysqli_query($conn, $query);
+															$query = "SELECT b.* FROM HostAdministrator a
+																		left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = '1'
+																		WHERE a.IsActive = '1' and a.UserID = '3' ORDER BY Name asc";
+															$result = mysqli_query($conn, $query);
+															
 
-										while($calls = mysqli_fetch_array($result)) {
-											
-										$appReq = 'No Document';
-										 if($calls["HostRequirementsFile"]){
-											 $appReq = '<a target="_blank" href="uploads/calls/'.$calls["ID"].'/'.$calls["HostRequirementsFile"].'">Open Document</a>';
-										 }	
-										 
-										echo '<tr>';
-											 echo '<td>' . $calls['Title'] . '</td>';
-											 echo '<td>' . $calls['Description'] . '</td>';
-											 echo '<td>' . $calls['OpenDate'] . '</td>';
-											 echo '<td>' . $calls['HostSubmissionDueDate'] . '</td>';
-											 echo '<td>' . $appReq . '</td>';
-											 echo '<td><div class="icon dripicons-enter" data-id="'.$calls["ID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div></td>';
-											 echo '</tr>';
-										}
+															while($institution = mysqli_fetch_array($result)) {
+															 echo '<option value="'.$institution['InstitutionId'].'">'.ucwords($institution['Name']).'</option>';
+															}
 
-									?>
-                                </tbody>
-                            </table>
+														?>
+                                                    </select>
+                                                </fieldset>
+                                                    </div>
+													
+                                                </div>			
+											<div class="showCalls"></div>
+												
 												
 							
                                         </form>
@@ -225,20 +200,36 @@ if(isset($_POST['CallID']))
 	 
 
     $('#capture-new').on('show.bs.modal', function (e) {
-        var rowid = $(e.relatedTarget).data('id');
-	
+        var CallID = $(e.relatedTarget).data('callid');
+		var InstitutionID = $(e.relatedTarget).data('institutionid');
         $.ajax({
             type : 'post',
             url : 'admin/user/fetch.php', //Here you will fetch records 
-            data :  'rowid='+ rowid, //Pass $id
+            data :  {CallID:CallID, InstitutionID:InstitutionID}, //Pass $id
             success : function(data){
             $('.fetched-data').html(data);//Show fetched data from database
-			if(rowid == '000'){
+			if(CallID == '000'){
 				$('#updateHost').attr('id', 'insert');
 			}
 			
             }
         });
+     });
+	 
+	 
+	  $('#Organisation').change(function() {
+		var val = $(this).val();
+		if(val != ''){
+        $.ajax({
+            type : 'post',
+            url : 'admin/user/fetchCalls.php', //Here you will fetch records 
+            data :  'rowid='+ val, //Pass $id
+            success : function(data){
+            $('.showCalls').html(data);//Show fetched data from database
+			
+            }
+        });
+		}
      });
 	 
   
