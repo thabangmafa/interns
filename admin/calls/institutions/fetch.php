@@ -19,12 +19,12 @@ WHEN a.IsActive = 1 AND HostRequirementsFile != '' AND ApplicantRequirementsFile
 c.StatusId,c.Status as IsActive, e.Name as Budgy FROM HostInstitutionCalls a 
 left join `LookupIsActive` c on c.`StatusId` = a.`IsActive` 
 left join `LookupBudgetYear` e on e.`ID` = a.`BudgetYear`
-left join `CallInstitutionLink` d on d.CallID = a.ID";
+left join `CallInstitutionLink` d on d.CallID = a.ID AND d.Status = 'Active'";
 
 if(isset($_POST["search"]["value"]))
 {
  $query .= '
- WHERE Title LIKE "%'.$_POST["search"]["value"].'%" || Status LIKE "%'.$_POST["search"]["value"].'%" || Description LIKE "%'.$_POST["search"]["value"].'%"';
+ WHERE Title LIKE "%'.$_POST["search"]["value"].'%" || c.Status LIKE "%'.$_POST["search"]["value"].'%" || Description LIKE "%'.$_POST["search"]["value"].'%"';
 }
 
 if(isset($_POST["rowid"]))

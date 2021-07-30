@@ -8,7 +8,7 @@ $columns = array('BudgetYear', 'Title', 'IsActive');
 $query = "SELECT * FROM `CallInstitutionLink` a
 left join LookupInstitutions b on b.InstitutionId = a.InstitutionID
 
-WHERE CALLID = '".$_POST["rowid"]."' ";
+WHERE CALLID = '".$_POST["rowid"]."' AND a.Status = 'Active'";
 
 $result = mysqli_query($conn,$query);
 

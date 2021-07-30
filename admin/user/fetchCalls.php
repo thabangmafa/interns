@@ -14,6 +14,7 @@ $query = "SELECT HostInstitutionCalls.*, d.* FROM HostInstitutionCalls
 										AND ApplicantRequirementsFile != '' 
 										AND ApplicantRequirementsFile IS NOT NULL 
 										AND `HostSubmissionDueDate` >= CURDATE()
+										AND d.Status = 'Active'
 										AND InstitutionID != '".$_POST["rowid"]."'";
 
 $result = mysqli_query($conn,$query);
@@ -83,6 +84,7 @@ function get_all_data($conn)
 										AND ApplicantRequirementsFile != '' 
 										AND ApplicantRequirementsFile IS NOT NULL 
 										AND `HostSubmissionDueDate` >= CURDATE()
+										AND d.Status = 'Active'
 										AND InstitutionID != '".$_POST["rowid"]."'";
  $result = mysqli_query($conn,$query);
  return $result->num_rows;

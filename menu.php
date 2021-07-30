@@ -86,7 +86,7 @@ $query = "SELECT * FROM UserDisability
                                 </li>
 								
 								<li class="submenu-item <?php if($title == "List of Applications"){ echo "active"; } ?>">
-                                    <a href="list-applications.php">List of Applications</a>
+                                    <a href="list-applications.php">My Applications</a>
                                 </li>
 								
                             </ul>
@@ -120,7 +120,7 @@ $query = "SELECT * FROM UserDisability
                                     <a href="create-host-application.php">Create Host Application</a>
                                 </li>
 								<li class="submenu-item <?php if($title == "List of Applications"){ echo "active"; } ?>">
-                                    <a href="list-host-applications.php">List of Applications</a>
+                                    <a href="list-host-applications.php">My Applications</a>
                                 </li>
                                 <!--li class="submenu-item <?php if($title == "Registration Details"){ echo "active"; } ?>">
                                     <a href="user-registration.php">Call Information Documents</a>
