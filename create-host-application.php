@@ -92,7 +92,7 @@ if(isset($_POST['CallID']))
 										AND HostRequirementsFile IS NOT NULL 
 										AND ApplicantRequirementsFile != '' 
 										AND ApplicantRequirementsFile IS NOT NULL 
-										AND `ClosingDate` >= CURDATE()";
+										AND `HostSubmissionDueDate` >= CURDATE()";
 										$result = mysqli_query($conn, $query);
 
 										while($calls = mysqli_fetch_array($result)) {
@@ -106,7 +106,7 @@ if(isset($_POST['CallID']))
 											 echo '<td>' . $calls['Title'] . '</td>';
 											 echo '<td>' . $calls['Description'] . '</td>';
 											 echo '<td>' . $calls['OpenDate'] . '</td>';
-											 echo '<td>' . $calls['ClosingDate'] . '</td>';
+											 echo '<td>' . $calls['HostSubmissionDueDate'] . '</td>';
 											 echo '<td>' . $appReq . '</td>';
 											 echo '<td><div class="icon dripicons-enter" data-id="'.$calls["ID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div></td>';
 											 echo '</tr>';
