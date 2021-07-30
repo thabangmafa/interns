@@ -298,13 +298,13 @@ $title = "";
 <?php
 //include 'admin/connect.php';
 $conn = OpenCon();
-$query = "SELECT count(*) disabled FROM UserDisability WHERE disability = 'Yes'";
+$query = "SELECT count(*) disabled FROM RegistrationDetails WHERE Disability = 'Yes'";
 $result = mysqli_query($conn, $query);
 
 $row = mysqli_fetch_array($result);
 $disabled = $row['disabled'];	
 
-$query = "SELECT count(*) notdisabled FROM UserDisability WHERE disability = 'No'";
+$query = "SELECT count(*) notdisabled FROM RegistrationDetails WHERE Disability = 'No'";
 $result = mysqli_query($conn, $query);
 
 $row = mysqli_fetch_array($result);

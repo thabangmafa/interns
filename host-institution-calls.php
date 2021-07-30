@@ -51,7 +51,7 @@ $title = "Manage Calls";
                                             <div class="row">
 							<div id="alert_message"></div>				
 							<div class="col-12 d-flex justify-content-end">
-								<button type="button" name="new" id="new" class="btn btn-primary me-1 mb-1" data-id="000" data-bs-toggle="modal" data-bs-target="#manage_institution">Add Host Institution Call</button>
+								<button type="button" name="new" id="new" class="btn btn-primary me-1 mb-1" data-id="000" data-bs-toggle="modal" data-bs-target="#manage_institution">Add New Call</button>
 							</div>								
 
 							<table id="user_data" class="table table-bordered table-striped">
@@ -73,7 +73,7 @@ $title = "Manage Calls";
 											
 							
 							<div class="col-12 d-flex justify-content-end">
-								<button type="button" name="new" id="new" class="btn btn-primary me-1 mb-1" data-id="000" data-bs-toggle="modal" data-bs-target="#manage_institution">Add Host Institution Call</button>
+								<button type="button" name="new" id="new" class="btn btn-primary me-1 mb-1" data-id="000" data-bs-toggle="modal" data-bs-target="#manage_institution">Add New Call</button>
 			
 							</div>
 							
@@ -88,7 +88,7 @@ $title = "Manage Calls";
                                                             <div class="modal-content">
                                                                 <div class="modal-header bg-success">
                                                                     <h5 class="modal-title white" id="myModalLabel160">
-                                                                        Add Host Institution Call
+                                                                        Add New Call
                                                                     </h5>
                                                                     <button type="button" class="close"
                                                                         data-bs-dismiss="modal" aria-label="Close">
