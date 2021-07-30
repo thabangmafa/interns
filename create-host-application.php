@@ -5,11 +5,11 @@ $menu_item = "3";
 $title = "Create Host Application";
 
 
-if(isset($_POST['CallID']))
+if(isset($_POST['InstitutionID']))
 {
-	$InsertApplication = "INSERT INTO HostApplications (InstitutionID, CallID, UserID)VALUES('".$_POST['InstitutionID']."','".$_POST['CallID']."','".$_SESSION['id']."')";
+	$InsertApplication = "INSERT INTO HostApplications (InstitutionID, CallID, UserID)VALUES('".$_POST['InstitutionID']."','".$_POST['CALLID']."','".$_SESSION['id']."')";
 	
-	 if(mysqli_query($conn,$InsertCall))
+	 if(mysqli_query($conn,$InsertApplication))
 	 {
 		$message = 'Application Submitted Successful';
 	 }else{
@@ -74,7 +74,7 @@ if(isset($_POST['CallID']))
 				
 															$query = "SELECT b.* FROM HostAdministrator a
 																		left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = '1'
-																		WHERE a.IsActive = '1' and a.UserID = '3' ORDER BY Name asc";
+																		WHERE a.IsActive = '1' and a.UserID = '".$_SESSION['id']."' ORDER BY Name asc";
 															$result = mysqli_query($conn, $query);
 															
 
@@ -119,7 +119,7 @@ if(isset($_POST['CallID']))
                                                         
 														<div class="modal-header bg-success">
                                                                     <h5 class="modal-title white" id="myModalLabel160">
-                                                                        Registration Details
+                                                                        Apply for Hosting
                                                                     </h5>
                                                                     <button type="button" class="close"
                                                                         data-bs-dismiss="modal" aria-label="Close">
