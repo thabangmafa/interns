@@ -5,9 +5,10 @@ $conn = OpenCon();
 
 $columns = array('FirstName');
 
-$query = "SELECT b.Title, a.Initials, a.FirstName, a.LastName, a.IDNumber, a.MobileNumber, a.Telephone, c.Name as Institution, d.Email FROM `RegistrationDetails` a
+$query = "SELECT b.Title, a.Initials, a.FirstName, a.LastName, a.IDNumber, e.MobileNumber, e.TelephoneNumber, c.Name as Institution, d.Email FROM `RegistrationDetails` a
+left join UserContactDetails e on e.UserID = a.UserID
 left join LookupUserTitle b on b.ID = a.Title
-left join LookupInstitutions c on c.InstitutionId = a.CurrentOrganisation 
+left join LookupInstitutions c on c.InstitutionId = e.CurrentOrganisation 
 left join users d on d.UserID = a.UserID
 WHERE a.UserID = '".$_SESSION["id"]."'";
 
@@ -52,7 +53,7 @@ if(isset($_POST["rowid"]))
 											</tr>
 											<tr>
 												<td>Primary Telephone Number</td>
-												<td>'.$row["Telephone"].'</td>
+												<td>'.$row["TelephoneNumber"].'</td>
 											</tr>
 											<tr>
 												<td>Current Organisation</td>
