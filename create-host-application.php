@@ -84,7 +84,15 @@ if(isset($_POST['CallID']))
                                     
 									<?php
 				
-										$query = "SELECT * FROM HostInstitutionCalls WHERE IsActive = '1' AND `ClosingDate` >= CURDATE()";
+										$query = "SELECT HostInstitutionCalls.*, d.* FROM HostInstitutionCalls 
+										left join `CallInstitutionLink` d on d.CallID = HostInstitutionCalls.ID 
+										WHERE d.ID != '' AND d.InstitutionID is not null and
+										HostInstitutionCalls.IsActive = 1
+										AND HostRequirementsFile != '' 
+										AND HostRequirementsFile IS NOT NULL 
+										AND ApplicantRequirementsFile != '' 
+										AND ApplicantRequirementsFile IS NOT NULL 
+										AND `ClosingDate` >= CURDATE()";
 										$result = mysqli_query($conn, $query);
 
 										while($calls = mysqli_fetch_array($result)) {

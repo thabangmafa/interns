@@ -148,7 +148,7 @@ $query = "SELECT * FROM UserDisability
                         </li>
 						
 						<li class="sidebar-item  <?php if($menu_item == "7"){ echo "active"; } ?> ">
-                            <a href="host-institution-calls.php" class='sidebar-link '>
+                            <a href="manage-calls.php" class='sidebar-link '>
                                 <i class="bi bi-stack <?php if($menu_item == "7"){ echo "active"; } ?>"></i>
                                 <span>Manage Calls</span>
                             </a>

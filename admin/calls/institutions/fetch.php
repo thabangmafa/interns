@@ -5,9 +5,17 @@ $conn = OpenCon();
 
 $columns = array('BudgetYear', 'Title', 'IsActive');
 
-$query = "SELECT distinct a.ID AS CID,a.BudgetYear,a.Title, a.OpenDate, a.ClosingDate,a.Description,a.HostRequirementsFile, a.ApplicantRequirementsFile, c.*, e.Name as Budgy FROM `HostInstitutionCalls` a 
-left join `LookupIsActive` c on c.`StatusId` = a.`IsActive`
-left join `LookupBudgetYear` e on e.`ID` = a.`BudgetYear`";
+$query = "SELECT DISTINCT a.ID AS CID, a.BudgetYear, a.Title, a.Description, a.OpenDate, a.ClosingDate, a.HostRequirementsFile, a.ApplicantRequirementsFile, 
+CASE WHEN `ClosingDate` < CURDATE() THEN 'Closed' 
+WHEN a.IsActive = 0 THEN 'Inactive' 
+WHEN d.InstitutionID = '' OR d.InstitutionID is null THEN 'Missing Institution' 
+WHEN HostRequirementsFile = '' OR HostRequirementsFile IS NULL THEN 'Missing Documents' 
+WHEN ApplicantRequirementsFile = '' OR ApplicantRequirementsFile IS NULL THEN 'Missing Documents' 
+WHEN a.IsActive = 1 AND HostRequirementsFile != '' AND ApplicantRequirementsFile != '' AND `ClosingDate` >= CURDATE() THEN 'Open' END Status , 
+c.StatusId,c.Status as IsActive, e.Name as Budgy FROM HostInstitutionCalls a 
+left join `LookupIsActive` c on c.`StatusId` = a.`IsActive` 
+left join `LookupBudgetYear` e on e.`ID` = a.`BudgetYear`
+left join `CallInstitutionLink` d on d.CallID = a.ID";
 
 if(isset($_POST["search"]["value"]))
 {
@@ -117,9 +125,9 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 			
 		echo '<div class="col-md-12 col-12">
 				<div class="form-group">
-					<label for="last-name-column">Status</label>
+					<label for="last-name-column">Is Active</label>
 					<fieldset class="form-group">
-				<select class="form-select" name="Status" id="Status">' ?>
+				<select class="form-select" name="IsActive" id="IsActive">' ?>
 
 				<?php foreach ($st as $sta){ 
 
@@ -203,13 +211,13 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 			
 		echo '<div class="col-md-12 col-12">
 				<div class="form-group">
-					<label for="last-name-column">Status</label>
+					<label for="last-name-column">Is Active</label>
 					<fieldset class="form-group">
-				<select class="form-select" name="Status" id="Status">' ?>
+				<select class="form-select" name="IsActive" id="IsActive">' ?>
 
 				<?php foreach ($st as $sta){ 
 				$select = '';
-				if($row["Status"] === $sta['Status']){
+				if($row["IsActive"] === $sta['Status']){
 					$select = 'selected="selected"';
 				}
 				echo '<option value="'.$sta['StatusId'].'" '.$select.'>'.$sta['Status'].'</option>'; 
@@ -260,9 +268,17 @@ while($row = mysqli_fetch_array($result))
 
 function get_all_data($conn)
 {
- $query = "SELECT distinct a.ID AS CID,a.BudgetYear,a.Title, a.OpenDate, a.ClosingDate,a.Description,a.HostRequirementsFile, a.ApplicantRequirementsFile, c.*, e.Name as Budgy FROM `HostInstitutionCalls` a 
-left join `LookupIsActive` c on c.`StatusId` = a.`IsActive`
-left join `LookupBudgetYear` e on e.`ID` = a.`BudgetYear`";
+ $query = "SELECT DISTINCT a.ID AS CID, a.BudgetYear, a.Title, a.Description, a.OpenDate, a.ClosingDate, a.HostRequirementsFile, a.ApplicantRequirementsFile, 
+CASE WHEN `ClosingDate` < CURDATE() THEN 'Closed' 
+WHEN a.IsActive = 0 THEN 'Inactive' 
+WHEN d.InstitutionID = '' OR d.InstitutionID is null THEN 'Missing Institution' 
+WHEN HostRequirementsFile = '' OR HostRequirementsFile IS NULL THEN 'Missing Documents' 
+WHEN ApplicantRequirementsFile = '' OR ApplicantRequirementsFile IS NULL THEN 'Missing Documents' 
+WHEN a.IsActive = 1 AND HostRequirementsFile != '' AND ApplicantRequirementsFile != '' AND `ClosingDate` >= CURDATE() THEN 'Open' END Status , 
+c.StatusId,c.Status as IsActive, e.Name as Budgy FROM HostInstitutionCalls a 
+left join `LookupIsActive` c on c.`StatusId` = a.`IsActive` 
+left join `LookupBudgetYear` e on e.`ID` = a.`BudgetYear`
+left join `CallInstitutionLink` d on d.CallID = a.ID";
 
  $result = mysqli_query($conn,$query);
  return $result->num_rows;
