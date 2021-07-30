@@ -9,7 +9,7 @@ if(isset($_POST["id"]))
  $type = mysqli_real_escape_string($conn,$_POST["type"]);
  $status = mysqli_real_escape_string($conn,$_POST["status"]);
  
- $query = "UPDATE `LookupInstitutions` SET 
+ $query = "UPDATE `InstitutionId` SET 
  Name='".$name."',
  ID='".$type."',
  IsActive='".$status."'
