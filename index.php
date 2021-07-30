@@ -141,63 +141,80 @@ $title = "";
                             <div class="col-12 col-xl-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4>Tracking of Applications</h4>
+                                        <h4>Calls</h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table class="table table-hover table-lg">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Funding Opportunity</th>
-                                                        <th>Reference</th>
-														<th>Status</th>
-														<th>Outcome Letter</th>
-														<th>Condition of Grant</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="col-3">
-                                                            <div class="d-flex align-items-center">
-                                                                
-                                                                Opportunity
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0">#10001</p>
-                                                        </td>
-														<td class="col-auto">
-                                                            <p class=" mb-0">Pending</p>
-                                                        </td>
-														<td class="col-auto">
-                                                            <p class=" mb-0">This os the letter</p>
-                                                        </td>
-														<td class="col-auto">
-                                                            <p class=" mb-0">Approved</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="col-3">
-                                                            <div class="d-flex align-items-center">
-                                                                
-                                                                Opportunity
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0">#100002</p>
-                                                        </td>
-														<td class="col-auto">
-                                                            <p class=" mb-0">Pending</p>
-                                                        </td>
-														<td class="col-auto">
-                                                            <p class=" mb-0">This os the letter</p>
-                                                        </td>
-														<td class="col-auto">
-                                                            <p class=" mb-0">Approved</p>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                            <table class="table table-striped" id="table1">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+										<th>Description</th>
+										<th>Open Date</th>
+										<th>Closing Date</th>
+										<th>Status</th>
+										<th>Documents</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+									<?php
+				
+										$query = "SELECT DISTINCT a.ID, a.BudgetYear, a.Title, a.Description, a.OpenDate, a.ClosingDate, a.HostRequirementsFile, a.ApplicantRequirementsFile, 
+													CASE WHEN `ClosingDate` < CURDATE() THEN 'Closed' 
+													WHEN a.IsActive = 0 THEN 'Inactive' 
+													WHEN d.InstitutionID = '' OR d.InstitutionID is null THEN 'Missing Institution' 
+													WHEN HostRequirementsFile = '' OR HostRequirementsFile IS NULL THEN 'Missing Documents' 
+													WHEN ApplicantRequirementsFile = '' OR ApplicantRequirementsFile IS NULL THEN 'Missing Documents' 
+													WHEN a.IsActive = 1 AND HostRequirementsFile != '' AND ApplicantRequirementsFile != '' AND `ClosingDate` >= CURDATE() THEN 'Open' END Status , 
+													c.StatusId,c.Status as IsActive, e.Name as Budgy FROM HostInstitutionCalls a 
+													left join `LookupIsActive` c on c.`StatusId` = a.`IsActive` 
+													left join `LookupBudgetYear` e on e.`ID` = a.`BudgetYear`
+													left join `CallInstitutionLink` d on d.CallID = a.ID
+										";
+										
+										 $hostReq = 'No Host Document';
+											$appReq = 'No Applicant Document';
+ 
+
+
+										
+										$result = mysqli_query($conn, $query);
+
+										while($calls = mysqli_fetch_array($result)) {
+											
+											 if($calls["HostRequirementsFile"]){
+											 $hostReq = '<a target="_blank" href="../../../uploads/calls/'.$calls["ID"].'/'.$calls["HostRequirementsFile"].'">Host Requirements</a>';
+										 }
+										 
+										 if($calls["ApplicantRequirementsFile"]){
+											 $appReq = '<a target="_blank" href="../../../uploads/calls/'.$calls["ID"].'/'.$calls["ApplicantRequirementsFile"].'">Applicant Requirements</a>';
+										 }
+											if(@$_SESSION['user_type'] == '4' && $calls['Status'] == 'Open'){
+											echo '<tr>';
+												 echo '<td>' . $calls['Title'] . '</td>';
+												 echo '<td>' . $calls['Description'] . '</td>';
+												 echo '<td>' . $calls['OpenDate'] . '</td>';
+												 echo '<td>' . $calls['ClosingDate'] . '</td>';
+												 echo '<td>' . $calls['Status'] . '</td>';
+												 echo '<td>' .$hostReq. '<br />'.$appReq. '</td>';
+												 echo '</tr>';
+											}elseif(@$_SESSION['user_type'] != '4'){
+												echo '<tr>';
+												 echo '<td>' . $calls['Title'] . '</td>';
+												 echo '<td>' . $calls['Description'] . '</td>';
+												 echo '<td>' . $calls['OpenDate'] . '</td>';
+												 echo '<td>' . $calls['ClosingDate'] . '</td>';
+												 echo '<td>' . $calls['Status'] . '</td>';
+												 echo '<td>' .$hostReq. '<br />'.$appReq. '</td>';
+												 echo '</tr>';
+												
+											}
+										}
+
+									?>
+                                </tbody>
+                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -207,10 +224,50 @@ $title = "";
                     </div>
 					
 					
-					<?php if(@$_SESSION['user_type'] == '1'){ ?>
+					
 					
                     <div class="col-12 col-lg-3">
-                        
+					<div class="card">
+                                    <div class="card-header">
+                                        <h4>Activities</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-lg">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Date</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="col-3">
+                                                            <div class="d-flex">
+                                                                <p class="mb-0">01/04/21</p>
+                                                            </div>
+                                                        </td>
+                                                        <td class="col-auto">
+                                                            <p class=" mb-0">Activity One</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="col-3">
+                                                            <div class="d-flex">
+                                                                <p class=" mb-0">04/11/21</p>
+                                                            </div>
+                                                        </td>
+                                                        <td class="col-auto">
+                                                            <p class=" mb-0">Activity Two</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+								
+                        <?php if(@$_SESSION['user_type'] == '1'){ ?>
                         <div class="card">
                             <div class="card-header">
                                 <h4>Interns Qualifications Level</h4>
@@ -227,60 +284,13 @@ $title = "";
                                 <div id="chart-visitors-profile"></div>
                             </div>
                         </div>
+						<?php } ?>
+						
 						
                     </div>
 					
-					<?php } ?>
 					
-					<div class="row">
-                            <div class="col-12 col-xl-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4>Open Funding Opportunities</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table table-hover table-lg">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Title</th>
-                                                        <th>Description</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="col-3">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="avatar avatar-md">
-                                                                    <img src="assets/images/faces/5.jpg">
-                                                                </div>
-                                                                <p class="font-bold ms-3 mb-0">Something Here</p>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0">This will be the description</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="col-3">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="avatar avatar-md">
-                                                                    <img src="assets/images/faces/2.jpg">
-                                                                </div>
-                                                                <p class="font-bold ms-3 mb-0">Something Here</p>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0">This will be the description</p>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                 </section>
             </div>
 
