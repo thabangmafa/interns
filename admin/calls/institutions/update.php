@@ -11,7 +11,11 @@ $update = '';
  $OpenDate = mysqli_real_escape_string($conn,$_POST["OpenDate"]);
  $ClosingDate = mysqli_real_escape_string($conn,$_POST["ClosingDate"]);
  $UpdatedBy = $_SESSION['id'];
- $status = mysqli_real_escape_string($conn,$_POST["Status"]);
+ $status = mysqli_real_escape_string($conn,$_POST["IsActive"]);
+ $HostSubmissionDueDate = mysqli_real_escape_string($conn,$_POST["HostSubmissionDueDate"]);
+$InternsApplicationDueDate = mysqli_real_escape_string($conn,$_POST["InternsApplicationDueDate"]);
+$InternshipStartDate = mysqli_real_escape_string($conn,$_POST["InternshipStartDate"]);
+$InternshipEndDate = mysqli_real_escape_string($conn,$_POST["InternshipEndDate"]);
 
  
  if(isset($_FILES['HostRequirementsFile']['name'])){
@@ -81,7 +85,11 @@ $query = "UPDATE `HostInstitutionCalls` SET
  ClosingDate='".$ClosingDate."',
  ".$update."
  UpdatedBy='".$UpdatedBy."',
- IsActive='".$status."'
+ IsActive='".$status."',
+ HostSubmissionDueDate='".$HostSubmissionDueDate."',
+	InternsApplicationDueDate='".$InternsApplicationDueDate."',
+	InternshipStartDate='".$InternshipStartDate."',
+	InternshipEndDate='".$InternshipEndDate."'
  WHERE ID = '".$_POST["ID"]."'";
  
 

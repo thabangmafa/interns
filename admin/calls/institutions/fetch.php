@@ -5,7 +5,11 @@ $conn = OpenCon();
 
 $columns = array('BudgetYear', 'Title', 'IsActive');
 
-$query = "SELECT DISTINCT a.ID AS CID, a.BudgetYear, a.Title, a.Description, a.OpenDate, a.ClosingDate, a.HostRequirementsFile, a.ApplicantRequirementsFile, 
+$query = "SELECT DISTINCT a.ID AS CID, a.BudgetYear, a.Title, a.Description, a.OpenDate, a.ClosingDate, a.HostRequirementsFile, a.ApplicantRequirementsFile,
+a.HostSubmissionDueDate,
+a.InternsApplicationDueDate,
+a.InternshipStartDate,
+a.InternshipEndDate, 
 CASE WHEN `ClosingDate` < CURDATE() THEN 'Closed' 
 WHEN a.IsActive = 0 THEN 'Inactive' 
 WHEN d.InstitutionID = '' OR d.InstitutionID is null THEN 'Missing Institution' 
@@ -121,6 +125,34 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 					<input type="date" id="ClosingDate" class="form-control" name="ClosingDate" value="" required="required">
 				</div>
 			</div>';
+			
+			echo '<div class="col-md-12 col-12">
+				<div class="form-group">
+					<label for="HostSubmissionDueDate">Host Submission Due Date</label>
+					<input type="date" id="HostSubmissionDueDate" class="form-control" name="HostSubmissionDueDate" value="" required="required">
+				</div>
+			</div>';
+			
+			echo '<div class="col-md-12 col-12">
+				<div class="form-group">
+					<label for="InternsApplicationDueDate">Interns Application Due Date</label>
+					<input type="date" id="InternsApplicationDueDate" class="form-control" name="InternsApplicationDueDate" value="" required="required">
+				</div>
+			</div>';
+			
+			echo '<div class="col-md-12 col-12">
+				<div class="form-group">
+					<label for="InternshipStartDate">Internship Start Date</label>
+					<input type="date" id="InternshipStartDate" class="form-control" name="InternshipStartDate" value="" required="required">
+				</div>
+			</div>';
+			
+			echo '<div class="col-md-12 col-12">
+				<div class="form-group">
+					<label for="InternshipEndDate">Internship End Date</label>
+					<input type="date" id="InternshipEndDate" class="form-control" name="InternshipEndDate" value="" required="required">
+				</div>
+			</div>';
 						
 			
 		echo '<div class="col-md-12 col-12">
@@ -195,6 +227,34 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				<div class="form-group">
 					<label for="first-name-column">Closing Date</label>
 					<input type="date" id="ClosingDate" class="form-control" name="ClosingDate" value="' . $row["ClosingDate"] . '" required="required">
+				</div>
+			</div>';
+			
+			echo '<div class="col-md-12 col-12">
+				<div class="form-group">
+					<label for="HostSubmissionDueDate">Host Submission Due Date</label>
+					<input type="date" id="HostSubmissionDueDate" class="form-control" name="HostSubmissionDueDate" value="' . $row["HostSubmissionDueDate"] . '" required="required">
+				</div>
+			</div>';
+			
+			echo '<div class="col-md-12 col-12">
+				<div class="form-group">
+					<label for="InternsApplicationDueDate">Interns Application Due Date</label>
+					<input type="date" id="InternsApplicationDueDate" class="form-control" name="InternsApplicationDueDate" value="' . $row["InternsApplicationDueDate"] . '" required="required">
+				</div>
+			</div>';
+			
+			echo '<div class="col-md-12 col-12">
+				<div class="form-group">
+					<label for="InternshipStartDate">Internship Start Date</label>
+					<input type="date" id="InternshipStartDate" class="form-control" name="InternshipStartDate" value="' . $row["InternshipStartDate"] . '" required="required">
+				</div>
+			</div>';
+			
+			echo '<div class="col-md-12 col-12">
+				<div class="form-group">
+					<label for="InternshipEndDate">Internship End Date</label>
+					<input type="date" id="InternshipEndDate" class="form-control" name="InternshipEndDate" value="' . $row["InternshipEndDate"] . '" required="required">
 				</div>
 			</div>';
 			

@@ -318,14 +318,18 @@ $title = "Manage Calls";
    var OpenDate = $("#OpenDate").val();
    var ClosingDate = $("#ClosingDate").val();
    var Institutions = $("#Institutions").val();   
-   var Status = $("#Status").val(); 
+   var Status = $("#Status").val();
+   var HostSubmissionDueDate = $("#HostSubmissionDueDate").val();
+	var InternsApplicationDueDate = $("#InternsApplicationDueDate").val();
+	var InternshipStartDate = $("#InternshipStartDate").val();
+	var InternshipEndDate = $("#InternshipEndDate").val();
    
    if(Title != '')
    {
     $.ajax({
      url:"admin/calls/institutions/insert.php",
      method:"POST",
-     data:{BudgetYear:BudgetYear, Title:Title, Description:Description, OpenDate:OpenDate, ClosingDate:ClosingDate, Institutions:Institutions, Status:Status},
+     data:{BudgetYear:BudgetYear, Title:Title, Description:Description, OpenDate:OpenDate, ClosingDate:ClosingDate, Institutions:Institutions, Status:Status, HostSubmissionDueDate:HostSubmissionDueDate,InternsApplicationDueDate:InternsApplicationDueDate,InternshipStartDate:InternshipStartDate,InternshipEndDate:InternshipEndDate},
      success:function(data)
      {
       $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
