@@ -29,8 +29,7 @@ if (isset($_POST['Email']))
 				$txt = "Please copy the link and paste in your browser address bar". "\r\n"."interns.hsrc.ac.za/auth-forgot-password-reset.php?key=".$key."&email=".$email;
 				$headers = "From: noreply@hsrc.ac.za" . "\r\n";
 
-				$mailstatus = mail($email,$subject,$txt,$headers); 
-				die(print_r($mailstatus));
+				mail($email,$subject,$txt,$headers); 
 			}
 			else{
 				$message="Sorry! no account associated with this email";
