@@ -121,8 +121,8 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 			
 			echo '<div class="col-md-12 col-12">
 				<div class="form-group">
-					<label for="InternshipEndDate">Internship End Date</label>
-					<input type="date" id="InternshipEndDate" class="form-control" name="InternshipEndDate" value="" required="required">
+					<label for="ClosingDate">Closing Date</label>
+					<input type="date" id="ClosingDate" class="form-control" name="ClosingDate" value="" required="required">
 				</div>
 			</div>';
 						

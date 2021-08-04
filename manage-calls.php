@@ -111,6 +111,11 @@ $title = "Manage Calls";
                                                                         <i class="bx bx-check d-block d-sm-none"></i>
                                                                         <span class="d-none d-sm-block">Submit</span>
                                                                     </button>
+																	<button type="button" class="btn btn-primary ml-1"
+                                                                        data-bs-dismiss="modal" id="insert">
+                                                                        <i class="bx bx-check d-block d-sm-none"></i>
+                                                                        <span class="d-none d-sm-block">Submit</span>
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -220,7 +225,11 @@ $title = "Manage Calls";
             success : function(data){
             $('.fetched-data').html(data);//Show fetched data from database
 			if(rowid == '000'){
-				$('#updateHost').attr('id', 'insert');
+				$('#updateHost').hide();
+				$('#insert').show();
+			}else{
+				$('#updateHost').show();
+				$('#insert').hide();
 			}
 			
             }
@@ -317,31 +326,26 @@ $title = "Manage Calls";
    var Description = $("#Description").val();
    var OpenDate = $("#OpenDate").val();
    var ClosingDate = $("#ClosingDate").val();
-   var Institutions = $("#Institutions").val();   
-   var Status = $("#Status").val();
+  
+   var IsActive = $("#IsActive").val();
    
    if(Title != '')
    {
     $.ajax({
      url:"admin/calls/institutions/insert.php",
      method:"POST",
-     data:{BudgetYear:BudgetYear, Title:Title, Description:Description, OpenDate:OpenDate, ClosingDate:ClosingDate, Institutions:Institutions, Status:Status},
+     data:{BudgetYear:BudgetYear, Title:Title, Description:Description, OpenDate:OpenDate, ClosingDate:ClosingDate, IsActive:IsActive},
      success:function(data)
      {
-      $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
-      $('#user_data').DataTable().destroy();
-      fetch_data();
+      location.reload();
 	  
      }
     });
-    setInterval(function(){
-		location.reload();
-     $('#alert_message').html('');
-    }, 2000);
+    
    }
    else
    {
-    alert("Institution Name is required!");
+    alert("TItle is required!");
    }
   });
   
