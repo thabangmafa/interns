@@ -217,6 +217,13 @@ $title = "Manage Calls";
 
     $('#manage_institution').on('show.bs.modal', function (e) {
         var rowid = $(e.relatedTarget).data('id');
+		if(rowid == '000'){
+				$('#updateHost').hide();
+				$('#insert').show();
+			}else{
+				$('#updateHost').show();
+				$('#insert').hide();
+			}
 	
         $.ajax({
             type : 'post',
@@ -224,13 +231,7 @@ $title = "Manage Calls";
             data :  'rowid='+ rowid, //Pass $id
             success : function(data){
             $('.fetched-data').html(data);//Show fetched data from database
-			if(rowid == '000'){
-				$('#updateHost').hide();
-				$('#insert').show();
-			}else{
-				$('#updateHost').show();
-				$('#insert').hide();
-			}
+			
 			
             }
         });
