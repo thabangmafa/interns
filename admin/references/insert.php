@@ -11,7 +11,7 @@ if(isset($_POST["Name"], $_POST["Relationship"], $_POST["Telephone"]))
  $ID = $_SESSION['id'];
  
  $query = "INSERT INTO `References`(UserID, Name, Relationship, Telephone) VALUES('$ID','$Name', '$Relationship', '$Telephone')";
- echo $query;
+
  if(mysqli_query($conn,$query))
  {
   echo 'Data Inserted';
