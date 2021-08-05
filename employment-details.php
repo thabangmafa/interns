@@ -191,7 +191,7 @@ if (isset($_POST['Submit'])) {
 													$result = mysqli_query($conn, $query);
 
 													while($institution = mysqli_fetch_array($result)) {
-														$select = '';
+														$selected = '';
 														if($institution['ID'] == $Type){ $selected = "selected='selected'"; }
 														echo '<option value="' . $institution['ID'] . '" '.$selected.'>' . $institution['Name'] . '</option>';
 													}
