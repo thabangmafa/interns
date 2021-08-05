@@ -51,8 +51,8 @@ $query = "SELECT * FROM UserDisability
                                     <a href="guardian.php">Next of Kin</a>
                                 </li>
 								
-								<li class="submenu-item <?php if($title == "Position Applied for"){ echo "active"; } ?>">
-                                    <a href="position-applied-for.php">Position Applied for</a>
+								<li class="submenu-item <?php if($title == "Position Applied For"){ echo "active"; } ?>">
+                                    <a href="position-applied-for.php">Position Applied For</a>
                                 </li>
 								<li class="submenu-item <?php if($title == "Personal Profile"){ echo "active"; } ?>">
                                     <a href="personal-profile.php">Personal Profile</a>
