@@ -35,9 +35,6 @@ $query = "SELECT * FROM UserDisability
                                 <span>My Profile</span>
                             </a>
                             <ul class="submenu <?php if($menu_item == "2"){ echo "active"; } ?>">
-								<li class="submenu-item <?php if($title == "Absence from Research"){ echo "active"; } ?>">
-                                    <a href="absence-from-research.php">Absence from Research</a>
-                                </li>
 								<li class="submenu-item <?php if($title == "Attachments"){ echo "active"; } ?>">
                                     <a href="attachments.php">Attachments</a>
                                 </li>
@@ -59,13 +56,6 @@ $query = "SELECT * FROM UserDisability
                                 </li>
 								<li class="submenu-item <?php if($title == "Registration Details"){ echo "active"; } ?>">
                                     <a href="user-registration.php">Registration Details</a>
-                                </li>
-								<li class="submenu-item <?php if($title == "Student Supervision Record"){ echo "active"; } ?>">
-                                    <a href="student-supervision-record.php">Student Supervision Record</a>
-                                </li>
-								
-                                <li class="submenu-item <?php if($title == "Research Expertise"){ echo "active"; } ?>">
-                                    <a href="research-expertise.php">Research Expertise</a>
                                 </li>
 								<li class="submenu-item <?php if($title == "References"){ echo "active"; } ?>">
                                     <a href="references.php">References</a>
