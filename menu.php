@@ -41,6 +41,9 @@ $query = "SELECT * FROM UserDisability
 								<li class="submenu-item <?php if($title == "Contact Details"){ echo "active"; } ?>">
                                     <a href="contact-details.php">Contact Details</a>
                                 </li>
+								<li class="submenu-item <?php if($title == "Employment Details"){ echo "active"; } ?>">
+                                    <a href="employment-details.php">Employment Details</a>
+                                </li>
 								<li class="submenu-item <?php if($title == "Language Proficiency"){ echo "active"; } ?>">
                                     <a href="language-proficiency.php">Language Proficiency</a>
                                 </li>
