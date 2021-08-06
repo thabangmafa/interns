@@ -89,9 +89,9 @@ $query = "SELECT * FROM ApplicantChecklist
                                 <span>My Profile</span>
                             </a>
                             <ul class="submenu <?php if($menu_item == "2"){ echo "active"; } ?>">
-								<li class="submenu-item <?php if($title == "Attachments"){ echo "active"; } ?>">
+								<!--li class="submenu-item <?php // if($title == "Attachments"){ echo "active"; } ?>">
                                     <a href="attachments.php">Attachments</a>
-                                </li>
+                                </li-->
 								<li class="submenu-item <?php if($title == "Contact Details"){ echo "active"; } ?>">
                                     <a href="contact-details.php">Contact Details <?php echo $ContactDetails; ?></a>
                                 </li>
