@@ -109,6 +109,11 @@ if (isset($_POST['Submit'])) {
 
     $result2 = mysqli_query($conn, $sql2);
 	$message = "Details successfully captured.";
+	
+	
+	$checklist = "INSERT INTO ApplicantChecklist(UserID, Section)VALUES('$id','Registration Details')";
+	mysqli_query($conn, $checklist);
+	
 	unset($_POST);
 	}else{
 		
@@ -260,7 +265,7 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="last-name-column">Maiden Name/Previous Surname <span style="color:red">*</span></label>
+                                                        <label for="last-name-column">Maiden Name/Previous Surname</label>
                                                         <input type="text" id="maiden_name" name="maiden_name" value="<?php echo @$UserMaidenName; ?>" class="form-control">
                                                     </div>
                                                 </div>
