@@ -178,10 +178,10 @@ $query = "SELECT * FROM ApplicantChecklist
                                 </li-->
 								<!--li class="submenu-item <?php if($title == "Registration Details"){ echo "active"; } ?>">
                                     <a href="user-registration.php">Registration Details</a>
-                                </li-->
+                                </li>
 								<li class="submenu-item <?php if($title == "Contact Details"){ echo "active"; } ?>">
                                     <a href="contact-details.php">Contact Details</a>
-                                </li>
+                                </li-->
 								<li class="submenu-item <?php if($title == "Host Institution"){ echo "active"; } ?>">
                                     <a href="host-institution.php">Host Institution Details</a>
                                 </li>

@@ -13,7 +13,7 @@ $query = "SELECT HostInstitutionCalls.*, d.* FROM HostInstitutionCalls
 										AND HostRequirementsFile IS NOT NULL 
 										AND ApplicantRequirementsFile != '' 
 										AND ApplicantRequirementsFile IS NOT NULL 
-										AND `HostSubmissionDueDate` >= CURDATE()
+										AND `ClosingDate` >= CURDATE()
 										AND d.Status = 'Active'
 										AND InstitutionID != '".$_POST["rowid"]."'";
 
@@ -51,7 +51,7 @@ if(isset($_POST["rowid"]) and $_POST["rowid"] != 'N/A')
 											 echo '<td>' . $calls['Title'] . '</td>';
 											 echo '<td>' . $calls['Description'] . '</td>';
 											 echo '<td>' . $calls['OpenDate'] . '</td>';
-											 echo '<td>' . $calls['HostSubmissionDueDate'] . '</td>';
+											 echo '<td>' . $calls['ClosingDate'] . '</td>';
 											 echo '<td>' . $appReq . '</td>';
 											 echo '<td><div class="icon dripicons-enter" data-CallID="'.$calls["ID"].'" data-InstitutionID="'.$_POST["rowid"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div></td>';
 											 echo '</tr>';
@@ -83,7 +83,7 @@ function get_all_data($conn)
 										AND HostRequirementsFile IS NOT NULL 
 										AND ApplicantRequirementsFile != '' 
 										AND ApplicantRequirementsFile IS NOT NULL 
-										AND `HostSubmissionDueDate` >= CURDATE()
+										AND `ClosingDate` >= CURDATE()
 										AND d.Status = 'Active'
 										AND InstitutionID != '".$_POST["rowid"]."'";
  $result = mysqli_query($conn,$query);
