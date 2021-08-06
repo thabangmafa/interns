@@ -28,13 +28,47 @@ if (isset($_POST['Submit'])) {
 	$utitle = validate($_POST['title']);
 	$Disability = validate($_POST['Disability']);
 	$DisabilityDetails = validate($_POST['DisabilityDetails']);
+	$insert1 = '';
+	$insert2 = '';
+	$update = '';
 	
+	if(isset($_FILES['id_document']['name'])){
+
+		   /* Getting file name */
+		   $IDDocument = $_FILES['id_document']['name'];
+			
+			
+			if (!file_exists('uploads/applicants/'.$id)) {
+				mkdir('uploads/applicants/'.$id, 0777, true);
+			}
+			
+		   /* Location */
+		   $location = "uploads/applicants/".$id.'/'.$IDDocument;
+		   $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
+		   $imageFileType = strtolower($imageFileType);
+
+		   /* Valid extensions */
+		   $valid_extensions = array("pdf","doc","docx");
+
+		   $response = 0;
+		   /* Check file extension */
+		   if(in_array(strtolower($imageFileType), $valid_extensions)) {
+			  /* Upload file */
+			  if(move_uploaded_file($_FILES['id_document']['tmp_name'],$location)){
+				 $response = $location;
+				 $insert1 = ',IDDocument';
+				 $insert2 = ",'$IDDocument'";
+				 $update = ",IDDocument = '$IDDocument'";
+			  }
+		   }
+
+	}
+
 	
 	$query = "SELECT * FROM RegistrationDetails WHERE UserID = '".$_SESSION['id']."'";
 	$result = mysqli_query($conn, $query);
 	if (mysqli_num_rows($result) === 0) {
-	$sql = "UPDATE users set email = '".$confirm_email."' WHERE id = '".$id."'";
-	mysqli_query($conn, $sql);
+	
 	$sql2 = "INSERT INTO RegistrationDetails(
 						UserID,
 						DateOfBirth,
@@ -51,6 +85,7 @@ if (isset($_POST['Submit'])) {
 						Title,
 						Disability,
 						DisabilityDetails
+						$insert1
 ) VALUES(
 						'$id',
 						'$date_of_birth',
@@ -67,6 +102,7 @@ if (isset($_POST['Submit'])) {
 						'$utitle',
 						 '$Disability',
 						 '$DisabilityDetails'
+						 $insert2
 
 )";
 
@@ -91,6 +127,7 @@ if (isset($_POST['Submit'])) {
 						Title = '$utitle',
 						Disability = '$Disability',
 						DisabilityDetails = '$DisabilityDetails'
+						".$update."
 	
 	WHERE UserID = '".$id."'";
 
@@ -98,6 +135,9 @@ if (isset($_POST['Submit'])) {
 	$message = "Details successfully updated.";
 	unset($_POST);	
 	}
+	
+	
+	 
 	
 }
 
@@ -122,6 +162,7 @@ if (isset($_POST['Submit'])) {
 			$UserTitle = $userdetails['Title'];
 			$UserDisability = $userdetails['Disability'];
 			$UserDisabilityDetails = $userdetails['DisabilityDetails'];
+			$IDDocument = $userdetails['IDDocument'];
 
 	}
  ?>
@@ -173,11 +214,11 @@ if (isset($_POST['Submit'])) {
 								<div class="alert alert-success" role="alert"><?php echo @$message; ?></div>
 								<?php } ?>
                                     <div class="card-body">
-                                        <form class="form" action="" method="post">
+                                        <form class="form" action="" method="post" enctype="multipart/form-data">
                                             <div class="row">
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="first-name-column">Title</label>
+                                                        <label for="first-name-column">Title <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="form-select" id="title" name="title" required="required">
 													<option></option>
@@ -186,10 +227,10 @@ if (isset($_POST['Submit'])) {
 															$query = "SELECT * FROM LookupUserTitle WHERE IsActive = '1' ORDER BY Title asc";
 															$result = mysqli_query($conn, $query);
 
-															while($UTitle = mysqli_fetch_array($result)) {
+															while(@$UTitle = mysqli_fetch_array($result)) {
 																$select = '';
-																if($UserTitle == $UTitle['ID']){ $select = "selected='selected'"; }
-															 echo '<option value="'.$UTitle['ID'].'" '.$select.'>'.ucwords($UTitle['Title']).'</option>';
+																if(@$UserTitle == $UTitle['ID']){ $select = "selected='selected'"; }
+															 echo '<option value="'.@$UTitle['ID'].'" '.$select.'>'.ucwords(@$UTitle['Title']).'</option>';
 															}
 
 														?>
@@ -199,34 +240,34 @@ if (isset($_POST['Submit'])) {
                                                 </div>
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="first-name-column">Initials</label>
-                                                        <input type="text" id="initials" name="initials" class="form-control" value="<?php echo $UserInitials; ?>" required="required">
+                                                        <label for="first-name-column">Initials <span style="color:red">*</span></label>
+                                                        <input type="text" id="initials" name="initials" class="form-control" value="<?php echo @$UserInitials; ?>" required="required">
                                                     </div>
                                                 </div>
 											
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="first-name-column">First Name</label>
-                                                        <input type="text" id="first_name" name="first_name" value="<?php echo $UserFirstName; ?>" class="form-control" required="required">
+                                                        <label for="first-name-column">First Name <span style="color:red">*</span></label>
+                                                        <input type="text" id="first_name" name="first_name" value="<?php echo @$UserFirstName; ?>" class="form-control" required="required">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="last-name-column">Surname</label>
-                                                        <input type="text" id="last_name" name="last_name" value="<?php echo $UserLastName; ?>" class="form-control" required="required">
+                                                        <label for="last-name-column">Surname <span style="color:red">*</span></label>
+                                                        <input type="text" id="last_name" name="last_name" value="<?php echo @$UserLastName; ?>" class="form-control" required="required">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="last-name-column">Maiden Name/Previous Surname</label>
-                                                        <input type="text" id="maiden_name" name="maiden_name" value="<?php echo $UserMaidenName; ?>" class="form-control">
+                                                        <label for="last-name-column">Maiden Name/Previous Surname <span style="color:red">*</span></label>
+                                                        <input type="text" id="maiden_name" name="maiden_name" value="<?php echo @$UserMaidenName; ?>" class="form-control">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="last-name-column">Country of Birth</label>
+                                                        <label for="last-name-column">Country of Birth <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="form-select" id="country" name="country" required="required">
 													<option> </option>
@@ -238,7 +279,7 @@ if (isset($_POST['Submit'])) {
 															
 															while($country = mysqli_fetch_array($result)) {
 																$select = '';
-																if($UserCountry == $country['ID']){ $select = "selected='selected'"; }
+																if(@$UserCountry == $country['ID']){ $select = "selected='selected'"; }
 															 echo '<option value="'.$country['ID'].'" '.$select.'>'.ucwords($country['Country']).'</option>';
 															}
 
@@ -250,7 +291,7 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="last-name-column">South African Citizenship Status</label>
+                                                        <label for="last-name-column">South African Citizenship Status <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="form-select" id="citizenship" name="citizenship" required="required">
 													<option></option>
@@ -262,7 +303,7 @@ if (isset($_POST['Submit'])) {
 															
 															while($citizenship = mysqli_fetch_array($result)) {
 																$select = '';
-																if($UserCitizenship == $citizenship['ID']){ $select = "selected='selected'"; }
+																if(@$UserCitizenship == $citizenship['ID']){ $select = "selected='selected'"; }
 															 echo '<option value="'.$citizenship['ID'].'" '.$select.'>'.ucwords($citizenship['Citizenship']).'</option>';
 															}
 
@@ -274,7 +315,7 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="id_type">ID Type</label>
+                                                        <label for="id_type">ID Type <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="form-select" id="id_type" name="id_type" required="required">
 														<option></option>
@@ -286,7 +327,7 @@ if (isset($_POST['Submit'])) {
 															
 															while($IDType = mysqli_fetch_array($result)) {
 																$select = "";
-															if($UserIDType == $IDType['ID']){ $select = "selected='selected'"; }
+															if(@$UserIDType == $IDType['ID']){ $select = "selected='selected'"; }
 															 echo '<option value="'.$IDType['ID'].'" '.$select.'>'.ucwords($IDType['Type']).'</option>';
 															}
 
@@ -298,17 +339,24 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="id_number">ID/Passport Number</label>
-                                                        <input type="text" id="id_number" name="id_number" value="<?php echo $UserIDNumber; ?>" class="form-control" required="required">
+                                                        <label for="id_number">ID/Passport Number <span style="color:red">*</span></label>
+                                                        <input type="text" id="id_number" name="id_number" value="<?php echo @$UserIDNumber; ?>" class="form-control" required="required">
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="id_document">ID/Passport Number <span style="color:red">*</span></label>  <?php if(@$IDDocument){
+	 echo '<a style="float:right" target="_blank" href="uploads/applicants/'.$_SESSION['id'].'/'.@$IDDocument.'">Attached Document</a>';
+ } ?>
+                                                        <input type="file" id="id_document" name="id_document" value="<?php echo @$IDDocument; ?>" class="form-control" <?php if(!@$IDDocument){ echo 'required="required"'; } ?>>
                                                     </div>
                                                 </div>
 												
 												
-												
-												
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="race">Race</label>
+                                                        <label for="race">Race <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="form-select" id="race" name="race" required="required">
 													<option></option>
@@ -331,7 +379,7 @@ if (isset($_POST['Submit'])) {
                                                 </div>
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="gender">Gender</label>
+                                                        <label for="gender">Gender <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="form-select" id="gender" name="gender" required="required">
                                                         <option></option>
@@ -343,7 +391,7 @@ if (isset($_POST['Submit'])) {
 
 															while($gender = mysqli_fetch_array($result)) {
 																$select = "";
-																if($UserGender == $gender['ID']){ $select = "selected='selected'"; }
+																if(@$UserGender == $gender['ID']){ $select = "selected='selected'"; }
 															 echo '<option value="'.$gender['ID'].'" '.$select.'>'.ucwords($gender['Gender']).'</option>';
 															}
 
@@ -358,7 +406,7 @@ if (isset($_POST['Submit'])) {
 												
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="date_of_birth">Date of Birth</label>
+                                                        <label for="date_of_birth">Date of Birth <span style="color:red">*</span></label>
                                                         <input type="date" id="date_of_birth" class="form-control"
                                                             name="date_of_birth" value="<?php echo $UserDateOfBirth; ?>" required="required">
                                                     </div>
@@ -366,7 +414,7 @@ if (isset($_POST['Submit'])) {
 
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="Disability">Do you have any disability?</label>
+                                                        <label for="Disability">Do you have any disability? <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="form-select" id="Disability" name="Disability">
 													<option><?php echo @$UserDisability; ?></option>
@@ -381,7 +429,7 @@ if (isset($_POST['Submit'])) {
 													
 													<div class="form-group" id="disabilityDiv" <?php if(@$UserDisability == '' || @$UserDisability == 'No'){ echo 'style="display:none;"';} ?>>
                                                         
-                                        <label for="DisabilityDetails" class="form-label">Disablity Details</label>
+                                        <label for="DisabilityDetails" class="form-label">Disablity Details <span style="color:red">*</span></label>
                                         <textarea class="form-control" id="DisabilityDetails" name="DisabilityDetails" 
                                             rows="3" ><?php echo @$UserDisabilityDetails; ?></textarea>
                                     
