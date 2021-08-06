@@ -1,11 +1,65 @@
 <?php 
 
-$query = "SELECT * FROM UserDisability 	
+$query = "SELECT * FROM ApplicantChecklist 	
 	WHERE UserID = '".$_SESSION['id']."'";
+
 	$result = mysqli_query($conn, $query);
-	$details = mysqli_fetch_array($result);
+	
+	$ContactDetails = '<span class="fa-fw select-all fas" style="color:red"></span>';
+	$EmploymentDetails = '<span class="fa-fw select-all fas" style="color:red"></span>';
+	$LanguageProficiency = '<span class="fa-fw select-all fas" style="color:red"></span>';
+	$NextOfKin = '<span class="fa-fw select-all fas" style="color:red"></span>';
+	$PositionAppliedFor = '<span class="fa-fw select-all fas" style="color:red"></span>';
+	$PersonalProfile = '<span class="fa-fw select-all fas" style="color:red"></span>';
+	$Qualifications = '<span class="fa-fw select-all fas" style="color:red"></span>';
+	$RegistrationDetails = '<span class="fa-fw select-all fas" style="color:red"></span>';
+	$References = '<span class="fa-fw select-all fas" style="color:red"></span>';
+
+	
+	while($details = mysqli_fetch_array($result)) {
+		if($details['Section'] == 'Contact Details'){
+			$ContactDetails = ' <span class="fa-fw select-all fas" style="color:green"></span>';
+		}
+		
+		if($details['Section'] == 'Employment Details'){
+			$EmploymentDetails = ' <span class="fa-fw select-all fas" style="color:green"></span>';
+		}
+		
+		if($details['Section'] == 'Language Proficiency'){
+			$LanguageProficiency = ' <span class="fa-fw select-all fas" style="color:green"></span>';
+		}
+		
+		if($details['Section'] == 'Next Of Kin'){
+			$NextOfKin = ' <span class="fa-fw select-all fas" style="color:green"></span>';
+		}
+		
+		if($details['Section'] == 'Position Applied For'){
+			$PositionAppliedFor = ' <span class="fa-fw select-all fas" style="color:green"></span>';
+		}
+		
+		if($details['Section'] == 'Personal Profile'){
+			$PersonalProfile = ' <span class="fa-fw select-all fas" style="color:green"></span>';
+		}
+		
+		if($details['Section'] == 'Qualifications'){
+			$Qualifications = ' <span class="fa-fw select-all fas" style="color:green"></span>';
+		}
+		
+		if($details['Section'] == 'Registration Details'){
+			$RegistrationDetails = ' <span class="fa-fw select-all fas" style="color:green"></span>';
+		}
+		
+		if($details['Section'] == 'References'){
+			$References = ' <span class="fa-fw select-all fas" style="color:green"></span>';
+		}
+		
+		
+	}
 	
 ?>
+
+
+
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
                 <div class="sidebar-header">
@@ -39,32 +93,33 @@ $query = "SELECT * FROM UserDisability
                                     <a href="attachments.php">Attachments</a>
                                 </li>
 								<li class="submenu-item <?php if($title == "Contact Details"){ echo "active"; } ?>">
-                                    <a href="contact-details.php">Contact Details</a>
+                                    <a href="contact-details.php">Contact Details <?php echo $ContactDetails; ?></a>
                                 </li>
+								<?php if(@$_SESSION['user_type'] != '4'){ ?>
 								<li class="submenu-item <?php if($title == "Employment Details"){ echo "active"; } ?>">
-                                    <a href="employment-details.php">Employment Details</a>
+                                    <a href="employment-details.php">Employment Details <?php echo $EmploymentDetails; ?></a>
                                 </li>
+								<?php } ?>
 								<li class="submenu-item <?php if($title == "Language Proficiency"){ echo "active"; } ?>">
-                                    <a href="language-proficiency.php">Language Proficiency</a>
+                                    <a href="language-proficiency.php">Language Proficiency <?php echo $LanguageProficiency; ?></a>
                                 </li>
 								<li class="submenu-item <?php if($title == "Next of Kin"){ echo "active"; } ?>">
-                                    <a href="guardian.php">Next of Kin</a>
+                                    <a href="guardian.php">Next of Kin <?php echo $NextOfKin; ?></a>
                                 </li>
-								
 								<li class="submenu-item <?php if($title == "Position Applied For"){ echo "active"; } ?>">
-                                    <a href="position-applied-for.php">Position Applied For</a>
+                                    <a href="position-applied-for.php">Position Applied For <?php echo $PositionAppliedFor; ?></a>
                                 </li>
 								<li class="submenu-item <?php if($title == "Personal Profile"){ echo "active"; } ?>">
-                                    <a href="personal-profile.php">Personal Profile</a>
+                                    <a href="personal-profile.php">Personal Profile <?php echo $PersonalProfile; ?></a>
                                 </li>
 								<li class="submenu-item <?php if($title == "Qualifications"){ echo "active"; } ?>">
-                                    <a href="qualification.php">Qualifications</a>
+                                    <a href="qualification.php">Qualifications <?php echo $Qualifications; ?></a>
                                 </li>
 								<li class="submenu-item <?php if($title == "Registration Details"){ echo "active"; } ?>">
-                                    <a href="user-registration.php">Registration Details</a>
+                                    <a href="user-registration.php">Registration Details <?php echo $RegistrationDetails; ?></a>
                                 </li>
 								<li class="submenu-item <?php if($title == "References"){ echo "active"; } ?>">
-                                    <a href="references.php">References</a>
+                                    <a href="references.php">References <?php echo $References; ?></a>
                                 </li>
                                 
                             </ul>
@@ -228,4 +283,4 @@ $query = "SELECT * FROM UserDisability
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
             </div>
         </div>
-        
+        <script src="assets/vendors/fontawesome/all.min.js"></script>
