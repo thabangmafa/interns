@@ -34,6 +34,7 @@ if (isset($_POST['FullTimeStudent'])) {
 	$AlternativeEmail = validate($_POST['AlternativeEmail']);
 	$HomeProvince = validate($_POST['HomeProvince']);
 	$Country = validate($_POST['Country']);
+	$WorkCountry = validate($_POST['WorkCountry']);
 	
 	$query = "SELECT * FROM UserContactDetails WHERE UserID = '".$_SESSION['id']."'";
 	$result = mysqli_query($conn, $query);
@@ -60,7 +61,8 @@ if (isset($_POST['FullTimeStudent'])) {
 						  ConfirmEmail,
 						  AlternativeEmail,
 						  HomeProvince,
-						  Country
+						  Country,
+						  WorkCountry
 ) VALUES(
 						'$id',
 						  '$FullTimeStudent',
@@ -82,7 +84,8 @@ if (isset($_POST['FullTimeStudent'])) {
 						  '$ConfirmEmail',
 						  '$AlternativeEmail',
 						  '$HomeProvince',
-						  '$Country'
+						  '$Country',
+						  '$WorkCountry'
 
 )";
 
@@ -114,7 +117,8 @@ if (isset($_POST['FullTimeStudent'])) {
 						  ConfirmEmail = '$ConfirmEmail',
 						  AlternativeEmail = '$AlternativeEmail',
 						  HomeProvince = '$HomeProvince',
-						  Country = '$Country'
+						  Country = '$Country',
+						  WorkCountry = '$WorkCountry'
 	
 	WHERE UserID = '".$id."'";
 
@@ -151,6 +155,7 @@ if (isset($_POST['FullTimeStudent'])) {
 						  $AlternativeEmail = $userdetails['AlternativeEmail'];
 						  $HomeProvince = $userdetails['HomeProvince'];
 						  $Country = $userdetails['Country'];
+						  $WorkCountry = $userdetails['WorkCountry'];
 
 	}
  ?>
@@ -223,7 +228,7 @@ if (isset($_POST['FullTimeStudent'])) {
 
 															while($institution = mysqli_fetch_array($result)) {
 																$select = "";
-																if($CurrentOrganisation == $institution['InstitutionId']){ $select = "selected='selected'"; }
+																if(@$CurrentOrganisation == $institution['InstitutionId']){ $select = "selected='selected'"; }
 															 echo '<option value="'.$institution['InstitutionId'].'" '.$select.'>'.ucwords($institution['Name']).'</option>';
 															}
 
@@ -340,7 +345,7 @@ if (isset($_POST['FullTimeStudent'])) {
 
 															while($province = mysqli_fetch_array($result)) {
 																$select = "";
-																if($WorkProvince == $province['ID']){ $select = "selected='selected'"; }
+																if(@$WorkProvince == $province['ID']){ $select = "selected='selected'"; }
 															 echo '<option value="'.$province['ID'].'" '.$select.'>'.ucwords($province['Name']).'</option>';
 															}
 
@@ -350,56 +355,6 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     </div>
                                                 </div>
 												
-												
-												
-												
-												
-												
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="TelephoneNumber">Primary Telephone Number <span style="color:red">*</span></label>
-                                                        <input type="text" id="TelephoneNumber" class="form-control"
-                                                             name="TelephoneNumber" value="<?php echo @$HomePostalCode; ?>" required="required">
-                                                    </div>
-                                                </div>
-												
-												
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="MobileNumber">Mobile Number <span style="color:red">*</span></label>
-                                                        <input type="text" value="<?php echo $MobileNumber; ?>" id="MobileNumber" class="form-control"
-                                                            name="MobileNumber" required="required">
-                                                    </div>
-                                                </div>
-												
-												
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="PrimaryEmail">Primary Email Address <span style="color:red">*</span></label>
-                                                        <input type="email" id="PrimaryEmail" value="<?php echo $PrimaryEmail; ?>" class="form-control"
-                                                            name="PrimaryEmail" required="required">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="ConfirmEmail">Confirm Primary Email Address <span style="color:red">*</span></label>
-                                                        <input type="email" value="<?php echo $ConfirmEmail; ?>" id="ConfirmEmail" class="form-control"
-                                                            name="ConfirmEmail" required="required">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="AlternativeEmail">Alternate Email Address <span style="color:red">*</span></label>
-                                                        <input type="email" value="<?php echo $AlternativeEmail; ?>" id="AlternativeEmail" class="form-control"
-                                                            name="AlternativeEmail" required="required">
-                                                    </div>
-                                                </div>
-												
-								
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="HomeProvince">Home Province <span style="color:red">*</span></label>
@@ -414,7 +369,7 @@ if (isset($_POST['FullTimeStudent'])) {
 
 															while($province = mysqli_fetch_array($result)) {
 																$select = "";
-																if($HomeProvince == $province['ID']){ $select = "selected='selected'"; }
+																if(@$HomeProvince == $province['ID']){ $select = "selected='selected'"; }
 															 echo '<option value="'.$province['ID'].'" '.$select.'>'.ucwords($province['Name']).'</option>';
 															}
 
@@ -423,6 +378,31 @@ if (isset($_POST['FullTimeStudent'])) {
                                                 </fieldset>
                                                     </div>
                                                 </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="WorkCountry">Work Country <span style="color:red">*</span></label>
+                                                        <fieldset class="form-group">
+                                                    <select class="form-select" id="WorkCountry" name="WorkCountry" required="required">
+													<option> </option>
+                                                        <?php
+				
+															$query = "SELECT * FROM LookupCountry WHERE IsActive = '1' ORDER BY Country asc";
+															$result = mysqli_query($conn, $query);
+															
+															
+															while($country = mysqli_fetch_array($result)) {
+																$select = '';
+																if(@$WorkCountry == $country['ID']){ $select = "selected='selected'"; }
+															 echo '<option value="'.$country['ID'].'" '.$select.'>'.ucwords($country['Country']).'</option>';
+															}
+
+														?>
+                                                    </select>
+                                                </fieldset>
+                                                    </div>
+                                                </div>
+												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="Country">Home Country <span style="color:red">*</span></label>
@@ -437,7 +417,7 @@ if (isset($_POST['FullTimeStudent'])) {
 															
 															while($country = mysqli_fetch_array($result)) {
 																$select = '';
-																if($Country == $country['ID']){ $select = "selected='selected'"; }
+																if(@$Country == $country['ID']){ $select = "selected='selected'"; }
 															 echo '<option value="'.$country['ID'].'" '.$select.'>'.ucwords($country['Country']).'</option>';
 															}
 
@@ -446,6 +426,53 @@ if (isset($_POST['FullTimeStudent'])) {
                                                 </fieldset>
                                                     </div>
                                                 </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="TelephoneNumber">Primary Telephone Number <span style="color:red">*</span></label>
+                                                        <input type="text" id="TelephoneNumber" class="form-control"
+                                                             name="TelephoneNumber" value="<?php echo @$HomePostalCode; ?>" required="required">
+                                                    </div>
+                                                </div>
+												
+												
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="MobileNumber">Mobile Number <span style="color:red">*</span></label>
+                                                        <input type="text" value="<?php echo @$MobileNumber; ?>" id="MobileNumber" class="form-control"
+                                                            name="MobileNumber" required="required">
+                                                    </div>
+                                                </div>
+												
+												
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="PrimaryEmail">Primary Email Address <span style="color:red">*</span></label>
+                                                        <input type="email" id="PrimaryEmail" value="<?php echo @$PrimaryEmail; ?>" class="form-control"
+                                                            name="PrimaryEmail" required="required">
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="ConfirmEmail">Confirm Primary Email Address <span style="color:red">*</span></label>
+                                                        <input type="email" value="<?php echo @$ConfirmEmail; ?>" id="ConfirmEmail" class="form-control"
+                                                            name="ConfirmEmail" required="required">
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="AlternativeEmail">Alternate Email Address <span style="color:red">*</span></label>
+                                                        <input type="email" value="<?php echo @$AlternativeEmail; ?>" id="AlternativeEmail" class="form-control"
+                                                            name="AlternativeEmail" required="required">
+                                                    </div>
+                                                </div>
+												
+								
+												
+												
 												
 												
                                

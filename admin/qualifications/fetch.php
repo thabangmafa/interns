@@ -5,17 +5,14 @@ $conn = OpenCon();
 
 $columns = array('Language', 'Speak', 'Read', 'Write');
 
-$query = "SELECT a.ID, b.Name as Language, c.Name as `Read`, d.Name as `Write`, e.Name as `Speak` FROM `LanguageProficiency` a 
-LEFT JOIN LookupLanguages b on b.ID = a.Language
-LEFT JOIN LookupProficiency c on c.ID = a.Read
-LEFT JOIN LookupProficiency d on d.ID = a.Write
-LEFT JOIN LookupProficiency e on e.ID = a.Speak
+$query = "SELECT a.*, b.Name as Level FROM Qualifications a 
+left join LookupQualificationLevel b on b.ID = a.AcademicLevel
 WHERE UserID = '".$_SESSION['id']."'";
 
 if(isset($_POST["search"]["value"]))
 {
  $query .= '
- AND (b.Name LIKE "%'.$_POST["search"]["value"].'%")';
+ AND (b.Name LIKE "%'.$_POST["search"]["value"].'%" || a.NameOfDegree LIKE "%'.$_POST["search"]["value"].'%" || TitleOfResearchProject LIKE "%'.$_POST["search"]["value"].'%")';
 }
 
 if(isset($_POST["rowid"]))
@@ -43,94 +40,175 @@ if(@$_POST["length"] != -1 && !isset($_POST["rowid"]))
 
 $result = mysqli_query($conn,$query. $query1);
 
-$LookupLanguages = mysqli_query($conn,"SELECT distinct * FROM LookupLanguages WHERE IsActive = '1'");
+$QualificationLevel = mysqli_query($conn,"SELECT distinct * FROM LookupQualificationLevel WHERE IsActive = '1'");
 
-while($Languages = mysqli_fetch_array($LookupLanguages))
+while($QLevels = mysqli_fetch_array($QualificationLevel))
 	{
-		$Language[] = $Languages;
+		$QLevel[] = $QLevels;
 	}
 	
-$LookupProficiency = mysqli_query($conn,"SELECT distinct * FROM LookupProficiency WHERE IsActive = '1'");
-
-while($Proficiency = mysqli_fetch_array($LookupProficiency))
-	{
-		$Prof[] = $Proficiency;
-	}
-
 $data = array();
 
 
 if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 {
-				echo '<div class="row">';
-						echo '<div class="col-md-6 col-12">
-						<div class="form-group">
-							<label for="Speak">Language</label>
-							<fieldset class="form-group">
-						<select class="form-select" name="Language" id="Language">' ?>
+				
+				
+				echo '<div class="row">
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="AcademicLevel">Academic Level of Qualification</label>
+                                                        <fieldset class="form-group">
+                                                    <select class="form-select" id="AcademicLevel" name="AcademicLevel">
+													<option></option> ';
+													foreach($QLevel as $level){
+														echo '<option value="'.$level['ID'].'">'.ucwords($level['Name']).'</option>';
+													}
+															
+                                                   echo ' </select>
+                                                </fieldset>
+                                                    </div>
+													
+                                                </div>
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="NameOfDegree">Name of Degree/Diploma (e.g. PhD)</label>
+                                                        <input type="text" id="NameOfDegree" class="form-control"
+                                                             name="NameOfDegree" required="required">
+                                                    </div>
+                                                </div>
+											
+											
+											
+											
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="TitleOfResearchProject">Title of Research Project</label>
+                                                        <input type="text" id="TitleOfResearchProject" class="form-control"
+                                                             name="TitleOfResearchProject">
+                                                    </div>
+                                                </div>
+                                                
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="Institution">Institution</label>
+                                                        <input type="text" id="Institution" class="form-control"
+                                                             name="Institution">
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="Fulltime">Full-time</label>
+                                                        <fieldset class="form-group">
+                                                    <select class="form-select" id="Fulltime" name="Fulltime">
+                                                        <option></option>
+                                                        <option>Yes</option>
+                                                        <option>No</option>
+                                                    </select>
+                                                </fieldset>
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="Distinction">Distinction</label>
+                                                        <fieldset class="form-group">
+                                                    <select class="form-select" id="Distinction" name="Distinction">
+													<option></option>
+                                                        <option>Yes</option>
+														<option>No</option> 
+                                                    </select>
+                                                </fieldset>
+                                                    </div>
+                                                </div>
+												
 
-						<?php foreach ($Language as $sta){ 
-						
-						echo '<option value="'.$sta['ID'].'">'.$sta['Name'].'</option>'; 
-						} 
-						
-						echo '
-						</select>
-					</fieldset>
-						</div>
-					</div>';
-					
-							echo '<div class="col-md-6 col-12">
-						<div class="form-group">
-							<label for="Speak">Speak</label>
-							<fieldset class="form-group">
-						<select class="form-select" name="Speak" id="Speak">' ?>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="DateFirstRegistration">Date of First Registration</label>
+                                                        <input type="date" id="DateFirstRegistration" class="form-control"
+                                                             name="DateFirstRegistration">
+                                                    </div>
+                                                </div>
+												
+												
+													<div class="col-md-6 col-12">
+														<div class="form-group">
+															<label for="Completed">Completed</label>
+															<fieldset class="form-group">
+														<select class="form-select" id="Completed" name="Completed">
+														<option></option>
+															<option>Yes</option>
+															<option>No</option> 
+														</select>
+													</fieldset>
+														</div>
+													</div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="HighestCompletedQualification">Highest Completed Qualification</label>
+                                                        <fieldset class="form-group">
+                                                    <select class="form-select" id="HighestCompletedQualification" name="HighestCompletedQualification">
+													<option></option>
+                                                        <option>Yes</option>
+														<option>No</option> 
+                                                    </select>
+                                                </fieldset>
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="Transcript">Add Transcript</label>
+                                                        
+                                                <input class="form-control" type="file" id="Transcript" name="Transcript" multiple>
+                                                    </div>
+                                                </div>
+												
+												
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="Status">Status</label>
+                                                        <fieldset class="form-group">
+                                                    <select class="form-select" id="Status" name="Status">
+													<option></option>
+                                                        <option>Discontinued (stopped)</option>
 
-						<?php foreach ($Prof as $sta){ 
+														<option>In progress</option>
 
-						echo '<option value="'.$sta['ID'].'">'.$sta['Name'].'</option>'; 
-						} 
-						
-						echo '
-						</select>
-					</fieldset>
-						</div>
-					</div>';
-			
-					echo '<div class="col-md-6 col-12">
-						<div class="form-group">
-							<label for="last-name-column">Read</label>
-							<fieldset class="form-group">
-						<select class="form-select" name="Read" id="Read">' ?>
-
-						<?php foreach ($Prof as $sta){ 
-
-						echo '<option value="'.$sta['ID'].'">'.$sta['Name'].'</option>'; 
-						} 
-						
-						echo '
-						</select>
-					</fieldset>
-						</div>
-					</div>';
-			
-					echo '<div class="col-md-6 col-12">
-						<div class="form-group">
-							<label for="last-name-column">Write</label>
-							<fieldset class="form-group">
-								<select class="form-select" name="Write" id="Write">' ?>
-
-								<?php foreach ($Prof as $sta){ 
-
-								echo '<option value="'.$sta['ID'].'">'.$sta['Name'].'</option>'; 
-								} 
-								
-								echo '
-								</select>
-						</fieldset>
-						</div>
-					</div>';
-					echo '</div>';
+														<option>Suspended (interrupted)</option> 
+                                                    </select>
+                                                </fieldset>
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="Reason">Reason</label>
+                                                        <input type="text" id="Reason" class="form-control"
+                                                            name="Reason">
+                                                    </div>
+                                                </div>
+												
+												
+												
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="AnticipatedDateCompletion">Anticipated Date of Completion</label>
+                                                        <input type="date" id="AnticipatedDateCompletion" class="form-control"
+                                                            name="AnticipatedDateCompletion">
+                                                    </div>
+                                                </div>
+												
+												
+												
+                                            </div>';
+				
+				
 			exit;
 }
 
@@ -142,78 +220,160 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 	{
 		echo '<div class="row">';
 		echo '<input type="hidden" id="ID" class="form-control" name="ID" value="' . $row["ID"] . '">';
-					echo '<div class="col-md-6 col-12">
-				<div class="form-group">
-					<label for="Speak">Language</label>
-					<fieldset class="form-group">
-				<select class="form-select" name="Language" id="Language">' ?>
+		echo '<div class="col-md-6 col-12">
+					<div class="form-group">
+						<label for="AcademicLevel">Academic Level of Qualification</label>
+						<fieldset class="form-group">
+					<select class="form-select" id="AcademicLevel" name="AcademicLevel">
+					<option></option> ';
+							foreach($QLevel as $level){
+								$select = '';
+								if($level['ID'] == $row["AcademicLevel"]){ $select = "selected='selected'"; }
+								echo '<option value="'.$level['ID'].'" '.$select.'>'.ucwords($level['Name']).'</option>';
+							}
 
-				<?php foreach ($Language as $lang){ 
-				$selected = '';
-				if($lang['Name'] == $row["Language"]){ $selected = "selected='selected'"; }
-				echo '<option value="'.$lang['ID'].'" '.$selected.'>'.$lang['Name'].'</option>'; 
-				} 
-				
-				echo '
-				</select>
-			</fieldset>
-				</div>
-			</div>';
+				   echo ' </select>
+				</fieldset>
+					</div>
 					
-					echo '<div class="col-md-6 col-12">
-				<div class="form-group">
-					<label for="Speak">Speak</label>
-					<fieldset class="form-group">
-				<select class="form-select" name="Speak" id="Speak">' ?>
-
-				<?php foreach ($Prof as $sta){ 
-				$selected = '';
-				if($sta['Name'] == $row["Speak"]){ $selected = "selected='selected'"; }
-				echo '<option value="'.$sta['ID'].'" '.$selected.'>'.$sta['Name'].'</option>'; 
-				} 
-				
-				echo '
-				</select>
-			</fieldset>
 				</div>
-			</div>';
+				<div class="col-md-6 col-12">
+					<div class="form-group">
+						<label for="NameOfDegree">Name of Degree/Diploma (e.g. PhD)</label>
+						<input type="text" id="NameOfDegree" class="form-control"
+							 name="NameOfDegree" required="required" value=' . $row["NameOfDegree"] . '>
+					</div>
+				</div>
 			
-			echo '<div class="col-md-6 col-12">
-				<div class="form-group">
-					<label for="last-name-column">Read</label>
-					<fieldset class="form-group">
-				<select class="form-select" name="Read" id="Read">' ?>
-
-				<?php foreach ($Prof as $sta){ 
-				$selected = '';
-				if($sta['Name'] == $row["Read"]){ $selected = "selected='selected'"; }
-				echo '<option value="'.$sta['ID'].'" '.$selected.'>'.$sta['Name'].'</option>'; 
-				} 
-				
-				echo '
-				</select>
-			</fieldset>
-				</div>
-			</div>';
 			
-			echo '<div class="col-md-6 col-12">
-				<div class="form-group">
-					<label for="last-name-column">Write</label>
-					<fieldset class="form-group">
-				<select class="form-select" name="Write" id="Write">' ?>
-
-				<?php foreach ($Prof as $sta){ 
-				$selected = '';
-				if($sta['Name'] == $row["Write"]){ $selected = "selected='selected'"; }
-				echo '<option value="'.$sta['ID'].'" '.$selected.'>'.$sta['Name'].'</option>'; 
-				} 
-				
-				echo '
-				</select>
-			</fieldset>
+			
+			
+				<div class="col-md-6 col-12">
+					<div class="form-group">
+						<label for="TitleOfResearchProject">Title of Research Project</label>
+						<input type="text" id="TitleOfResearchProject" class="form-control"
+							 name="TitleOfResearchProject" value=' . $row["TitleOfResearchProject"] . '>
+					</div>
 				</div>
-			</div>';
-			echo '</div>';
+				
+				
+				<div class="col-md-6 col-12">
+					<div class="form-group">
+						<label for="Institution">Institution</label>
+						<input type="text" id="Institution" class="form-control"
+							 name="Institution" value=' . $row["Institution"] . '>
+					</div>
+				</div>
+				
+				<div class="col-md-6 col-12">
+					<div class="form-group">
+						<label for="Fulltime">Full-time</label>
+						<fieldset class="form-group">
+					<select class="form-select" id="Fulltime" name="Fulltime">
+					<option> ' . $row["Fulltime"] . '</option>
+						<option></option>
+						<option>Yes</option>
+						<option>No</option>
+					</select>
+				</fieldset>
+					</div>
+				</div>
+				
+				<div class="col-md-6 col-12">
+					<div class="form-group">
+						<label for="Distinction">Distinction</label>
+						<fieldset class="form-group">
+					<select class="form-select" id="Distinction" name="Distinction">
+					<option>' . $row["Distinction"] . '</option>
+						<option>Yes</option>
+						<option>No</option> 
+					</select>
+				</fieldset>
+					</div>
+				</div>
+				
+
+				
+				<div class="col-md-6 col-12">
+					<div class="form-group">
+						<label for="DateFirstRegistration">Date of First Registration</label>
+						<input type="date" id="DateFirstRegistration" class="form-control"
+							 name="DateFirstRegistration" value=' . $row["DateFirstRegistration"] . '>
+					</div>
+				</div>
+				
+				
+					<div class="col-md-6 col-12">
+						<div class="form-group">
+							<label for="Completed">Completed</label>
+							<fieldset class="form-group">
+						<select class="form-select" id="Completed" name="Completed">
+						<option>' . $row["Completed"] . '</option>
+							<option>Yes</option>
+							<option>No</option> 
+						</select>
+					</fieldset>
+						</div>
+					</div>
+				
+				<div class="col-md-6 col-12">
+					<div class="form-group">
+						<label for="HighestCompletedQualification">Highest Completed Qualification</label>
+						<fieldset class="form-group">
+					<select class="form-select" id="HighestCompletedQualification" name="HighestCompletedQualification">
+					<option>' . $row["HighestCompletedQualification"] . '</option>
+						<option>Yes</option>
+						<option>No</option> 
+					</select>
+				</fieldset>
+					</div>
+				</div>
+				
+				<div class="col-md-6 col-12">
+					<div class="form-group">
+						<label for="Transcript">Add Transcript</label>
+						
+				<input class="form-control" type="file" id="Transcript" name="Transcript" multiple>
+					</div>
+				</div>
+				
+				
+				<div class="col-md-6 col-12">
+					<div class="form-group">
+						<label for="Status">Status</label>
+						<fieldset class="form-group">
+					<select class="form-select" id="Status" name="Status">
+					<option>' . $row["Status"] . '</option>
+						<option>Discontinued (stopped)</option>
+
+						<option>In progress</option>
+
+						<option>Suspended (interrupted)</option> 
+					</select>
+				</fieldset>
+					</div>
+				</div>
+				
+				<div class="col-md-6 col-12">
+					<div class="form-group">
+						<label for="Reason">Reason</label>
+						<input type="text" id="Reason" class="form-control"
+							name="Reason" value=' . $row["Reason"] . '>
+					</div>
+				</div>
+				
+				
+				
+				<div class="col-md-6 col-12">
+					<div class="form-group">
+						<label for="AnticipatedDateCompletion">Anticipated Date of Completion</label>
+						<input type="date" id="AnticipatedDateCompletion" class="form-control"
+							name="AnticipatedDateCompletion" value=' . $row["AnticipatedDateCompletion"] . '>
+					</div>
+				</div>';
+					
+					
+		echo '</div>';
 	}
 	exit;
 }
@@ -223,10 +383,10 @@ while($row = mysqli_fetch_array($result))
 {
  	
  $sub_array = array();
- $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Language">' . $row["Language"] . '</div>';
- $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Speak">' . $row["Speak"] . '</div>';
- $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Read">' . $row["Read"] . '</div>';
-  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Write">' . $row["Write"] . '</div>';
+ $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="AcademicLevel">' . $row["Level"] . '</div>';
+ $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="NameOfDegree">' . $row["NameOfDegree"] . '</div>';
+ $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="HighestCompletedQualification">' . $row["HighestCompletedQualification"] . '</div>';
+  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="AnticipatedDateCompletion">' . $row["AnticipatedDateCompletion"] . '</div>';
 	$sub_array[] = '<div class="icon dripicons-document-edit" data-id="'.$row["ID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div>';
  $data[] = $sub_array;
 }
@@ -235,12 +395,9 @@ while($row = mysqli_fetch_array($result))
 
 function get_all_data($conn)
 {
- $query = "SELECT a.ID, b.Name as Language, c.Name as `Read`, d.Name as `Write`, e.Name as `Speak` FROM `LanguageProficiency` a 
-LEFT JOIN LookupLanguages b on b.ID = a.Language
-LEFT JOIN LookupProficiency c on c.ID = a.Read
-LEFT JOIN LookupProficiency d on d.ID = a.Write
-LEFT JOIN LookupProficiency e on e.ID = a.Speak
- where UserID = '".$_SESSION['id']."'";
+ $query = "SELECT a.*, b.Name as Level FROM Qualifications a 
+left join LookupQualificationLevel b on b.ID = a.AcademicLevel
+WHERE UserID = '".$_SESSION['id']."'";
 
  $result = mysqli_query($conn,$query);
  return $result->num_rows;

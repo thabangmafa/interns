@@ -204,7 +204,7 @@ if(isset($_POST['InstitutionID']))
 		var InstitutionID = $(e.relatedTarget).data('institutionid');
         $.ajax({
             type : 'post',
-            url : 'admin/user/fetch.php', //Here you will fetch records 
+            url : 'admin/user/fetchHost.php', //Here you will fetch records 
             data :  {CallID:CallID, InstitutionID:InstitutionID}, //Pass $id
             success : function(data){
             $('.fetched-data').html(data);//Show fetched data from database

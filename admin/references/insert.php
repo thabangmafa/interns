@@ -18,7 +18,9 @@ if(isset($_POST["Name"], $_POST["Relationship"], $_POST["Telephone"]))
   
   $counter = "SELECT count(*) Refs FROM `References` WHERE UserID = '$ID'";
   $res = mysqli_query($conn, $counter);
-	  if (mysqli_num_rows($res) > 2) {
+  $userdetails = mysqli_fetch_array($res);
+  
+	  if ($userdetails['Refs'] > 2) {
 		  $checklist = "INSERT INTO ApplicantChecklist(UserID, Section)VALUES('$ID','References')";
 		  mysqli_query($conn, $checklist);
 	  }

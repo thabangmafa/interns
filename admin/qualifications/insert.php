@@ -2,20 +2,61 @@
 include '../connect.php';
 $conn = OpenCon();
 
-if(isset($_POST["Language"], $_POST["Speak"], $_POST["Read"], $_POST["Write"]))
+if(isset($_POST["AcademicLevel"]))
 {
 	
- $Language = mysqli_real_escape_string($conn,$_POST["Language"]);
- $Speak = mysqli_real_escape_string($conn,$_POST["Speak"]);
- $Read = mysqli_real_escape_string($conn,$_POST["Read"]);
- $Write = mysqli_real_escape_string($conn,$_POST["Write"]);
+
+  $AcademicLevel = mysqli_real_escape_string($conn,$_POST["AcademicLevel"]);
+  $NameOfDegree = mysqli_real_escape_string($conn,$_POST["NameOfDegree"]);
+  $TitleOfResearchProject = mysqli_real_escape_string($conn,$_POST["TitleOfResearchProject"]);
+  $Institution = mysqli_real_escape_string($conn,$_POST["Institution"]);
+  $Fulltime = mysqli_real_escape_string($conn,$_POST["Fulltime"]);
+  $Distinction = mysqli_real_escape_string($conn,$_POST["Distinction"]);
+  $DateFirstRegistration = mysqli_real_escape_string($conn,$_POST["DateFirstRegistration"]);
+  $Completed = mysqli_real_escape_string($conn,$_POST["Completed"]);
+  $HighestCompletedQualification = mysqli_real_escape_string($conn,$_POST["HighestCompletedQualification"]);
+  $Transcript = mysqli_real_escape_string($conn,$_POST["Transcript"]);
+  $Status = mysqli_real_escape_string($conn,$_POST["Status"]);
+  $Reason = mysqli_real_escape_string($conn,$_POST["Reason"]);
+  $AnticipatedDateCompletion = mysqli_real_escape_string($conn,$_POST["AnticipatedDateCompletion"]);
  $ID = $_SESSION['id'];
  
- $query = "INSERT INTO `LanguageProficiency`(UserID, `Language`, `Speak`, `Read`, `Write`) VALUES('$ID','$Language', '$Speak', '$Read', '$Write')";
-
+ $query = "INSERT INTO `Qualifications`(
+ 
+  UserID,
+  AcademicLevel,
+  NameOfDegree,
+  TitleOfResearchProject,
+  Institution,
+  Fulltime,
+  Distinction,
+  DateFirstRegistration,
+  Completed,
+  HighestCompletedQualification,
+  Transcript,
+  Status,
+  Reason,
+  AnticipatedDateCompletion) 
+  VALUES('$ID',
+  '$AcademicLevel',
+  '$NameOfDegree',
+  '$TitleOfResearchProject',
+  '$Institution',
+  '$Fulltime',
+  '$Distinction',
+  '$DateFirstRegistration',
+  '$Completed',
+  '$HighestCompletedQualification',
+  '$Transcript',
+  '$Status',
+  '$Reason',
+  '$AnticipatedDateCompletion')";
+echo $query;
  if(mysqli_query($conn,$query))
  {
   echo 'Data Inserted';
+  $checklist = "INSERT INTO ApplicantChecklist(UserID, Section)VALUES('$ID','Qualifications')";
+  mysqli_query($conn, $checklist);
  }else{
 	 echo 'Data Not Inserted';
  }
