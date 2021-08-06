@@ -89,6 +89,8 @@ if (isset($_POST['FullTimeStudent'])) {
 
     $result2 = mysqli_query($conn, $sql2);
 	$message = "Details successfully captured.";
+	$checklist = "INSERT INTO ApplicantChecklist(UserID, Section)VALUES('$id','Contact Details')";
+	mysqli_query($conn, $checklist);
 	unset($_POST);
 	}else{
 		
@@ -196,9 +198,9 @@ if (isset($_POST['FullTimeStudent'])) {
                                             <div class="row">
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="FullTimeStudent">Are you a full time student?</label>
+                                                        <label for="FullTimeStudent">Are you a full time student? <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="FullTimeStudent" name="FullTimeStudent">
+                                                    <select class="form-select" id="FullTimeStudent" name="FullTimeStudent" required="required">
 													<option><?php echo @$FullTimeStudent; ?></option>
                                                         <option>Yes</option>
 														<option>No</option>
@@ -209,10 +211,10 @@ if (isset($_POST['FullTimeStudent'])) {
                                                 </div>
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="CurrentOrganisation">Current organisation</label>
+                                                        <label for="CurrentOrganisation">Current organisation </label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="CurrentOrganisation" name="CurrentOrganisation" required="required">
-													<option>N/A</option>
+                                                    <select class="form-select" id="CurrentOrganisation" name="CurrentOrganisation">
+													<option value="">N/A</option>
                                                         <?php
 				
 															$query = "SELECT * FROM LookupInstitutions WHERE IsActive = '1' ORDER BY Name asc";
@@ -237,9 +239,9 @@ if (isset($_POST['FullTimeStudent'])) {
                                                         <label for="IsOrganisationFundingSalary">Is this the organisation that funds your salary?</label>
                                                         <fieldset class="form-group">
                                                     <select class="form-select" id="IsOrganisationFundingSalary" name="IsOrganisationFundingSalary">
-													<option><?php echo @$IsOrganisationFundingSalary; ?></option>
-                                                        <option>Yes</option>
-														<option>No</option>
+													<option value="<?php echo @$IsOrganisationFundingSalary; ?>"><?php echo @$IsOrganisationFundingSalary; ?></option>
+                                                        <option value="Yes">Yes</option>
+														<option value="No">No</option>
 														
                                                     </select>
                                                 </fieldset>
@@ -249,9 +251,9 @@ if (isset($_POST['FullTimeStudent'])) {
 												
 												<div class="col-md-6 col-12 OrganisationFundingSalary" <?php if(@$IsOrganisationFundingSalary == '' || @$IsOrganisationFundingSalary == 'Yes'){ echo 'style="display:none;"';} ?>>
                                                     <div class="form-group">
-                                                        <label for="OrganisationFundingSalary">Primary organisation which funds your salary?</label>
+                                                        <label for="OrganisationFundingSalary">Primary organisation which funds your salary? <span style="color:red">*</span></label>
                                                         <input type="text" id="OrganisationFundingSalary" class="form-control"
-                                                             name="OrganisationFundingSalary" value="<?php echo @$OrganisationFundingSalary; ?>">
+                                                             name="OrganisationFundingSalary" value="<?php echo @$OrganisationFundingSalary; ?>" required="required">
                                                     </div>
                                                 </div>
 												
@@ -279,32 +281,32 @@ if (isset($_POST['FullTimeStudent'])) {
                                                         
                                         <label for="WorkPostalAddress" class="form-label">Work Postal Address (excluding department) </label>
                                         <textarea class="form-control" id="WorkPostalAddress" name="WorkPostalAddress"
-                                            rows="3"><?php echo @$WorkPostalAddress; ?></textarea>
+                                            rows="3" required="required"><?php echo @$WorkPostalAddress; ?></textarea>
                                     
                                                     </div>
                                                 </div>
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         
-                                        <label for="HomePhysicalAddress" class="form-label">Home Physical Address </label>
+                                        <label for="HomePhysicalAddress" class="form-label">Home Physical Address <span style="color:red">*</span></label>
                                         <textarea class="form-control" id="HomePhysicalAddress" name="HomePhysicalAddress"
-                                            rows="3"><?php echo @$HomePhysicalAddress; ?></textarea>
+                                            rows="3" required="required"><?php echo @$HomePhysicalAddress; ?></textarea>
                                     
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="WorkCityTown">Work City/Town</label>
+                                                        <label for="WorkCityTown">Work City/Town <span style="color:red">*</span></label>
                                                         <input type="text" id="WorkCityTown" class="form-control"
-                                                             name="WorkCityTown" value="<?php echo @$WorkCityTown; ?>">
+                                                             name="WorkCityTown" value="<?php echo @$WorkCityTown; ?>" required="required">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="HomeCityTown">Home City/Town</label>
+                                                        <label for="HomeCityTown">Home City/Town <span style="color:red">*</span></label>
                                                         <input type="text" id="HomeCityTown" class="form-control"
-                                                             name="HomeCityTown" value="<?php echo @$HomeCityTown; ?>">
+                                                             name="HomeCityTown" value="<?php echo @$HomeCityTown; ?>" required="required">
                                                     </div>
                                                 </div>
 												
@@ -318,9 +320,9 @@ if (isset($_POST['FullTimeStudent'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="HomePostalCode">Home Postal Code</label>
+                                                        <label for="HomePostalCode">Home Postal Code <span style="color:red">*</span></label>
                                                         <input type="text" id="HomePostalCode" class="form-control"
-                                                             name="HomePostalCode" value="<?php echo @$HomePostalCode; ?>">
+                                                             name="HomePostalCode" value="<?php echo @$HomePostalCode; ?>" required="required">
                                                     </div>
                                                 </div>
 												
@@ -328,7 +330,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     <div class="form-group">
                                                         <label for="WorkProvince">Work Province/State</label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="WorkProvince" name="WorkProvince" required="required">
+                                                    <select class="form-select" id="WorkProvince" name="WorkProvince">
                                                         <option></option>
                                                         <?php
 				
@@ -356,9 +358,9 @@ if (isset($_POST['FullTimeStudent'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="TelephoneNumber">Primary Telephone Number</label>
+                                                        <label for="TelephoneNumber">Primary Telephone Number <span style="color:red">*</span></label>
                                                         <input type="text" id="TelephoneNumber" class="form-control"
-                                                             name="TelephoneNumber" value="<?php echo @$HomePostalCode; ?>">
+                                                             name="TelephoneNumber" value="<?php echo @$HomePostalCode; ?>" required="required">
                                                     </div>
                                                 </div>
 												
@@ -366,7 +368,7 @@ if (isset($_POST['FullTimeStudent'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="MobileNumber">Mobile Number</label>
+                                                        <label for="MobileNumber">Mobile Number <span style="color:red">*</span></label>
                                                         <input type="text" value="<?php echo $MobileNumber; ?>" id="MobileNumber" class="form-control"
                                                             name="MobileNumber" required="required">
                                                     </div>
@@ -375,7 +377,7 @@ if (isset($_POST['FullTimeStudent'])) {
 												
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="PrimaryEmail">Primary Email Address</label>
+                                                        <label for="PrimaryEmail">Primary Email Address <span style="color:red">*</span></label>
                                                         <input type="email" id="PrimaryEmail" value="<?php echo $PrimaryEmail; ?>" class="form-control"
                                                             name="PrimaryEmail" required="required">
                                                     </div>
@@ -383,7 +385,7 @@ if (isset($_POST['FullTimeStudent'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="ConfirmEmail">Confirm Primary Email Address</label>
+                                                        <label for="ConfirmEmail">Confirm Primary Email Address <span style="color:red">*</span></label>
                                                         <input type="email" value="<?php echo $ConfirmEmail; ?>" id="ConfirmEmail" class="form-control"
                                                             name="ConfirmEmail" required="required">
                                                     </div>
@@ -391,7 +393,7 @@ if (isset($_POST['FullTimeStudent'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="AlternativeEmail">Alternate Email Address</label>
+                                                        <label for="AlternativeEmail">Alternate Email Address <span style="color:red">*</span></label>
                                                         <input type="email" value="<?php echo $AlternativeEmail; ?>" id="AlternativeEmail" class="form-control"
                                                             name="AlternativeEmail" required="required">
                                                     </div>
@@ -400,7 +402,7 @@ if (isset($_POST['FullTimeStudent'])) {
 								
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="HomeProvince">Home Province</label>
+                                                        <label for="HomeProvince">Home Province <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="form-select" id="HomeProvince" name="HomeProvince" required="required">
                                                         <option></option>
@@ -423,7 +425,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                 </div>
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="Country">Home Country</label>
+                                                        <label for="Country">Home Country <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="form-select" id="Country" name="Country" required="required">
 													<option> </option>

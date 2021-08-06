@@ -16,11 +16,6 @@ if(isset($_POST["Language"], $_POST["Speak"], $_POST["Read"], $_POST["Write"]))
  if(mysqli_query($conn,$query))
  {
   echo 'Data Inserted';
-  
-  $checklist = "INSERT INTO ApplicantChecklist(UserID, Section)VALUES('$ID','Language Proficiency')";
-  mysqli_query($conn, $checklist);
-  
-  
  }else{
 	 echo 'Data Not Inserted';
  }

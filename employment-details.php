@@ -51,6 +51,8 @@ if (isset($_POST['Submit'])) {
 
     $result2 = mysqli_query($conn, $sql2);
 	$message = "Details successfully captured.";
+	$checklist = "INSERT INTO ApplicantChecklist(UserID, Section)VALUES('$id','Employment Details')";
+	mysqli_query($conn, $checklist);
 	unset($_POST);
 	}else{
 		

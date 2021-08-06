@@ -7,7 +7,7 @@ $title = "Personal Profile";
 $sql = "SELECT distinct * FROM UserProfile WHERE UserID='".$_SESSION['id']."' ";
 		$result = mysqli_query($conn, $sql);
 		$row = mysqli_fetch_assoc($result);
-
+$id = $_SESSION['id'];
 if (isset($_POST['profile'])) {
 	
 	$profile = $_POST['profile'];
@@ -16,6 +16,8 @@ if (isset($_POST['profile'])) {
 		mysqli_query($conn,"UPDATE UserProfile SET Description = '$profile' WHERE UserID = '".$_SESSION['id']."'");
 	}else{
 		mysqli_query($conn,"INSERT INTO UserProfile(UserID,Description) VALUES('".$_SESSION['id']."','$profile')");
+		$checklist = "INSERT INTO ApplicantChecklist(UserID, Section)VALUES('$id','Personal Profile')";
+		mysqli_query($conn, $checklist);
 	} 
 	
 }
