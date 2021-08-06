@@ -15,8 +15,13 @@ if(isset($_POST["Name"], $_POST["Relationship"], $_POST["Telephone"]))
  if(mysqli_query($conn,$query))
  {
   echo 'Data Inserted';
-  $checklist = "INSERT INTO ApplicantChecklist(UserID, Section)VALUES('$ID','References')";
-  mysqli_query($conn, $checklist);
+  
+  $counter = "SELECT count(*) Refs FROM `References` WHERE UserID = '$ID'";
+  $res = mysqli_query($conn, $counter);
+	  if (mysqli_num_rows($res) > 2) {
+		  $checklist = "INSERT INTO ApplicantChecklist(UserID, Section)VALUES('$ID','References')";
+		  mysqli_query($conn, $checklist);
+	  }
  }else{
 	 echo 'Data Not Inserted';
  }
