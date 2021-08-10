@@ -163,9 +163,9 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="Transcript">Add Transcript</label>
+                                                        <label for="TranscriptFile">Add Transcript</label>
                                                         
-                                                <input class="form-control" type="file" id="Transcript" name="Transcript" multiple>
+                                                <input class="form-control" type="file" id="TranscriptFile" name="TranscriptFile[]" multiple>
                                                     </div>
                                                 </div>
 												
@@ -216,6 +216,20 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 
 if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 {
+	
+	$directory = '../../uploads/qualifications/'.$_SESSION["id"];
+	$scanned_directory = array_diff(scandir($directory), array('..', '.'));
+	$files = '';
+	$req = '';
+	$i = 0;
+	foreach($scanned_directory as $file){
+		$i++;
+		$files .= '<a style="color:red" class="icon dripicons-document-delete" href="?section=qualifications&file='.$file.'"></a> <a target="_blank" href="../../uploads/qualifications/'.$_SESSION["id"].'/'.$file.'"> Transcript '.$i.'</a> | ';
+		$req = 'required="required"';
+	}
+
+
+
 	while($row = mysqli_fetch_array($result))
 	{
 		echo '<div class="row">';
@@ -224,7 +238,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 					<div class="form-group">
 						<label for="AcademicLevel">Academic Level of Qualification</label>
 						<fieldset class="form-group">
-					<select class="form-select" id="AcademicLevel" name="AcademicLevel">
+					<select class="form-select" id="AcademicLevel" name="AcademicLevel" required="required">
 					<option></option> ';
 							foreach($QLevel as $level){
 								$select = '';
@@ -251,7 +265,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				<div class="col-md-6 col-12">
 					<div class="form-group">
 						<label for="TitleOfResearchProject">Title of Research Project</label>
-						<input type="text" id="TitleOfResearchProject" class="form-control"
+						<input type="text" id="TitleOfResearchProject" required="required" class="form-control"
 							 name="TitleOfResearchProject" value=' . $row["TitleOfResearchProject"] . '>
 					</div>
 				</div>
@@ -260,7 +274,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				<div class="col-md-6 col-12">
 					<div class="form-group">
 						<label for="Institution">Institution</label>
-						<input type="text" id="Institution" class="form-control"
+						<input type="text" id="Institution" required="required" class="form-control"
 							 name="Institution" value=' . $row["Institution"] . '>
 					</div>
 				</div>
@@ -269,7 +283,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 					<div class="form-group">
 						<label for="Fulltime">Full-time</label>
 						<fieldset class="form-group">
-					<select class="form-select" id="Fulltime" name="Fulltime">
+					<select class="form-select" id="Fulltime" name="Fulltime" required="required">
 					<option> ' . $row["Fulltime"] . '</option>
 						<option></option>
 						<option>Yes</option>
@@ -283,7 +297,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 					<div class="form-group">
 						<label for="Distinction">Distinction</label>
 						<fieldset class="form-group">
-					<select class="form-select" id="Distinction" name="Distinction">
+					<select class="form-select" id="Distinction" name="Distinction" required="required">
 					<option>' . $row["Distinction"] . '</option>
 						<option>Yes</option>
 						<option>No</option> 
@@ -297,7 +311,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				<div class="col-md-6 col-12">
 					<div class="form-group">
 						<label for="DateFirstRegistration">Date of First Registration</label>
-						<input type="date" id="DateFirstRegistration" class="form-control"
+						<input type="date" id="DateFirstRegistration" required="required" class="form-control"
 							 name="DateFirstRegistration" value=' . $row["DateFirstRegistration"] . '>
 					</div>
 				</div>
@@ -307,7 +321,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 						<div class="form-group">
 							<label for="Completed">Completed</label>
 							<fieldset class="form-group">
-						<select class="form-select" id="Completed" name="Completed">
+						<select class="form-select" id="Completed" required="required" name="Completed" onchange="myFunction()">
 						<option>' . $row["Completed"] . '</option>
 							<option>Yes</option>
 							<option>No</option> 
@@ -320,7 +334,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 					<div class="form-group">
 						<label for="HighestCompletedQualification">Highest Completed Qualification</label>
 						<fieldset class="form-group">
-					<select class="form-select" id="HighestCompletedQualification" name="HighestCompletedQualification">
+					<select class="form-select" id="HighestCompletedQualification" required="required" name="HighestCompletedQualification">
 					<option>' . $row["HighestCompletedQualification"] . '</option>
 						<option>Yes</option>
 						<option>No</option> 
@@ -329,16 +343,20 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 					</div>
 				</div>
 				
+				
+				
 				<div class="col-md-6 col-12">
 					<div class="form-group">
-						<label for="Transcript">Add Transcript</label>
-						
-				<input class="form-control" type="file" id="Transcript" name="Transcript" multiple>
+						<label for="TranscriptFile">Add Transcript </label><span  style="float:right">'.$files.'</span>
+						<input class="form-control" type="file" id="TranscriptFile" required="required" name="TranscriptFile[]" multiple $req>
 					</div>
 				</div>
+				</div>';
+				$visibility = 'visibility: hidden;';
+					if($row["Completed"] == 'No'){$visibility = 'visibility: visible;';}
+				echo '<div class="row notCompleted" style="'.$visibility.'">
 				
-				
-				<div class="col-md-6 col-12">
+				<div class="col-md-6 col-12 ">
 					<div class="form-group">
 						<label for="Status">Status</label>
 						<fieldset class="form-group">
@@ -357,7 +375,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				<div class="col-md-6 col-12">
 					<div class="form-group">
 						<label for="Reason">Reason</label>
-						<input type="text" id="Reason" class="form-control"
+						<input type="text" id="Reason" class="form-control Reason"
 							name="Reason" value=' . $row["Reason"] . '>
 					</div>
 				</div>
@@ -370,7 +388,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 						<input type="date" id="AnticipatedDateCompletion" class="form-control"
 							name="AnticipatedDateCompletion" value=' . $row["AnticipatedDateCompletion"] . '>
 					</div>
-				</div>';
+				</div></div>';
 					
 					
 		echo '</div>';

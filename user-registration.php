@@ -4,6 +4,14 @@ $conn = OpenCon();
 $menu_item = "2";
 $title = "Registration Details";
 
+if(@$_GET['file']){
+	$f = "uploads/applicants/".$_SESSION['id']."/".$_GET['file'];
+	if( file_exists($f)) unlink($f);
+	$query = "UPDATE RegistrationDetails SET IDDocument = '' WHERE UserID = '".$_SESSION['id']."'";
+	mysqli_query($conn, $query);
+	header('Location: user-registration.php');
+}
+
 if (isset($_POST['Submit'])) {
 	
 	function validate($data){
@@ -351,9 +359,9 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="id_document">ID/Passport Number <span style="color:red">*</span></label>  <?php if(@$IDDocument){
-	 echo '<a style="float:right" target="_blank" href="uploads/applicants/'.$_SESSION['id'].'/'.@$IDDocument.'">Attached Document</a>';
- } ?>
+                                                        <label for="id_document">ID/Passport Number <span style="color:red">*</span></label> <span  style="float:right"> <?php if(@$IDDocument){
+	 echo '<a style="color:red;" class="icon dripicons-document-delete" href="?section=qualifications&file='.@$IDDocument.'"></a> <a target="_blank" href="uploads/applicants/'.$_SESSION['id'].'/'.@$IDDocument.'">Attached Document</a>';
+ } ?></span>
                                                         <input type="file" id="id_document" name="id_document" value="<?php echo @$IDDocument; ?>" class="form-control" <?php if(!@$IDDocument){ echo 'required="required"'; } ?>>
                                                     </div>
                                                 </div>

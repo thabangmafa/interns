@@ -2,7 +2,11 @@
 include 'admin/connect.php';
 $menu_item = "2";
 $title = "Qualifications";
-
+if(@$_GET['file']){
+	$f = "uploads/".$_GET['section']."/".$_SESSION['id']."/".$_GET['file'];
+	if( file_exists($f)) unlink($f);
+	header('Location: qualification.php');
+}
  ?>
 <?php require_once("admin/header.php"); ?>
         <?php require_once("menu.php"); ?>
@@ -47,7 +51,7 @@ $title = "Qualifications";
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form">
+                                        
                                             <div class="row">
 											
 											
@@ -71,7 +75,7 @@ $title = "Qualifications";
                                                 </div>
 							
 
-                                        </form>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -84,9 +88,9 @@ $title = "Qualifications";
 				
 				
 				
-				<!--Modal Xl size -->
+				<!--Modal Xl size --><form class="form"  method="post" action="" id="QualificationsDetails" enctype="multipart/form-data">
                                         <div class="me-1 mb-1 d-inline-block">
-                  
+											
 
                                             <!--Extra Large Modal -->
                                             <div class="modal fade text-left w-100" id="capture-new" tabindex="-1"
@@ -129,7 +133,7 @@ $title = "Qualifications";
                                                 </div>
                                             </div>
                                         </div>
-										
+									</form>	
 				
 				
             </div>
@@ -210,97 +214,60 @@ $title = "Qualifications";
    });
   }
   
+       $("#update").click(function(){
+		  
+		  
+		  var form = $('#QualificationsDetails')[0];
+        var formData = new FormData(form);
+        event.preventDefault();
+        $.ajax({
+            url: "admin/qualifications/update.php", // the endpoint
+            type: "POST", // http method
+            processData: false,
+            contentType: false,
+            data: formData,        
+              success: function(response){
+                 location.reload();
+             
+           }
+        });
 
-
-  $(document).on('click', '#update', function(){
-   var ID = $("#ID").val();
-  var AcademicLevel = $("#AcademicLevel").val();
-  var NameOfDegree = $("#NameOfDegree").val();
-  var TitleOfResearchProject = $("#TitleOfResearchProject").val();
-  var Institution = $("#Institution").val();
-  var Fulltime = $("#Fulltime").val();
-  var Distinction = $("#Distinction").val();
-  var DateFirstRegistration = $("#DateFirstRegistration").val();
-  var Completed = $("#Completed").val();
-  var HighestCompletedQualification = $("#HighestCompletedQualification").val();
-  var Transcript = $("#Transcript").val();
-  var Status = $("#Status").val();
-  var Reason = $("#Reason").val();
-  var AnticipatedDateCompletion = $("#AnticipatedDateCompletion").val();
-
-   $.ajax({
-    url:"admin/qualifications/update.php",
-    method:"POST",
-    data:{ID:ID, AcademicLevel:AcademicLevel,
-		  NameOfDegree:NameOfDegree,
-		  TitleOfResearchProject:TitleOfResearchProject,
-		  Institution:Institution,
-		  Fulltime:Fulltime,
-		  Distinction:Distinction,
-		  DateFirstRegistration:DateFirstRegistration,
-		  Completed:Completed,
-		  HighestCompletedQualification:HighestCompletedQualification,
-		  Transcript:Transcript,
-		  Status:Status,
-		  Reason:Reason,
-		  AnticipatedDateCompletion:AnticipatedDateCompletion},
-    success:function(data)
-    {
-     location.reload();
-    }
-   });
-     
-   
-  });
-  
-
-
-  
-  $(document).on('click', '#insert', function(){
-	  
-  var AcademicLevel = $("#AcademicLevel").val();
-  var NameOfDegree = $("#NameOfDegree").val();
-  var TitleOfResearchProject = $("#TitleOfResearchProject").val();
-  var Institution = $("#Institution").val();
-  var Fulltime = $("#Fulltime").val();
-  var Distinction = $("#Distinction").val();
-  var DateFirstRegistration = $("#DateFirstRegistration").val();
-  var Completed = $("#Completed").val();
-  var HighestCompletedQualification = $("#HighestCompletedQualification").val();
-  var Transcript = $("#Transcript").val();
-  var Status = $("#Status").val();
-  var Reason = $("#Reason").val();
-  var AnticipatedDateCompletion = $("#AnticipatedDateCompletion").val();
-
-
-    $.ajax({
-     url:"admin/qualifications/insert.php",
-     method:"POST",
-     data:{
-		 
-		 AcademicLevel:AcademicLevel,
-		  NameOfDegree:NameOfDegree,
-		  TitleOfResearchProject:TitleOfResearchProject,
-		  Institution:Institution,
-		  Fulltime:Fulltime,
-		  Distinction:Distinction,
-		  DateFirstRegistration:DateFirstRegistration,
-		  Completed:Completed,
-		  HighestCompletedQualification:HighestCompletedQualification,
-		  Transcript:Transcript,
-		  Status:Status,
-		  Reason:Reason,
-		  AnticipatedDateCompletion:AnticipatedDateCompletion
-	 },
-     success:function(data)
-     {
-      location.reload();
-	  
-     }
     });
-   
-   
-  });
-  
+	
+
+
+
+$("#insert").click(function(){
+		  
+		  
+		  var form = $('#QualificationsDetails')[0];
+        var formData = new FormData(form);
+        event.preventDefault();
+        $.ajax({
+            url: "admin/qualifications/insert.php", // the endpoint
+            type: "POST", // http method
+            processData: false,
+            contentType: false,
+            data: formData,        
+              success: function(response){
+                 location.reload();
+             
+           }
+        });
+
+    });
+	
+	
  });
+ 
+ function myFunction(){
+
+	 if(document.getElementById("Completed").value == 'Yes'){
+
+		 document.getElementsByClassName('notCompleted')[0].style.visibility = 'hidden';
+	 }else{
+
+		 document.getElementsByClassName('notCompleted')[0].style.visibility = 'visible';
+	 }
+ }
 </script>

@@ -18,6 +18,37 @@ if(isset($_POST["ID"]))
   $Status = mysqli_real_escape_string($conn,$_POST["Status"]);
   $Reason = mysqli_real_escape_string($conn,$_POST["Reason"]);
   $AnticipatedDateCompletion = mysqli_real_escape_string($conn,$_POST["AnticipatedDateCompletion"]);
+  
+    // Count total files
+ $Transcripts = count($_FILES['TranscriptFile']['name']);
+
+ // Looping all files
+ for($i=0;$i<$Transcripts;$i++){
+	 
+ 
+  $TranscriptFile = $_FILES['TranscriptFile']['name'][$i];
+ 
+  	if (!file_exists('../../uploads/qualifications/'.$_SESSION["id"])) {
+		mkdir('../../uploads/qualifications/'.$_SESSION["id"], 0777, true);
+	}
+	
+   /* Location */
+   $location = "../../uploads/qualifications/".$_SESSION["id"].'/'.$TranscriptFile;
+   $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
+   $imageFileType = strtolower($imageFileType);
+
+   /* Valid extensions */
+   $valid_extensions = array("pdf","doc","docx");
+
+   $response = 0;
+   /* Check file extension */
+   if(in_array(strtolower($imageFileType), $valid_extensions)) {
+      /* Upload file */
+	  move_uploaded_file($_FILES['TranscriptFile']['tmp_name'][$i],$location);
+
+   }
+ 
+ }
  
  $query = "UPDATE `Qualifications` SET 
   AcademicLevel='".$AcademicLevel."',

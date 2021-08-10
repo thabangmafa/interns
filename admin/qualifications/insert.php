@@ -2,7 +2,7 @@
 include '../connect.php';
 $conn = OpenCon();
 
-if(isset($_POST["AcademicLevel"]))
+if(isset($_POST["AcademicLevel"]) && isset($_POST["NameOfDegree"]) && isset($_POST["TitleOfResearchProject"]) && isset($_POST["Institution"]) && isset($_POST["Fulltime"]) && isset($_POST["Distinction"]) && isset($_POST["DateFirstRegistration"]))
 {
 	
 
@@ -15,11 +15,45 @@ if(isset($_POST["AcademicLevel"]))
   $DateFirstRegistration = mysqli_real_escape_string($conn,$_POST["DateFirstRegistration"]);
   $Completed = mysqli_real_escape_string($conn,$_POST["Completed"]);
   $HighestCompletedQualification = mysqli_real_escape_string($conn,$_POST["HighestCompletedQualification"]);
-  $Transcript = mysqli_real_escape_string($conn,$_POST["Transcript"]);
+  //$Transcript = mysqli_real_escape_string($conn,$_POST["Transcript"]);
   $Status = mysqli_real_escape_string($conn,$_POST["Status"]);
   $Reason = mysqli_real_escape_string($conn,$_POST["Reason"]);
   $AnticipatedDateCompletion = mysqli_real_escape_string($conn,$_POST["AnticipatedDateCompletion"]);
  $ID = $_SESSION['id'];
+ $TranscriptFile = '';
+ 
+ 
+ 
+  // Count total files
+ $Transcripts = count($_FILES['TranscriptFile']['name']);
+
+ // Looping all files
+ for($i=0;$i<$Transcripts;$i++){
+	 
+ 
+  $TranscriptFile = $_FILES['TranscriptFile']['name'][$i];
+ 
+  	if (!file_exists('../../uploads/qualifications/'.$_SESSION["id"])) {
+		mkdir('../../uploads/qualifications/'.$_SESSION["id"], 0777, true);
+	}
+	
+   /* Location */
+   $location = "../../uploads/qualifications/".$_SESSION["id"].'/'.$TranscriptFile;
+   $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
+   $imageFileType = strtolower($imageFileType);
+
+   /* Valid extensions */
+   $valid_extensions = array("pdf","doc","docx");
+
+   $response = 0;
+   /* Check file extension */
+   if(in_array(strtolower($imageFileType), $valid_extensions)) {
+      /* Upload file */
+	  move_uploaded_file($_FILES['TranscriptFile']['tmp_name'][$i],$location);
+
+   }
+ 
+ }
  
  $query = "INSERT INTO `Qualifications`(
  
@@ -47,11 +81,11 @@ if(isset($_POST["AcademicLevel"]))
   '$DateFirstRegistration',
   '$Completed',
   '$HighestCompletedQualification',
-  '$Transcript',
+  '$TranscriptFile',
   '$Status',
   '$Reason',
   '$AnticipatedDateCompletion')";
-echo $query;
+
  if(mysqli_query($conn,$query))
  {
   echo 'Data Inserted';
