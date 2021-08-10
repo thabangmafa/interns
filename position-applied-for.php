@@ -162,7 +162,7 @@ if (isset($_POST['Submit'])) {
                                                     <div class="form-group">
                                                         <label for="PreviouslyApplied">Have you previously applied for the DST Internship?</label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="PreviouslyApplied" name="PreviouslyApplied" required="required">
+                                                    <select class="choices form-select" id="PreviouslyApplied" name="PreviouslyApplied" required="required">
                                                         <option></option>
                                                         <option <?php if(@$PreviouslyApplied == 'Yes'){ echo "selected='selected'"; } ?>>Yes</option>
                                                         <option <?php if(@$PreviouslyApplied == 'No'){ echo "selected='selected'"; } ?>>No</option>
@@ -188,7 +188,7 @@ if (isset($_POST['Submit'])) {
                                                     <div class="form-group">
                                                         <label for="FirstProvince">Province</label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="FirstProvince" name="FirstProvince" required="required">
+                                                    <select class="choices form-select" id="FirstProvince" name="FirstProvince" required="required">
                                                         <option></option>
                                                         <?php
 				
@@ -212,7 +212,7 @@ if (isset($_POST['Submit'])) {
                                                     <div class="form-group">
                                                         <label for="FirstDiscipline">Discipline/Area of Specialisation</label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="FirstDiscipline" name="FirstDiscipline">
+                                                    <select class="choices form-select" id="FirstDiscipline" name="FirstDiscipline">
                                                         <option></option>
                                                         <?php
 				
@@ -241,7 +241,7 @@ if (isset($_POST['Submit'])) {
                                                     <div class="form-group">
                                                         <label for="SecondProvince">Province</label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="SecondProvince" name="SecondProvince">
+                                                    <select class="choices form-select" id="SecondProvince" name="SecondProvince">
                                                         <option></option>
                                                         <?php
 				
@@ -265,7 +265,7 @@ if (isset($_POST['Submit'])) {
                                                     <div class="form-group">
                                                         <label for="SecondDiscipline">Discipline/Area of Specialisation</label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="SecondDiscipline" name="SecondDiscipline">
+                                                    <select class="choices form-select" id="SecondDiscipline" name="SecondDiscipline">
                                                         <option></option>
                                                         <?php
 				
@@ -293,7 +293,7 @@ if (isset($_POST['Submit'])) {
                                                     <div class="form-group">
                                                         <label for="ThirdProvince">Province</label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="ThirdProvince" name="ThirdProvince">
+                                                    <select class="choices form-select" id="ThirdProvince" name="ThirdProvince">
                                                         <option></option>
                                                         <?php
 				
@@ -317,7 +317,7 @@ if (isset($_POST['Submit'])) {
                                                     <div class="form-group">
                                                         <label for="ThirdDiscipline">Discipline/Area of Specialisation</label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="ThirdDiscipline" name="ThirdDiscipline">
+                                                    <select class="choices form-select" id="ThirdDiscipline" name="ThirdDiscipline">
                                                         <option></option>
                                                         <?php
 				

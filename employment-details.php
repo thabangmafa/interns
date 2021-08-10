@@ -139,7 +139,7 @@ if (isset($_POST['Submit'])) {
 													<div class="form-group">
 														<label for="EmploymentStatus">Employment Status</label>
 														<fieldset class="form-group">
-													<select class="form-select" name="EmploymentStatus" id="EmploymentStatus" required="required">
+													<select class="choices form-select" name="EmploymentStatus" id="EmploymentStatus" required="required">
 													<option></option>
 													<option value="Contract" <?php if(@$EmploymentStatus == 'Contract'){ echo "selected='selected'"; } ?>>Contract</option>
 													<option value="Permanent" <?php if(@$EmploymentStatus == 'Permanent'){ echo "selected='selected'"; } ?>>Permanent</option>
@@ -185,7 +185,7 @@ if (isset($_POST['Submit'])) {
 													<div class="form-group">
 														<label for="Type">Type</label>
 														<fieldset class="form-group">
-													<select class="form-select" name="Type" id="Type" required="required">
+													<select class="choices form-select" name="Type" id="Type" required="required">
 													<option></option>
 													<?php
 				

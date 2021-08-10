@@ -9,3 +9,6 @@
 <?php
 CloseCon($conn);
 ?>
+
+<!-- Include Choices JavaScript -->
+    <script src="assets/vendors/choices.js/choices.min.js"></script>

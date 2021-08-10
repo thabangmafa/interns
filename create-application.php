@@ -17,6 +17,58 @@ if(isset($_POST['CALLID']))
 	 }
 }
 
+
+$query = "SELECT * FROM ApplicantChecklist 	
+	WHERE UserID = '".$_SESSION['id']."'";
+
+	$result = mysqli_query($conn, $query);
+	
+	
+	while($details = mysqli_fetch_array($result)) {
+		if($details['Section'] == 'Contact Details'){
+			$ContactDetails = 1;
+		}
+		
+		if($details['Section'] == 'Employment Details'){
+			$EmploymentDetails = 1;
+		}
+		
+		if($details['Section'] == 'Language Proficiency'){
+			$LanguageProficiency = 1;
+		}
+		
+		if($details['Section'] == 'Next Of Kin'){
+			$NextOfKin = 1;
+		}
+		
+		if($details['Section'] == 'Position Applied For'){
+			$PositionAppliedFor = 1;
+		}
+		
+		if($details['Section'] == 'Personal Profile'){
+			$PersonalProfile = 1;
+		}
+		
+		if($details['Section'] == 'Qualifications'){
+			$Qualifications = 1;
+		}
+		
+		if($details['Section'] == 'Registration Details'){
+			$RegistrationDetails = 1;
+		}
+		
+		if($details['Section'] == 'References'){
+			$References = 1;
+		}
+		
+		
+	}
+	
+	$Total = @$ContactDetails + @$EmploymentDetails + @$LanguageProficiency + @$NextOfKin + @$PositionAppliedFor + @$PersonalProfile + @$Qualifications + @$RegistrationDetails + @$References;
+
+
+
+
  ?>
 <?php require_once("admin/header.php"); ?>
         <?php require_once("menu.php"); ?>
@@ -113,7 +165,11 @@ if(isset($_POST['CALLID']))
 											 echo '<td>' . $calls['OpenDate'] . '</td>';
 											 echo '<td>' . $calls['InternsApplicationDueDate'] . '</td>';
 											 echo '<td>' . $appReq . '</td>';
+											 if($Total == '9'){
 											 echo '<td><div class="icon dripicons-enter" data-id="'.$calls["ID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div></td>';
+											 }else{
+												 echo '<td>Your profile is incomplete.</td>';
+											 }
 											 echo '</tr>';
 										}
 

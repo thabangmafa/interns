@@ -39,6 +39,9 @@ if (isset($_SESSION['id']) && isset($_SESSION['username'])) {
 
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="shortcut icon" href="assets/images/logo/favicon.ico" type="image/x-icon">
+	
+	<!-- Include Choices CSS -->
+	<link rel="stylesheet" href="assets/vendors/choices.js/choices.min.css" />
 </head>
 
 <body>

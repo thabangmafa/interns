@@ -205,10 +205,10 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     <div class="form-group">
                                                         <label for="FullTimeStudent">Are you a full time student? <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="FullTimeStudent" name="FullTimeStudent" required="required">
-													<option><?php echo @$FullTimeStudent; ?></option>
-                                                        <option>Yes</option>
-														<option>No</option>
+                                                    <select class="choices form-select" id="FullTimeStudent" name="FullTimeStudent" required="required">
+													<option></option>
+                                                        <option <?php if(@$FullTimeStudent == 'Yes'){ echo "selected='selected'"; } ?>>Yes</option>
+														<option <?php if(@$FullTimeStudent == 'No'){ echo "selected='selected'"; } ?>>No</option>
 														
                                                     </select>
                                                 </fieldset>
@@ -218,7 +218,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     <div class="form-group">
                                                         <label for="CurrentOrganisation">Current organisation </label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="CurrentOrganisation" name="CurrentOrganisation">
+                                                    <select class="choices form-select" id="CurrentOrganisation" name="CurrentOrganisation">
 													<option value="">N/A</option>
                                                         <?php
 				
@@ -243,10 +243,10 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     <div class="form-group">
                                                         <label for="IsOrganisationFundingSalary">Is this the organisation that funds your salary?</label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="IsOrganisationFundingSalary" name="IsOrganisationFundingSalary">
-													<option value="<?php echo @$IsOrganisationFundingSalary; ?>"><?php echo @$IsOrganisationFundingSalary; ?></option>
-                                                        <option value="Yes">Yes</option>
-														<option value="No">No</option>
+                                                    <select class="choices form-select" id="IsOrganisationFundingSalary" name="IsOrganisationFundingSalary">
+													<option></option>
+                                                        <option value="Yes" <?php if(@$IsOrganisationFundingSalary == 'Yes'){ echo "selected='selected'"; } ?>>Yes</option>
+														<option value="No" <?php if(@$IsOrganisationFundingSalary == 'No'){ echo "selected='selected'"; } ?>>No</option>
 														
                                                     </select>
                                                 </fieldset>
@@ -335,7 +335,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     <div class="form-group">
                                                         <label for="WorkProvince">Work Province/State</label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="WorkProvince" name="WorkProvince">
+                                                    <select class="choices form-select" id="WorkProvince" name="WorkProvince">
                                                         <option></option>
                                                         <?php
 				
@@ -359,7 +359,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     <div class="form-group">
                                                         <label for="HomeProvince">Home Province <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="HomeProvince" name="HomeProvince" required="required">
+                                                    <select class="choices form-select" id="HomeProvince" name="HomeProvince" required="required">
                                                         <option></option>
                                                         <?php
 				
@@ -383,7 +383,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     <div class="form-group">
                                                         <label for="WorkCountry">Work Country <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="WorkCountry" name="WorkCountry" required="required">
+                                                    <select class="choices form-select" id="WorkCountry" name="WorkCountry" required="required">
 													<option> </option>
                                                         <?php
 				
@@ -407,7 +407,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     <div class="form-group">
                                                         <label for="Country">Home Country <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="Country" name="Country" required="required">
+                                                    <select class="choices form-select" id="Country" name="Country" required="required">
 													<option> </option>
                                                         <?php
 				

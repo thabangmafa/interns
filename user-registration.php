@@ -181,6 +181,7 @@ if (isset($_POST['Submit'])) {
  ?>
 		<?php require_once("admin/header.php"); ?>
         <?php require_once("menu.php"); ?>
+		
         <div id="main">
             <header class="mb-3">
                 <a href="#" class="burger-btn d-block d-xl-none">
@@ -215,12 +216,8 @@ if (isset($_POST['Submit'])) {
                                     <ul>
 									<li>Kindly note that this registration process hould be completed only once.</li>
 <li>You need to comple all the required fields (indicated with *) before you will be able to submit your registration.</li>
-<li>Please create a password that is at least 6 characters long, containts small letters, capitals letters and numerals.</li>
-<li>Please type a passwrod which meets these requirements and which you will remember!</li>
-<li>If you do not have an alternative email address, please leave the field blank and do not enter anything such as N/A.</li>
 <li>The field indicated with I are searchable fields. To avoid having to search through the full list, simpluy type one keyword into the field provided. The results will appear in the drop-down list.</li>
-<li>After you have successfully registered, login to the system by using the ID/passport number and password you provided.</li>
-<li>The information icon (i) indicates that there is a tooltip associated with the relevant field. When hoving over this icon, additional information will show.</li></ul>
+</ul>
                                 </div>
                                 <div class="card-content">
 								<?php if(@$message){ ?>	
@@ -233,7 +230,7 @@ if (isset($_POST['Submit'])) {
                                                     <div class="form-group">
                                                         <label for="first-name-column">Title <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="title" name="title" required="required">
+                                                    <select class="choices form-select" id="title" name="title" required="required">
 													<option></option>
                                                         <?php
 				
@@ -282,7 +279,7 @@ if (isset($_POST['Submit'])) {
                                                     <div class="form-group">
                                                         <label for="last-name-column">Country of Birth <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="country" name="country" required="required">
+                                                    <select class="choices form-select" id="country" name="country" required="required">
 													<option> </option>
                                                         <?php
 				
@@ -306,7 +303,7 @@ if (isset($_POST['Submit'])) {
                                                     <div class="form-group">
                                                         <label for="last-name-column">South African Citizenship Status <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="citizenship" name="citizenship" required="required">
+                                                    <select class="choices form-select" id="citizenship" name="citizenship" required="required">
 													<option></option>
                                                         <?php
 				
@@ -330,7 +327,7 @@ if (isset($_POST['Submit'])) {
                                                     <div class="form-group">
                                                         <label for="id_type">ID Type <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="id_type" name="id_type" required="required">
+                                                    <select class="choices form-select" id="id_type" name="id_type" required="required">
 														<option></option>
                                                         <?php
 				
@@ -371,7 +368,7 @@ if (isset($_POST['Submit'])) {
                                                     <div class="form-group">
                                                         <label for="race">Race <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="race" name="race" required="required">
+                                                    <select class="choices form-select" id="race" name="race" required="required">
 													<option></option>
                                                         <?php
 				
@@ -394,7 +391,7 @@ if (isset($_POST['Submit'])) {
                                                     <div class="form-group">
                                                         <label for="gender">Gender <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="gender" name="gender" required="required">
+                                                    <select class="choices form-select" id="gender" name="gender" required="required">
                                                         <option></option>
                                                         <?php
 				
@@ -429,7 +426,7 @@ if (isset($_POST['Submit'])) {
                                                     <div class="form-group">
                                                         <label for="Disability">Do you have any disability? <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="Disability" name="Disability">
+                                                    <select class="choices form-select" id="Disability" name="Disability">
 													<option><?php echo @$UserDisability; ?></option>
                                                         <option>Yes</option>
                                                         <option>No</option>
@@ -472,7 +469,7 @@ if (isset($_POST['Submit'])) {
     </div>
     <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
-
+    
     <script src="assets/js/main.js"></script>
 </body>
 
