@@ -4,9 +4,9 @@ $conn = OpenCon();
 
 $menu_item = "3";
 $title = "Host Institution";
-//print_r($_POST);
-if (isset($_POST['Submit'])) {
-	
+
+if (isset($_POST['Country']) && $_POST['Country'] != '' && isset($_POST['InstitutionID']) && $_POST['InstitutionID'] != '' && $_POST['Submit'] != '') {
+
 	function validate($data){
        $data = trim($data);
 	   $data = stripslashes($data);
@@ -20,10 +20,11 @@ if (isset($_POST['Submit'])) {
   $HostedInternsBefore = validate($_POST['HostedInternsBefore']);
   $PastHostedDetails = validate($_POST['PastHostedDetails']);
   $SufficientResources = validate($_POST['SufficientResources']);
-  $Resources = validate($_POST['Resources']);
+  $Resources = implode(',',$_POST['Resources']);
   $Faculty = validate($_POST['Faculty']);
   $PostalAddress = validate($_POST['PostalAddress']);
   $CityTown = validate($_POST['CityTown']);
+  $FaxNumber = validate($_POST['FaxNumber']);
   $PostalCode = validate($_POST['PostalCode']);
   $TelephoneNumber = validate($_POST['TelephoneNumber']);
   $PrimaryEmail = validate($_POST['PrimaryEmail']);
@@ -33,7 +34,7 @@ if (isset($_POST['Submit'])) {
   $Country = validate($_POST['Country']);
   $UpdatedBy = $_SESSION['id'];
 	
-	
+
 	
 	$query = "SELECT * FROM HostInstitutionDetails WHERE InstitutionID = '".$InstitutionID."'";
 	$result = mysqli_query($conn, $query);
@@ -50,6 +51,7 @@ if (isset($_POST['Submit'])) {
 						  Faculty,
 						  PostalAddress,
 						  CityTown,
+						  FaxNumber,
 						  PostalCode,
 						  TelephoneNumber,
 						  PrimaryEmail,
@@ -69,6 +71,7 @@ if (isset($_POST['Submit'])) {
 						  '$Faculty',
 						  '$PostalAddress',
 						  '$CityTown',
+						  '$FaxNumber',
 						  '$PostalCode',
 						  '$TelephoneNumber',
 						  '$PrimaryEmail',
@@ -96,6 +99,7 @@ if (isset($_POST['Submit'])) {
 			  Faculty = '$Faculty',
 			  PostalAddress = '$PostalAddress',
 			  CityTown = '$CityTown',
+			  FaxNumber = '$FaxNumber',
 			  PostalCode = '$PostalCode',
 			  TelephoneNumber = '$TelephoneNumber',
 			  PrimaryEmail = '$PrimaryEmail',
@@ -114,15 +118,15 @@ if (isset($_POST['Submit'])) {
 	
 }
 
-if(@$InstitutionID){
-	$query = "SELECT a.*, b.Email FROM HostInstitutionDetails a
-	WHERE a.InstitutionID = '".$InstitutionID."'";
+if(@$_POST['InstitutionID']){
+	$query = "SELECT a.* FROM HostInstitutionDetails a
+	WHERE a.InstitutionID = '".@$_POST['InstitutionID']."'";
 	$result = mysqli_query($conn, $query);
-
-	while($userdetails = mysqli_fetch_array($result)) {
+	
+	while(@$userdetails = mysqli_fetch_array($result)) {
 		
 		
-		$InstitutionID = $userdetails['InstitutionID'];
+	$InstitutionID = $userdetails['InstitutionID'];
 	  $CategoriseInstitution = $userdetails['CategoriseInstitution'];
 	  $Province = $userdetails['Province'];
 	  $HostedInternsBefore = $userdetails['HostedInternsBefore'];
@@ -132,6 +136,7 @@ if(@$InstitutionID){
 	  $Faculty = $userdetails['Faculty'];
 	  $PostalAddress = $userdetails['PostalAddress'];
 	  $CityTown = $userdetails['CityTown'];
+	  $FaxNumber = $userdetails['FaxNumber'];
 	  $PostalCode = $userdetails['PostalCode'];
 	  $TelephoneNumber = $userdetails['TelephoneNumber'];
 	  $PrimaryEmail = $userdetails['PrimaryEmail'];
@@ -187,20 +192,8 @@ if(@$InstitutionID){
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form" method="post" action="">
-										<!--div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="InterestedInHosting">Interested in participating in the HSRC Internship Programme</label>
-                                                        <fieldset class="form-group">
-                                                    <select class="form-select" id="InterestedInHosting" name="InterestedInHosting">
-													<option></option>
-                                                        <option>Yes</option>
-														<option>No</option>
-														
-                                                    </select>
-                                                </fieldset>
-                                                    </div>
-                                                </div-->
+                                        <form class="form" method="post" action="" enctype="multipart/form-data">
+
                                             <div class="row mainDetails" <?php // if(@$UserInterestedInHosting == '' || @$UserInterestedInHosting == 'No'){ echo 'style="display:none;"';} ?>>
 												
 												
@@ -210,7 +203,7 @@ if(@$InstitutionID){
                                                     <div class="form-group">
                                                         <label for="Institution">Name of Institution</label>
                                                         <fieldset class="form-group">
-                                                    <select class="choices form-select" id="InstitutionID" name="InstitutionID">
+                                                    <select class="choices form-select" id="InstitutionID" name="InstitutionID"  onchange='this.form.submit()' required="required">
                                                         <option></option>
 														<?php
 				
@@ -234,7 +227,7 @@ if(@$InstitutionID){
                                                     <div class="form-group">
                                                         <label for="CategoriseInstitution">Categorise Institution</label>
                                                         <fieldset class="form-group">
-                                                    <select class="choices form-select" id="CategoriseInstitution" name="CategoriseInstitution">
+                                                    <select class="choices form-select" id="CategoriseInstitution" name="CategoriseInstitution" required="required">
 													<option></option>
                                                         <?php
 				
@@ -254,12 +247,162 @@ if(@$InstitutionID){
                                                     </div>
                                                 </div>
 												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="HostedInternsBefore">Have you previously hosted DST interns?</label>
+                                                        <fieldset class="form-group">
+                                                    <select class="form-select" id="HostedInternsBefore" name="HostedInternsBefore" required="required">
+                                                        <option><?php echo @$HostedInternsBefore; ?></option>
+                                                        <option>Yes</option>
+                                                        <option>No</option>
+                                                    </select>
+                                                </fieldset>
+                                                    </div>
+                                                </div>
+												
+								
+												
+												<div class="col-md-6 col-12"  id="internsHistory" <?php if(@$UserHostedInternsBefore == '' || @$UserHostedInternsBefore == 'No'){ echo 'style="display:none;"';} ?>>
+                                                    <div class="form-group">
+                                                        <label for="PastHostedDetails">Provide details of previous host</label>
+
+															 <textarea class="form-control" id="PastHostedDetails" required="required" name="PastHostedDetails" 
+                                            rows="3" placeholder="Capture historical data e.g. specify number of interns hosted, year hosted, status post the internship."><?php echo @$PastHostedDetails; ?></textarea>
+                                                    </div>
+                                                </div>
+												
+												
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="SufficientResources">Do you have sufficient or adequate resources?</label>
+                                                        <fieldset class="form-group">
+                                                    <select class="form-select" id="SufficientResources" name="SufficientResources" required="required">
+                                                        <option><?php echo @$HostedInternsBefore; ?></option>
+                                                        <option>Yes</option>
+                                                        <option>No</option>
+                                                    </select>
+                                                </fieldset>
+                                                    </div>
+                                                </div>
+												
+												
+												<div class="col-md-6 mb-4">
+                                                
+                                                <div class="form-group">
+												<label for="Resources">List the basic available resources</label>
+                                                    <select class="choices form-select" multiple="multiple" required="required" id="Resources" name="Resources[]">
+                                                        <?php
+														
+														$res = explode(',',$Resources);
+								
+				
+															$query = "SELECT * FROM LookupResources WHERE IsActive = '1' ORDER BY Resource asc";
+															$result = mysqli_query($conn, $query);
+
+															while($resource = mysqli_fetch_array($result)) {
+																if(in_array($resource['ID'],$res)) $select = "selected='selected'";
+																	else $select="";
+																	if(@$r == $resource['ID']){ $select = "selected='selected'"; }
+															 echo '<option value="'.$resource['ID'].'" '.$select.'>'.ucwords($resource['Resource']).'</option>';
+															}
+
+														?>
+                                                    </select>
+                                                </div>
+                                            </div>
+												
+
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="Faculty">Faculty</label>
+                                                        <input type="text" id="Faculty" class="form-control"
+                                                             name="Faculty" required="required" value="<?php echo @$Faculty; ?>">
+                                                    </div>
+                                                </div>
+											
+											<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="TelephoneNumber">Primary Telephone Number</label>
+                                                        <input type="text" required="required" id="TelephoneNumber" class="form-control"
+                                                             name="TelephoneNumber" value="<?php echo @$TelephoneNumber; ?>">
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="FaxNumber">Fax Number</label>
+                                                        <input type="text" required="required" id="FaxNumber" class="form-control"
+                                                             name="FaxNumber" value="<?php echo @$FaxNumber; ?>">
+                                                    </div>
+                                                </div>
+												
+												
+												
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="PrimaryEmail">Primary Email Address</label>
+                                                        <input type="email" id="PrimaryEmail" class="form-control"
+                                                            name="PrimaryEmail" value="<?php echo @$PrimaryEmail; ?>">
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="ConfirmPrimaryEmail">Confirm Primary Email Address</label>
+                                                        <input type="email" required="required" id="ConfirmPrimaryEmail" class="form-control"
+                                                            name="ConfirmPrimaryEmail" value="<?php echo @$ConfirmPrimaryEmail; ?>">
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="AlternateEmail">Alternate Email Address</label>
+                                                        <input type="email" required="required" id="AlternateEmail" class="form-control"
+                                                            name="AlternateEmail" value="<?php echo @$AlternateEmail; ?>">
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="WebAddress">Web Address</label>
+                                                        <input type="text" required="required" id="WebAddress" class="form-control"
+                                                            name="WebAddress" value="<?php echo @$WebAddress; ?>">
+                                                    </div>
+                                                </div>
+											
+											
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        
+                                        <label for="PostalAddress" class="form-label">Work Postal Address (excluding department) </label>
+                                        <textarea class="form-control" required="required" id="PostalAddress" name="PostalAddress"
+                                            rows="3"><?php echo @$PostalAddress; ?></textarea>
+                                    
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="CityTown">City/Town</label>
+                                                        <input type="text" required="required" id="CityTown" class="form-control"
+                                                             name="CityTown" value="<?php echo @$CityTown; ?>">
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="PostalCode">Postal Code</label>
+                                                        <input type="text" required="required" id="PostalCode" class="form-control"
+                                                             name="PostalCode" value="<?php echo @$PostalCode; ?>">
+                                                    </div>
+                                                </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="Province">Province</label>
                                                         <fieldset class="form-group">
-                                                    <select class="choices form-select" id="Province" name="Province">
+                                                    <select class="choices form-select" required="required" id="Province" name="Province">
 													<option></option>
                                                         <?php
 				
@@ -281,169 +424,9 @@ if(@$InstitutionID){
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="HostedInternsBefore">Have you previously hosted DST interns?</label>
-                                                        <fieldset class="form-group">
-                                                    <select class="form-select" id="HostedInternsBefore" name="HostedInternsBefore">
-                                                        <option><?php echo @$HostedInternsBefore; ?></option>
-                                                        <option>Yes</option>
-                                                        <option>No</option>
-                                                    </select>
-                                                </fieldset>
-                                                    </div>
-                                                </div>
-												
-								
-												
-												<div class="col-md-6 col-12"  id="internsHistory" <?php if(@$UserHostedInternsBefore == '' || @$UserHostedInternsBefore == 'No'){ echo 'style="display:none;"';} ?>>
-                                                    <div class="form-group">
-                                                        <label for="PastHostedDetails">Provide details of previous host</label>
-
-															 <textarea class="form-control" id="PastHostedDetails" name="PastHostedDetails" 
-                                            rows="3" placeholder="Capture historical data e.g. specify number of interns hosted, year hosted, status post the internship."><?php echo @$PastHostedDetails; ?></textarea>
-                                                    </div>
-                                                </div>
-												
-												
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="SufficientResources">Do you have sufficient or adequate resources?</label>
-                                                        <fieldset class="form-group">
-                                                    <select class="form-select" id="SufficientResources" name="SufficientResources">
-                                                        <option><?php echo @$HostedInternsBefore; ?></option>
-                                                        <option>Yes</option>
-                                                        <option>No</option>
-                                                    </select>
-                                                </fieldset>
-                                                    </div>
-                                                </div>
-												
-												
-												<div class="col-md-6 mb-4">
-                                                
-                                                <div class="form-group">
-												<label for="Resources">List the basic available resources</label>
-                                                    <select class="choices form-select" multiple="multiple" id="Resources" name="Resources">
-                                                        <?php
-				
-															$query = "SELECT * FROM LookupResources WHERE IsActive = '1' ORDER BY Resource asc";
-															$result = mysqli_query($conn, $query);
-
-															while($resource = mysqli_fetch_array($result)) {
-																$select = '';
-																if(@$Resources == $resource['ID']){ $select = "selected='selected'"; }
-															 echo '<option value="'.$resource['ID'].'" '.$select.'>'.ucwords($resource['Resource']).'</option>';
-															}
-
-														?>
-                                                    </select>
-                                                </div>
-                                            </div>
-												
-												
-												
-												
-												
-												
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="Faculty">Faculty</label>
-                                                        <input type="text" id="Faculty" class="form-control"
-                                                             name="Faculty" value="<?php echo @$Faculty; ?>">
-                                                    </div>
-                                                </div>
-											
-											
-											
-											
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        
-                                        <label for="PostalAddress" class="form-label">Work Postal Address (excluding department) </label>
-                                        <textarea class="form-control" id="PostalAddress" name="PostalAddress"
-                                            rows="3"><?php echo @$PostalAddress; ?></textarea>
-                                    
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="last-name-column">City/Town</label>
-                                                        <input type="text" id="CityTown" class="form-control"
-                                                             name="CityTown" value="<?php echo @$CityTown; ?>">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="PostalCode">Postal Code</label>
-                                                        <input type="text" id="PostalCode" class="form-control"
-                                                             name="PostalCode" value="<?php echo @$PostalCode; ?>">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="TelephoneNumber">Primary Telephone Number</label>
-                                                        <input type="text" id="TelephoneNumber" class="form-control"
-                                                             name="TelephoneNumber" value="<?php echo @$TelephoneNumber; ?>">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="FaxNumber">Fax Number</label>
-                                                        <input type="text" id="FaxNumber" class="form-control"
-                                                             name="FaxNumber" value="<?php echo @$FaxNumber; ?>">
-                                                    </div>
-                                                </div>
-												
-												<!--div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="MobileNumber">Mobile Number</label>
-                                                        <input type="text" id="MobileNumber" class="form-control"
-                                                             name="MobileNumber">
-                                                    </div>
-                                                </div-->
-												
-												
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="PrimaryEmail">Primary Email Address</label>
-                                                        <input type="email" id="PrimaryEmail" class="form-control"
-                                                            name="PrimaryEmail" value="<?php echo @$PrimaryEmail; ?>">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="ConfirmPrimaryEmail">Confirm Primary Email Address</label>
-                                                        <input type="email" id="ConfirmPrimaryEmail" class="form-control"
-                                                            name="ConfirmPrimaryEmail" value="<?php echo @$ConfirmPrimaryEmail; ?>">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="AlternateEmail">Alternate Email Address</label>
-                                                        <input type="email" id="AlternateEmail" class="form-control"
-                                                            name="AlternateEmail" value="<?php echo @$AlternateEmail; ?>">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="WebAddress">Web Address</label>
-                                                        <input type="text" id="WebAddress" class="form-control"
-                                                            name="WebAddress" value="<?php echo @$WebAddress; ?>">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
                                                         <label for="Country">Country</label>
                                                         <fieldset class="form-group">
-                                                    <select class="choices form-select" id="Country" name="Country">
+                                                    <select class="choices form-select" required="required" id="Country" name="Country">
                                                         <option></option>
                                                         <?php
 				
@@ -462,14 +445,19 @@ if(@$InstitutionID){
                                                     </div>
                                                 </div>
 												
+												
+												
+												
+												
 
                                                 
                                             </div>
 											<div class="col-12 d-flex justify-content-end">
-                                                    <button type="submit"
-                                                        class="btn btn-primary me-1 mb-1" name="Submit" value="Submit">Submit</button>
+                                                    
                                                     <button type="reset"
                                                         class="btn btn-light-secondary me-1 mb-1">Reset</button>
+														<button type="submit"
+                                                        class="btn btn-primary me-1 mb-1" name="Submit" value="Submit">Submit</button>
                                                 </div>
                                         </form>
                                     </div>
