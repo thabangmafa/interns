@@ -106,8 +106,8 @@ $query = "SELECT * FROM ApplicantChecklist
                                     <ul>
 									<li>Check your intended institution’s internal closing date as it will be prior to the closing date listed for applications, where applicable.</li>
 <li>A timeout will appear when there is no activity on the system for 25 minutes. Click on the refresh button (in the popup box) as this will enable the continuation/completion of the application. When clicking on the close button the system will close.</li>
-<li>Due to potential international review of applications and progress reports, the NRF requires that all applications and progress reports be completed in English.</li>
-<li>Please consult the Funding Framework and Funding & Application Guide for more information to assist you in your choices. These documents can be accessed at https://www.nrf.ac.za/funding/framework-documents.</li>
+<li>Due to potential international review of applications and progress reports, the HSRC requires that all applications and progress reports be completed in English.</li>
+<li>Please consult the Funding Framework and Funding & Application Guide for more information to assist you in your choices. These documents can be accessed at the FAQ section.</li>
 <li>Ensure that you complete or update your CV. This is very important as applications without an updated CV will not be considered.</li>
 <li>Please ensure that you update your CV before creating a application/progress report to ensure that the latest information reflects on the progress report.</li></ul>
                                 </div>
