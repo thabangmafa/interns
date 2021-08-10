@@ -210,7 +210,7 @@ if(@$InstitutionID){
                                                     <div class="form-group">
                                                         <label for="Institution">Name of Institution</label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="InstitutionID" name="InstitutionID">
+                                                    <select class="choices form-select" id="InstitutionID" name="InstitutionID">
                                                         <option></option>
 														<?php
 				
@@ -234,7 +234,7 @@ if(@$InstitutionID){
                                                     <div class="form-group">
                                                         <label for="CategoriseInstitution">Categorise Institution</label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="CategoriseInstitution" name="CategoriseInstitution">
+                                                    <select class="choices form-select" id="CategoriseInstitution" name="CategoriseInstitution">
 													<option></option>
                                                         <?php
 				
@@ -259,7 +259,7 @@ if(@$InstitutionID){
                                                     <div class="form-group">
                                                         <label for="Province">Province</label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="Province" name="Province">
+                                                    <select class="choices form-select" id="Province" name="Province">
 													<option></option>
                                                         <?php
 				
@@ -443,7 +443,7 @@ if(@$InstitutionID){
                                                     <div class="form-group">
                                                         <label for="Country">Country</label>
                                                         <fieldset class="form-group">
-                                                    <select class="form-select" id="Country" name="Country">
+                                                    <select class="choices form-select" id="Country" name="Country">
                                                         <option></option>
                                                         <?php
 				

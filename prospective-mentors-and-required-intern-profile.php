@@ -241,7 +241,7 @@ echo 'Here';
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="first-name-column">Institution</label>
-                                                        <select class="form-select" id="disabledSelect" >
+                                                        <select class="choices form-select" id="disabledSelect" >
                                                         <option></option>
 														<?php
 				
@@ -338,7 +338,7 @@ echo 'Here';
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="first-name-column">Institution</label>
-                                                        <select class="form-select" id="disabledSelect" >
+                                                        <select class="choices form-select" id="disabledSelect" >
                                                         <option></option>
 														<?php
 				

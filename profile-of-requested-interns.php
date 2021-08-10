@@ -1,5 +1,6 @@
 <?php 
-
+include 'admin/connect.php';
+$conn = OpenCon();
 $menu_item = "3";
 $title = "Profile of Requested Interns";
 

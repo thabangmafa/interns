@@ -143,7 +143,7 @@ $query = "SELECT * FROM ApplicantChecklist
                             </ul>
                         </li>
 						
-						<li class="sidebar-item  has-sub ">
+						<!--li class="sidebar-item  has-sub ">
                             <a href="#" class='sidebar-link '>
                                 <i class="bi bi-stack <?php if($menu_item == "7"){ echo "active"; } ?>"></i>
                                 <span>My Progress Reports</span>
@@ -159,8 +159,20 @@ $query = "SELECT * FROM ApplicantChecklist
                                 </li>
 								
                             </ul>
-                        </li>
-						<?php if(@$_SESSION['user_type'] == '1'){ ?>
+                        </li-->
+						<?php
+
+						$query = "SELECT b.* FROM HostAdministrator a
+										left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = '1'
+										WHERE a.IsActive = '1' and a.UserID = '".$_SESSION['id']."' ORDER BY Name asc";
+							$result = mysqli_query($conn, $query);
+							$results = mysqli_fetch_array($result);
+							
+						if(@$_SESSION['user_type'] == '1'){ 
+
+								if( $results['InstitutionId']){
+														
+						?>
 						<li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-stack <?php if($menu_item == "3"){ echo "active"; } ?>"></i>
@@ -197,7 +209,7 @@ $query = "SELECT * FROM ApplicantChecklist
                                 
                             </ul>
                         </li>
-						
+						<?php } ?>
 						<li class="sidebar-item  <?php if($menu_item == "7"){ echo "active"; } ?> ">
                             <a href="manage-calls.php" class='sidebar-link '>
                                 <i class="bi bi-stack <?php if($menu_item == "7"){ echo "active"; } ?>"></i>
