@@ -195,9 +195,9 @@ while($row = mysqli_fetch_array($result))
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="InstitutionID">' . $row["Institution"] . '</div>';
   $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Status">' . $row["Status"] . '</div>';
   if($row["Status"] == 'Approved'){
-	  $sub_array[] = '<div class="fa-fw select-all fas" data-id="'.$row["ID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div>';
+	  //$sub_array[] = '<div class="fa-fw select-all fas" data-id="'.$row["ID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div>';
   }else{
-	  $sub_array[] = '<span class="fa-fw select-all fas"></span>';
+	  //$sub_array[] = '<span class="fa-fw select-all fas"></span>';
   }
  
 

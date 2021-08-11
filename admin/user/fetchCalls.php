@@ -59,14 +59,11 @@ $query = "SELECT * FROM ApplicantChecklist
 			$ProfileofRequestedInterns = 1;
 		}
 		
-		if($details['Section'] == 'Prospective Mentors'){
-			$ProspectiveMentors = 1;
-		}
-		
+
 		
 	}
 	
-	$Total = @$ContactDetails + @$EmploymentDetails + @$LanguageProficiency + @$NextOfKin + @$PositionAppliedFor + @$PersonalProfile + @$Qualifications + @$RegistrationDetails + @$References + @$HostInstitution + @$ProspectiveMentorsandRequiredInternProfile + @$ProfileofRequestedInterns + @$ProspectiveMentors;
+	$Total = @$ContactDetails + @$EmploymentDetails + @$LanguageProficiency + @$NextOfKin + @$PositionAppliedFor + @$PersonalProfile + @$Qualifications + @$RegistrationDetails + @$References + @$HostInstitution + @$ProspectiveMentorsandRequiredInternProfile + @$ProfileofRequestedInterns;
 
 
 
@@ -120,7 +117,7 @@ if(isset($_POST["rowid"]) and $_POST["rowid"] != 'N/A')
 											 echo '<td>' . $calls['OpenDate'] . '</td>';
 											 echo '<td>' . $calls['ClosingDate'] . '</td>';
 											 echo '<td>' . $appReq . '</td>';
-											 if($Total == '13'){
+											 if($Total == '12'){
 												echo '<td><div class="icon dripicons-enter" data-CallID="'.$calls["ID"].'" data-InstitutionID="'.$_POST["rowid"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div></td>';
 											 }else{
 												 echo '<td><div class="alert alert-light-danger color-danger"><i class="bi bi-exclamation-circle"></i> Please complete all required sections first.</div></td>';

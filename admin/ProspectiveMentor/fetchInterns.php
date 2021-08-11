@@ -5,14 +5,13 @@ $conn = OpenCon();
 
 $columns = array('Name', 'Surname', 'Email');
 
-$query = "SELECT * FROM UserApplications a
+$query = "SELECT distinct * FROM UserApplications a
 LEFT JOIN UserProfile b ON b.UserID = a.UserID
 LEFT JOIN RegistrationDetails c ON c.UserID = a.UserID
-LEFT JOIN References d ON d.UserID = a.UserID
-LEFT JOIN `Qualifications` e ON e.UserID = a.UserID
+LEFT JOIN Qualifications e ON e.UserID = a.UserID
 LEFT JOIN PositionAppliedFor f ON f.UserID = a.UserID
 
- WHERE a.Status = 'Pending Approval' ";
+ WHERE a.Status = 'Pending' ";
 
 if(isset($_POST["search"]["value"]))
 {
@@ -124,62 +123,50 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 
 	while($row = mysqli_fetch_array($result))
 	{
-		echo '<div class="row">';
 
-		echo '<input type="hidden" id="ID" class="form-control" name="ID" value="' . $row["ID"] . '">';
+
+		
 		
 		
 		echo '<div class="row">
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="Name">Name</label>
-                                                        <input type="text" id="Name" class="form-control"
-                                                             name="Name" value="' . $row["Name"] . '">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="Surname">Surname</label>
-                                                        <input type="text" id="Surname" class="form-control"
-                                                             name="Surname" value="' . $row["Surname"] . '">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="Email">Email Address</label>
-                                                        <input type="email" id="Email" class="form-control"
-                                                             name="Email" value="' . $row["Email"] . '">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="InstitutionID">Institution</label>
-                                                        <select class="choices form-select" id="InstitutionID"  name="InstitutionID">';
-	
-				
-															$query = "SELECT b.* FROM HostAdministrator a
-																		left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = '1'
-																		WHERE a.IsActive = '1' and a.UserID = '".$_SESSION['id']."' ORDER BY Name asc";
-															$result = mysqli_query($conn, $query);
-
-															while($institution = mysqli_fetch_array($result)) {
-																$select = '';
-																if(@$row["InstitutionID"] == $institution['InstitutionId']){ $select = "selected='selected'"; }
-															 echo '<option value="'.$institution['InstitutionId'].'" '.$select.'>'.ucwords($institution['Name']).'</option>';
-															}
-
-													echo'
-                                                    </select>
-                                                    </div>
-                                                </div>
-												
-                                            </div>';
+				<input type="hidden" id="ID" class="form-control" name="ID" value="' . $row["ID"] . '">
+					<table>
+					<tr>
+						<td>Title</td>
+						<td>'.$row["Title"].'</td>
+					</tr>
+					<tr>
+						<td>Surname</td>
+						<td>'.$row["LastName"].'</td>
+					</tr>
+					<tr>
+						<td>Initials</td>
+						<td>'.$row["Initials"].'</td>
+					</tr>
+					<tr>
+						<td>First Name</td>
+						<td>'.$row["FirstName"].'</td>
+					</tr>
+					<tr>
+						<td>Primary Email Address</td>
+						<td>'.$row["Email"].'</td>
+					</tr>
+					<tr>
+						<td>Mobile Number</td>
+						<td>'.$row["MobileNumber"].'</td>
+					</tr>
+					<tr>
+						<td>Primary Telephone Number</td>
+						<td>'.$row["TelephoneNumber"].'</td>
+					</tr>
+					<tr>
+						<td>Current Organisation</td>
+						<td>'.$row["Institution"].'</td>
+					</tr>
+					</table>
 					
 					
-		echo '</div>';
+					</div>';
 	}
 	exit;
 }

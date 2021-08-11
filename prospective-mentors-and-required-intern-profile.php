@@ -111,7 +111,7 @@ $query = "SELECT * FROM ApplicantChecklist
                                         <th>Email Address</th>
 										<th>Institution</th>
 										<th>Response</th>
-                                        <th>Manage</th>
+                                        <!--th>Manage</th-->
                                     </tr>
                                 </thead>
                                 
