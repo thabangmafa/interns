@@ -58,7 +58,7 @@ if (isset($_POST['Submit'])) {
 				$subject = "HSRC Interns Portal - Host Administrator Request";
 				$txt = "Dear Administrator,
 				
-				".$User['Username']." (".$User['Email'].") has requested to become a Host Administrator for Institution: ".$OriginalOrganisation." 
+				".$User['UserName']." (".$User['Email'].") has requested to become a Host Administrator for Institution: ".$OriginalOrganisation."
 				
 				Please login to the portal to action this request.
 				

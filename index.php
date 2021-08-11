@@ -232,6 +232,8 @@ if (isset($_POST['InstitutionID'])) {
 					
 					
                     <div class="col-12 col-lg-3">
+					
+					<?php if(@$_SESSION['user_type'] == '2'){ ?>
 					<div class="card">
                             <div class="card-header">
                                 <h4>Institution to Manage</h4>
@@ -258,7 +260,7 @@ if (isset($_POST['InstitutionID'])) {
 								</form>
                             </div>
                         </div>
-					
+					<?php } ?>
 					<div class="card">
 					
                                     <div class="card-header">
@@ -274,26 +276,93 @@ if (isset($_POST['InstitutionID'])) {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td class="col-3">
-                                                            <div class="d-flex">
-                                                                <p class="mb-0">01/04/21</p>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0">Activity One</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="col-3">
-                                                            <div class="d-flex">
-                                                                <p class=" mb-0">04/11/21</p>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0">Activity Two</p>
-                                                        </td>
-                                                    </tr>
+												<?php
+												//System Administrator
+														if(@$_SESSION['user_type'] == '1'){
+															$query = "SELECT Name, DateUpdated, UserName FROM HostAdministrator a
+															left join users c on c.UserID = a.UserID
+																		left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = '1'
+																		WHERE a.IsActive = '0' ORDER BY Name asc";
+															$result = mysqli_query($conn, $query);
+
+															while($institution = mysqli_fetch_array($result)) {
+																
+																?>
+																<tr>
+																	<td>
+																		<div>
+																			<?php echo $institution['DateUpdated']; ?>
+																		</div>
+																	</td>
+																	<td>
+																		<?php echo 'Host admin request pending for ' . $institution['UserName']; ?>
+																	</td>
+																</tr>
+																
+																<?php
+																
+															}
+														}
+														
+														//Host Administrator
+														if(@$_SESSION['user_type'] == '2'){
+															
+															$query = "SELECT Name, DateUpdated, UserName FROM HostAdministrator a
+															left join users c on c.UserID = a.UserID
+																		left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = '1'
+																		WHERE a.IsActive = '0' ORDER BY Name asc";
+															$result = mysqli_query($conn, $query);
+
+															while($institution = mysqli_fetch_array($result)) {
+																
+																?>
+																<tr>
+																	<td>
+																		<div>
+																			<?php echo $institution['DateUpdated']; ?>
+																		</div>
+																	</td>
+																	<td>
+																		<?php echo 'Host admin request pending for ' . $institution['UserName']; ?>
+																	</td>
+																</tr>
+																
+																<?php
+																
+															}
+															
+														}
+														
+														//Mentor
+														if(@$_SESSION['user_type'] == '3'){
+															
+															$query = "SELECT a.UpdatedDate, c.FirstName, c.LastName FROM ProspectiveMentors a
+															left join RegistrationDetails c on c.UserID = a.AddedBy
+																		WHERE a.Email = '".$_SESSION['email']."' ORDER BY Name asc";
+															$result = mysqli_query($conn, $query);
+
+															while($institution = mysqli_fetch_array($result)) {
+																
+																?>
+																<tr>
+																	<td>
+																		<div>
+																			<?php echo $institution['DateUpdated']; ?>
+																		</div>
+																	</td>
+																	<td>
+																		<?php echo 'Invited to become a mentor by ' . $institution['FirstName'] . ' '. $institution['LastName']; ?>
+																	</td>
+																</tr>
+																
+																<?php
+																
+															}
+															
+														}
+
+														?>
+													
                                                 </tbody>
                                             </table>
                                         </div>
