@@ -86,6 +86,8 @@ if (isset($_POST['Country']) && $_POST['Country'] != '' && isset($_POST['Institu
 
     $result2 = mysqli_query($conn, $sql2);
 	$message = "Details successfully captured.";
+	$checklist = "INSERT INTO ApplicantChecklist(InstitutionID, Section)VALUES('$InstitutionID','Host Institution')";
+	mysqli_query($conn, $checklist);
 	unset($_POST);
 	}else{
 		

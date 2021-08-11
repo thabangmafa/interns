@@ -28,9 +28,12 @@ if(isset($_POST["InstitutionID"]) && isset($_POST["PrimaryScientificField"]) && 
   '$SecondaryScientificField',
   '$NumberRequired',
   '$QualificationLevel')";
-echo $query;
+
  if(mysqli_query($conn,$query))
  {
+	 $checklist = "INSERT INTO ApplicantChecklist(InstitutionID, Section)VALUES('$InstitutionID','Profile of Requested Interns')";
+	mysqli_query($conn, $checklist);
+	
   echo 'Data Inserted';
  }else{
 	 echo 'Data Not Inserted';

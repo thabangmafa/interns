@@ -5,11 +5,54 @@ $menu_item = "3";
 $title = "Prospective Mentors and Required Intern Profile";
 
 
-if (isset($_POST['Sendemail'])) {
+$query = "SELECT * FROM ApplicantChecklist 	
+	WHERE UserID = '".$_SESSION['id']."'";
 
-echo 'Here';
+	$result = mysqli_query($conn, $query);
+	
+	
+	while($details = mysqli_fetch_array($result)) {
+		if($details['Section'] == 'Contact Details'){
+			$ContactDetails = 1;
+		}
+		
+		if($details['Section'] == 'Employment Details'){
+			$EmploymentDetails = 1;
+		}
+		
+		if($details['Section'] == 'Language Proficiency'){
+			$LanguageProficiency = 1;
+		}
+		
+		if($details['Section'] == 'Next Of Kin'){
+			$NextOfKin = 1;
+		}
+		
+		if($details['Section'] == 'Position Applied For'){
+			$PositionAppliedFor = 1;
+		}
+		
+		if($details['Section'] == 'Personal Profile'){
+			$PersonalProfile = 1;
+		}
+		
+		if($details['Section'] == 'Qualifications'){
+			$Qualifications = 1;
+		}
+		
+		if($details['Section'] == 'Registration Details'){
+			$RegistrationDetails = 1;
+		}
+		
+		if($details['Section'] == 'References'){
+			$References = 1;
+		}
+		
+		
+	}
+	
+	$Total = @$ContactDetails + @$EmploymentDetails + @$LanguageProficiency + @$NextOfKin + @$PositionAppliedFor + @$PersonalProfile + @$Qualifications + @$RegistrationDetails + @$References;
 
-}
 
  ?>
 <?php require_once("admin/header.php"); ?>
@@ -75,8 +118,19 @@ echo 'Here';
                             </table>
 							<div class="col-12 d-flex justify-content-end">
      
-													<div class="btn btn-primary me-1 mb-1" data-bs-toggle="modal" data-id="000" data-bs-target="#capture-new">Capture Mentor</div>
+													
                                                    
+												   <?php
+												   
+												   if($Total == '9'){
+													 echo '<div class="btn btn-primary me-1 mb-1" data-bs-toggle="modal" data-id="000" data-bs-target="#capture-new">Capture Mentor</div>';
+													 }else{
+														 echo '<div class="alert alert-light-danger color-danger"><i class="bi bi-exclamation-circle"></i> You need to complete "My Profile" section before you can invite a mentor.</div>';
+					
+													 }
+												   
+												   ?>
+												   
                                                 </div>
 							
 												

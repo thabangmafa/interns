@@ -14,7 +14,10 @@ $query = "SELECT * FROM ApplicantChecklist
 	$Qualifications = '<span class="fa-fw select-all fas" style="color:red"></span>';
 	$RegistrationDetails = '<span class="fa-fw select-all fas" style="color:red"></span>';
 	$References = '<span class="fa-fw select-all fas" style="color:red"></span>';
-
+	$HostInstitution = '<span class="fa-fw select-all fas" style="color:red"></span>';
+	$ProspectiveMentorsandRequiredInternProfile = '<span class="fa-fw select-all fas" style="color:red"></span>';
+	$ProfileofRequestedInterns = '<span class="fa-fw select-all fas" style="color:red"></span>';
+	$ProspectiveMentors = '<span class="fa-fw select-all fas" style="color:red"></span>';
 	
 	while($details = mysqli_fetch_array($result)) {
 		if($details['Section'] == 'Contact Details'){
@@ -51,6 +54,22 @@ $query = "SELECT * FROM ApplicantChecklist
 		
 		if($details['Section'] == 'References'){
 			$References = ' <span class="fa-fw select-all fas" style="color:green"></span>';
+		}
+		
+		if($details['Section'] == 'Host Institution'){
+			$HostInstitution = ' <span class="fa-fw select-all fas" style="color:green"></span>';
+		}
+		
+		if($details['Section'] == 'Prospective Mentors and Required Intern Profile'){
+			$ProspectiveMentorsandRequiredInternProfile = ' <span class="fa-fw select-all fas" style="color:green"></span>';
+		}
+		
+		if($details['Section'] == 'Profile of Requested Interns'){
+			$ProfileofRequestedInterns = ' <span class="fa-fw select-all fas" style="color:green"></span>';
+		}
+		
+		if($details['Section'] == 'Prospective Mentors'){
+			$ProspectiveMentors = ' <span class="fa-fw select-all fas" style="color:green"></span>';
 		}
 		
 		
@@ -195,16 +214,16 @@ $query = "SELECT * FROM ApplicantChecklist
                                     <a href="contact-details.php">Contact Details</a>
                                 </li-->
 								<li class="submenu-item <?php if($title == "Host Institution"){ echo "active"; } ?>">
-                                    <a href="host-institution.php">Host Institution Details</a>
+                                    <a href="host-institution.php">Institution Details <?php echo $HostInstitution; ?></a>
                                 </li>
 								<li class="submenu-item <?php if($title == "Prospective Mentors and Required Intern Profile"){ echo "active"; } ?>">
-                                    <a href="prospective-mentors-and-required-intern-profile.php">Prospective Mentors and Required Intern Profile</a>
+                                    <a href="prospective-mentors-and-required-intern-profile.php">Prospective Mentors Invitation <?php echo $ProspectiveMentorsandRequiredInternProfile; ?></a>
                                 </li>
 								<li class="submenu-item <?php if($title == "Profile of Requested Interns"){ echo "active"; } ?>">
-                                    <a href="profile-of-requested-interns.php">Profile of Requested Intern</a>
+                                    <a href="profile-of-requested-interns.php">Profile of Requested Intern <?php echo $ProfileofRequestedInterns; ?></a>
                                 </li>
 								<li class="submenu-item <?php if($title == "Prospective Mentors"){ echo "active"; } ?>">
-                                    <a href="prospective-mentors.php">Prospective Mentors</a>
+                                    <a href="prospective-mentors.php">Prospective Mentors <?php echo $ProspectiveMentors; ?></a>
                                 </li>
                                 
                             </ul>

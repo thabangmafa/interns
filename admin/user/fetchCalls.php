@@ -3,6 +3,73 @@
 include '../connect.php';
 $conn = OpenCon();
 
+
+$query = "SELECT * FROM ApplicantChecklist 	
+	WHERE (UserID = '".$_SESSION['id']."' OR InstitutionID = '".$_POST["rowid"]."')";
+
+	$result = mysqli_query($conn, $query);
+	
+	
+	while($details = mysqli_fetch_array($result)) {
+		if($details['Section'] == 'Contact Details'){
+			$ContactDetails = 1;
+		}
+		
+		if($details['Section'] == 'Employment Details'){
+			$EmploymentDetails = 1;
+		}
+		
+		if($details['Section'] == 'Language Proficiency'){
+			$LanguageProficiency = 1;
+		}
+		
+		if($details['Section'] == 'Next Of Kin'){
+			$NextOfKin = 1;
+		}
+		
+		if($details['Section'] == 'Position Applied For'){
+			$PositionAppliedFor = 1;
+		}
+		
+		if($details['Section'] == 'Personal Profile'){
+			$PersonalProfile = 1;
+		}
+		
+		if($details['Section'] == 'Qualifications'){
+			$Qualifications = 1;
+		}
+		
+		if($details['Section'] == 'Registration Details'){
+			$RegistrationDetails = 1;
+		}
+		
+		if($details['Section'] == 'References'){
+			$References = 1;
+		}
+		
+		if($details['Section'] == 'Host Institution'){
+			$HostInstitution = 1;
+		}
+		
+		if($details['Section'] == 'Prospective Mentors and Required Intern Profile'){
+			$ProspectiveMentorsandRequiredInternProfile = 1;
+		}
+		
+		if($details['Section'] == 'Profile of Requested Interns'){
+			$ProfileofRequestedInterns = 1;
+		}
+		
+		if($details['Section'] == 'Prospective Mentors'){
+			$ProspectiveMentors = 1;
+		}
+		
+		
+	}
+	
+	$Total = @$ContactDetails + @$EmploymentDetails + @$LanguageProficiency + @$NextOfKin + @$PositionAppliedFor + @$PersonalProfile + @$Qualifications + @$RegistrationDetails + @$References + @$HostInstitution + @$ProspectiveMentorsandRequiredInternProfile + @$ProfileofRequestedInterns + @$ProspectiveMentors;
+
+
+
 $columns = array('FirstName');
 
 $query = "SELECT HostInstitutionCalls.*, d.* FROM HostInstitutionCalls 
@@ -53,8 +120,12 @@ if(isset($_POST["rowid"]) and $_POST["rowid"] != 'N/A')
 											 echo '<td>' . $calls['OpenDate'] . '</td>';
 											 echo '<td>' . $calls['ClosingDate'] . '</td>';
 											 echo '<td>' . $appReq . '</td>';
-											 echo '<td><div class="icon dripicons-enter" data-CallID="'.$calls["ID"].'" data-InstitutionID="'.$_POST["rowid"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div></td>';
-											 echo '</tr>';
+											 if($Total == '13'){
+												echo '<td><div class="icon dripicons-enter" data-CallID="'.$calls["ID"].'" data-InstitutionID="'.$_POST["rowid"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div></td>';
+											 }else{
+												 echo '<td><div class="alert alert-light-danger color-danger"><i class="bi bi-exclamation-circle"></i> Please complete all required sections first.</div></td>';
+											 }
+											echo '</tr>';
 										}
 										
 										echo '</tbody>

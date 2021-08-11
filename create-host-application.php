@@ -17,6 +17,7 @@ if(isset($_POST['InstitutionID']))
 	 }
 }
 
+
  ?>
 <?php require_once("admin/header.php"); ?>
         <?php require_once("menu.php"); ?>
