@@ -3,7 +3,7 @@
 include '../connect.php';
 $conn = OpenCon();
 
-$columns = array('InstitutionId', 'Name', 'InstitutionTypeId', 'IsActive');
+$columns = array('a.InstitutionId', 'a.Name', 'd.UserID','a.IsActive');
 
 $query = "SELECT a.*, b.*,c.Status, e.* FROM `LookupInstitutions` a 
 left join `LookupInstitutionTypes` b on b.`InstitutionTypeId` = a.`InstitutionTypeId`
