@@ -59,6 +59,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Host Institut
 							  <tr>
 							   <th>Institution</th>
 								<th>Type</th>
+								<th>Administrator</th>
 								<th>Status</th>
 								<th>Edit</th>
 							  </tr>
@@ -197,11 +198,12 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Host Institut
    var name = $("#name").val();
    var type = $("#type").val();
    var status = $("#status").val();
+   var Administrator = $("#Administrator").val();
 
    $.ajax({
     url:"admin/institutions/update.php",
     method:"POST",
-    data:{id:id, name:name, type:type, status:status},
+    data:{id:id, name:name, type:type, status:status,Administrator:Administrator},
     success:function(data)
     {
      $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
@@ -225,6 +227,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Host Institut
    var name = $("#name").val();
    var type = $("#type").val();
    var status = $("#status").val();
+   var Administrator = $("#Administrator").val();
    
    
    if(name != '')
@@ -232,17 +235,17 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Host Institut
     $.ajax({
      url:"admin/institutions/insert.php",
      method:"POST",
-     data:{name:name, type:type, status:status},
+     data:{name:name, type:type, status:status, Administrator:Administrator},
      success:function(data)
      {
       $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
       $('#user_data').DataTable().destroy();
-      fetch_data();
+      //fetch_data();
 	  
      }
     });
     setInterval(function(){
-		location.reload();
+		//location.reload();
      $('#alert_message').html('');
     }, 2000);
    }
