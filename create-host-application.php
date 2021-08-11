@@ -153,6 +153,7 @@ $query = "SELECT * FROM ApplicantChecklist
 										AND ApplicantRequirementsFile IS NOT NULL 
 										AND `ClosingDate` >= CURDATE()
 										AND d.Status = 'Active'
+										AND 0 = (SELECT COUNT(*) FROM HostApplications WHERE InstitutionID = '".$_SESSION["InstitutionID"]."')
 										AND InstitutionID != '".$_SESSION["InstitutionID"]."'";
 
 										$result = mysqli_query($conn,$query);

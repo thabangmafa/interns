@@ -84,11 +84,11 @@ if(isset($_POST['AppID']))
                                 <tbody>
                                     <?php
 				
-										$query = "SELECT * FROM HostApplications a 
+										$query = "SELECT b.ID,CallID, Title, Description, OpenDate,ClosingDate,HostRequirementsFile, ApplicationDate, Status FROM HostApplications a 
 										left join HostInstitutionCalls b on b.ID = a.CallID
-										WHERE a.InstitutionID = '".$_SESSION['id']."'";
+										WHERE a.InstitutionID = '".$_SESSION['InstitutionID']."'";
 										$result = mysqli_query($conn, $query);
-										
+
 
 										while($calls = mysqli_fetch_array($result)) {
 										echo '<tr>';
@@ -99,7 +99,7 @@ if(isset($_POST['AppID']))
 											 echo '<td>' . $calls['ApplicationDate'] . '</td>';
 											 echo '<td>' . $calls['Status'] . '</td>';
 											 echo '<td><div class="icon dripicons-wrong" data-id="'.$calls["ID"].'" data-bs-toggle="modal" modal-title="Confirm Delete Item" data-bs-target="#primary"></div></td>';
-											 echo '</tr>';
+										echo '</tr>';
 										}
 
 									?>
