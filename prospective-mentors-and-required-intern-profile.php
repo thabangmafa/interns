@@ -60,7 +60,7 @@ echo 'Here';
 											
 											
 											
-												<table class="table table-striped" id="table1">
+												<table class="table table-striped" id="user_data">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -69,102 +69,17 @@ echo 'Here';
                                         <th>Email Address</th>
 										<th>Institution</th>
 										<th>Response</th>
-										<th>Email Sent</th>
-										<th>Send Email</th>
                                         <th>Edit</th>
-										<th>Delete</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Thabang</td>
-                                        <td>Mafa</td>
-                                        <td>DTI</td>
-                                        <td>tmafa@hsrc.ac.za</td>
-										<td>HSRC</td>
-										<td>I agree to be a mentor</td>
-										<td>Yes</td>
-										<td><div class="icon dripicons-mail sendmail" id="tmafa@hsrc.ac.za"></div></td>
-                                        <td><div class="icon dripicons-document-edit" data-bs-toggle="modal" data-bs-target="#edit-qualification"></div></td>
-										<td><div class="icon dripicons-wrong" data-bs-toggle="modal" data-bs-target="#primary"></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Thabang</td>
-                                        <td>Mafa</td>
-                                        <td>DTI</td>
-                                        <td>tmafa@hsrc.ac.za</td>
-										<td>HSRC</td>
-										<td>I agree to be a mentor</td>
-										<td>Yes</td>
-										<td>Send Email</td>
-                                        <td><div class="icon dripicons-document-edit" data-bs-toggle="modal" data-bs-target="#edit-qualification"></div></td>
-										<td><div class="icon dripicons-wrong" data-bs-toggle="modal" data-bs-target="#primary"></div></td>
-                                    </tr>
-									<tr>
-                                        <td>Thabang</td>
-                                        <td>Mafa</td>
-                                        <td>DTI</td>
-                                        <td>tmafa@hsrc.ac.za</td>
-										<td>HSRC</td>
-										<td>I agree to be a mentor</td>
-										<td>Yes</td>
-										<td>Send Email</td>
-                                        <td><div class="icon dripicons-document-edit" data-bs-toggle="modal" data-bs-target="#edit-qualification"></div></td>
-										<td><div class="icon dripicons-wrong" data-bs-toggle="modal" modal-title="Confirm Delete Item" data-bs-target="#primary"></div></td>
-                                    </tr>
-                                </tbody>
+                                
                             </table>
 							<div class="col-12 d-flex justify-content-end">
      
-													<div class="btn btn-primary me-1 mb-1" data-bs-toggle="modal" data-bs-target="#capture-new">Add Another</div>
+													<div class="btn btn-primary me-1 mb-1" data-bs-toggle="modal" data-id="000" data-bs-target="#capture-new">Capture Mentor</div>
                                                    
                                                 </div>
 							
-							
-							
-							
-							<!--primary theme Modal -->
-                                                    <div class="modal fade text-left" id="primary" tabindex="-1"
-                                                        role="dialog" aria-labelledby="myModalLabel160"
-                                                        aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-                                                            role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header bg-danger">
-                                                                    <h5 class="modal-title white" id="myModalLabel160">
-                                                                        Confirm Delete Profile
-                                                                    </h5>
-                                                                    <button type="button" class="close"
-                                                                        data-bs-dismiss="modal" aria-label="Close">
-                                                                        <i data-feather="x"></i>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    Are you sure you want to delete this Profile? Please click Yes if you want to delete this Profile. Once it has been deleted you will not be able to retrieve it again.
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button"
-                                                                        class="btn btn-light-secondary"
-                                                                        data-bs-dismiss="modal">
-                                                                        <i class="bx bx-x d-block d-sm-none"></i>
-                                                                        <span class="d-none d-sm-block">No</span>
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-primary ml-1"
-                                                                        data-bs-dismiss="modal">
-                                                                        <i class="bx bx-check d-block d-sm-none"></i>
-                                                                        <span class="d-none d-sm-block">Yes</span>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-												
-												
-												
-												
-													
-												
-												
 												
 							
                                         </form>
@@ -193,7 +108,7 @@ echo 'Here';
                                                         
 														<div class="modal-header bg-success">
                                                                     <h5 class="modal-title white" id="myModalLabel160">
-                                                                        Add New Profile
+                                                                        Capture Mentor
                                                                     </h5>
                                                                     <button type="button" class="close"
                                                                         data-bs-dismiss="modal" aria-label="Close">
@@ -202,177 +117,43 @@ echo 'Here';
                                                                 </div>
 														
                                                         <div class="modal-body">
-                                                            <form class="form">
-                                            <div class="row">
-											
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="first-name-column">Name</label>
-                                                        <input type="text" id="first-name-column" class="form-control"
-                                                             name="fname-column">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="first-name-column">Surname</label>
-                                                        <input type="text" id="first-name-column" class="form-control"
-                                                             name="fname-column">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="first-name-column">Profile for Department</label>
-                                                        <input type="number" id="first-name-column" class="form-control"
-                                                             name="fname-column">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="first-name-column">Email Address</label>
-                                                        <input type="email" id="first-name-column" class="form-control"
-                                                             name="fname-column">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="first-name-column">Institution</label>
-                                                        <select class="choices form-select" id="disabledSelect" >
-                                                        <option></option>
-														<?php
-				
-															$query = "SELECT * FROM LookupInstitutions WHERE IsActive = '1' ORDER BY Name asc";
-															$result = mysqli_query($conn, $query);
-
-															while($institution = mysqli_fetch_array($result)) {
-															 echo '<option value="'.$institution['InstitutionId'].'">'.ucwords($institution['Name']).'</option>';
-															}
-
-														?>
-                                                    </select>
-                                                    </div>
-                                                </div>
-												
-                                            </div>
-                                        </form>
+                                                            <form class="form" id="QualificationsDetails">
+															<div class="alert alert-light-danger color-danger missindata" style="display:none"></div>
+															<div class="fetched-data"></div>
+			
+														</form>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-light-secondary"
-                                                                data-bs-dismiss="modal">
-                                                                <i class="bx bx-x d-block d-sm-none"></i>
-                                                                <span class="d-none d-sm-block">Close</span>
-                                                            </button>
-                                                            <button type="button" class="btn btn-primary ml-1"
-                                                                data-bs-dismiss="modal">
-                                                                <i class="bx bx-check d-block d-sm-none"></i>
-                                                                <span class="d-none d-sm-block">Accept</span>
-                                                            </button>
-                                                        </div>
+															<button type="button"
+																class="btn btn-light-secondary"
+																data-bs-dismiss="modal">
+																<i class="bx bx-x d-block d-sm-none"></i>
+																<span class="d-none d-sm-block">Cancel</span>
+															</button>
+															<button type="button" class="btn btn-primary ml-1"
+																data-bs-dismiss="modal" id="update">
+																<i class="bx bx-check d-block d-sm-none"></i>
+																<span class="d-none d-sm-block">Update</span>
+															</button>
+															<button type="button" class="btn btn-primary ml-1"
+																data-bs-dismiss="modal" id="insert">
+																<i class="bx bx-check d-block d-sm-none"></i>
+																<span class="d-none d-sm-block">Confirm</span>
+															</button>
+															<button type="button" class="btn btn-primary ml-1"
+																id="prepinsert"
+																 data-bs-target="#prepinsert"														
+																>
+																<i class="bx bx-check d-block d-sm-none"></i>
+																<span class="d-none d-sm-block">Submit</span>
+															</button>
+														</div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 										
-										<!--Modal Xl size -->
-                                        <div class="me-1 mb-1 d-inline-block">
-                  
-
-                                            <!--Extra Large Modal -->
-                                            <div class="modal fade text-left w-100" id="edit-qualification" tabindex="-1"
-                                                role="dialog" aria-labelledby="myModalLabel16" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"
-                                                    role="document">
-                                                    <div class="modal-content">
-                                                        
-														<div class="modal-header bg-success">
-                                                                    <h5 class="modal-title white" id="myModalLabel160">
-                                                                        Edit Profile
-                                                                    </h5>
-                                                                    <button type="button" class="close"
-                                                                        data-bs-dismiss="modal" aria-label="Close">
-                                                                        <i data-feather="x"></i>
-                                                                    </button>
-                                                                </div>
-																
-                                                        <div class="modal-body">
-                                                            <form class="form">
-                                            <div class="row">
-											
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="first-name-column">Name</label>
-                                                        <input type="text" id="first-name-column" class="form-control"
-                                                             name="fname-column">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="first-name-column">Surname</label>
-                                                        <input type="text" id="first-name-column" class="form-control"
-                                                             name="fname-column">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="first-name-column">Profile for Department</label>
-                                                        <input type="number" id="first-name-column" class="form-control"
-                                                             name="fname-column">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="first-name-column">Email Address</label>
-                                                        <input type="email" id="first-name-column" class="form-control"
-                                                             name="fname-column">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="first-name-column">Institution</label>
-                                                        <select class="choices form-select" id="disabledSelect" >
-                                                        <option></option>
-														<?php
-				
-															$query = "SELECT * FROM LookupInstitutions WHERE IsActive = '1' ORDER BY Name asc";
-															$result = mysqli_query($conn, $query);
-
-															while($institution = mysqli_fetch_array($result)) {
-															 echo '<option value="'.$institution['InstitutionId'].'">'.ucwords($institution['Name']).'</option>';
-															}
-
-														?>
-                                                    </select>
-                                                    </div>
-                                                </div>
-												
-                                            </div>
-                                        </form>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-light-secondary"
-                                                                data-bs-dismiss="modal">
-                                                                <i class="bx bx-x d-block d-sm-none"></i>
-                                                                <span class="d-none d-sm-block">Close</span>
-                                                            </button>
-                                                            <button type="button" class="btn btn-primary ml-1"
-                                                                data-bs-dismiss="modal">
-                                                                <i class="bx bx-check d-block d-sm-none"></i>
-                                                                <span class="d-none d-sm-block">Update</span>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+					
 				
 				
             </div>
@@ -394,15 +175,141 @@ echo 'Here';
 </body>
 
 </html>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<style>
+.pagination{display:inline-block;padding-left:0;margin:20px 0;border-radius:4px}.pagination>li{display:inline}.pagination>li>a,.pagination>li>span{position:relative;float:left;padding:6px 12px;margin-left:-1px;line-height:1.42857143;color:#337ab7;text-decoration:none;background-color:#fff;border:1px solid #ddd}.pagination>li:first-child>a,.pagination>li:first-child>span{margin-left:0;border-top-left-radius:4px;border-bottom-left-radius:4px}.pagination>li:last-child>a,.pagination>li:last-child>span{border-top-right-radius:4px;border-bottom-right-radius:4px}.pagination>li>a:focus,.pagination>li>a:hover,.pagination>li>span:focus,.pagination>li>span:hover{z-index:2;color:#23527c;background-color:#eee;border-color:#ddd}.pagination>.active>a,.pagination>.active>a:focus,.pagination>.active>a:hover,.pagination>.active>span,.pagination>.active>span:focus,.pagination>.active>span:hover{z-index:3;color:#fff;cursor:default;background-color:#337ab7;border-color:#337ab7}.pagination>.disabled>a,.pagination>.disabled>a:focus,.pagination>.disabled>a:hover,.pagination>.disabled>span,.pagination>.disabled>span:focus,.pagination>.disabled>span:hover{color:#777;cursor:not-allowed;background-color:#fff;border-color:#ddd}.pagination-lg>li>a,.pagination-lg>li>span{padding:10px 16px;font-size:18px;line-height:1.3333333}.pagination-lg>li:first-child>a,.pagination-lg>li:first-child>span{border-top-left-radius:6px;border-bottom-left-radius:6px}.pagination-lg>li:last-child>a,.pagination-lg>li:last-child>span{border-top-right-radius:6px;border-bottom-right-radius:6px}.pagination-sm>li>a,.pagination-sm>li>span{padding:5px 10px;font-size:12px;line-height:1.5}.pagination-sm>li:first-child>a,.pagination-sm>li:first-child>span{border-top-left-radius:3px;border-bottom-left-radius:3px}.pagination-sm>li:last-child>a,.pagination-sm>li:last-child>span{border-top-right-radius:3px;border-bottom-right-radius:3px}.pager{padding-left:0;margin:20px 0;text-align:center;list-style:none}.pager li{display:inline}.pager li>a,.pager li>span{display:inline-block;padding:5px 14px;background-color:#fff;border:1px solid #ddd;border-radius:15px}.pager li>a:focus,.pager li>a:hover{text-decoration:none;background-color:#eee}.pager .next>a,.pager .next>span{float:right}.pager .previous>a,.pager .previous>span{float:left}.pager .disabled>a,.pager .disabled>a:focus,.pager .disabled>a:hover,.pager .disabled>span{color:#777;cursor:not-allowed;background-color:#fff}.label{display:inline;padding:.2em .6em .3em;font-size:75%;font-weight:700;line-height:1;color:#fff;text-align:center;white-space:nowrap;vertical-align:baseline;border-radius:.25em}
+.dataTables_filter label {
+    width: 100%;
+}
+#user_data_paginate{
+	display:none;
+}
+</style>
+
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+  <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript" language="javascript" >
+ $(document).ready(function(){
+	 
 
-$(document).ready(function(){
-			$(document).on('click', '.sendmail', function(){
-			   alert("Email sent!");
-			   
-			  });
-		  });
+    $('#capture-new').on('show.bs.modal', function (e) {
+        var rowid = $(e.relatedTarget).data('id');
+		
+		if(rowid == '000'){
+				$('#update').hide();
+				$('#insert').hide();
+				$('#prepinsert').show();
+			}else{
+				$('#update').show();
+				$('#insert').hide();
+				$('#prepinsert').hide();
+			}
+	
+        $.ajax({
+            type : 'post',
+            url : 'admin/ProspectiveMentor/fetch.php', //Here you will fetch records 
+            data :  'rowid='+ rowid, //Pass $id
+            success : function(data){
+            $('.fetched-data').html(data);//Show fetched data from database
+			
+            }
+        });
+     });
 
+  
+  fetch_data();
 
+  function fetch_data()
+  {
+   var dataTable = $('#user_data').DataTable({
+    "processing" : true,
+    "serverSide" : true,
+    "order" : [],
+    "ajax" : {
+     url:"admin/ProspectiveMentor/fetch.php",
+     type:"POST"
+    }
+   });
+  }
+  
+       $("#update").click(function(){
+		  
+		  
+		  var form = $('#QualificationsDetails')[0];
+        var formData = new FormData(form);
+        event.preventDefault();
+        $.ajax({
+            url: "admin/ProspectiveMentor/update.php", // the endpoint
+            type: "POST", // http method
+            processData: false,
+            contentType: false,
+            data: formData,        
+              success: function(response){
+                 location.reload();
+             
+           }
+        });
+
+    });
+	
+	
+$("#prepinsert").click(function(){
+		 var form = $('#QualificationsDetails')[0];
+        var formData = new FormData(form);
+        event.preventDefault();
+		
+
+		$.ajax({
+            url: "admin/ProspectiveMentor/prepinsert.php", // the endpoint
+            type: "POST", // http method
+            processData: false,
+            contentType: false,
+            data: formData,        
+              success: function(data){
+				  if(data == 'Alert'){
+					  $('.missindata').show();
+					  $('.missindata').html('Please capture Name, Surname, and Email of your prospective mentor.');//Show fetched data from database
+				  }else{
+					  $('.missindata').hide();
+					  $('#insert').show();
+					  $('#prepinsert').hide();
+					  $('.fetched-data').html(data);//Show fetched data from database
+				  }
+                 	
+             
+           }
+        });
+
+    });
+	
+	
+	
+
+$("#insert").click(function(){
+		  
+		  
+		  var form = $('#QualificationsDetails')[0];
+        var formData = new FormData(form);
+        event.preventDefault();
+        $.ajax({
+            url: "admin/ProspectiveMentor/insert.php", // the endpoint
+            type: "POST", // http method
+            processData: false,
+            contentType: false,
+            data: formData,        
+              success: function(response){
+                 	//location.reload();
+             
+           }
+        });
+
+    });
+	
+	
+ });
+ 
 </script>

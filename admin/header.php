@@ -42,6 +42,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['username'])) {
 	
 	<!-- Include Choices CSS -->
 	<link rel="stylesheet" href="assets/vendors/choices.js/choices.min.css" />
+	
 </head>
 
 <body>
