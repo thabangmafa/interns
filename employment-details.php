@@ -59,6 +59,7 @@ if (isset($_POST['Submit'])) {
 			$result = mysqli_query($conn, $checkAdminStatus);
 			$User = mysqli_fetch_array($result);
 			
+			if (mysqli_num_rows($result) > 0) {
 				$email = $User['Email'];
 				$subject = "HSRC Interns Portal - Host Administrator Request";
 				$txt = "Dear Administrator,
@@ -72,22 +73,25 @@ if (isset($_POST['Submit'])) {
 				$headers = "From: noreply@hsrc.ac.za" . "\r\n";
 
 				mail($email,$subject,$txt,$headers);  
+			}
 		}
 	}
 	
 	if(@$_SESSION['user_type'] == 3){
 		
 		$checkMentorship = "SELECT * FROM ProspectiveMentors WHERE Email = '".$_SESSION['email']."' AND InstitutionID = '".$Organization."'";
-		$result = mysqli_query($conn, $checkAdminStatus);
+		$result = mysqli_query($conn, $checkMentorship);
 		if (mysqli_num_rows($result) === 0) {
 			$insertMentorRequest = "INSERT INTO ProspectiveMentors(MentorID, InstitutionID, Email, Status)VALUES('$id','$Organization','".$_SESSION['email']."','Pending Host Approval')";
 			mysqli_query($conn, $insertMentorRequest);
 			
 			$checkAdminStatus = "SELECT Email FROM HostAdministrator a 
 			left join users b on b.UserID = a.UserID
-			WHERE a.IsActive = '1'";
+			WHERE a.IsActive = '1' AND InstitutionID = '".$Organization."' ";
 			$result = mysqli_query($conn, $checkAdminStatus);
 			$User = mysqli_fetch_array($result);
+			
+			if (mysqli_num_rows($result) > 0) {
 			
 				$email = $User['Email'];
 				$subject = "HSRC Interns Portal - Mentor Request";
@@ -102,6 +106,7 @@ if (isset($_POST['Submit'])) {
 				$headers = "From: noreply@hsrc.ac.za" . "\r\n";
 
 				mail($email,$subject,$txt,$headers);
+			}
 		}
 		
 	}
