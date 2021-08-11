@@ -27,6 +27,19 @@ if (isset($_POST['Submit'])) {
 	$ThirdProvince = validate($_POST['ThirdProvince']);
 	$ThirdDiscipline = validate($_POST['ThirdDiscipline']);
 	
+	$OriginalOrganisation = $CurrentInstitution;
+	
+	$checkOrganisation = "SELECT * FROM LookupInstitutions WHERE lower(Name) = lower('".$CurrentInstitution."')";
+	$result = mysqli_query($conn, $checkOrganisation);
+	$Orgs = mysqli_fetch_array($result);
+	if (mysqli_num_rows($result) === 0) {
+		$insertNew = "INSERT INTO LookupInstitutions(Name, IsActive)VALUES('$CurrentInstitution','1')";
+		mysqli_query($conn, $insertNew);
+		$CurrentInstitution = mysqli_insert_id($conn);
+	}else{
+		$CurrentInstitution = $Orgs['InstitutionId'];
+	}
+	
 	if($PreviouslyApplied == 'No'){
 		$HowManyTimes = '';
 	}
