@@ -6,6 +6,9 @@ $title = "Employment Details";
 
 if (isset($_POST['Submit'])) {
 	
+	
+
+	
 	function validate($data){
        $data = trim($data);
 	   $data = stripslashes($data);
@@ -24,6 +27,49 @@ if (isset($_POST['Submit'])) {
 		$EmployedFromDate = '';
 		$EmployedToDate = '';
 	}
+	
+	$OriginalOrganisation = $Organization;
+	
+	$checkOrganisation = "SELECT * FROM LookupInstitutions WHERE lower(Name) = lower('".$Organization."')";
+	$result = mysqli_query($conn, $checkOrganisation);
+	$Orgs = mysqli_fetch_array($result);
+	if (mysqli_num_rows($result) === 0) {
+		$insertNew = "INSERT INTO LookupInstitutions(Name, IsActive)VALUES('$Organization','1')";
+		mysqli_query($conn, $insertNew);
+		$Organization = mysqli_insert_id($conn);
+	}else{
+		$Organization = $Orgs['InstitutionId'];
+	}
+	
+	if(@$_SESSION['user_type'] == 2){
+		
+		$checkAdminStatus = "SELECT * FROM HostAdministrator WHERE UserID = '".$id."' AND InstitutionID = '".$Organization."'";
+		$result = mysqli_query($conn, $checkAdminStatus);
+		
+		if (mysqli_num_rows($result) === 0) {
+			$insertHostRequest = "INSERT INTO HostAdministrator(UserID, InstitutionID, IsActive)VALUES('$id','$Organization','0')";
+			mysqli_query($conn, $insertHostRequest);
+			
+			
+			$checkAdminStatus = "SELECT * FROM users WHERE UserID = '".$id."'";
+			$result = mysqli_query($conn, $checkAdminStatus);
+			$User = mysqli_fetch_array($result);
+				$email = 'tmafa@hsrc.ac.za';
+				$subject = "HSRC Interns Portal - Host Administrator Request";
+				$txt = "Dear Administrator,
+				
+				".$User['Username']." (".$User['Email'].") has requested to become a Host Administrator for Institution: ".$OriginalOrganisation." 
+				
+				Please login to the portal to action this request.
+				
+				Regards
+				";
+				$headers = "From: noreply@hsrc.ac.za" . "\r\n";
+
+				mail($email,$subject,$txt,$headers);  
+		}
+	}
+	
 	
 	$query = "SELECT * FROM EmploymentDetails WHERE UserID = '".$_SESSION['id']."'";
 	$result = mysqli_query($conn, $query);
@@ -73,13 +119,15 @@ if (isset($_POST['Submit'])) {
 	
 }
 
-	$query = "SELECT * FROM EmploymentDetails a
+	$query = "SELECT a.*, c.Name as OrganisationName FROM EmploymentDetails a
+	left join LookupInstitutions c on c.InstitutionId = a.Organization 
 	WHERE a.UserID = '".$_SESSION['id']."'";
 	$result = mysqli_query($conn, $query);
 
 	while($userdetails = mysqli_fetch_array($result)) {
 
 			$EmploymentStatus = $userdetails['EmploymentStatus'];
+			$OrganisationName = $userdetails['OrganisationName'];
 			$Position = $userdetails['Position'];
 			$EmployedFromDate = $userdetails['EmployedFromDate'];
 			$EmployedToDate = $userdetails['EmployedToDate'];
@@ -176,8 +224,20 @@ if (isset($_POST['Submit'])) {
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="Organization">Organization</label>
-                                                        <input type="text" id="Organization" class="form-control"
-                                                             name="Organization" value="<?php echo @$Organization; ?>" required="required">
+                                                        <input autocomplete="off" list="OrganisationList" id="Organization" class="form-control" name="Organization" value="<?php echo @$OrganisationName; ?>">
+														<datalist id="OrganisationList">
+                                                        <?php
+				
+															$query = "SELECT * FROM LookupInstitutions WHERE IsActive = '1' ORDER BY Name asc";
+															$result = mysqli_query($conn, $query);
+															
+
+															while($institution = mysqli_fetch_array($result)) {
+															 echo '<option>'.ucwords($institution['Name']).'</option>';
+															}
+
+														?>
+                                                    </datalist>
                                                     </div>
                                                 </div>
 												

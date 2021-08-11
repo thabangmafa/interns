@@ -36,6 +36,22 @@ if (isset($_POST['FullTimeStudent'])) {
 	$Country = validate($_POST['Country']);
 	$WorkCountry = validate($_POST['WorkCountry']);
 	
+	
+	
+	$checkOrganisation = "SELECT * FROM LookupInstitutions WHERE lower(Name) = lower('".$CurrentOrganisation."')";
+	$result = mysqli_query($conn, $checkOrganisation);
+	$Orgs = mysqli_fetch_array($result);
+	if (mysqli_num_rows($result) === 0) {
+		$insertNew = "INSERT INTO LookupInstitutions(Name, IsActive)VALUES('$CurrentOrganisation','1')";
+		mysqli_query($conn, $insertNew);
+		$CurrentOrganisation = mysqli_insert_id($conn);
+	}else{
+		$CurrentOrganisation = $Orgs['InstitutionId'];
+	}
+	
+	
+	
+	
 	$query = "SELECT * FROM UserContactDetails WHERE UserID = '".$_SESSION['id']."'";
 	$result = mysqli_query($conn, $query);
 	if (mysqli_num_rows($result) === 0) {
@@ -129,14 +145,16 @@ if (isset($_POST['FullTimeStudent'])) {
 	
 }
 
-	$query = "SELECT a.*, b.Email FROM UserContactDetails a
+	$query = "SELECT a.*, b.Email, c.Name as OrganisationName FROM UserContactDetails a
 	left join users b on b.UserID = a.UserID
+	left join LookupInstitutions c on c.InstitutionId = a.CurrentOrganisation
 	WHERE a.UserID = '".$_SESSION['id']."'";
 	$result = mysqli_query($conn, $query);
 
 	while($userdetails = mysqli_fetch_array($result)) {
 			$FullTimeStudent = $userdetails['FullTimeStudent'];
 			 $CurrentOrganisation = $userdetails['CurrentOrganisation'];
+			 $OrganisationName = $userdetails['OrganisationName'];
 						  $IsOrganisationFundingSalary = $userdetails['IsOrganisationFundingSalary'];
 						  $OrganisationFundingSalary = $userdetails['OrganisationFundingSalary'];
 						  $DepartmentSchoolInstitution = $userdetails['DepartmentSchoolInstitution'];
@@ -214,12 +232,12 @@ if (isset($_POST['FullTimeStudent'])) {
                                                 </fieldset>
                                                     </div>
                                                 </div>
+												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="CurrentOrganisation">Current organisation </label>
-                                                        <fieldset class="form-group">
-                                                    <select class="choices form-select" id="CurrentOrganisation" name="CurrentOrganisation">
-													<option value="">N/A</option>
+                                                        <label for="CurrentOrganisation">Current organisation</label>
+                                                        <input autocomplete="off" list="OrganisationList" id="CurrentOrganisation" class="form-control" name="CurrentOrganisation" value="<?php echo @$OrganisationName; ?>">
+														<datalist id="OrganisationList">
                                                         <?php
 				
 															$query = "SELECT * FROM LookupInstitutions WHERE IsActive = '1' ORDER BY Name asc";
@@ -227,17 +245,13 @@ if (isset($_POST['FullTimeStudent'])) {
 															
 
 															while($institution = mysqli_fetch_array($result)) {
-																$select = "";
-																if(@$CurrentOrganisation == $institution['InstitutionId']){ $select = "selected='selected'"; }
-															 echo '<option value="'.$institution['InstitutionId'].'" '.$select.'>'.ucwords($institution['Name']).'</option>';
+															 echo '<option>'.ucwords($institution['Name']).'</option>';
 															}
 
 														?>
-                                                    </select>
-                                                </fieldset>
+                                                    </datalist>
                                                     </div>
-													
-                                                </div>
+                                                </div>						
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
@@ -505,6 +519,9 @@ if (isset($_POST['FullTimeStudent'])) {
 </html>
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+
+
 <script type="text/javascript">
  $(document).ready(function(){
 	
@@ -519,6 +536,7 @@ $('#IsOrganisationFundingSalary').change(function() {
 			$('.OrganisationFundingSalary').hide();
 		}
 	});
+
 
 
 });
