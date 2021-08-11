@@ -72,7 +72,11 @@ if (isset($_POST['Username']) && isset($_POST['Password'])
            if ($result2) {
 			   
 				$subject = "HSRC Interns Portal Registration";
-				$txt = "Welcome to the HSRC's Interns Portal.";
+				$txt = "Welcome to the HSRC's Interns Portal.
+				
+				Please note that you will need to login to the portal in order to complete your registration details.
+				
+				For any queries please contact Sello Raseruthe @ sraseruthe@hsrc.ac.za";
 				$headers = "From: noreply@hsrc.ac.za" . "\r\n";
 
 				mail($email,$subject,$txt,$headers);  
