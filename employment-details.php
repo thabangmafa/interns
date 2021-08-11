@@ -80,7 +80,7 @@ if (isset($_POST['Submit'])) {
 		$checkMentorship = "SELECT * FROM ProspectiveMentors WHERE Email = '".$_SESSION['email']."' AND InstitutionID = '".$Organization."'";
 		$result = mysqli_query($conn, $checkAdminStatus);
 		if (mysqli_num_rows($result) === 0) {
-			$insertMentorRequest = "INSERT INTO ProspectiveMentors(MentorID, InstitutionID, Email, Status)VALUES('$id','$Organization','$_SESSION['email']','Pending Host Approval')";
+			$insertMentorRequest = "INSERT INTO ProspectiveMentors(MentorID, InstitutionID, Email, Status)VALUES('$id','$Organization','".$_SESSION['email']."','Pending Host Approval')";
 			mysqli_query($conn, $insertMentorRequest);
 			
 			$checkAdminStatus = "SELECT Email FROM HostAdministrator a 
