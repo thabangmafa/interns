@@ -180,7 +180,7 @@ $query = "SELECT * FROM ApplicantChecklist
 
 						$query = "SELECT b.* FROM HostAdministrator a
 										left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = '1'
-										WHERE a.IsActive = '1' and a.UserID = '".$_SESSION['id']."' ORDER BY Name asc";
+										WHERE a.Status = 'Approved' and a.UserID = '".$_SESSION['id']."' ORDER BY Name asc";
 							$result = mysqli_query($conn, $query);
 							$results = mysqli_fetch_array($result);
 							

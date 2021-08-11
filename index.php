@@ -268,7 +268,7 @@ if (isset($_POST['InstitutionID'])) {
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table class="table table-hover table-lg">
+                                            <table class="table table-hover">
                                                 <thead>
                                                     <tr>
                                                         <th>Date</th>
@@ -279,10 +279,10 @@ if (isset($_POST['InstitutionID'])) {
 												<?php
 												//System Administrator
 														if(@$_SESSION['user_type'] == '1'){
-															$query = "SELECT Name, DateUpdated, UserName FROM HostAdministrator a
+															$query = "SELECT Name, DateUpdated, UserName, a.ID FROM HostAdministrator a
 															left join users c on c.UserID = a.UserID
 																		left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = '1'
-																		WHERE a.IsActive = '0' ORDER BY Name asc";
+																		WHERE a.Status = 'Pending' ORDER BY Name asc";
 															$result = mysqli_query($conn, $query);
 
 															while($institution = mysqli_fetch_array($result)) {
@@ -295,7 +295,31 @@ if (isset($_POST['InstitutionID'])) {
 																		</div>
 																	</td>
 																	<td>
-																		<?php echo 'Host admin request pending for ' . $institution['UserName']; ?>
+																		<?php echo '<div data-id="'.$institution["ID"].'" data-section="HostAdministrator" data-bs-toggle="modal" data-bs-target="#capture-new">Host admin request pending for <strong>' . $institution['UserName'] . '</strong> </div>'; ?>
+																	</td>
+																</tr>
+																
+																<?php
+																
+															}
+															
+															$query = "SELECT Name, ApplicationDate as DateUpdated, UserName, a.ID, c.Email, a.CallID, a.InstitutionID FROM HostApplications a
+																			left join users c on c.UserID = a.UserID
+																			left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = '1'
+																			WHERE a.Status = 'Pending' ORDER BY Name asc";
+															$result = mysqli_query($conn, $query);
+
+															while($institution = mysqli_fetch_array($result)) {
+																
+																?>
+																<tr>
+																	<td>
+																		<div>
+																			<?php echo $institution['DateUpdated']; ?>
+																		</div>
+																	</td>
+																	<td>
+																		<?php echo '<div data-id="'.$institution["ID"].'" data-section="HostApplications" data-cid="'.$institution["ID"].'" data-instid="'.$institution["InstitutionID"].'" data-bs-toggle="modal" data-bs-target="#capture-new">Host Institution application pending for <strong>' . $institution['Name'] . '</strong> </div>'; ?>
 																	</td>
 																</tr>
 																
@@ -325,7 +349,7 @@ if (isset($_POST['InstitutionID'])) {
 																		</div>
 																	</td>
 																	<td>
-																		<?php echo 'Mentor request pending for ' . $institution['UserName']; ?>
+																		<?php echo '<div class="icon dripicons-enter" data-id="'.$institution["ID"].'" data-section="ProspectiveMentors" data-bs-toggle="modal" data-bs-target="#capture-new">Mentor request pending for <strong>' . $institution['UserName'] . '</strong> </div>'; ?>
 																	</td>
 																</tr>
 																
@@ -353,7 +377,7 @@ if (isset($_POST['InstitutionID'])) {
 																		</div>
 																	</td>
 																	<td>
-																		<?php echo 'Invited to become a mentor by ' . $institution['FirstName'] . ' '. $institution['LastName']; ?>
+																		<?php echo '<div class="icon dripicons-enter" data-id="'.$institution["ID"].'" data-section="ProspectiveMentors" data-bs-toggle="modal" data-bs-target="#capture-new">Invited to become a mentor by <strong>' . $institution['FirstName'] . ' '. $institution['LastName'] . '</strong> </div>'; ?>
 																	</td>
 																</tr>
 																
@@ -397,6 +421,57 @@ if (isset($_POST['InstitutionID'])) {
 
                 </section>
             </div>
+			
+			<form class="form" action="" method="post" id="QualificationsDetails" name="QualificationsDetails">
+                                        <div class="me-1 mb-1 d-inline-block">
+                  
+
+                                            <!--Extra Large Modal -->
+                                            <div class="modal fade text-left w-100" id="capture-new" tabindex="-1"
+                                                role="dialog" aria-labelledby="myModalLabel16" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"
+                                                    role="document">
+                                                    <div class="modal-content">
+                                                        
+														<div class="modal-header bg-success">
+                                                                    <h5 class="modal-title white" id="myModalLabel160">
+                                                                        Activity Details
+                                                                    </h5>
+                                                                    <button type="button" class="close"
+                                                                        data-bs-dismiss="modal" aria-label="Close">
+                                                                        <i data-feather="x"></i>
+                                                                    </button>
+                                                                </div>
+														
+                                                        <div class="modal-body">
+														
+                                                            
+																<div class="fetched-data"></div>
+                                            
+															
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-light-secondary"
+                                                                data-bs-dismiss="modal">
+                                                                <i class="bx bx-x d-block d-sm-none"></i>
+                                                                <span class="d-none d-sm-block">Close</span>
+                                                            </button>
+															<button type="button" value="Reject" name="Reject" id="reject" class="btn btn-danger"
+                                                                data-bs-dismiss="modal">
+                                                                <i class="bx bx-x d-block d-sm-none"></i>
+                                                                <span class="d-none d-sm-block">Reject</span>
+                                                            </button>
+                                                            <button type="submit" value="accept" name="accept" id="accept" class="btn btn-primary ml-1" data-bs-dismiss="modal">
+                                                                <i class="bx bx-check d-block d-sm-none"></i>
+                                                                <span class="d-none d-sm-block">Accept</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+										
+										</form>
 
             <?php require_once("footer.php"); ?>
         </div>
@@ -566,4 +641,107 @@ chartEurope.render();
 chartProfileVisit.render();
 chartVisitorsProfile.render()
 chartInternsQualifications.render()
+</script>
+
+
+<style>
+.pagination{display:inline-block;padding-left:0;margin:20px 0;border-radius:4px}.pagination>li{display:inline}.pagination>li>a,.pagination>li>span{position:relative;float:left;padding:6px 12px;margin-left:-1px;line-height:1.42857143;color:#337ab7;text-decoration:none;background-color:#fff;border:1px solid #ddd}.pagination>li:first-child>a,.pagination>li:first-child>span{margin-left:0;border-top-left-radius:4px;border-bottom-left-radius:4px}.pagination>li:last-child>a,.pagination>li:last-child>span{border-top-right-radius:4px;border-bottom-right-radius:4px}.pagination>li>a:focus,.pagination>li>a:hover,.pagination>li>span:focus,.pagination>li>span:hover{z-index:2;color:#23527c;background-color:#eee;border-color:#ddd}.pagination>.active>a,.pagination>.active>a:focus,.pagination>.active>a:hover,.pagination>.active>span,.pagination>.active>span:focus,.pagination>.active>span:hover{z-index:3;color:#fff;cursor:default;background-color:#337ab7;border-color:#337ab7}.pagination>.disabled>a,.pagination>.disabled>a:focus,.pagination>.disabled>a:hover,.pagination>.disabled>span,.pagination>.disabled>span:focus,.pagination>.disabled>span:hover{color:#777;cursor:not-allowed;background-color:#fff;border-color:#ddd}.pagination-lg>li>a,.pagination-lg>li>span{padding:10px 16px;font-size:18px;line-height:1.3333333}.pagination-lg>li:first-child>a,.pagination-lg>li:first-child>span{border-top-left-radius:6px;border-bottom-left-radius:6px}.pagination-lg>li:last-child>a,.pagination-lg>li:last-child>span{border-top-right-radius:6px;border-bottom-right-radius:6px}.pagination-sm>li>a,.pagination-sm>li>span{padding:5px 10px;font-size:12px;line-height:1.5}.pagination-sm>li:first-child>a,.pagination-sm>li:first-child>span{border-top-left-radius:3px;border-bottom-left-radius:3px}.pagination-sm>li:last-child>a,.pagination-sm>li:last-child>span{border-top-right-radius:3px;border-bottom-right-radius:3px}.pager{padding-left:0;margin:20px 0;text-align:center;list-style:none}.pager li{display:inline}.pager li>a,.pager li>span{display:inline-block;padding:5px 14px;background-color:#fff;border:1px solid #ddd;border-radius:15px}.pager li>a:focus,.pager li>a:hover{text-decoration:none;background-color:#eee}.pager .next>a,.pager .next>span{float:right}.pager .previous>a,.pager .previous>span{float:left}.pager .disabled>a,.pager .disabled>a:focus,.pager .disabled>a:hover,.pager .disabled>span{color:#777;cursor:not-allowed;background-color:#fff}.label{display:inline;padding:.2em .6em .3em;font-size:75%;font-weight:700;line-height:1;color:#fff;text-align:center;white-space:nowrap;vertical-align:baseline;border-radius:.25em}
+.dataTables_filter label {
+    width: 100%;
+}
+#user_data_paginate{
+	display:none;
+}
+</style>
+
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+  <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+  
+
+<script type="text/javascript" language="javascript" >
+ $(document).ready(function(){
+	 
+
+    $('#capture-new').on('show.bs.modal', function (e) {
+        var rowid = $(e.relatedTarget).data('id');
+		var section = $(e.relatedTarget).data('section');
+		var institutionid = $(e.relatedTarget).data('instid');
+		var callid = $(e.relatedTarget).data('cid');
+	
+        $.ajax({
+            type : 'post',
+            url : 'admin/activities/fetch.php', //Here you will fetch records 
+            data :  {rowid:rowid,section:section,institutionid:institutionid,callid:callid}, //Pass $id
+            success : function(data){
+            $('.fetched-data').html(data);//Show fetched data from database
+			if(rowid == '000'){
+				$('#updateHost').attr('id', 'insert');
+			}
+			
+            }
+        });
+     });
+	 
+  
+  fetch_data();
+
+  function fetch_data()
+  {
+   var dataTable = $('#user_data').DataTable({
+    "processing" : true,
+    "serverSide" : true,
+    "order" : [],
+    "ajax" : {
+     url:"admin/calls/institutions/fetch.php",
+     type:"POST"
+    }
+   });
+  }
+  
+  $("#reject").click(function(){
+		  
+		  
+		 var form = $('#QualificationsDetails')[0];
+        var formData = new FormData(form);
+        event.preventDefault();
+        $.ajax({
+            url: "admin/activities/update.php?action=Rejected", // the endpoint
+            type: "POST", // http method
+            processData: false,
+            contentType: false,
+            data: formData,        
+              success: function(response){
+                 location.reload();
+             
+           }
+        });
+
+    });
+	
+	$("#accept").click(function(){
+		  
+		  
+		 var form = $('#QualificationsDetails')[0];
+        var formData = new FormData(form);
+        event.preventDefault();
+        $.ajax({
+            url: "admin/activities/update.php?action=Approved", // the endpoint
+            type: "POST", // http method
+            processData: false,
+            contentType: false,
+            data: formData,        
+              success: function(response){
+                 location.reload();
+             
+           }
+        });
+
+    });
+  
+ });
 </script>
