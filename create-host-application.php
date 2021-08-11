@@ -17,6 +17,71 @@ if(isset($_POST['InstitutionID']))
 	 }
 }
 
+$query = "SELECT * FROM ApplicantChecklist 	
+	WHERE (UserID = '".$_SESSION['id']."' OR InstitutionID = '".$_SESSION['InstitutionID']."')";
+
+	$result = mysqli_query($conn, $query);
+	
+	
+	while($details = mysqli_fetch_array($result)) {
+		if($details['Section'] == 'Contact Details'){
+			$ContactDetails = 1;
+		}
+		
+		if($details['Section'] == 'Employment Details'){
+			$EmploymentDetails = 1;
+		}
+		
+		if($details['Section'] == 'Language Proficiency'){
+			$LanguageProficiency = 1;
+		}
+		
+		if($details['Section'] == 'Next Of Kin'){
+			$NextOfKin = 1;
+		}
+		
+		if($details['Section'] == 'Position Applied For'){
+			$PositionAppliedFor = 1;
+		}
+		
+		if($details['Section'] == 'Personal Profile'){
+			$PersonalProfile = 1;
+		}
+		
+		if($details['Section'] == 'Qualifications'){
+			$Qualifications = 1;
+		}
+		
+		if($details['Section'] == 'Registration Details'){
+			$RegistrationDetails = 1;
+		}
+		
+		if($details['Section'] == 'References'){
+			$References = 1;
+		}
+		
+		if($details['Section'] == 'Host Institution'){
+			$HostInstitution = 1;
+		}
+		
+		if($details['Section'] == 'Prospective Mentors and Required Intern Profile'){
+			$ProspectiveMentorsandRequiredInternProfile = 1;
+		}
+		
+		if($details['Section'] == 'Profile of Requested Interns'){
+			$ProfileofRequestedInterns = 1;
+		}
+		
+
+		
+	}
+	
+	$Total = @$ContactDetails + @$EmploymentDetails + @$LanguageProficiency + @$NextOfKin + @$PositionAppliedFor + @$PersonalProfile + @$Qualifications + @$RegistrationDetails + @$References + @$HostInstitution + @$ProspectiveMentorsandRequiredInternProfile + @$ProfileofRequestedInterns;
+
+
+
+
+
 
  ?>
 <?php require_once("admin/header.php"); ?>
@@ -65,31 +130,65 @@ if(isset($_POST['InstitutionID']))
                                         <form class="form">
                                             <div class="row">
 											
-											<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="Organisation">Select organisation applying for</label>
-                                                        <fieldset class="form-group">
-                                                    <select class="form-select" id="Organisation" name="Organisation" required="required">
-													<option value="N/A"></option>
-                                                        <?php
-				
-															$query = "SELECT b.* FROM HostAdministrator a
-																		left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = '1'
-																		WHERE a.IsActive = '1' and a.UserID = '".$_SESSION['id']."' ORDER BY Name asc";
-															$result = mysqli_query($conn, $query);
-															
+											<table class="table table-striped" id="table1">
+												<thead>
+													<tr>
+														<th>Title</th>
+														<th>Description</th>
+														<th>Open Date</th>
+														<th>Closing Date</th>
+														<th>Requirements Document</th>
+														<th>Create</th>
+													</tr>
+												</thead>
+												<tbody> 
+<?php
+										$query = "SELECT HostInstitutionCalls.*, d.* FROM HostInstitutionCalls 
+										left join `CallInstitutionLink` d on d.CallID = HostInstitutionCalls.ID 
+										WHERE d.ID != '' AND d.InstitutionID is not null and
+										HostInstitutionCalls.IsActive = 1
+										AND HostRequirementsFile != '' 
+										AND HostRequirementsFile IS NOT NULL 
+										AND ApplicantRequirementsFile != '' 
+										AND ApplicantRequirementsFile IS NOT NULL 
+										AND `ClosingDate` >= CURDATE()
+										AND d.Status = 'Active'
+										AND InstitutionID != '".$_SESSION["InstitutionID"]."'";
 
-															while($institution = mysqli_fetch_array($result)) {
-															 echo '<option value="'.$institution['InstitutionId'].'">'.ucwords($institution['Name']).'</option>';
-															}
+										$result = mysqli_query($conn,$query);
 
-														?>
-                                                    </select>
-                                                </fieldset>
-                                                    </div>
-													
-                                                </div>			
-											<div class="showCalls"></div>
+										while($calls = mysqli_fetch_array($result)) {
+											
+	
+											
+										$appReq = 'No Document';
+										 if($calls["HostRequirementsFile"]){
+											 $appReq = '<a target="_blank" href="uploads/calls/'.$calls["ID"].'/'.$calls["HostRequirementsFile"].'">Open Document</a>';
+										 }	
+										 
+										
+										 
+										
+										 
+										echo '<tr>';
+										echo '<td>'. $calls['Title'].'</td>';
+										echo '<td>'. $calls['Description'].'</td>';
+										echo '<td>'. $calls['OpenDate'].'</td>';
+										echo '<td>'. $calls['ClosingDate'].'</td>';
+										echo '<td>'. $appReq.'</td>';
+										 if($Total == '12'){
+												echo '<td><div class="icon dripicons-enter" data-CallID="'.$calls["ID"].'" data-InstitutionID="'.$_SESSION["InstitutionID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div></td>';
+											 }else{
+												 echo '<td><div class="alert alert-light-danger color-danger"><i class="bi bi-exclamation-circle"></i> Please complete all required sections first.</div></td>';
+											 }
+											 echo '</tr>';
+										}
+											 ?>
+											
+										
+										
+										</tbody>
+												</table>
 												
 												
 							
@@ -217,21 +316,7 @@ if(isset($_POST['InstitutionID']))
         });
      });
 	 
-	 
-	  $('#Organisation').change(function() {
-		var val = $(this).val();
-		if(val != ''){
-        $.ajax({
-            type : 'post',
-            url : 'admin/user/fetchCalls.php', //Here you will fetch records 
-            data :  'rowid='+ val, //Pass $id
-            success : function(data){
-            $('.showCalls').html(data);//Show fetched data from database
-			
-            }
-        });
-		}
-     });
+
 	 
   
   fetch_data();

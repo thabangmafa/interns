@@ -10,7 +10,7 @@ left join LookupInstitutions b on b.InstitutionId = a.InstitutionID
 left join LookupStudyField c on c.ID = a.PrimaryScientificField
 left join LookupStudyField d on d.ID = a.SecondaryScientificField
 left join LookupQualificationLevel e on e.ID = a.QualificationLevel
-WHERE UserID = '".$_SESSION['id']."'
+WHERE a.InstitutionID = '".$_SESSION['InstitutionID']."'
 ";
 
 if(isset($_POST["search"]["value"]))
@@ -64,31 +64,8 @@ while($LookupStudyField = mysqli_fetch_array($LookupStudyFields))
 if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 {
 				
-				
+				echo '<input type="hidden" id="InstitutionID" class="form-control" name="InstitutionID" value="' . @$_SESSION['InstitutionID'] . '">';
 				echo '<div class="row">
-				<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="InstitutionID">Select organisation applying for</label>
-                                                        <fieldset class="form-group">
-                                                    <select class="form-select" id="InstitutionID" name="InstitutionID" required="required">';
-                         
-				
-															$query = "SELECT b.* FROM HostAdministrator a
-																		left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = '1'
-																		WHERE a.IsActive = '1' and a.UserID = '".$_SESSION['id']."' ORDER BY Name asc";
-															$result = mysqli_query($conn, $query);
-															
-
-															while($institution = mysqli_fetch_array($result)) {
-															 echo '<option value="'.$institution['InstitutionId'].'">'.ucwords($institution['Name']).'</option>';
-															}
-
-													echo '
-                                                    </select>
-                                                </fieldset>
-                                                    </div>
-													
-                                                </div>			
 				
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
@@ -167,36 +144,11 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 	{
 		echo '<div class="row">';
 		echo '<input type="hidden" id="ID" class="form-control" name="ID" value="' . $row["ID"] . '">';
+		echo '<input type="hidden" id="InstitutionID" class="form-control" name="InstitutionID" value="' . @$_SESSION['InstitutionID'] . '">';
 		
 		
 		echo '
-		
-		<div class="col-md-6 col-12">
-			<div class="form-group">
-				<label for="InstitutionID">Select organisation applying for</label>
-				<fieldset class="form-group">
-			<select class="form-select" id="InstitutionID" name="InstitutionID" required="required">';
-
-
-					$query = "SELECT b.* FROM HostAdministrator a
-								left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = '1'
-								WHERE a.IsActive = '1' and a.UserID = '".$_SESSION['id']."' ORDER BY Name asc";
-					$result = mysqli_query($conn, $query);
-					
-
-					while($institution = mysqli_fetch_array($result)) {
-						$select = '';
-						if($institution['InstitutionId'] == $row["InstitutionID"]){ $select = "selected='selected'"; }
-					 echo '<option value="'.$institution['InstitutionId'].'" '.$select.'>'.ucwords($institution['Name']).'</option>';
-					}
-
-			echo '
-			</select>
-		</fieldset>
-			</div>
-			
-		</div>			
-		
+				
 		<div class="col-md-6 col-12">
 			<div class="form-group">
 				<label for="PrimaryScientificField">Primary Scientific Field</label>
@@ -287,7 +239,7 @@ left join LookupInstitutions b on b.InstitutionId = a.InstitutionID
 left join LookupStudyField c on c.ID = a.PrimaryScientificField
 left join LookupStudyField d on d.ID = a.SecondaryScientificField
 left join LookupQualificationLevel e on e.ID = a.QualificationLevel
-WHERE UserID = '".$_SESSION['id']."'
+WHERE a.InstitutionID = '".$_SESSION['InstitutionID']."'
 ";
 
  $result = mysqli_query($conn,$query);

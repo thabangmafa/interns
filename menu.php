@@ -1,7 +1,7 @@
 <?php 
 
 $query = "SELECT * FROM ApplicantChecklist 	
-	WHERE UserID = '".$_SESSION['id']."'";
+	WHERE (UserID = '".$_SESSION['id']."' OR InstitutionID = '".$_SESSION['InstitutionID']."')";
 
 	$result = mysqli_query($conn, $query);
 	

@@ -31,9 +31,9 @@ if(isset($_POST["InstitutionID"]) && isset($_POST["PrimaryScientificField"]) && 
 
  if(mysqli_query($conn,$query))
  {
-	 $checklist = "INSERT INTO ApplicantChecklist(InstitutionID, Section)VALUES('$InstitutionID','Profile of Requested Interns')";
+	 $checklist = "INSERT INTO ApplicantChecklist(UserID, InstitutionID, Section)VALUES('$ID','$InstitutionID','Profile of Requested Interns')";
 	mysqli_query($conn, $checklist);
-	
+	echo $checklist;
   echo 'Data Inserted';
  }else{
 	 echo 'Data Not Inserted';

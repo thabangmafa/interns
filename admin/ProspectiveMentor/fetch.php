@@ -7,7 +7,7 @@ $columns = array('Name', 'Surname', 'Email');
 
 $query = "SELECT a.ID,a.Status,a.Name,a.Email, a.Surname, B.Name as Institution FROM ProspectiveMentors a 
 LEFT JOIN LookupInstitutions B on B.InstitutionId = a.InstitutionID
-WHERE AddedBy = '".$_SESSION['id']."'
+WHERE a.InstitutionID = '".$_SESSION['InstitutionID']."'
 ";
 
 if(isset($_POST["search"]["value"]))
@@ -61,7 +61,7 @@ while($LookupStudyField = mysqli_fetch_array($LookupStudyFields))
 if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 {
 				
-				
+				echo '<input type="hidden" id="InstitutionID" class="form-control" name="InstitutionID" value="' . @$_SESSION['InstitutionID'] . '">';
 									echo '<div class="row">
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
@@ -87,27 +87,6 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="Institution">Institution</label>
-                                                        <select class="choices form-select" id="Institution" name="Institution" >';
-														
-				
-															$query = "SELECT b.* FROM HostAdministrator a
-																		left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = '1'
-																		WHERE a.IsActive = '1' and a.UserID = '".$_SESSION['id']."' ORDER BY Name asc";
-															$result = mysqli_query($conn, $query);
-
-															while($institution = mysqli_fetch_array($result)) {
-																
-															 echo '<option value="'.$institution['InstitutionId'].'">'.ucwords($institution['Name']).'</option>';
-															}
-
-													echo'
-                                                    </select>
-                                                    </div>
-                                                </div>
-												
                                             </div>';
 				
 				
@@ -127,7 +106,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 		echo '<div class="row">';
 
 		echo '<input type="hidden" id="ID" class="form-control" name="ID" value="' . $row["ID"] . '">';
-		
+		echo '<input type="hidden" id="InstitutionID" class="form-control" name="InstitutionID" value="' . @$_SESSION['InstitutionID'] . '">';
 		
 		echo '<div class="row">
 												<div class="col-md-6 col-12">
@@ -154,27 +133,6 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="InstitutionID">Institution</label>
-                                                        <select class="choices form-select" id="InstitutionID"  name="InstitutionID">';
-	
-				
-															$query = "SELECT b.* FROM HostAdministrator a
-																		left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = '1'
-																		WHERE a.IsActive = '1' and a.UserID = '".$_SESSION['id']."' ORDER BY Name asc";
-															$result = mysqli_query($conn, $query);
-
-															while($institution = mysqli_fetch_array($result)) {
-																$select = '';
-																if(@$row["InstitutionID"] == $institution['InstitutionId']){ $select = "selected='selected'"; }
-															 echo '<option value="'.$institution['InstitutionId'].'" '.$select.'>'.ucwords($institution['Name']).'</option>';
-															}
-
-													echo'
-                                                    </select>
-                                                    </div>
-                                                </div>
 												
                                             </div>';
 					
@@ -210,7 +168,7 @@ function get_all_data($conn)
 {
  $query = "SELECT a.ID,a.Status,a.Name,a.Email, a.Surname, B.Name as Institution FROM ProspectiveMentors a 
 LEFT JOIN LookupInstitutions B on B.InstitutionId = a.InstitutionID
-WHERE AddedBy = '".$_SESSION['id']."'
+WHERE a.InstitutionID = '".$_SESSION['InstitutionID']."'
 ";
 
  $result = mysqli_query($conn,$query);

@@ -40,7 +40,7 @@ $Person = mysqli_fetch_array($result);
  {
   echo 'Data Inserted';
   
-  $checklist = "INSERT INTO ApplicantChecklist(InstitutionID, Section)VALUES('$InstitutionID','Prospective Mentors and Required Intern Profile')";
+  $checklist = "INSERT INTO ApplicantChecklist(UserID, InstitutionID, Section)VALUES('$ID','$InstitutionID','Prospective Mentors and Required Intern Profile')";
 	mysqli_query($conn, $checklist);
 	
    $subject = "HSRC Interns - Mentor Invitation by " . @$Person['Initials'] . ' ' . @$Person['FirstName'] . ' ' . @$Person['LastName'];

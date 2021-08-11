@@ -120,14 +120,24 @@ if (isset($_POST['Country']) && $_POST['Country'] != '' && isset($_POST['Institu
 	
 }
 
-if(@$_POST['InstitutionID']){
-	$query = "SELECT a.* FROM HostInstitutionDetails a
-	WHERE a.InstitutionID = '".@$_POST['InstitutionID']."'";
+if(@$_SESSION['InstitutionID']){
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	$query = "SELECT b.*, a.Name as InstitutionName FROM LookupInstitutions a
+	LEFT JOIN HostInstitutionDetails b ON b.InstitutionID = a.InstitutionId
+	WHERE a.InstitutionId = '".@$_SESSION['InstitutionID']."'";
 	$result = mysqli_query($conn, $query);
 	
 	while(@$userdetails = mysqli_fetch_array($result)) {
 		
-		
+	$InstitutionName = $userdetails['InstitutionName'];	
 	$InstitutionID = $userdetails['InstitutionID'];
 	  $CategoriseInstitution = $userdetails['CategoriseInstitution'];
 	  $Province = $userdetails['Province'];
@@ -197,34 +207,16 @@ if(@$_POST['InstitutionID']){
                                         <form class="form" method="post" action="" enctype="multipart/form-data">
 
                                             <div class="row mainDetails" <?php // if(@$UserInterestedInHosting == '' || @$UserInterestedInHosting == 'No'){ echo 'style="display:none;"';} ?>>
-												
-												
-										
-												
+	
+												<input type="hidden" id="InstitutionID" class="form-control" name="InstitutionID" value="<?php echo @$_SESSION['InstitutionID']; ?>">
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="Institution">Name of Institution</label>
-                                                        <fieldset class="form-group">
-                                                    <select class="choices form-select" id="InstitutionID" name="InstitutionID"  onchange='this.form.submit()' required="required">
-                                                        <option></option>
-														<?php
-				
-															$query = "SELECT b.* FROM HostAdministrator a
-																		left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = '1'
-																		WHERE a.IsActive = '1' and a.UserID = '".$_SESSION['id']."' ORDER BY Name asc";
-															$result = mysqli_query($conn, $query);
-
-															while($institution = mysqli_fetch_array($result)) {
-																$select = '';
-																if(@$InstitutionID == $institution['InstitutionId']){ $select = "selected='selected'"; }
-															 echo '<option value="'.$institution['InstitutionId'].'" '.$select.'>'.ucwords($institution['Name']).'</option>';
-															}
-
-														?>
-                                                    </select>
-                                                </fieldset>
+                                                        <label for="InstitutionID">Name of Institution</label>
+                                                        <input type="text" class="form-control" disabled="disabled" value="<?php echo @$InstitutionName; ?>">
                                                     </div>
                                                 </div>
+												
+												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="CategoriseInstitution">Categorise Institution</label>

@@ -5,6 +5,9 @@ $conn = OpenCon();
 
 $menu_item = "1";
 $title = "";
+if (isset($_POST['InstitutionID'])) {
+	$_SESSION['InstitutionID'] = $_POST['InstitutionID'];
+}
 
  ?>
 	<?php require_once("admin/header.php"); ?>
@@ -32,6 +35,8 @@ $title = "";
                                     
                                 </ol>
                             </nav>
+							
+							
                         </div>
                     </div>
                 </div>
@@ -228,6 +233,34 @@ $title = "";
 					
                     <div class="col-12 col-lg-3">
 					<div class="card">
+                            <div class="card-header">
+                                <h4>Institution to Manage</h4>
+                            </div>
+                            <div class="card-body">
+							<form class="form" method="post" action="" enctype="multipart/form-data">
+                                <select class="choices form-select" id="InstitutionID" name="InstitutionID"  onchange='this.form.submit()' required="required">
+                                                        <option></option>
+														<?php
+				
+															$query = "SELECT b.* FROM HostAdministrator a
+																		left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = '1'
+																		WHERE a.IsActive = '1' and a.UserID = '".$_SESSION['id']."' ORDER BY Name asc";
+															$result = mysqli_query($conn, $query);
+
+															while($institution = mysqli_fetch_array($result)) {
+																$select = '';
+																if(@$_SESSION['InstitutionID'] == $institution['InstitutionId']){ $select = "selected='selected'"; }
+															 echo '<option value="'.$institution['InstitutionId'].'" '.$select.'>'.ucwords($institution['Name']).'</option>';
+															}
+
+														?>
+                                                    </select>
+								</form>
+                            </div>
+                        </div>
+					
+					<div class="card">
+					
                                     <div class="card-header">
                                         <h4>Activities</h4>
                                     </div>

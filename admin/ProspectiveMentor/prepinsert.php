@@ -9,7 +9,7 @@ if(isset($_POST["Email"]) && $_POST["Email"] != '')
   $Name = mysqli_real_escape_string($conn,$_POST["Name"]);
   $Surname = mysqli_real_escape_string($conn,$_POST["Surname"]);
   $Email = mysqli_real_escape_string($conn,$_POST["Email"]);
-  $InstitutionID = mysqli_real_escape_string($conn,$_POST["Institution"]);
+  $InstitutionID = mysqli_real_escape_string($conn,$_POST["InstitutionID"]);
   
  $ID = $_SESSION['id'];
 
@@ -39,9 +39,9 @@ if(isset($Email))
 				echo '<div class="alert alert-light-warning color-warning"><i class="bi-exclamation-triangle"></i> Please confirm if the details below are correct. On confirmation, an email will be sent to the prospective mentor.
                                     </div>';
 									echo '<input type="hidden" id="MentorID" class="form-control" name="MentorID" value="' . $row["UserID"] . '">';
-									echo '<input type="hidden" id="MentorID" class="form-control" name="Name" value="' . $row["FirstName"] . '">';
-									echo '<input type="hidden" id="MentorID" class="form-control" name="Surname" value="' . $row["LastName"] . '">';
-									echo '<input type="hidden" id="MentorID" class="form-control" name="Email" value="' . $row["Email"] . '">';
+									echo '<input type="hidden" id="Name" class="form-control" name="Name" value="' . $row["FirstName"] . '">';
+									echo '<input type="hidden" id="Surname" class="form-control" name="Surname" value="' . $row["LastName"] . '">';
+									echo '<input type="hidden" id="Email" class="form-control" name="Email" value="' . $row["Email"] . '">';
 									echo '<input type="hidden" id="InstitutionID" class="form-control" name="InstitutionID" value="' . $InstitutionID . '">';
 									echo '<div class="row">
 											<table>
@@ -89,9 +89,9 @@ if(isset($Email))
 		echo '<div class="alert alert-light-danger color-danger"><i class="bi-exclamation-triangle"></i> Prospective mentor not registered on the system. On confirmation, an invite will be sent to the prospective mentor to register.
                                     </div>';
 									echo '<input type="hidden" id="MentorID" class="form-control" name="MentorID" value="">';
-									echo '<input type="hidden" id="MentorID" class="form-control" name="Name" value="' . $Name . '">';
-									echo '<input type="hidden" id="MentorID" class="form-control" name="Surname" value="' . $Surname . '">';
-									echo '<input type="hidden" id="MentorID" class="form-control" name="Email" value="' . $Email . '">';
+									echo '<input type="hidden" id="Name" class="form-control" name="Name" value="' . $Name . '">';
+									echo '<input type="hidden" id="Surname" class="form-control" name="Surname" value="' . $Surname . '">';
+									echo '<input type="hidden" id="Email" class="form-control" name="Email" value="' . $Email . '">';
 									echo '<input type="hidden" id="InstitutionID" class="form-control" name="InstitutionID" value="' . $InstitutionID . '">';
 									echo '<div class="row">
 											<table>
