@@ -240,15 +240,16 @@ $query = "SELECT * FROM ApplicantChecklist
                                 <span>Manage Components</span>
                             </a>
                             <ul class="submenu <?php if($menu_item == "6"){ echo "active"; } ?>">
-                                <li class="submenu-item ">
+							<li class="submenu-item <?php if($title == "Host Institutions"){ echo "active"; } ?>">
+                                    <a href="institutions.php">Host Institutions</a>
+                                </li>
+                                <!--li class="submenu-item ">
                                     <a href="#">Countries</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="#">Provices</a>
                                 </li>
-                                <li class="submenu-item <?php if($title == "Host Institutions"){ echo "active"; } ?>">
-                                    <a href="institutions.php">Host Institutions</a>
-                                </li>
+                                
                                 <li class="submenu-item ">
                                     <a href="#">Languages</a>
                                 </li>
@@ -293,7 +294,7 @@ $query = "SELECT * FROM ApplicantChecklist
                                 </li>
 								<li class="submenu-item ">
                                     <a href="#">Language Proficiency</a>
-                                </li>
+                                </li-->
                             </ul>
                         </li>
 						<?php } ?>
