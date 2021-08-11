@@ -36,21 +36,22 @@ $Person = mysqli_fetch_array($result);
   'Pending Approval')";
 
 
-echo $query;
-
  if(mysqli_query($conn,$query))
  {
   echo 'Data Inserted';
   
   
-   $subject = "HSRC Interns - Mentor Invitation by " . $Person['Initials'] . ' ' . $Person['FirstName'] . ' ' . $Person['FirstName'];
+   $subject = "HSRC Interns - Mentor Invitation by " . @$Person['Initials'] . ' ' . @$Person['FirstName'] . ' ' . @$Person['FirstName'];
   if($MentorID = ''){
-	$txt = "Dear " . $Name . ' ' . $Surname . '\r\n'. $Person['Initials'] . ' ' . $Person['FirstName'] . ' ' . $Person['FirstName'] . ' has invited you to become a mentor on the HSRC Interns Programme.
-	\n\n Please click on this link in order to register on the portal: http://interns.hsrc.ac.za \n\nRegards, \nHSRC Internship Programme';
+	$txt = "Dear " . @$Name . ' ' . @$Surname . '<br /><br />'. @$Person['Initials'] . ' ' . @$Person['FirstName'] . ' ' . @$Person['FirstName'] . ' has invited you to become a mentor on the HSRC Interns Programme.
+	<br /><br />Please click on this link in order to register on the portal: http://interns.hsrc.ac.za 
+	<br /><br />Regards,<br />HSRC Internship Programme';
 	
   }else{
-	$txt = "Dear " . $Name . ' ' . $Surname . '\r\n'. $Person['Initials'] . ' ' . $Person['FirstName'] . ' ' . $Person['FirstName'] . ' has invited you to become a mentor on the HSRC Interns Programme.
-	\n\n Please login to the platform in order to respond to this invitation. http://interns.hsrc.ac.za \n\nRegards, \nHSRC Internship Programme';
+	$txt = "Dear " . @$Name . ' ' . @$Surname . '<br /><br />'. @$Person['Initials'] . ' ' . @$Person['FirstName'] . ' ' . @$Person['FirstName'] . ' has invited you to become a mentor on the HSRC Interns Programme.
+	<br /><br />Please login to the platform in order to respond to this invitation. http://interns.hsrc.ac.za 
+	<br /><br />Regards,
+	<br />HSRC Internship Programme';
 
   }
   $headers = "From: noreply@hsrc.ac.za" . "\r\n";
