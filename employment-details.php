@@ -51,14 +51,15 @@ if (isset($_POST['Submit'])) {
 			mysqli_query($conn, $insertHostRequest);
 			
 			
-			$checkAdminStatus = "SELECT * FROM users WHERE UserID = '".$id."'";
+			$checkAdminStatus = "SELECT Email FROM users WHERE UserType = '1'";
 			$result = mysqli_query($conn, $checkAdminStatus);
 			$User = mysqli_fetch_array($result);
-				$email = 'tmafa@hsrc.ac.za';
+			
+				$email = $User['Email'];
 				$subject = "HSRC Interns Portal - Host Administrator Request";
 				$txt = "Dear Administrator,
 				
-				".$User['UserName']." (".$User['Email'].") has requested to become a Host Administrator for Institution: ".$OriginalOrganisation."
+				".$_SESSION['username']." (".$_SESSION['email'].") has requested to become a Host Administrator for Institution: ".$OriginalOrganisation."
 				
 				Please login to the portal to action this request.
 				
@@ -68,6 +69,37 @@ if (isset($_POST['Submit'])) {
 
 				mail($email,$subject,$txt,$headers);  
 		}
+	}
+	
+	if(@$_SESSION['user_type'] == 3){
+		
+		$checkMentorship = "SELECT * FROM ProspectiveMentors WHERE Email = '".$_SESSION['email']."' AND InstitutionID = '".$Organization."'";
+		$result = mysqli_query($conn, $checkAdminStatus);
+		if (mysqli_num_rows($result) === 0) {
+			$insertMentorRequest = "INSERT INTO ProspectiveMentors(MentorID, InstitutionID, Email, Status)VALUES('$id','$Organization','$_SESSION['email']','Pending Host Approval')";
+			mysqli_query($conn, $insertMentorRequest);
+			
+			$checkAdminStatus = "SELECT Email FROM HostAdministrator a 
+			left join users b on b.UserID = a.UserID
+			WHERE a.IsActive = '1'";
+			$result = mysqli_query($conn, $checkAdminStatus);
+			$User = mysqli_fetch_array($result);
+			
+				$email = $User['Email'];
+				$subject = "HSRC Interns Portal - Mentor Request";
+				$txt = "Dear Administrator,
+				
+				".$_SESSION['username']." (".$_SESSION['email'].") has requested to become a Mentor for Institution: ".$OriginalOrganisation."
+				
+				Please login to the portal to action this request.
+				
+				Regards
+				";
+				$headers = "From: noreply@hsrc.ac.za" . "\r\n";
+
+				mail($email,$subject,$txt,$headers);
+		}
+		
 	}
 	
 	
@@ -223,7 +255,7 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="Organization">Organization</label>
+                                                        <label for="Organization">Organization</label><small><i> *A request will be sent to the intitution admin for your Mentor request.</i></small>
                                                         <input autocomplete="off" list="OrganisationList" id="Organization" class="form-control" name="Organization" value="<?php echo @$OrganisationName; ?>">
 														<datalist id="OrganisationList">
                                                         <?php
@@ -293,13 +325,6 @@ if (isset($_POST['Submit'])) {
     </div>
     <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
-	
-	<script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
-    <script>
-        // Simple Datatable
-        let table1 = document.querySelector('#table1');
-        let dataTable = new simpleDatatables.DataTable(table1);
-    </script>
 
     <script src="assets/js/main.js"></script>
 </body>

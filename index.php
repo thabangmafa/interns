@@ -178,8 +178,8 @@ if (isset($_POST['InstitutionID'])) {
 													left join `CallInstitutionLink` d on d.CallID = a.ID
 										";
 										
-										 $hostReq = 'No Host Document';
-											$appReq = 'No Applicant Document';
+										 $hostReq = '';
+											$appReq = '';
  
 
 
@@ -188,30 +188,30 @@ if (isset($_POST['InstitutionID'])) {
 
 										while($calls = mysqli_fetch_array($result)) {
 											
-											 if($calls["HostRequirementsFile"]){
+											 if($calls["HostRequirementsFile"] && @$_SESSION['user_type'] != '4'){
 											 $hostReq = '<a target="_blank" href="../../../uploads/calls/'.$calls["ID"].'/'.$calls["HostRequirementsFile"].'">Host Requirements</a>';
 										 }
 										 
 										 if($calls["ApplicantRequirementsFile"]){
 											 $appReq = '<a target="_blank" href="../../../uploads/calls/'.$calls["ID"].'/'.$calls["ApplicantRequirementsFile"].'">Applicant Requirements</a>';
 										 }
-											if(@$_SESSION['user_type'] == '4' && $calls['Status'] == 'Open'){
+											if(@$_SESSION['user_type'] != '1' && $calls['Status'] == 'Open'){
 											echo '<tr>';
 												 echo '<td>' . $calls['Title'] . '</td>';
 												 echo '<td>' . $calls['Description'] . '</td>';
 												 echo '<td>' . $calls['OpenDate'] . '</td>';
 												 echo '<td>' . $calls['ClosingDate'] . '</td>';
 												 echo '<td>' . $calls['Status'] . '</td>';
-												 echo '<td>' .$hostReq. '<br />'.$appReq. '</td>';
+												 echo '<td>' .$hostReq.' | ' .$appReq. '</td>';
 												 echo '</tr>';
-											}elseif(@$_SESSION['user_type'] != '4'){
+											}elseif(@$_SESSION['user_type'] == '1'){
 												echo '<tr>';
 												 echo '<td>' . $calls['Title'] . '</td>';
 												 echo '<td>' . $calls['Description'] . '</td>';
 												 echo '<td>' . $calls['OpenDate'] . '</td>';
 												 echo '<td>' . $calls['ClosingDate'] . '</td>';
 												 echo '<td>' . $calls['Status'] . '</td>';
-												 echo '<td>' .$hostReq. '<br />'.$appReq. '</td>';
+												 echo '<td>' .$hostReq.' | ' .$appReq. '</td>';
 												 echo '</tr>';
 												
 											}
@@ -307,10 +307,12 @@ if (isset($_POST['InstitutionID'])) {
 														//Host Administrator
 														if(@$_SESSION['user_type'] == '2'){
 															
-															$query = "SELECT Name, DateUpdated, UserName FROM HostAdministrator a
-															left join users c on c.UserID = a.UserID
-																		left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = '1'
-																		WHERE a.IsActive = '0' ORDER BY Name asc";
+															
+															
+															$query = "SELECT c.Email, UpdatedDate, UserName FROM ProspectiveMentors a 
+															left join users c on c.UserID = a.MentorID 
+															WHERE a.InstitutionID  = (SELECT InstitutionID from HostAdministrator WHERE UserID = '".$_SESSION['id']."' and IsActive = '1') 
+															and Status = 'Pending Host Approval' ORDER BY Name asc";
 															$result = mysqli_query($conn, $query);
 
 															while($institution = mysqli_fetch_array($result)) {
@@ -319,11 +321,11 @@ if (isset($_POST['InstitutionID'])) {
 																<tr>
 																	<td>
 																		<div>
-																			<?php echo $institution['DateUpdated']; ?>
+																			<?php echo $institution['UpdatedDate']; ?>
 																		</div>
 																	</td>
 																	<td>
-																		<?php echo 'Host admin request pending for ' . $institution['UserName']; ?>
+																		<?php echo 'Mentor request pending for ' . $institution['UserName']; ?>
 																	</td>
 																</tr>
 																
@@ -334,11 +336,11 @@ if (isset($_POST['InstitutionID'])) {
 														}
 														
 														//Mentor
-														if(@$_SESSION['user_type'] == '3'){
+														if(@$_SESSION['user_type'] == '3' || @$_SESSION['user_type'] == '4'){
 															
 															$query = "SELECT a.UpdatedDate, c.FirstName, c.LastName FROM ProspectiveMentors a
 															left join RegistrationDetails c on c.UserID = a.AddedBy
-																		WHERE a.Email = '".$_SESSION['email']."' ORDER BY Name asc";
+																		WHERE a.Email = '".$_SESSION['email']."' and Status = 'Pending Approval' ORDER BY UpdatedDate Desc";
 															$result = mysqli_query($conn, $query);
 
 															while($institution = mysqli_fetch_array($result)) {
@@ -347,7 +349,7 @@ if (isset($_POST['InstitutionID'])) {
 																<tr>
 																	<td>
 																		<div>
-																			<?php echo $institution['DateUpdated']; ?>
+																			<?php echo $institution['UpdatedDate']; ?>
 																		</div>
 																	</td>
 																	<td>
