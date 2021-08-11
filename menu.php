@@ -1,7 +1,7 @@
 <?php 
 
 $query = "SELECT * FROM ApplicantChecklist 	
-	WHERE (UserID = '".$_SESSION['id']."' OR InstitutionID = '".$_SESSION['InstitutionID']."')";
+	WHERE (UserID = '".@$_SESSION['id']."' OR InstitutionID = '".@$_SESSION['InstitutionID']."')";
 
 	$result = mysqli_query($conn, $query);
 	
@@ -186,7 +186,7 @@ $query = "SELECT * FROM ApplicantChecklist
 							
 						if(@$_SESSION['user_type'] == '1'){ 
 
-								if( @$results['InstitutionId']){
+								if( @$_SESSION['InstitutionID']){
 														
 						?>
 						<li class="sidebar-item  has-sub">
