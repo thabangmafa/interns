@@ -1,7 +1,12 @@
 <?php 
 include 'admin/connect.php';
+$conn = OpenCon();
 $menu_item = "6";
 $title = "Host Institutions";
+
+$sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Host Institutions' ";
+		$result = mysqli_query($conn, $sql);
+		$headings = mysqli_fetch_assoc($result);
 
  ?>
 		<?php require_once("admin/header.php"); ?>
@@ -37,13 +42,8 @@ $title = "Host Institutions";
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header alert alert-primary alert-dismissible fade show">
-									<ul>
-										<li>Filtered list of host institutions that have been registered on the system.</li>
-										<li>You can increase number of entries to display on a page by click "Show Entries" dropdown</li>
-										<li>Search for Host Institution by typing on the search box</li>
-										<li>Click "Add Host Institution" button to add a new entry</li>
-										<li>To edit click on the edit icon of the record</li>
-									</ul>
+								<?php echo $headings['Details']; ?>
+									
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">

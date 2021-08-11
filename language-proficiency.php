@@ -1,7 +1,12 @@
 <?php 
 include 'admin/connect.php';
+$conn = OpenCon();
 $menu_item = "2";
 $title = "Language Proficiency";
+
+$sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Language Proficiency' ";
+		$result = mysqli_query($conn, $sql);
+		$headings = mysqli_fetch_assoc($result);
 
  ?>
 <?php require_once("admin/header.php"); ?>
@@ -37,8 +42,8 @@ $title = "Language Proficiency";
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header alert alert-primary alert-dismissible fade show">
-                                    <ul>
-									<li>State good, fair, or poor for each language specified</li></ul>
+								<?php echo $headings['Details']; ?>
+                                    
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">

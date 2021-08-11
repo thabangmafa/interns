@@ -4,6 +4,10 @@ $conn = OpenCon();
 $menu_item = "2";
 $title = "Contact Details";
 
+$sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Contact Details' ";
+		$result = mysqli_query($conn, $sql);
+		$headings = mysqli_fetch_assoc($result);
+
 if (isset($_POST['FullTimeStudent'])) {
 	
 	function validate($data){
@@ -210,10 +214,9 @@ if (isset($_POST['FullTimeStudent'])) {
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header alert alert-primary alert-dismissible fade show">
-                                    <ul>
-									<li>An * at the end of a field label within a section denotes that this is a compulsory field, and the section will not be saved unless all compulsory fields have been completed.</li>
-<li>Please ensure that all compulsory fields in this section are complete and correct.</li>
-<li>The information icon(i) indicates that there is a tooltip associated with the relevant field. When hoviring over this icon, additional information will show.</li></ul>
+                                    
+									<?php echo $headings['Details']; ?>
+									
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">

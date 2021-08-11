@@ -1,7 +1,12 @@
 <?php 
 include 'admin/connect.php';
+$conn = OpenCon();
 $menu_item = "2";
 $title = "References";
+
+$sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='References' ";
+		$result = mysqli_query($conn, $sql);
+		$headings = mysqli_fetch_assoc($result);
 
  ?>
 <?php require_once("admin/header.php"); ?>
@@ -37,9 +42,8 @@ $title = "References";
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header alert alert-primary alert-dismissible fade show">
-                                    <ul>
-									<li>Provide at least three recent, contactable references.</li>
-									<li>A minimum of three references must be added for this section to mark as completed.</li></ul>
+								<?php echo $headings['Details']; ?>
+                                    
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">

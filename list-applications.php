@@ -4,6 +4,10 @@ $conn = OpenCon();
 $menu_item = "4";
 $title = "List of Applications";
 
+$sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='List of Applications' ";
+		$result = mysqli_query($conn, $sql);
+		$headings = mysqli_fetch_assoc($result);
+
 if(isset($_POST['AppID']))
 {
 	$UpdateApplication = "UPDATE UserApplications SET Status = 'Withdrawn' WHERE CallID = '".$_POST['AppID']."'";
@@ -49,14 +53,8 @@ if(isset($_POST['AppID']))
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header alert alert-primary alert-dismissible fade show">
-                                    <ul>
-									<li>Strictly adhere to your institution’s internal closing date for submission of applications, as this will be prior to the NRF’s closing date, where applicable.</li>
-<li>Applications must successfully pass through the institution’s internal evaluation processes before submission to the NRF.</li>
-<li>A timeout will appear when there is no activity on the system for 25 minutes. Click on the refresh button (in the popup box) as this will enable the continuation/completion of the application. When clicking on the close button the system will close.</li>
-<li>Rating 2019 applications: Telephone support from Mondays to Fridays (excluding public holidays) from 09:00 to 13:00 and from 13:30 to 15:30.</li>
-<li>Note to applicants: If migrated data is all in CAPS, please change this to title case/lower case (whichever is relevant) as it is difficult to read.</li>
-<li>Due to potential international review of applications and progress reports, the NRF requires that all applications and progress reports be completed in English.</li>
-<li>Ensure that you complete or update your CV. This is very important as applications without an updated CV will not be considered.</li></ul>
+								<?php echo $headings['Details']; ?>
+                                    
                                 </div>
                                 <div class="card-content">
 								<?php if(@$message){ ?>	

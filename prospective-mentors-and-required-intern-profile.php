@@ -4,6 +4,10 @@ $conn = OpenCon();
 $menu_item = "3";
 $title = "Prospective Mentors and Required Intern Profile";
 
+$sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Prospective Mentors and Required Intern Profile' ";
+		$result = mysqli_query($conn, $sql);
+		$headings = mysqli_fetch_assoc($result);
+
 
 $query = "SELECT * FROM ApplicantChecklist 	
 	WHERE UserID = '".$_SESSION['id']."'";
@@ -88,13 +92,8 @@ $query = "SELECT * FROM ApplicantChecklist
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header alert alert-primary alert-dismissible fade show">
-                                    <ul>
-									<li>In the case of universities, please note that an applicant is automatically considered to be a mentor. This section is only for adding additional prospective mentors.</li>
-									<li>In the case of private companies, the applicant must be added as a prospective mentor. A question will be asked as to whether the added person must provide feedback on their department. Please answer "Yes" and provide the relevant information.</li>
-									<li>Prospective mentors must be registered on the system in order to be added to this application.</li>
-									<li>In order to send the prospective mentor(s) an email to confirm that they will be a mentor, click on the "Send Email" icon.</li>
-									<li>The section will not mark as complete until the prospective mentor(s) has responded. Should the prospective mentor(s) not have responded by the time the application must be submitted, please delete the relevant record.</li>
-									<li>When providing the profile of requested interns, this include those of the applicant and any prospective mentors.</li></ul>
+								<?php echo $headings['Details']; ?>
+                                    
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">

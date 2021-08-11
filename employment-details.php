@@ -4,6 +4,10 @@ $conn = OpenCon();
 $menu_item = "2";
 $title = "Employment Details";
 
+$sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Employment Details' ";
+		$result = mysqli_query($conn, $sql);
+		$headings = mysqli_fetch_assoc($result);
+
 if (isset($_POST['Submit'])) {
 	
 	
@@ -202,9 +206,8 @@ if (isset($_POST['Submit'])) {
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header alert alert-primary alert-dismissible fade show">
-                                    <ul>
-									<li>Capture current employment details</li>
-									</ul>
+								<?php echo $headings['Details']; ?>
+                                    
                                 </div>
                                 <div class="card-content">
 								<?php if(@$message){ ?>	

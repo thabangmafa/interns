@@ -4,6 +4,10 @@ $conn = OpenCon();
 $menu_item = "3";
 $title = "Profile of Requested Interns";
 
+$sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Profile of Requested Interns' ";
+		$result = mysqli_query($conn, $sql);
+		$headings = mysqli_fetch_assoc($result);
+
  ?>
 <?php require_once("admin/header.php"); ?>
         <?php require_once("menu.php"); ?>
@@ -38,8 +42,8 @@ $title = "Profile of Requested Interns";
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header alert alert-primary alert-dismissible fade show">
-                                    <ul>
-									<li>Please provide all the information requested below.</li></ul>
+								<?php echo $headings['Details']; ?>
+                                    
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">

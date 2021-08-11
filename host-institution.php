@@ -5,6 +5,10 @@ $conn = OpenCon();
 $menu_item = "3";
 $title = "Host Institution";
 
+$sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Host Institution' ";
+		$result = mysqli_query($conn, $sql);
+		$headings = mysqli_fetch_assoc($result);
+
 if (isset($_POST['Country']) && $_POST['Country'] != '' && isset($_POST['InstitutionID']) && $_POST['InstitutionID'] != '' && $_POST['Submit'] != '') {
 
 	function validate($data){
@@ -197,10 +201,8 @@ if(@$_SESSION['InstitutionID']){
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header alert alert-primary alert-dismissible fade show">
-                                    <ul>
-									<li>Please provide all the information requested below.</li>
-<li>Please select the "Support" link and enter your request to add an institution that does not appear on the list by stating the name of the institution to be added to the list.</li>
-<li>Please indicate the status of each hosted intern on exit of the programme during 2020/21.</li></ul>
+								<?php echo $headings['Details']; ?>
+                                    
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">

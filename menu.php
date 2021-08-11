@@ -243,10 +243,10 @@ $query = "SELECT * FROM ApplicantChecklist
 							<li class="submenu-item <?php if($title == "Host Institutions"){ echo "active"; } ?>">
                                     <a href="institutions.php">Host Institutions</a>
                                 </li>
-                                <!--li class="submenu-item ">
-                                    <a href="#">Countries</a>
+                                <li class="submenu-item <?php if($title == "Page Headings"){ echo "active"; } ?>">
+                                    <a href="headings.php">Page Headings</a>
                                 </li>
-                                <li class="submenu-item ">
+                                <!--li class="submenu-item ">
                                     <a href="#">Provices</a>
                                 </li>
                                 

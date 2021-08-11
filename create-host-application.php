@@ -4,6 +4,9 @@ $conn = OpenCon();
 $menu_item = "3";
 $title = "Create Host Application";
 
+$sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Create Host Application' ";
+		$result = mysqli_query($conn, $sql);
+		$headings = mysqli_fetch_assoc($result);
 
 if(isset($_POST['InstitutionID']))
 {
@@ -117,10 +120,8 @@ $query = "SELECT * FROM ApplicantChecklist
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header alert alert-primary alert-dismissible fade show">
-                                    <ul>
-									<li>Check your intended institution’s internal closing date as it will be prior to the closing date listed for applications, where applicable.</li>
-									<li>Due to potential international review of applications and progress reports, the HSRC requires that all applications and progress reports be completed in English.</li>
-									<li>Please consult the Funding Framework and Funding & Application Guide for more information to assist you in your choices. These documents can be accessed on the FAQ section.</li>
+								<?php echo $headings['Details']; ?>
+                                    
                                 </div>
                                 <div class="card-content">
 								<?php if(@$message){ ?>	

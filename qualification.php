@@ -1,7 +1,13 @@
 <?php 
 include 'admin/connect.php';
+$conn = OpenCon();
 $menu_item = "2";
 $title = "Qualifications";
+
+$sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Qualifications' ";
+		$result = mysqli_query($conn, $sql);
+		$headings = mysqli_fetch_assoc($result);
+
 if(@$_GET['file']){
 	$f = "uploads/".$_GET['section']."/".$_SESSION['id']."/".$_GET['file'];
 	if( file_exists($f)) unlink($f);
@@ -41,13 +47,8 @@ if(@$_GET['file']){
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header alert alert-primary alert-dismissible fade show">
-                                    <ul>
-									<li>If you have completed, or are currently completing, a qualification, please provide the details of each qualification in this section.</li>
-<li>Please click on "ADD" or "Add Another" to add a qualification.</li>
-<li>To edit a qualification which you have added, click on the "Edit" icon.</li>
-<li>The information icon (i) indicates that there is a tooltip associated with the relevant field. When hovering over this icon, additional information will show.</li>
-<li>In order to sort the records in the grid below, click on the column heading. The defualt sort order is descending but when clicking the column heading aain, it will sort the records in ascending order.</li>
-<li>Note: Postdoctoral fellowships do not fall under Qualifications. Please capture there under Career Profile.</li></ul>
+								<?php echo $headings['Details']; ?>
+                                    
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">

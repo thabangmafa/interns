@@ -4,6 +4,10 @@ $conn = OpenCon();
 $menu_item = "2";
 $title = "Personal Profile";
 
+$sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Personal Profile' ";
+		$result = mysqli_query($conn, $sql);
+		$headings = mysqli_fetch_assoc($result);
+
 $sql = "SELECT distinct * FROM UserProfile WHERE UserID='".$_SESSION['id']."' ";
 		$result = mysqli_query($conn, $sql);
 		$row = mysqli_fetch_assoc($result);
@@ -21,6 +25,8 @@ if (isset($_POST['profile'])) {
 	} 
 	
 }
+
+
 
  ?>
 <?php require_once("admin/header.php"); ?>
@@ -56,12 +62,8 @@ if (isset($_POST['profile'])) {
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header alert alert-primary alert-dismissible fade show">
-                                    <ul>
-									<li>An * at the end of a field label within a section denotes that this is a compulsory field, and the section will not be saved unless all compulsory fields have been completed.</li>
-<li>Provide a brief biographical sketch (not in bullet for) giving information not already provided elsewhere in the application.</li>
-<li>The introduction must be written as a narrative and could include a short overview of where , n terms of research, you have come from, in what you are interested (in very broad terms) and were you are now.</li>
-<li>Mention should be made of awads and prizes, membership of editorial boards, membership of national and internation scientific committees, and other tangible recognition you have. (The latter could include citations, names o jounals for which you have been invited to act as reviewer, etc.).</li>
-<li>This will enable reviewers to obtain some perspective on you and to assess your major awards and recognition. The biographical information should not exceed 5 500 characters including spaces (equivalent to one A4 page, Arial forn size 10). Note: Carriage returns are counted as two characters.</li></ul>
+                                    <?php echo $headings['Details']; ?>
+
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">

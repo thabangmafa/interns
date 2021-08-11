@@ -4,6 +4,10 @@ $conn = OpenCon();
 $menu_item = "2";
 $title = "Position Applied For";
 
+$sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Position Applied For' ";
+		$result = mysqli_query($conn, $sql);
+		$headings = mysqli_fetch_assoc($result);
+
 if (isset($_POST['Submit'])) {
 	
 	function validate($data){
@@ -136,10 +140,8 @@ if (isset($_POST['Submit'])) {
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header alert alert-primary alert-dismissible fade show">
-                                    <ul>
-									<li>Current Organisation:<br />
-									<li>Kindly provide the name of the University that you are either currently registered at, or have graduated from.</li>
-									<li>Please note that for your internship position, you may apply to a province different from where you intend to enroll/register for Honours studies.</li></ul>
+								<?php echo $headings['Details']; ?>
+                                    
                                 </div>
                                 <div class="card-content">
 								<?php if(@$message){ ?>	
