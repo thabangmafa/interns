@@ -42,7 +42,7 @@ $Person = mysqli_fetch_array($result);
   
   
    $subject = "HSRC Interns - Mentor Invitation by " . @$Person['Initials'] . ' ' . @$Person['FirstName'] . ' ' . @$Person['LastName'];
-  if($MentorID = ''){
+  if($MentorID == ''){
 	$txt = "Dear " . @$Name . ' ' . @$Surname . '
 	
 	'. @$Person['Initials'] . ' ' . @$Person['FirstName'] . ' ' . @$Person['LastName'] . ' has invited you to become a mentor on the HSRC Interns Programme.
