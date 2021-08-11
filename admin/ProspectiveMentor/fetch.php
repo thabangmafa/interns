@@ -5,14 +5,15 @@ $conn = OpenCon();
 
 $columns = array('Name', 'Surname', 'Email');
 
-$query = "SELECT * FROM ProspectiveMentors
+$query = "SELECT a.ID,a.Status,a.Name,a.Email, a.Surname, B.Name as Institution FROM ProspectiveMentors a 
+LEFT JOIN LookupInstitutions B on B.InstitutionId = a.InstitutionID
 WHERE AddedBy = '".$_SESSION['id']."'
 ";
 
 if(isset($_POST["search"]["value"]))
 {
  $query .= '
- AND (Name LIKE "%'.$_POST["search"]["value"].'%" || Surname LIKE "%'.$_POST["search"]["value"].'%" || Email LIKE "%'.$_POST["search"]["value"].'%")';
+ AND (a.Name LIKE "%'.$_POST["search"]["value"].'%" || Surname LIKE "%'.$_POST["search"]["value"].'%" || Email LIKE "%'.$_POST["search"]["value"].'%")';
 }
 
 if(isset($_POST["rowid"]))
@@ -190,9 +191,9 @@ while($row = mysqli_fetch_array($result))
  $sub_array = array();
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Name">' . $row["Name"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Surname">' . $row["Surname"] . '</div>';
-  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Department">' . $row["Department"] . '</div>';
+ // $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Department">' . $row["Department"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Email">' . $row["Email"] . '</div>';
- $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="InstitutionID">' . $row["InstitutionID"] . '</div>';
+ $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="InstitutionID">' . $row["Institution"] . '</div>';
   $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Status">' . $row["Status"] . '</div>';
  $sub_array[] = '<div class="icon dripicons-document-edit" data-id="'.$row["ID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div>';
  $sub_array[] = '<div class="icon dripicons-document-edit" data-id="'.$row["ID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div>';
@@ -205,7 +206,8 @@ while($row = mysqli_fetch_array($result))
 
 function get_all_data($conn)
 {
- $query = "SELECT * FROM ProspectiveMentors
+ $query = "SELECT a.ID,a.Status,a.Name,a.Email, a.Surname, B.Name as Institution FROM ProspectiveMentors a 
+LEFT JOIN LookupInstitutions B on B.InstitutionId = a.InstitutionID
 WHERE AddedBy = '".$_SESSION['id']."'
 ";
 

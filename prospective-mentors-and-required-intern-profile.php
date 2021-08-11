@@ -65,7 +65,6 @@ echo 'Here';
                                     <tr>
                                         <th>Name</th>
                                         <th>Surname</th>
-                                        <th>Profile for Department</th>
                                         <th>Email Address</th>
 										<th>Institution</th>
 										<th>Response</th>
