@@ -111,7 +111,7 @@ $query = "SELECT * FROM ApplicantChecklist
                                         <th>Email Address</th>
 										<th>Institution</th>
 										<th>Response</th>
-                                        <th>Edit</th>
+                                        <th>Manage</th>
                                     </tr>
                                 </thead>
                                 
@@ -256,15 +256,17 @@ $query = "SELECT * FROM ApplicantChecklist
 				$('#update').hide();
 				$('#insert').hide();
 				$('#prepinsert').show();
+				var url = 'admin/ProspectiveMentor/fetch.php';
 			}else{
 				$('#update').show();
 				$('#insert').hide();
 				$('#prepinsert').hide();
+				var url = 'admin/ProspectiveMentor/fetchInterns.php';
 			}
 	
         $.ajax({
             type : 'post',
-            url : 'admin/ProspectiveMentor/fetch.php', //Here you will fetch records 
+            url : url, //Here you will fetch records 
             data :  'rowid='+ rowid, //Pass $id
             success : function(data){
             $('.fetched-data').html(data);//Show fetched data from database
@@ -272,7 +274,7 @@ $query = "SELECT * FROM ApplicantChecklist
             }
         });
      });
-
+	 
   
   fetch_data();
 

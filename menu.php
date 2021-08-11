@@ -67,10 +67,7 @@ $query = "SELECT * FROM ApplicantChecklist
 		if($details['Section'] == 'Profile of Requested Interns'){
 			$ProfileofRequestedInterns = ' <span class="fa-fw select-all fas" style="color:green"></span>';
 		}
-		
-		if($details['Section'] == 'Prospective Mentors'){
-			$ProspectiveMentors = ' <span class="fa-fw select-all fas" style="color:green"></span>';
-		}
+
 		
 		
 	}
@@ -189,7 +186,7 @@ $query = "SELECT * FROM ApplicantChecklist
 							
 						if(@$_SESSION['user_type'] == '1'){ 
 
-								if( $results['InstitutionId']){
+								if( @$results['InstitutionId']){
 														
 						?>
 						<li class="sidebar-item  has-sub">
@@ -222,9 +219,9 @@ $query = "SELECT * FROM ApplicantChecklist
 								<li class="submenu-item <?php if($title == "Profile of Requested Interns"){ echo "active"; } ?>">
                                     <a href="profile-of-requested-interns.php">Profile of Requested Intern <?php echo $ProfileofRequestedInterns; ?></a>
                                 </li>
-								<li class="submenu-item <?php if($title == "Prospective Mentors"){ echo "active"; } ?>">
-                                    <a href="prospective-mentors.php">Prospective Mentors <?php echo $ProspectiveMentors; ?></a>
-                                </li>
+								<!--li class="submenu-item <?php if($title == "Prospective Mentors"){ echo "active"; } ?>">
+                                    <a href="prospective-mentors.php">Prospective Mentors <?php //echo $ProspectiveMentors; ?></a>
+                                </li-->
                                 
                             </ul>
                         </li>

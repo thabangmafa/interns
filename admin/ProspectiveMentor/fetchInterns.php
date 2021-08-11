@@ -5,10 +5,14 @@ $conn = OpenCon();
 
 $columns = array('Name', 'Surname', 'Email');
 
-$query = "SELECT a.ID,a.Status,a.Name,a.Email, a.Surname, B.Name as Institution FROM ProspectiveMentors a 
-LEFT JOIN LookupInstitutions B on B.InstitutionId = a.InstitutionID
-WHERE AddedBy = '".$_SESSION['id']."'
-";
+$query = "SELECT * FROM UserApplications a
+LEFT JOIN UserProfile b ON b.UserID = a.UserID
+LEFT JOIN RegistrationDetails c ON c.UserID = a.UserID
+LEFT JOIN References d ON d.UserID = a.UserID
+LEFT JOIN `Qualifications` e ON e.UserID = a.UserID
+LEFT JOIN PositionAppliedFor f ON f.UserID = a.UserID
+
+ WHERE a.Status = 'Pending Approval' ";
 
 if(isset($_POST["search"]["value"]))
 {
@@ -16,11 +20,7 @@ if(isset($_POST["search"]["value"]))
  AND (a.Name LIKE "%'.$_POST["search"]["value"].'%" || Surname LIKE "%'.$_POST["search"]["value"].'%" || Email LIKE "%'.$_POST["search"]["value"].'%")';
 }
 
-if(isset($_POST["rowid"]))
-{
- $query .= '
- AND ID = "'.$_POST["rowid"].'" ';
-}
+
 
 if(isset($_POST["order"]))
 {
@@ -28,7 +28,7 @@ if(isset($_POST["order"]))
 }
 else
 {
- $query .= 'ORDER BY Surname ASC ';
+ $query .= 'ORDER BY LastName ASC ';
 }
 
 $query1 = '';
@@ -38,7 +38,7 @@ if(@$_POST["length"] != -1 && !isset($_POST["rowid"]))
  $query1 = 'LIMIT ' . @$_POST['start'] . ', ' . @$_POST['length'];
 }
 
-
+echo $query. $query1;
 $result = mysqli_query($conn,$query. $query1);
 	
 $data = array();
@@ -191,16 +191,14 @@ while($row = mysqli_fetch_array($result))
  $sub_array = array();
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Name">' . $row["Name"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Surname">' . $row["Surname"] . '</div>';
+ // $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Department">' . $row["Department"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Email">' . $row["Email"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="InstitutionID">' . $row["Institution"] . '</div>';
   $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Status">' . $row["Status"] . '</div>';
-  if($row["Status"] == 'Approved'){
-	  $sub_array[] = '<div class="fa-fw select-all fas" data-id="'.$row["ID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div>';
-  }else{
-	  $sub_array[] = '<span class="fa-fw select-all fas"></span>';
-  }
+ $sub_array[] = '<div class="icon dripicons-document-edit" data-id="'.$row["ID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div>';
+ $sub_array[] = '<div class="icon dripicons-document-edit" data-id="'.$row["ID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div>';
+ $sub_array[] = '<div class="icon dripicons-document-edit" data-id="'.$row["ID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div>';
  
-
  $data[] = $sub_array;
 }
 
