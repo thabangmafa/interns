@@ -89,13 +89,15 @@ if (isset($_POST['Submit'])) {
 	
 }
 
-	$query = "SELECT * FROM PositionAppliedFor a
+	$query = "SELECT a.*, c.Name as OrganisationName FROM PositionAppliedFor a
+	left join LookupInstitutions c on c.InstitutionId = a.CurrentInstitution
 	WHERE a.UserID = '".$_SESSION['id']."'";
 	$result = mysqli_query($conn, $query);
 
 	while($userdetails = mysqli_fetch_array($result)) {
 
 			$CurrentInstitution = $userdetails['CurrentInstitution'];
+			$OrganisationName = $userdetails['OrganisationName'];
 			$PreviouslyApplied = $userdetails['PreviouslyApplied'];
 			$HowManyTimes = $userdetails['HowManyTimes'];
 			$FirstProvince = $userdetails['FirstProvince'];
@@ -152,11 +154,23 @@ if (isset($_POST['Submit'])) {
                                         <form class="form" method="POST" action="">
                                             <div class="row">
 												
-												<div class="col-md-12 col-12">
+												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="CurrentInstitution">Current Institution</label>
-                                                        <input type="text" id="CurrentInstitution" class="form-control"
-                                                             name="CurrentInstitution" value="<?php echo @$CurrentInstitution; ?>" required="required">
+                                                        <label for="CurrentInstitution">Organization</label>
+                                                        <input autocomplete="off" list="OrganisationList" id="CurrentInstitution" class="form-control" name="CurrentInstitution" value="<?php echo @$OrganisationName; ?>">
+														<datalist id="OrganisationList">
+                                                        <?php
+				
+															$query = "SELECT * FROM LookupInstitutions WHERE IsActive = '1' ORDER BY Name asc";
+															$result = mysqli_query($conn, $query);
+															
+
+															while($institution = mysqli_fetch_array($result)) {
+															 echo '<option>'.ucwords($institution['Name']).'</option>';
+															}
+
+														?>
+                                                    </datalist>
                                                     </div>
                                                 </div>
 												
