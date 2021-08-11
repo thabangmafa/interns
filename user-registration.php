@@ -418,7 +418,7 @@ if (isset($_POST['Submit'])) {
                                                     <div class="form-group">
                                                         <label for="date_of_birth">Date of Birth <span style="color:red">*</span></label>
                                                         <input type="date" id="date_of_birth" class="form-control"
-                                                            name="date_of_birth" value="<?php echo $UserDateOfBirth; ?>" required="required">
+                                                            name="date_of_birth" value="<?php echo @$UserDateOfBirth; ?>" required="required">
                                                     </div>
                                                 </div>
 
