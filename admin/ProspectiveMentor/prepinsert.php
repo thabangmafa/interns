@@ -34,7 +34,7 @@ $data = array();
 
 if(isset($Email))
 {
-	if($row["Email"])
+	if(@$row["Email"])
 	{
 				echo '<div class="alert alert-light-warning color-warning"><i class="bi-exclamation-triangle"></i> Please confirm if the details below are correct. On confirmation, an email will be sent to the prospective mentor.
                                     </div>';
