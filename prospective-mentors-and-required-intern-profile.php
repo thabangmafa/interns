@@ -301,7 +301,7 @@ $("#insert").click(function(){
             contentType: false,
             data: formData,        
               success: function(response){
-                 	//location.reload();
+                 	location.reload();
              
            }
         });
