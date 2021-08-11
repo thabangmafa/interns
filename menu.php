@@ -153,7 +153,7 @@ $query = "SELECT * FROM ApplicantChecklist
                                 </li>
 								
 								<li class="submenu-item <?php if($title == "List of Applications"){ echo "active"; } ?>">
-                                    <a href="list-applications.php">My Applications</a>
+                                    <a href="list-applications.php">View Applications</a>
                                 </li>
 								
                             </ul>
@@ -199,7 +199,7 @@ $query = "SELECT * FROM ApplicantChecklist
                                     <a href="create-host-application.php">Create Host Application</a>
                                 </li>
 								<li class="submenu-item <?php if($title == "List of Applications"){ echo "active"; } ?>">
-                                    <a href="list-host-applications.php">My Applications</a>
+                                    <a href="list-host-applications.php">View Applications</a>
                                 </li>
                                 <!--li class="submenu-item <?php if($title == "Registration Details"){ echo "active"; } ?>">
                                     <a href="user-registration.php">Call Information Documents</a>
