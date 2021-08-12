@@ -273,9 +273,9 @@ if (isset($_POST['FullTimeStudent'])) {
 												
 												<div class="col-md-6 col-12 OrganisationFundingSalaryView" <?php if(@$IsOrganisationFundingSalary == '' || @$IsOrganisationFundingSalary == 'Yes'){ echo 'style="display:none;"';} ?>>
                                                     <div class="form-group">
-                                                        <label for="OrganisationFundingSalary">Primary organisation which funds your salary? <span style="color:red">*</span></label>
+                                                        <label for="OrganisationFundingSalary">Primary organisation which funds your salary? </label>
                                                         <input type="text" id="OrganisationFundingSalary" class="form-control"
-                                                             name="OrganisationFundingSalary" value="<?php echo @$OrganisationFundingSalary; ?>" required="required">
+                                                             name="OrganisationFundingSalary" value="<?php echo @$OrganisationFundingSalary; ?>">
                                                     </div>
                                                 </div>
 												
@@ -303,7 +303,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                         
                                         <label for="WorkPostalAddress" class="form-label">Work Postal Address (excluding department) </label>
                                         <textarea class="form-control" id="WorkPostalAddress" name="WorkPostalAddress"
-                                            rows="3" required="required"><?php echo @$WorkPostalAddress; ?></textarea>
+                                            rows="3"><?php echo @$WorkPostalAddress; ?></textarea>
                                     
                                                     </div>
                                                 </div>
@@ -318,9 +318,9 @@ if (isset($_POST['FullTimeStudent'])) {
                                                 </div>
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="WorkCityTown">Work City/Town <span style="color:red">*</span></label>
+                                                        <label for="WorkCityTown">Work City/Town</label>
                                                         <input type="text" id="WorkCityTown" class="form-control"
-                                                             name="WorkCityTown" value="<?php echo @$WorkCityTown; ?>" required="required">
+                                                             name="WorkCityTown" value="<?php echo @$WorkCityTown; ?>">
                                                     </div>
                                                 </div>
 												
@@ -400,7 +400,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     <div class="form-group">
                                                         <label for="WorkCountry">Work Country <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="choices form-select" id="WorkCountry" name="WorkCountry" required="required">
+                                                    <select class="choices form-select" id="WorkCountry" name="WorkCountry">
 													<option> </option>
                                                         <?php
 				
@@ -527,9 +527,6 @@ if (isset($_POST['FullTimeStudent'])) {
 
 <script type="text/javascript">
  $(document).ready(function(){
-	
-	
-	
 
 $('#IsOrganisationFundingSalary').change(function() {
 	var val = $(this).val();
@@ -539,8 +536,6 @@ $('#IsOrganisationFundingSalary').change(function() {
 			$('.OrganisationFundingSalaryView').hide();
 		}
 	});
-
-
 
 });
 </script>
