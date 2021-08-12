@@ -271,7 +271,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                 </div>
 
 												
-												<div class="col-md-6 col-12 OrganisationFundingSalary" <?php if(@$IsOrganisationFundingSalary == '' || @$IsOrganisationFundingSalary == 'Yes'){ echo 'style="display:none;"';} ?>>
+												<div class="col-md-6 col-12 OrganisationFundingSalaryView" <?php if(@$IsOrganisationFundingSalary == '' || @$IsOrganisationFundingSalary == 'Yes'){ echo 'style="display:none;"';} ?>>
                                                     <div class="form-group">
                                                         <label for="OrganisationFundingSalary">Primary organisation which funds your salary? <span style="color:red">*</span></label>
                                                         <input type="text" id="OrganisationFundingSalary" class="form-control"
@@ -534,9 +534,9 @@ if (isset($_POST['FullTimeStudent'])) {
 $('#IsOrganisationFundingSalary').change(function() {
 	var val = $(this).val();
 		if(val === "No") {
-			$('.OrganisationFundingSalary').show();
+			$('.OrganisationFundingSalaryView').show();
 		}else{
-			$('.OrganisationFundingSalary').hide();
+			$('.OrganisationFundingSalaryView').hide();
 		}
 	});
 
