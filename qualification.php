@@ -18,6 +18,16 @@ if(@$_GET['record']){
 		
 		$query = "DELETE FROM Qualifications WHERE ID = '".$_GET['record']."'";
 		mysqli_query($conn, $query);
+		
+		$sql = "SELECT distinct * FROM Qualifications WHERE UserID='".$_SESSION['id']."'";
+		$result = mysqli_query($conn, $sql);
+
+		if (mysqli_num_rows($result) < 1) {
+			$query = "DELETE FROM ApplicantChecklist WHERE UserID = '".$_SESSION['id']."' AND Section = '".$title."'";
+			mysqli_query($conn, $query);
+
+		}
+		
 		header('Location: qualification.php');
 	}
  ?>
@@ -118,6 +128,7 @@ if(@$_GET['record']){
                                                                 </div>
 																
                                                         <div class="modal-body">
+														
                                                             <div class="fetched-data"></div>
                                                         </div>
                                                         <div class="modal-footer">
@@ -127,7 +138,7 @@ if(@$_GET['record']){
                                                                 <span class="d-none d-sm-block">Close</span>
                                                             </button>
                                                             <button type="button" id="insert" class="btn btn-primary ml-1"
-                                                                data-bs-dismiss="modal">
+                                                                >
                                                                 <i class="bx bx-check d-block d-sm-none"></i>
                                                                 <span class="d-none d-sm-block">Submit</span>
                                                             </button>
@@ -258,7 +269,13 @@ $("#insert").click(function(){
             contentType: false,
             data: formData,        
               success: function(response){
-                 location.reload();
+				  if(response == 'Data Inserted'){
+					  location.reload();
+				  }else{
+					  $('.message').html('<div class="alert alert-warning">' +response +'</div>');
+				  }
+				 
+                 
              
            }
         });

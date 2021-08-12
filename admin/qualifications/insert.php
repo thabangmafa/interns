@@ -2,7 +2,7 @@
 include '../connect.php';
 $conn = OpenCon();
 
-if(isset($_POST["AcademicLevel"]) && isset($_POST["NameOfDegree"]) && isset($_POST["TitleOfResearchProject"]) && isset($_POST["Institution"]) && isset($_POST["Fulltime"]) && isset($_POST["Distinction"]) && isset($_POST["DateFirstRegistration"]))
+if($_POST["AcademicLevel"] != '' && $_POST["NameOfDegree"] != '' && $_POST["TitleOfResearchProject"] != '' && $_POST["Institution"] != '' && $_POST["Fulltime"] != '' && $_POST["Distinction"] != '' && $_POST["DateFirstRegistration"] != '')
 {
 	
 

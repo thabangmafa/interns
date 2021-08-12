@@ -225,7 +225,7 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12">
 													<div class="form-group">
-														<label for="EmploymentStatus">Employment Status</label>
+														<label for="EmploymentStatus">Employment Status <span style="color:red">*</span></label>
 														<fieldset class="form-group">
 													<select class="choices form-select" name="EmploymentStatus" id="EmploymentStatus" required="required">
 													<option></option>
@@ -239,7 +239,7 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="Position">Position</label>
+                                                        <label for="Position">Position <span style="color:red">*</span></label>
                                                         <input type="text" id="Position" class="form-control"
                                                              name="Position" value="<?php echo @$Position; ?>" required="required">
                                                     </div>
@@ -247,24 +247,24 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12 ContractsView" <?php if(@$EmploymentStatus == 'Permanent' || @$EmploymentStatus == ''){ echo 'style="display:none;"';} ?>>
                                                     <div class="form-group">
-                                                        <label for="EmployedFromDate">Employed From Date</label>
+                                                        <label for="EmployedFromDate">Employed From Date <span style="color:red">*</span></label>
                                                         <input type="date" id="EmployedFromDate" class="form-control"
-                                                             name="EmployedFromDate" value="<?php echo @$EmployedFromDate; ?>">
+                                                             name="EmployedFromDate" value="<?php echo @$EmployedFromDate; ?>" required="required">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12 ContractsView" <?php if(@$EmploymentStatus == 'Permanent' || @$EmploymentStatus == ''){ echo 'style="display:none;"';} ?>>
                                                     <div class="form-group">
-                                                        <label for="EmployedToDate">Employed To Date</label>
+                                                        <label for="EmployedToDate">Employed To Date <span style="color:red">*</span></label>
                                                         <input type="date" id="EmployedToDate" class="form-control"
-                                                             name="EmployedToDate" value="<?php echo @$EmployedToDate; ?>">
+                                                             name="EmployedToDate" value="<?php echo @$EmployedToDate; ?>" required="required">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="Organization">Organization</label><small><i> *A request will be sent to the intitution admin for your Mentor request.</i></small>
-                                                        <input autocomplete="off" list="OrganisationList" id="Organization" class="form-control" name="Organization" value="<?php echo @$OrganisationName; ?>">
+                                                        <label for="Organization">Organization <span style="color:red">*</span></label><small><i> *A request will be sent to the intitution admin for your Mentor request.</i></small>
+                                                        <input autocomplete="off" list="OrganisationList" id="Organization"  required="required" class="form-control" name="Organization" value="<?php echo @$OrganisationName; ?>">
 														<datalist id="OrganisationList">
                                                         <?php
 				
@@ -283,7 +283,7 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12">
 													<div class="form-group">
-														<label for="Type">Type</label>
+														<label for="Type">Type <span style="color:red">*</span></label>
 														<fieldset class="form-group">
 													<select class="choices form-select" name="Type" id="Type" required="required">
 													<option></option>

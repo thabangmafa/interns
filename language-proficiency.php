@@ -12,6 +12,17 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Language Prof
 		
 		$query = "DELETE FROM LanguageProficiency WHERE ID = '".$_GET['record']."'";
 		mysqli_query($conn, $query);
+		
+		$sql = "SELECT distinct * FROM LanguageProficiency WHERE UserID='".$_SESSION['id']."'";
+		$result = mysqli_query($conn, $sql);
+
+		if (mysqli_num_rows($result) < 1) {
+			$query = "DELETE FROM ApplicantChecklist WHERE UserID = '".$_SESSION['id']."' AND Section = '".$title."'";
+			mysqli_query($conn, $query);
+
+		}
+		
+		
 		header('Location: language-proficiency.php');
 	}
 
