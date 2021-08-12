@@ -8,7 +8,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='List of Appli
 		$result = mysqli_query($conn, $sql);
 		$headings = mysqli_fetch_assoc($result);
 
-if(isset($_POST['AppID']))
+if(@$_POST['AppID'] != '')
 {
 	$UpdateApplication = "UPDATE HostApplications SET Status = 'Withdrawn' WHERE CallID = '".$_POST['AppID']."'";
 	
@@ -84,7 +84,7 @@ if(isset($_POST['AppID']))
 				
 										$query = "SELECT b.ID,CallID, Title, Description, OpenDate,ClosingDate,HostRequirementsFile, ApplicationDate, Status FROM HostApplications a 
 										left join HostInstitutionCalls b on b.ID = a.CallID
-										WHERE a.InstitutionID = '".$_SESSION['InstitutionID']."'";
+										WHERE a.InstitutionID = '".@$_SESSION['InstitutionID']."'";
 										$result = mysqli_query($conn, $query);
 
 
