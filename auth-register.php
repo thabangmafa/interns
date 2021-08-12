@@ -78,7 +78,10 @@ if (isset($_POST['Username']) && isset($_POST['Password'])
 				
 				Please note that you will need to login to the portal in order to complete your registration details.
 				
-				For any queries please contact Sello Raseruthe @ sraseruthe@hsrc.ac.za";
+				For any queries please contact Sello Raseruthe @ sraseruthe@hsrc.ac.za
+				
+				Regards,
+				HSRC Team";
 				$headers = "From: noreply@hsrc.ac.za" . "\r\n";
 
 				mail($email,$subject,$txt,$headers);  
