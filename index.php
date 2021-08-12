@@ -339,7 +339,7 @@ if (@$_POST['InstitutionID'] != '') {
 																		</div>
 																	</td>
 																	<td>
-																		<?php echo '<div class="icon dripicons-enter" data-id="'.$institution["ID"].'" data-section="ProspectiveMentors" data-bs-toggle="modal" data-bs-target="#capture-new">Mentor request pending for <strong>' . $institution['UserName'] . '</strong> </div>'; ?>
+																		<?php echo '<div class="icon dripicons-enter" data-id="'.@$institution["ID"].'" data-section="ProspectiveMentors" data-bs-toggle="modal" data-bs-target="#capture-new">Mentor request pending for <strong>' . @$institution['UserName'] . '</strong> </div>'; ?>
 																	</td>
 																</tr>
 																
