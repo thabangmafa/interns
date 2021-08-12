@@ -50,7 +50,8 @@ if (isset($_POST['Submit'])) {
 		$checkAdminStatus = "SELECT * FROM HostAdministrator WHERE UserID = '".$id."' AND InstitutionID = '".$Organization."'";
 		$result = mysqli_query($conn, $checkAdminStatus);
 		
-		if (mysqli_num_rows($result) === 0) {
+		if (mysqli_num_rows($result) === 0) 
+		{
 			$insertHostRequest = "INSERT INTO HostAdministrator(UserID, InstitutionID, IsActive)VALUES('$id','$Organization','0')";
 			mysqli_query($conn, $insertHostRequest);
 			

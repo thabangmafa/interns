@@ -5,7 +5,7 @@ $conn = OpenCon();
 
 $menu_item = "1";
 $title = "";
-if (isset($_POST['InstitutionID'])) {
+if (@$_POST['InstitutionID'] != '') {
 	$_SESSION['InstitutionID'] = $_POST['InstitutionID'];
 }
 
