@@ -142,12 +142,12 @@ $query = "SELECT * FROM ApplicantChecklist
 										AND HostRequirementsFile IS NOT NULL 
 										AND ApplicantRequirementsFile != '' 
 										AND ApplicantRequirementsFile IS NOT NULL 
-										AND `InternsApplicationDueDate` >= CURDATE()
+										AND `ClosingDate` >= CURDATE()
 										AND 0 = (SELECT count(CallID) FROM UserApplications WHERE Status != 'Withdrawn' AND UserID = '".$_SESSION['id']."')
 										AND (SELECT DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(DateOfBirth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(DateOfBirth, '00-%m-%d')) AS age FROM RegistrationDetails WHERE UserID = '".$_SESSION['id']."') < 36
 										AND (SELECT COUNT(*) FROM RegistrationDetails WHERE UserID = '".$_SESSION['id']."' AND Citizenship IN ('1','2')) > 0
 										";
-										
+
 										$result = mysqli_query($conn, $query);
 
 										while($calls = mysqli_fetch_array($result)) {
@@ -161,7 +161,7 @@ $query = "SELECT * FROM ApplicantChecklist
 											 echo '<td>' . $calls['Title'] . '</td>';
 											 echo '<td>' . $calls['Description'] . '</td>';
 											 echo '<td>' . $calls['OpenDate'] . '</td>';
-											 echo '<td>' . $calls['InternsApplicationDueDate'] . '</td>';
+											 echo '<td>' . $calls['ClosingDate'] . '</td>';
 											 echo '<td>' . $appReq . '</td>';
 											 if(($Total == '9' && @$_SESSION['user_type'] != '4') or ($Total == '8' && @$_SESSION['user_type'] == '4')){
 											 echo '<td><div class="icon dripicons-enter" data-id="'.$calls["ID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div></td>';
