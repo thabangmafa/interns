@@ -181,9 +181,9 @@ $query = "SELECT * FROM ApplicantChecklist
 							$result = mysqli_query($conn, $query);
 							$results = mysqli_fetch_array($result);
 							
-						if(@$_SESSION['user_type'] == '1'){ 
+						
 
-								if( @$_SESSION['InstitutionID']){
+								if( @$_SESSION['InstitutionID'] || @$_SESSION['user_type'] == '1'){
 														
 						?>
 						<li class="sidebar-item  has-sub">
@@ -222,7 +222,10 @@ $query = "SELECT * FROM ApplicantChecklist
                                 
                             </ul>
                         </li>
-						<?php } ?>
+						<?php }
+
+						if(@$_SESSION['user_type'] == '1'){ 
+						?>
 						<li class="sidebar-item  <?php if($menu_item == "7"){ echo "active"; } ?> ">
                             <a href="manage-calls.php" class='sidebar-link '>
                                 <i class="bi bi-stack <?php if($menu_item == "7"){ echo "active"; } ?>"></i>
