@@ -56,12 +56,11 @@ if (isset($_POST['Submit'])) {
 			mysqli_query($conn, $insertHostRequest);
 			
 			
-			$checkAdminStatus = "SELECT Email FROM users WHERE UserType = '1'";
-			$result = mysqli_query($conn, $checkAdminStatus);
-			//$User = mysqli_fetch_array($result);
-			
-			
-			while($User = mysqli_fetch_array($checkAdminStatus)) {
+			$checkAdmin = "SELECT Email FROM users WHERE UserType = '1'";
+			$result = mysqli_query($conn, $checkAdmin);
+		
+
+			while($User = mysqli_fetch_array($result)) {
 				$email = $User['Email'];
 				$subject = "HSRC Interns Portal - Host Administrator Request";
 				$txt = "Dear Administrator,
@@ -95,7 +94,7 @@ if (isset($_POST['Submit'])) {
 			$result = mysqli_query($conn, $checkAdminStatus);
 			//$User = mysqli_fetch_array($result);
 			
-			while($User = mysqli_fetch_array($checkAdminStatus)) {
+			while($User = mysqli_fetch_array($result)) {
 			
 				$email = $User['Email'];
 				$subject = "HSRC Interns Portal - Mentor Request";
