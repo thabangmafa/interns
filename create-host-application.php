@@ -8,7 +8,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Create Host A
 		$result = mysqli_query($conn, $sql);
 		$headings = mysqli_fetch_assoc($result);
 
-if($_POST['InstitutionID'] != '')
+if(@$_POST['InstitutionID'] != '')
 {
 	$InsertApplication = "INSERT INTO HostApplications (InstitutionID, CallID, UserID)VALUES('".$_POST['InstitutionID']."','".$_POST['CALLID']."','".$_SESSION['id']."')";
 	
