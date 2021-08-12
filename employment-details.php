@@ -58,7 +58,7 @@ if (isset($_POST['Submit'])) {
 			
 			$checkAdminStatus = "SELECT Email FROM users WHERE UserType = '1'";
 			$result = mysqli_query($conn, $checkAdminStatus);
-			$User = mysqli_fetch_array($result);
+			//$User = mysqli_fetch_array($result);
 			
 			
 			while($User = mysqli_fetch_array($checkAdminStatus)) {
@@ -93,7 +93,7 @@ if (isset($_POST['Submit'])) {
 			left join users b on b.UserID = a.UserID
 			WHERE a.IsActive = '1' AND InstitutionID = '".$Organization."' ";
 			$result = mysqli_query($conn, $checkAdminStatus);
-			$User = mysqli_fetch_array($result);
+			//$User = mysqli_fetch_array($result);
 			
 			while($User = mysqli_fetch_array($checkAdminStatus)) {
 			
