@@ -44,10 +44,10 @@ $data = array();
 
 if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 {
-				echo '<div class="row">';
+				echo '<div class="row"><div class="message"></div>';
 					echo '<div class="col-md-6 col-12">
 						<div class="form-group">
-							<label for="Name">Name</label>
+							<label for="Name">Name <span style="color:red">*</span></label>
 							<input type="text" id="Name" class="form-control"
 								 name="Name">
 						</div>
@@ -55,7 +55,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 					
 					echo '<div class="col-md-6 col-12">
 						<div class="form-group">
-							<label for="Relationship">Relationship to you</label>
+							<label for="Relationship">Relationship to you <span style="color:red">*</span></label>
 							<input type="text" id="Relationship" class="form-control"
 								 name="Relationship">
 						</div>
@@ -63,7 +63,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 					
 					echo '<div class="col-md-6 col-12">
 						<div class="form-group">
-							<label for="Telephone">Telephone Number</label>
+							<label for="Telephone">Telephone Number <span style="color:red">*</span></label>
 							<input type="text" id="Telephone" class="form-control"
 								 name="Telephone">
 						</div>

@@ -7,6 +7,23 @@ $title = "References";
 $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='References' ";
 		$result = mysqli_query($conn, $sql);
 		$headings = mysqli_fetch_assoc($result);
+		
+	if(@$_GET['record']){
+		
+		$query = "DELETE FROM References WHERE ID = '".$_GET['record']."'";
+		mysqli_query($conn, $query);
+		
+		$sql = "SELECT distinct * FROM References WHERE UserID='".$_SESSION['id']."'";
+		$result = mysqli_query($conn, $sql);
+
+		if (mysqli_num_rows($result) < 3) {
+			$query = "DELETE FROM ApplicantChecklist WHERE UserID = '".$_SESSION['id']."' AND Section = '".$title."'";
+			mysqli_query($conn, $query);
+
+		}
+		
+		header('Location: qualification.php');
+	}
 
  ?>
 <?php require_once("admin/header.php"); ?>
@@ -111,7 +128,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='References' "
                                                                 <span class="d-none d-sm-block">Close</span>
                                                             </button>
                                                             <button type="button" id="insert" class="btn btn-primary ml-1"
-                                                                data-bs-dismiss="modal">
+                                                                >
                                                                 <i class="bx bx-check d-block d-sm-none"></i>
                                                                 <span class="d-none d-sm-block">Submit</span>
                                                             </button>
@@ -238,7 +255,11 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='References' "
      data:{Name:Name, Relationship:Relationship, Telephone:Telephone},
      success:function(data)
      {
-      location.reload();
+      if(data == 'Data Inserted'){
+		  location.reload();
+	  }else{
+		  $('.message').html('<div class="alert alert-warning">' +data +'</div>');
+	  }
 	  
      }
     });

@@ -2,7 +2,7 @@
 include '../connect.php';
 $conn = OpenCon();
 
-if(isset($_POST["Name"], $_POST["Relationship"], $_POST["Telephone"]))
+if($_POST["Name"] != '' && $_POST["Relationship"] != '' && $_POST["Telephone"] != '')
 {
 	
  $Name = mysqli_real_escape_string($conn,$_POST["Name"]);
