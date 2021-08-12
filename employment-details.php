@@ -60,7 +60,8 @@ if (isset($_POST['Submit'])) {
 			$result = mysqli_query($conn, $checkAdminStatus);
 			$User = mysqli_fetch_array($result);
 			
-			if (mysqli_num_rows($result) > 0) {
+			
+			while($User = mysqli_fetch_array($checkAdminStatus)) {
 				$email = $User['Email'];
 				$subject = "HSRC Interns Portal - Host Administrator Request";
 				$txt = "Dear Administrator,
@@ -73,8 +74,10 @@ if (isset($_POST['Submit'])) {
 				";
 				$headers = "From: noreply@hsrc.ac.za" . "\r\n";
 
-				mail($email,$subject,$txt,$headers);  
+				mail($email,$subject,$txt,$headers); 
 			}
+			
+			
 		}
 	}
 	
@@ -92,7 +95,7 @@ if (isset($_POST['Submit'])) {
 			$result = mysqli_query($conn, $checkAdminStatus);
 			$User = mysqli_fetch_array($result);
 			
-			if (mysqli_num_rows($result) > 0) {
+			while($User = mysqli_fetch_array($checkAdminStatus)) {
 			
 				$email = $User['Email'];
 				$subject = "HSRC Interns Portal - Mentor Request";
