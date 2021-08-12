@@ -2,7 +2,7 @@
 include '../connect.php';
 $conn = OpenCon();
 
-if(isset($_POST["ID"]))
+if($_POST["ID"] != '')
 {
 
 $InstitutionID = mysqli_real_escape_string($conn,$_POST["InstitutionID"]);

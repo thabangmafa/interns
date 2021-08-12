@@ -122,7 +122,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Profile of Re
 																<span class="d-none d-sm-block">Update</span>
 															</button>
 															<button type="button" class="btn btn-primary ml-1"
-																data-bs-dismiss="modal" id="insert">
+																 id="insert">
 																<i class="bx bx-check d-block d-sm-none"></i>
 																<span class="d-none d-sm-block">Submit</span>
 															</button>
@@ -244,7 +244,11 @@ $("#insert").click(function(){
             contentType: false,
             data: formData,        
               success: function(response){
-                 	location.reload();
+                 	if(response == 'Data Inserted'){
+					  location.reload();
+				  }else{
+					  $('.message').html('<div class="alert alert-warning">' +response +'</div>');
+				  }
              
            }
         });

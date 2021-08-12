@@ -129,40 +129,40 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="first-name-column">Name</label>
+                                                        <label for="Name">Name <span style="color:red">*</span></label>
                                                         <input type="text" id="Name" class="form-control"
-                                                             name="Name" value="<?php echo @$Name; ?>">
+                                                             name="Name" value="<?php echo @$Name; ?>" required="required">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="first-name-column">Telephone Number</label>
+                                                        <label for="Telephone">Telephone Number <span style="color:red">*</span></label>
                                                         <input type="text" id="Telephone" class="form-control"
-                                                             name="Telephone" value="<?php echo @$Telephone; ?>">
+                                                             name="Telephone" value="<?php echo @$Telephone; ?>" required="required">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="first-name-column">Cellphone Number</label>
+                                                        <label for="Cellnumber">Cellphone Number <span style="color:red">*</span></label>
                                                         <input type="text" id="Cellnumber" class="form-control"
-                                                             name="Cellnumber" value="<?php echo @$Cellnumber; ?>">
+                                                             name="Cellnumber" value="<?php echo @$Cellnumber; ?>" required="required">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="first-name-column">Relationship to you</label>
+                                                        <label for="Relationship">Relationship to you <span style="color:red">*</span></label>
                                                         <input type="text" id="Relationship" class="form-control"
-                                                             name="Relationship" value="<?php echo @$Relationship; ?>">
+                                                             name="Relationship" value="<?php echo @$Relationship; ?>" required="required">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="first-name-column">Physical Address</label>
-                                                        <textarea class="form-control" id="Address" name="Address" rows="3"><?php echo @$Address; ?></textarea>
+                                                        <label for="Address">Physical Address <span style="color:red">*</span></label>
+                                                        <textarea class="form-control" id="Address" name="Address" rows="3" required="required"><?php echo @$Address; ?></textarea>
                                                     </div>
                                                 </div>
 												

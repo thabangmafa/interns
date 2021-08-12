@@ -169,7 +169,7 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="CurrentInstitution">Organization</label>
+                                                        <label for="CurrentInstitution">Organization <span style="color:red">*</span></label>
                                                         <input autocomplete="off" list="OrganisationList" id="CurrentInstitution" class="form-control" name="CurrentInstitution" value="<?php echo @$OrganisationName; ?>">
 														<datalist id="OrganisationList">
                                                         <?php
@@ -189,7 +189,7 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="PreviouslyApplied">Have you previously applied for the DST Internship?</label>
+                                                        <label for="PreviouslyApplied">Have you previously applied for the DST Internship? <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="choices form-select" id="PreviouslyApplied" name="PreviouslyApplied" required="required">
                                                         <option></option>
@@ -215,7 +215,7 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="FirstProvince">Province</label>
+                                                        <label for="FirstProvince">Province <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="choices form-select" id="FirstProvince" name="FirstProvince" required="required">
                                                         <option></option>
@@ -239,9 +239,9 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="FirstDiscipline">Discipline/Area of Specialisation</label>
+                                                        <label for="FirstDiscipline">Discipline/Area of Specialisation <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="choices form-select" id="FirstDiscipline" name="FirstDiscipline">
+                                                    <select class="choices form-select" id="FirstDiscipline" name="FirstDiscipline" required="required">
                                                         <option></option>
                                                         <?php
 				

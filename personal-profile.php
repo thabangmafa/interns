@@ -72,8 +72,8 @@ if (isset($_POST['profile'])) {
 												<div class="col-md-12 col-12">
                                                     <div class="form-group">
                                                         
-                                        <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" name="profile" id="profile"
+                                        <label for="profile" class="form-label">Description <span style="color:red">*</span></label>
+                                        <textarea class="form-control" required="required" name="profile" id="profile"
                                             rows="3"><?php echo @$row['Description']; ?></textarea>
                                     
                                                     </div>

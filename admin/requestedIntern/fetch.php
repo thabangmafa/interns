@@ -65,11 +65,11 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 {
 				
 				echo '<input type="hidden" id="InstitutionID" class="form-control" name="InstitutionID" value="' . @$_SESSION['InstitutionID'] . '">';
-				echo '<div class="row">
+				echo '<div class="row"><div class="message"></div>
 				
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="PrimaryScientificField">Primary Scientific Field</label>
+                                                        <label for="PrimaryScientificField">Primary Scientific Field <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="choices form-select" id="PrimaryScientificField" name="PrimaryScientificField">
 													<option></option> ';
@@ -85,7 +85,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="SecondaryScientificField">Secondary Scientific Field</label>
+                                                        <label for="SecondaryScientificField">Secondary Scientific Field <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="choices form-select" id="SecondaryScientificField" name="SecondaryScientificField">
 													<option></option> ';
@@ -101,7 +101,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 											
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="NumberRequired">NumberRequired</label>
+                                                        <label for="NumberRequired">NumberRequired <span style="color:red">*</span></label>
                                                         <input type="text" id="NumberRequired" class="form-control"
                                                              name="NumberRequired">
                                                     </div>
@@ -109,7 +109,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="QualificationLevel">Qualification Level</label>
+                                                        <label for="QualificationLevel">Qualification Level <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="choices form-select" id="QualificationLevel" name="QualificationLevel">
 													<option></option> ';

@@ -2,7 +2,7 @@
 include '../connect.php';
 $conn = OpenCon();
 
-if(isset($_POST["InstitutionID"]) && isset($_POST["PrimaryScientificField"]) && isset($_POST["SecondaryScientificField"]) && isset($_POST["NumberRequired"]) && isset($_POST["QualificationLevel"]))
+if($_POST["InstitutionID"] != '' && $_POST["PrimaryScientificField"] != '' && $_POST["SecondaryScientificField"] != '' && $_POST["NumberRequired"] != '' && $_POST["QualificationLevel"] != '')
 {
 	
   $InstitutionID = mysqli_real_escape_string($conn,$_POST["InstitutionID"]);
@@ -33,7 +33,7 @@ if(isset($_POST["InstitutionID"]) && isset($_POST["PrimaryScientificField"]) && 
  {
 	 $checklist = "INSERT INTO ApplicantChecklist(UserID, InstitutionID, Section)VALUES('$ID','$InstitutionID','Profile of Requested Interns')";
 	mysqli_query($conn, $checklist);
-	echo $checklist;
+
   echo 'Data Inserted';
  }else{
 	 echo 'Data Not Inserted';
