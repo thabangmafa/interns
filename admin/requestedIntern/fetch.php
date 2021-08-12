@@ -10,7 +10,7 @@ left join LookupInstitutions b on b.InstitutionId = a.InstitutionID
 left join LookupStudyField c on c.ID = a.PrimaryScientificField
 left join LookupStudyField d on d.ID = a.SecondaryScientificField
 left join LookupQualificationLevel e on e.ID = a.QualificationLevel
-WHERE a.InstitutionID = '".$_SESSION['InstitutionID']."'
+WHERE a.InstitutionID = '".@$_SESSION['InstitutionID']."'
 ";
 
 if(isset($_POST["search"]["value"]))
@@ -239,7 +239,7 @@ left join LookupInstitutions b on b.InstitutionId = a.InstitutionID
 left join LookupStudyField c on c.ID = a.PrimaryScientificField
 left join LookupStudyField d on d.ID = a.SecondaryScientificField
 left join LookupQualificationLevel e on e.ID = a.QualificationLevel
-WHERE a.InstitutionID = '".$_SESSION['InstitutionID']."'
+WHERE a.InstitutionID = '".@$_SESSION['InstitutionID']."'
 ";
 
  $result = mysqli_query($conn,$query);

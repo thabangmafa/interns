@@ -2,7 +2,7 @@
 include '../connect.php';
 $conn = OpenCon();
 
-if(isset($_POST["Name"]) && isset($_POST["Surname"]) && isset($_POST["Email"]))
+if($_POST["Name"] != '' && $_POST["Surname"] != '' && $_POST["Email"] != '')
 {
 	
   $MentorID = mysqli_real_escape_string($conn,$_POST["MentorID"]);

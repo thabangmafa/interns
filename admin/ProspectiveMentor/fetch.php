@@ -7,7 +7,7 @@ $columns = array('Name', 'Surname', 'Email');
 
 $query = "SELECT a.ID,a.Status,a.Name,a.Email, a.Surname, B.Name as Institution FROM ProspectiveMentors a 
 LEFT JOIN LookupInstitutions B on B.InstitutionId = a.InstitutionID
-WHERE a.InstitutionID = '".$_SESSION['InstitutionID']."'
+WHERE a.InstitutionID = '".@$_SESSION['InstitutionID']."'
 ";
 
 if(isset($_POST["search"]["value"]))
@@ -168,7 +168,7 @@ function get_all_data($conn)
 {
  $query = "SELECT a.ID,a.Status,a.Name,a.Email, a.Surname, B.Name as Institution FROM ProspectiveMentors a 
 LEFT JOIN LookupInstitutions B on B.InstitutionId = a.InstitutionID
-WHERE a.InstitutionID = '".$_SESSION['InstitutionID']."'
+WHERE a.InstitutionID = '".@$_SESSION['InstitutionID']."'
 ";
 
  $result = mysqli_query($conn,$query);

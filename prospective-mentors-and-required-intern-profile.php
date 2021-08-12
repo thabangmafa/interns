@@ -57,6 +57,23 @@ $query = "SELECT * FROM ApplicantChecklist
 	
 	$Total = @$ContactDetails + @$EmploymentDetails + @$LanguageProficiency + @$NextOfKin + @$PositionAppliedFor + @$PersonalProfile + @$Qualifications + @$RegistrationDetails + @$References;
 
+	if(@$_GET['record']){
+		
+		$query = "DELETE FROM ProspectiveMentors WHERE ID = '".$_GET['record']."'";
+		mysqli_query($conn, $query);
+		
+		$sql = "SELECT distinct * FROM ProspectiveMentors WHERE InstitutionID='".@$_SESSION['InstitutionID']."'";
+		$result = mysqli_query($conn, $sql);
+
+		if (mysqli_num_rows($result) < 1) {
+			$query = "DELETE FROM ApplicantChecklist WHERE InstitutionID = '".$_SESSION['InstitutionID']."' AND Section = '".$title."'";
+			mysqli_query($conn, $query);
+
+		}
+		
+		
+		header('Location: language-proficiency.php');
+	}
 
  ?>
 <?php require_once("admin/header.php"); ?>
@@ -187,15 +204,13 @@ $query = "SELECT * FROM ApplicantChecklist
 																<i class="bx bx-check d-block d-sm-none"></i>
 																<span class="d-none d-sm-block">Update</span>
 															</button>
-															<button type="button" class="btn btn-primary ml-1"
-																data-bs-dismiss="modal" id="insert">
+															<button type="button" class="btn btn-primary ml-1" id="insert">
 																<i class="bx bx-check d-block d-sm-none"></i>
 																<span class="d-none d-sm-block">Confirm</span>
 															</button>
 															<button type="button" class="btn btn-primary ml-1"
 																id="prepinsert"
-																 data-bs-target="#prepinsert"														
-																>
+																 data-bs-target="#prepinsert">
 																<i class="bx bx-check d-block d-sm-none"></i>
 																<span class="d-none d-sm-block">Submit</span>
 															</button>
@@ -356,7 +371,11 @@ $("#insert").click(function(){
             contentType: false,
             data: formData,        
               success: function(response){
-                 	location.reload();
+                 	if(response == 'Data Inserted'){
+					  location.reload();
+				  }else{
+					  $('.message').html('<div class="alert alert-warning">' +response +'</div>');
+				  }
              
            }
         });

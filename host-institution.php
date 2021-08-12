@@ -221,7 +221,7 @@ if(@$_SESSION['InstitutionID']){
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="CategoriseInstitution">Categorise Institution</label>
+                                                        <label for="CategoriseInstitution">Categorise Institution <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="choices form-select" id="CategoriseInstitution" name="CategoriseInstitution" required="required">
 													<option></option>
@@ -245,7 +245,7 @@ if(@$_SESSION['InstitutionID']){
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="HostedInternsBefore">Have you previously hosted DST interns?</label>
+                                                        <label for="HostedInternsBefore">Have you previously hosted DST interns? <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="form-select" id="HostedInternsBefore" name="HostedInternsBefore" required="required">
                                                         <option><?php echo @$HostedInternsBefore; ?></option>
@@ -271,7 +271,7 @@ if(@$_SESSION['InstitutionID']){
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="SufficientResources">Do you have sufficient or adequate resources?</label>
+                                                        <label for="SufficientResources">Do you have sufficient or adequate resources? <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="form-select" id="SufficientResources" name="SufficientResources" required="required">
                                                         <option><?php echo @$HostedInternsBefore; ?></option>
@@ -286,7 +286,7 @@ if(@$_SESSION['InstitutionID']){
 												<div class="col-md-6 mb-4">
                                                 
                                                 <div class="form-group">
-												<label for="Resources">List the basic available resources</label>
+												<label for="Resources">List the basic available resources <span style="color:red">*</span></label>
                                                     <select class="choices form-select" multiple="multiple" required="required" id="Resources" name="Resources[]">
                                                         <?php
 														
@@ -312,7 +312,7 @@ if(@$_SESSION['InstitutionID']){
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="Faculty">Faculty</label>
+                                                        <label for="Faculty">Faculty <span style="color:red">*</span></label>
                                                         <input type="text" id="Faculty" class="form-control"
                                                              name="Faculty" required="required" value="<?php echo @$Faculty; ?>">
                                                     </div>
@@ -320,7 +320,7 @@ if(@$_SESSION['InstitutionID']){
 											
 											<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="TelephoneNumber">Primary Telephone Number</label>
+                                                        <label for="TelephoneNumber">Primary Telephone Number <span style="color:red">*</span></label>
                                                         <input type="text" required="required" id="TelephoneNumber" class="form-control"
                                                              name="TelephoneNumber" value="<?php echo @$TelephoneNumber; ?>">
                                                     </div>
@@ -329,7 +329,7 @@ if(@$_SESSION['InstitutionID']){
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="FaxNumber">Fax Number</label>
-                                                        <input type="text" required="required" id="FaxNumber" class="form-control"
+                                                        <input type="text" id="FaxNumber" class="form-control"
                                                              name="FaxNumber" value="<?php echo @$FaxNumber; ?>">
                                                     </div>
                                                 </div>
@@ -338,15 +338,15 @@ if(@$_SESSION['InstitutionID']){
 												
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="PrimaryEmail">Primary Email Address</label>
+                                                        <label for="PrimaryEmail">Primary Email Address <span style="color:red">*</span></label>
                                                         <input type="email" id="PrimaryEmail" class="form-control"
-                                                            name="PrimaryEmail" value="<?php echo @$PrimaryEmail; ?>">
+                                                            name="PrimaryEmail" value="<?php echo @$PrimaryEmail; ?>" required="required">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="ConfirmPrimaryEmail">Confirm Primary Email Address</label>
+                                                        <label for="ConfirmPrimaryEmail">Confirm Primary Email Address <span style="color:red">*</span></label>
                                                         <input type="email" required="required" id="ConfirmPrimaryEmail" class="form-control"
                                                             name="ConfirmPrimaryEmail" value="<?php echo @$ConfirmPrimaryEmail; ?>">
                                                     </div>
@@ -354,7 +354,7 @@ if(@$_SESSION['InstitutionID']){
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="AlternateEmail">Alternate Email Address</label>
+                                                        <label for="AlternateEmail">Alternate Email Address <span style="color:red">*</span></label>
                                                         <input type="email" required="required" id="AlternateEmail" class="form-control"
                                                             name="AlternateEmail" value="<?php echo @$AlternateEmail; ?>">
                                                     </div>
@@ -362,7 +362,7 @@ if(@$_SESSION['InstitutionID']){
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="WebAddress">Web Address</label>
+                                                        <label for="WebAddress">Web Address <span style="color:red">*</span></label>
                                                         <input type="text" required="required" id="WebAddress" class="form-control"
                                                             name="WebAddress" value="<?php echo @$WebAddress; ?>">
                                                     </div>
@@ -372,7 +372,7 @@ if(@$_SESSION['InstitutionID']){
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         
-                                        <label for="PostalAddress" class="form-label">Work Postal Address (excluding department) </label>
+                                        <label for="PostalAddress" class="form-label">Work Postal Address (excluding department) <span style="color:red">*</span> </label>
                                         <textarea class="form-control" required="required" id="PostalAddress" name="PostalAddress"
                                             rows="3"><?php echo @$PostalAddress; ?></textarea>
                                     
@@ -380,7 +380,7 @@ if(@$_SESSION['InstitutionID']){
                                                 </div>
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="CityTown">City/Town</label>
+                                                        <label for="CityTown">City/Town <span style="color:red">*</span></label>
                                                         <input type="text" required="required" id="CityTown" class="form-control"
                                                              name="CityTown" value="<?php echo @$CityTown; ?>">
                                                     </div>
@@ -388,7 +388,7 @@ if(@$_SESSION['InstitutionID']){
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="PostalCode">Postal Code</label>
+                                                        <label for="PostalCode">Postal Code <span style="color:red">*</span></label>
                                                         <input type="text" required="required" id="PostalCode" class="form-control"
                                                              name="PostalCode" value="<?php echo @$PostalCode; ?>">
                                                     </div>
@@ -396,7 +396,7 @@ if(@$_SESSION['InstitutionID']){
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="Province">Province</label>
+                                                        <label for="Province">Province <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="choices form-select" required="required" id="Province" name="Province">
 													<option></option>
@@ -420,7 +420,7 @@ if(@$_SESSION['InstitutionID']){
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="Country">Country</label>
+                                                        <label for="Country">Country <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="choices form-select" required="required" id="Country" name="Country">
                                                         <option></option>
