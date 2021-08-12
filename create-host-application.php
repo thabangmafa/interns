@@ -144,6 +144,7 @@ $query = "SELECT * FROM ApplicantChecklist
 												</thead>
 												<tbody> 
 <?php
+if(@$_SESSION["InstitutionID"] != ''){
 										$query = "SELECT HostInstitutionCalls.*, d.* FROM HostInstitutionCalls 
 										left join `CallInstitutionLink` d on d.CallID = HostInstitutionCalls.ID 
 										WHERE d.ID != '' AND d.InstitutionID is not null and
@@ -185,6 +186,8 @@ $query = "SELECT * FROM ApplicantChecklist
 											 }
 											 echo '</tr>';
 										}
+										
+}
 											 ?>
 											
 										
