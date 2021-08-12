@@ -7,6 +7,13 @@ $title = "Language Proficiency";
 $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Language Proficiency' ";
 		$result = mysqli_query($conn, $sql);
 		$headings = mysqli_fetch_assoc($result);
+		
+	if(@$_GET['record']){
+		
+		$query = "DELETE FROM LanguageProficiency WHERE ID = '".$_GET['record']."'";
+		mysqli_query($conn, $query);
+		header('Location: language-proficiency.php');
+	}
 
  ?>
 <?php require_once("admin/header.php"); ?>

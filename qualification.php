@@ -13,6 +13,13 @@ if(@$_GET['file']){
 	if( file_exists($f)) unlink($f);
 	header('Location: qualification.php');
 }
+
+if(@$_GET['record']){
+		
+		$query = "DELETE FROM Qualifications WHERE ID = '".$_GET['record']."'";
+		mysqli_query($conn, $query);
+		header('Location: qualification.php');
+	}
  ?>
 <?php require_once("admin/header.php"); ?>
         <?php require_once("menu.php"); ?>
@@ -263,12 +270,17 @@ $("#insert").click(function(){
  
  function myFunction(){
 
-	 if(document.getElementById("Completed").value == 'Yes'){
+
+var elements = document.getElementsByClassName("Completed");
+var value = elements[0].value;
+
+	 if(value == 'Yes'){
 
 		 document.getElementsByClassName('notCompleted')[0].style.visibility = 'hidden';
 	 }else{
 
 		 document.getElementsByClassName('notCompleted')[0].style.visibility = 'visible';
 	 }
+	 
  }
 </script>

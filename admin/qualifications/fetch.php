@@ -139,7 +139,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 														<div class="form-group">
 															<label for="Completed">Completed</label>
 															<fieldset class="form-group">
-														<select class="form-select" id="Completed" name="Completed">
+														<select class="form-select Completed" id="CompletedNew" required="required" name="Completed" onchange="myFunction()">
 														<option></option>
 															<option>Yes</option>
 															<option>No</option> 
@@ -169,7 +169,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
                                                     </div>
                                                 </div>
 												
-												
+										<div class="row notCompleted" style="visibility: hidden;">
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="Status">Status</label>
@@ -204,7 +204,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
                                                     </div>
                                                 </div>
 												
-												
+											</div>	
 												
                                             </div>';
 				
@@ -321,7 +321,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 						<div class="form-group">
 							<label for="Completed">Completed</label>
 							<fieldset class="form-group">
-						<select class="form-select" id="Completed" required="required" name="Completed" onchange="myFunction()">
+						<select class="form-select Completed" id="Completed" required="required" name="Completed" onchange="myFunction()">
 						<option>' . $row["Completed"] . '</option>
 							<option>Yes</option>
 							<option>No</option> 
@@ -405,7 +405,7 @@ while($row = mysqli_fetch_array($result))
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="NameOfDegree">' . $row["NameOfDegree"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="HighestCompletedQualification">' . $row["HighestCompletedQualification"] . '</div>';
   $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="AnticipatedDateCompletion">' . $row["AnticipatedDateCompletion"] . '</div>';
-	$sub_array[] = '<div class="icon dripicons-document-edit" data-id="'.$row["ID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div>';
+	$sub_array[] = '<div class="icon dripicons-document-edit" data-id="'.$row["ID"].'" style="float:left;" data-bs-toggle="modal" data-bs-target="#capture-new"></div><a style="color:red; " class="icon dripicons-document-delete" href="?record='.$row["ID"].'">';
  $data[] = $sub_array;
 }
 

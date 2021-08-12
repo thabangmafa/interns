@@ -223,11 +223,11 @@ while($row = mysqli_fetch_array($result))
 {
  	
  $sub_array = array();
- $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Language">' . $row["Language"] . '</div>';
+ $sub_array[] = '</a><div data-id="'.$row["ID"].'" data-column="Language">' . $row["Language"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Speak">' . $row["Speak"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Read">' . $row["Read"] . '</div>';
   $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Write">' . $row["Write"] . '</div>';
-	$sub_array[] = '<div class="icon dripicons-document-edit" data-id="'.$row["ID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div>';
+	$sub_array[] = '<div class="icon dripicons-document-edit" data-id="'.$row["ID"].'" data-bs-toggle="modal" style="width:15%;float:left;" data-bs-target="#capture-new"></div><a style="color:red; " class="icon dripicons-document-delete" href="?record='.$row["ID"].'">';
  $data[] = $sub_array;
 }
 
