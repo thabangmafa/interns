@@ -8,7 +8,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Create Host A
 		$result = mysqli_query($conn, $sql);
 		$headings = mysqli_fetch_assoc($result);
 
-if(isset($_POST['InstitutionID']))
+if($_POST['InstitutionID'] != '')
 {
 	$InsertApplication = "INSERT INTO HostApplications (InstitutionID, CallID, UserID)VALUES('".$_POST['InstitutionID']."','".$_POST['CALLID']."','".$_SESSION['id']."')";
 	
@@ -21,7 +21,7 @@ if(isset($_POST['InstitutionID']))
 }
 
 $query = "SELECT * FROM ApplicantChecklist 	
-	WHERE (UserID = '".$_SESSION['id']."' OR InstitutionID = '".$_SESSION['InstitutionID']."')";
+	WHERE (UserID = '".$_SESSION['id']."' OR InstitutionID = '".@$_SESSION['InstitutionID']."')";
 
 	$result = mysqli_query($conn, $query);
 	
@@ -154,8 +154,8 @@ $query = "SELECT * FROM ApplicantChecklist
 										AND ApplicantRequirementsFile IS NOT NULL 
 										AND `ClosingDate` >= CURDATE()
 										AND d.Status = 'Active'
-										AND 0 = (SELECT COUNT(*) FROM HostApplications WHERE InstitutionID = '".$_SESSION["InstitutionID"]."')
-										AND InstitutionID != '".$_SESSION["InstitutionID"]."'";
+										AND 0 = (SELECT COUNT(*) FROM HostApplications WHERE InstitutionID = '".@$_SESSION["InstitutionID"]."')
+										AND InstitutionID != '".@$_SESSION["InstitutionID"]."'";
 
 										$result = mysqli_query($conn,$query);
 
@@ -179,7 +179,7 @@ $query = "SELECT * FROM ApplicantChecklist
 										echo '<td>'. $calls['ClosingDate'].'</td>';
 										echo '<td>'. $appReq.'</td>';
 										 if($Total == '12'){
-												echo '<td><div class="icon dripicons-enter" data-CallID="'.$calls["ID"].'" data-InstitutionID="'.$_SESSION["InstitutionID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div></td>';
+												echo '<td><div class="icon dripicons-enter" data-CallID="'.$calls["ID"].'" data-InstitutionID="'.@$_SESSION["InstitutionID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div></td>';
 											 }else{
 												 echo '<td><div class="alert alert-light-danger color-danger"><i class="bi bi-exclamation-circle"></i> Please complete all required sections first.</div></td>';
 											 }
