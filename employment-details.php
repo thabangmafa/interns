@@ -52,7 +52,7 @@ if (isset($_POST['Submit'])) {
 		
 		if (mysqli_num_rows($result) === 0) 
 		{
-			$insertHostRequest = "INSERT INTO HostAdministrator(UserID, InstitutionID, IsActive)VALUES('$id','$Organization','0')";
+			$insertHostRequest = "INSERT INTO HostAdministrator(UserID, InstitutionID, Status)VALUES('$id','$Organization','0')";
 			mysqli_query($conn, $insertHostRequest);
 			
 			
@@ -250,7 +250,7 @@ if (isset($_POST['Submit'])) {
                                                     <div class="form-group">
                                                         <label for="EmployedFromDate">Employed From Date <span style="color:red">*</span></label>
                                                         <input type="date" id="EmployedFromDate" class="form-control"
-                                                             name="EmployedFromDate" value="<?php echo @$EmployedFromDate; ?>" required="required">
+                                                             name="EmployedFromDate" value="<?php echo @$EmployedFromDate; ?>">
                                                     </div>
                                                 </div>
 												
@@ -258,7 +258,7 @@ if (isset($_POST['Submit'])) {
                                                     <div class="form-group">
                                                         <label for="EmployedToDate">Employed To Date <span style="color:red">*</span></label>
                                                         <input type="date" id="EmployedToDate" class="form-control"
-                                                             name="EmployedToDate" value="<?php echo @$EmployedToDate; ?>" required="required">
+                                                             name="EmployedToDate" value="<?php echo @$EmployedToDate; ?>">
                                                     </div>
                                                 </div>
 												
@@ -347,12 +347,8 @@ $('#EmploymentStatus').change(function() {
 	var val = $(this).val();
 		if(val === "Contract" || val === "Temporary") {
 			$('.ContractsView').show();
-			$('#EmployedFromDate').attr('required', 'required');
-			$('#EmployedToDate').attr('required', 'required');
 		}else{
 			$('.ContractsView').hide();
-			$('#EmployedFromDate').removeAttr('required');
-			$('#EmployedToDate').removeAttr('required');
 		}
 	});
 
