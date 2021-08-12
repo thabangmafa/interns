@@ -52,7 +52,7 @@ if (isset($_POST['Submit'])) {
 		
 		if (mysqli_num_rows($result) === 0) 
 		{
-			$insertHostRequest = "INSERT INTO HostAdministrator(UserID, InstitutionID, Status)VALUES('$id','$Organization','0')";
+			$insertHostRequest = "INSERT INTO HostAdministrator(UserID, InstitutionID, Status)VALUES('$id','$Organization','Pending')";
 			mysqli_query($conn, $insertHostRequest);
 			
 			
