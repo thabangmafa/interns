@@ -18,8 +18,7 @@ if (isset($_POST['Submit'])) {
 	}
 	$id = $_SESSION['id'];
 	$CurrentInstitution = validate($_POST['CurrentInstitution']);
-	$PreviouslyApplied = validate($_POST['PreviouslyApplied']);
-	$HowManyTimes = validate($_POST['HowManyTimes']);
+	
 	$FirstProvince = validate($_POST['FirstProvince']);
 	$FirstDiscipline = validate($_POST['FirstDiscipline']);
 	$SecondProvince = validate($_POST['SecondProvince']);
@@ -51,8 +50,7 @@ if (isset($_POST['Submit'])) {
 	$sql2 = "INSERT INTO PositionAppliedFor(
 						UserID,
 						CurrentInstitution,
-						PreviouslyApplied,
-						HowManyTimes,
+						
 						FirstProvince,
 						FirstDiscipline,
 						SecondProvince,
@@ -62,8 +60,7 @@ if (isset($_POST['Submit'])) {
 ) VALUES(
 						'$id',
 						'$CurrentInstitution',
-						'$PreviouslyApplied',
-						'$HowManyTimes',
+						
 						'$FirstProvince',
 						'$FirstDiscipline',
 						'$SecondProvince',
@@ -84,8 +81,7 @@ if (isset($_POST['Submit'])) {
 	$sql2 = "UPDATE PositionAppliedFor SET 
 	
 						CurrentInstitution = '$CurrentInstitution',
-						PreviouslyApplied = '$PreviouslyApplied',
-						HowManyTimes = '$HowManyTimes',
+						
 						FirstProvince = '$FirstProvince',
 						FirstDiscipline = '$FirstDiscipline',
 						SecondProvince = '$SecondProvince',
@@ -111,8 +107,7 @@ if (isset($_POST['Submit'])) {
 
 			$CurrentInstitution = $userdetails['CurrentInstitution'];
 			$OrganisationName = $userdetails['OrganisationName'];
-			$PreviouslyApplied = $userdetails['PreviouslyApplied'];
-			$HowManyTimes = $userdetails['HowManyTimes'];
+			
 			$FirstProvince = $userdetails['FirstProvince'];
 			$FirstDiscipline = $userdetails['FirstDiscipline'];
 			$SecondProvince = $userdetails['SecondProvince'];
@@ -187,26 +182,7 @@ if (isset($_POST['Submit'])) {
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="PreviouslyApplied">Have you previously applied for the DST Internship? <span style="color:red">*</span></label>
-                                                        <fieldset class="form-group">
-                                                    <select class="choices form-select" id="PreviouslyApplied" name="PreviouslyApplied" required="required">
-                                                        <option></option>
-                                                        <option <?php if(@$PreviouslyApplied == 'Yes'){ echo "selected='selected'"; } ?>>Yes</option>
-                                                        <option <?php if(@$PreviouslyApplied == 'No'){ echo "selected='selected'"; } ?>>No</option>
-                                                    </select>
-                                                </fieldset>
-                                                    </div>
-                                                </div>
 												
-												<div class="col-md-6 col-12 HowManyTimes" <?php if(@$PreviouslyApplied == 'No' || @$PreviouslyApplied == ''){ echo 'style="display:none;"';} ?>>
-                                                    <div class="form-group">
-                                                        <label for="HowManyTimes">How many times have you applied</label>
-                                                        <input type="text" id="HowManyTimes" class="form-control"
-                                                             name="HowManyTimes" value="<?php echo @$HowManyTimes; ?>">
-                                                    </div>
-                                                </div>
 												
 												
 												<h5 class="divider divider-left">
@@ -415,16 +391,7 @@ if (isset($_POST['Submit'])) {
 <script type="text/javascript">
  $(document).ready(function(){
 
-$('#PreviouslyApplied').change(function() {
-	var val = $(this).val();
-		if(val === "Yes") {
-			$('.HowManyTimes').show();
-			$('#HowManyTimes').attr('required', 'required');
-		}else{
-			$('.HowManyTimes').hide();
-			$('#HowManyTimes').removeAttr('required');
-		}
-	});
+
 
 });
 </script>

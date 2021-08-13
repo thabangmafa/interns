@@ -32,6 +32,8 @@ if (isset($_POST['Submit'])) {
 	$maiden_name = validate($_POST['maiden_name']);
 	$last_name = validate($_POST['last_name']);
 	$first_name = validate($_POST['first_name']);
+	$PreviouslyApplied = validate($_POST['PreviouslyApplied']);
+	$HowManyTimes = validate($_POST['HowManyTimes']);
 	$initials = validate($_POST['initials']);
 	$utitle = validate($_POST['title']);
 	$Disability = validate($_POST['Disability']);
@@ -91,6 +93,8 @@ if (isset($_POST['Submit'])) {
 						FirstName,
 						Initials,
 						Title,
+						PreviouslyApplied,
+						HowManyTimes,
 						Disability,
 						DisabilityDetails
 						$insert1
@@ -108,6 +112,8 @@ if (isset($_POST['Submit'])) {
 						'$first_name',
 						'$initials',
 						'$utitle',
+						'$PreviouslyApplied',
+						'$HowManyTimes',
 						 '$Disability',
 						 '$DisabilityDetails'
 						 $insert2
@@ -138,6 +144,8 @@ if (isset($_POST['Submit'])) {
 						FirstName = '$first_name',
 						Initials = '$initials',
 						Title = '$utitle',
+						PreviouslyApplied = '$PreviouslyApplied',
+						HowManyTimes = '$HowManyTimes',
 						Disability = '$Disability',
 						DisabilityDetails = '$DisabilityDetails'
 						".$update."
@@ -168,6 +176,8 @@ if (isset($_POST['Submit'])) {
 			$UserIDType = $userdetails['IDType'];
 			$UserCitizenship = $userdetails['Citizenship'];
 			$UserCountry = $userdetails['Country'];
+			$PreviouslyApplied = $userdetails['PreviouslyApplied'];
+			$HowManyTimes = $userdetails['HowManyTimes'];
 			$UserMaidenName = $userdetails['MaidenName'];
 			$UserLastName = $userdetails['LastName'];
 			$UserFirstName = $userdetails['FirstName'];
@@ -421,6 +431,27 @@ if (isset($_POST['Submit'])) {
                                                             name="date_of_birth" value="<?php echo @$UserDateOfBirth; ?>" required="required">
                                                     </div>
                                                 </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="PreviouslyApplied">Have you previously applied for the DST Internship? <span style="color:red">*</span></label>
+                                                        <fieldset class="form-group">
+                                                    <select class="choices form-select" id="PreviouslyApplied" name="PreviouslyApplied" required="required">
+                                                        <option></option>
+                                                        <option <?php if(@$PreviouslyApplied == 'Yes'){ echo "selected='selected'"; } ?>>Yes</option>
+                                                        <option <?php if(@$PreviouslyApplied == 'No'){ echo "selected='selected'"; } ?>>No</option>
+                                                    </select>
+                                                </fieldset>
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-6 col-12 HowManyTimes" <?php if(@$PreviouslyApplied == 'No' || @$PreviouslyApplied == ''){ echo 'style="display:none;"';} ?>>
+                                                    <div class="form-group">
+                                                        <label for="HowManyTimes">How many times have you applied</label>
+                                                        <input type="number" id="HowManyTimes" class="form-control"
+                                                             name="HowManyTimes" value="<?php echo @$HowManyTimes; ?>">
+                                                    </div>
+                                                </div>
 
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
@@ -489,7 +520,16 @@ if (isset($_POST['Submit'])) {
 <script type="text/javascript">
  $(document).ready(function(){
 	
-	
+$('#PreviouslyApplied').change(function() {
+	var val = $(this).val();
+		if(val === "Yes") {
+			$('.HowManyTimes').show();
+
+		}else{
+			$('.HowManyTimes').hide();
+
+		}
+	});	
 	
 
 $('#Disability').change(function() {
