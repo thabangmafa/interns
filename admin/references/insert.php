@@ -2,15 +2,16 @@
 include '../connect.php';
 $conn = OpenCon();
 
-if($_POST["Name"] != '' && $_POST["Relationship"] != '' && $_POST["Telephone"] != '')
+if($_POST["Name"] != '' && $_POST["Relationship"] != '' && $_POST["Telephone"] != '' && $_POST["Email"] != '')
 {
 	
  $Name = mysqli_real_escape_string($conn,$_POST["Name"]);
  $Relationship = mysqli_real_escape_string($conn,$_POST["Relationship"]);
  $Telephone = mysqli_real_escape_string($conn,$_POST["Telephone"]);
+ $Email = mysqli_real_escape_string($conn,$_POST["Email"]);
  $ID = $_SESSION['id'];
  
- $query = "INSERT INTO `References`(UserID, Name, Relationship, Telephone) VALUES('$ID','$Name', '$Relationship', '$Telephone')";
+ $query = "INSERT INTO `References`(UserID, Name, Relationship, Telephone, Email) VALUES('$ID','$Name', '$Relationship', '$Telephone', '$Email')";
 
  if(mysqli_query($conn,$query))
  {

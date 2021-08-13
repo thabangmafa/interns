@@ -47,7 +47,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 				echo '<div class="row"><div class="message"></div>';
 					echo '<div class="col-md-6 col-12">
 						<div class="form-group">
-							<label for="Name">Name <span style="color:red">*</span></label>
+							<label for="Name">Name of Referre <span style="color:red">*</span></label>
 							<input type="text" id="Name" class="form-control"
 								 name="Name">
 						</div>
@@ -68,6 +68,14 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 								 name="Telephone">
 						</div>
 					</div>';
+					
+					echo '<div class="col-md-6 col-12">
+						<div class="form-group">
+							<label for="Email">Email <span style="color:red">*</span></label>
+							<input type="text" id="Email" class="form-control"
+								 name="Email">
+						</div>
+					</div>';
 			echo '</div>';
 			exit;
 }
@@ -82,7 +90,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 		echo '<input type="hidden" id="ID" class="form-control" name="ID" value="' . $row["ID"] . '">';
 							echo '<div class="col-md-6 col-12">
 						<div class="form-group">
-							<label for="Name">Name</label>
+							<label for="Name">Name of Referre</label>
 							<input type="text" id="Name" class="form-control"
 								 name="Name" value="'.$row["Name"].'">
 						</div>
@@ -100,7 +108,15 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 						<div class="form-group">
 							<label for="Telephone">Telephone Number</label>
 							<input type="number" id="Telephone" class="form-control"
-								 name="text" value="'.$row["Telephone"].'">
+								 name="Telephone" value="'.$row["Telephone"].'">
+						</div>
+					</div>';
+					
+					echo '<div class="col-md-6 col-12">
+						<div class="form-group">
+							<label for="Email">Email</label>
+							<input type="text" id="Email" class="form-control"
+								 name="Email" value="'.$row["Email"].'">
 						</div>
 					</div>';
 				echo '</div>';
@@ -116,6 +132,7 @@ while($row = mysqli_fetch_array($result))
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Name">' . $row["Name"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Relationship">' . $row["Relationship"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Telephone">' . $row["Telephone"] . '</div>';
+  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Email">' . $row["Email"] . '</div>';
 	$sub_array[] = '<div class="icon dripicons-document-edit" data-id="'.$row["ID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div>';
  $data[] = $sub_array;
 }

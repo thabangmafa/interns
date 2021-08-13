@@ -8,11 +8,13 @@ if(isset($_POST["ID"]))
  $Name = mysqli_real_escape_string($conn,$_POST["Name"]);
  $Relationship = mysqli_real_escape_string($conn,$_POST["Relationship"]);
  $Telephone = mysqli_real_escape_string($conn,$_POST["Telephone"]);
+ $Email = mysqli_real_escape_string($conn,$_POST["Email"]);
  
  $query = "UPDATE `References` SET 
  Name='".$Name."',
  Relationship='".$Relationship."',
- Telephone='".$Telephone."'
+ Telephone='".$Telephone."',
+ Email='".$Email."'
  WHERE ID = '".$_POST["ID"]."'";
  
 

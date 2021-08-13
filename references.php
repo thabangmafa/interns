@@ -73,6 +73,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='References' "
 															<th>Name</th>
 															<th>Relationship to you</th>
 															<th>Telephone Number</th>
+															<th>Email</th>
 															<th>Edit</th>
 									
 														</tr>
@@ -225,11 +226,12 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='References' "
    var Name = $("#Name").val();
    var Relationship = $("#Relationship").val();
    var Telephone = $("#Telephone").val();
+   var Email = $("#Email").val();
 
    $.ajax({
     url:"admin/references/update.php",
     method:"POST",
-    data:{ID:ID, Name:Name, Relationship:Relationship, Telephone:Telephone},
+    data:{ID:ID, Name:Name, Relationship:Relationship, Telephone:Telephone, Email:Email},
     success:function(data)
     {
      location.reload();
@@ -247,12 +249,13 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='References' "
    var Name = $("#Name").val();
    var Relationship = $("#Relationship").val();
    var Telephone = $("#Telephone").val();
+   var Email = $("#Email").val();
 
 
     $.ajax({
      url:"admin/references/insert.php",
      method:"POST",
-     data:{Name:Name, Relationship:Relationship, Telephone:Telephone},
+     data:{Name:Name, Relationship:Relationship, Telephone:Telephone, Email:Email},
      success:function(data)
      {
       if(data == 'Data Inserted'){
