@@ -592,10 +592,11 @@ if (isset($_POST['FullTimeStudent'])) {
 												
                                
                                                 <div class="col-12 d-flex justify-content-end">
-                                                    <button type="submit"
-                                                        class="btn btn-primary me-1 mb-1" name="Submit" value="Submit">Submit</button>
+                                                    
                                                     <button type="reset"
                                                         class="btn btn-light-secondary me-1 mb-1">Reset</button>
+														<button type="submit"
+                                                        class="btn btn-primary me-1 mb-1" name="Submit" value="Submit">Submit</button>
                                                 </div>
                                             </div>
                                         </form>
