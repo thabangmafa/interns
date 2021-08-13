@@ -22,7 +22,12 @@ if (isset($_POST['Country']) && $_POST['Country'] != '' && isset($_POST['Institu
   $CategoriseInstitution = validate($_POST['CategoriseInstitution']);
   $Province = validate($_POST['Province']);
   $HostedInternsBefore = validate($_POST['HostedInternsBefore']);
-  $PastHostedDetails = validate($_POST['PastHostedDetails']);
+  
+    $NumberEmployed = validate($_POST['NumberEmployed']);
+	$NumberHosted = validate($_POST['NumberHosted']);
+	$HostedYear = validate($_POST['HostedYear']);
+  
+  
   $SufficientResources = validate($_POST['SufficientResources']);
   $Resources = implode(',',$_POST['Resources']);
   $Faculty = validate($_POST['Faculty']);
@@ -49,7 +54,9 @@ if (isset($_POST['Country']) && $_POST['Country'] != '' && isset($_POST['Institu
 						  CategoriseInstitution,
 						  Province,
 						  HostedInternsBefore,
-						  PastHostedDetails,
+						  NumberEmployed,
+							NumberHosted,
+							HostedYear,
 						  SufficientResources,
 						  Resources,
 						  Faculty,
@@ -69,7 +76,9 @@ if (isset($_POST['Country']) && $_POST['Country'] != '' && isset($_POST['Institu
 						  '$CategoriseInstitution',
 						  '$Province',
 						  '$HostedInternsBefore',
-						  '$PastHostedDetails',
+						  '$NumberEmployed',
+							'$NumberHosted',
+							'$HostedYear',
 						  '$SufficientResources',
 						  '$Resources',
 						  '$Faculty',
@@ -99,7 +108,9 @@ if (isset($_POST['Country']) && $_POST['Country'] != '' && isset($_POST['Institu
 			  CategoriseInstitution = '$CategoriseInstitution',
 			  Province = '$Province',
 			  HostedInternsBefore = '$HostedInternsBefore',
-			  PastHostedDetails = '$PastHostedDetails',
+			  NumberEmployed = '$NumberEmployed',
+				NumberHosted = '$NumberHosted',
+				HostedYear = '$HostedYear',
 			  SufficientResources = '$SufficientResources',
 			  Resources = '$Resources',
 			  Faculty = '$Faculty',
@@ -146,7 +157,9 @@ if(@$_SESSION['InstitutionID']){
 	  $CategoriseInstitution = $userdetails['CategoriseInstitution'];
 	  $Province = $userdetails['Province'];
 	  $HostedInternsBefore = $userdetails['HostedInternsBefore'];
-	  $PastHostedDetails = $userdetails['PastHostedDetails'];
+	  $NumberEmployed = $userdetails['NumberEmployed'];
+		$NumberHosted = $userdetails['NumberHosted'];
+		$HostedYear = $userdetails['HostedYear'];
 	  $SufficientResources = $userdetails['SufficientResources'];
 	  $Resources = $userdetails['Resources'];
 	  $Faculty = $userdetails['Faculty'];
@@ -245,27 +258,66 @@ if(@$_SESSION['InstitutionID']){
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="HostedInternsBefore">Have you previously hosted DST interns? <span style="color:red">*</span></label>
+                                                        <label for="HostedInternsBefore">Have you previously hosted DSI/NRF interns? <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="form-select" id="HostedInternsBefore" name="HostedInternsBefore" required="required">
-                                                        <option><?php echo @$HostedInternsBefore; ?></option>
-                                                        <option>Yes</option>
-                                                        <option>No</option>
+                                                        <option></option>
+                                                        <option <?php if(@$HostedInternsBefore == 'Yes'){ echo 'selected="selected"'; } ?>>Yes</option>
+                                                        <option <?php if(@$HostedInternsBefore == 'No'){ echo 'selected="selected"'; } ?>>No</option>
                                                     </select>
                                                 </fieldset>
                                                     </div>
                                                 </div>
 												
-								
-												
-												<div class="col-md-6 col-12"  id="internsHistory" <?php if(@$UserHostedInternsBefore == '' || @$UserHostedInternsBefore == 'No'){ echo 'style="display:none;"';} ?>>
+													<div class="col-md-6 col-12 internsHistory" <?php if(@$UserHostedInternsBefore == '' || @$UserHostedInternsBefore == 'No'){ echo 'style="display:none;"';} ?>>
                                                     <div class="form-group">
-                                                        <label for="PastHostedDetails">Provide details of previous host</label>
-
-															 <textarea class="form-control" id="PastHostedDetails" required="required" name="PastHostedDetails" 
-                                            rows="3" placeholder="Capture historical data e.g. specify number of interns hosted, year hosted, status post the internship."><?php echo @$PastHostedDetails; ?></textarea>
+                                                        <label for="HostedYear">When was the first year your institution hosted an intern? <span style="color:red">*</span></label>
+                                                        <fieldset class="form-group">
+                                                    <select class="form-select" id="HostedYear" name="HostedYear">
+                                                        <option></option>
+                                                        <option <?php if(@$HostedYear == '2021'){ echo 'selected="selected"'; } ?>>2021</option>
+                                                        <option <?php if(@$HostedYear == '2020'){ echo 'selected="selected"'; } ?>>2020</option>
+														<option <?php if(@$HostedYear == '2019'){ echo 'selected="selected"'; } ?>>2019</option>
+														<option <?php if(@$HostedYear == '2018'){ echo 'selected="selected"'; } ?>>2018</option>
+														<option <?php if(@$HostedYear == '2017'){ echo 'selected="selected"'; } ?>>2017</option>
+														<option <?php if(@$HostedYear == '2016'){ echo 'selected="selected"'; } ?>>2016</option>
+														<option <?php if(@$HostedYear == '2015'){ echo 'selected="selected"'; } ?>>2015</option>
+														<option <?php if(@$HostedYear == '2014'){ echo 'selected="selected"'; } ?>>2014</option>
+														<option <?php if(@$HostedYear == '2013'){ echo 'selected="selected"'; } ?>>2013</option>
+														<option <?php if(@$HostedYear == '2012'){ echo 'selected="selected"'; } ?>>2012</option>
+														<option <?php if(@$HostedYear == '2011'){ echo 'selected="selected"'; } ?>>2011</option>
+														<option <?php if(@$HostedYear == '2010'){ echo 'selected="selected"'; } ?>>2010</option>
+														<option <?php if(@$HostedYear == '2009'){ echo 'selected="selected"'; } ?>>2009</option>
+														<option <?php if(@$HostedYear == '2008'){ echo 'selected="selected"'; } ?>>2008</option>
+														<option <?php if(@$HostedYear == '2007'){ echo 'selected="selected"'; } ?>>2007</option>
+														<option <?php if(@$HostedYear == '2006'){ echo 'selected="selected"'; } ?>>2006</option>
+														<option <?php if(@$HostedYear == '2005'){ echo 'selected="selected"'; } ?>>2005</option>
+														
+                                                    </select>
+                                                </fieldset>
                                                     </div>
-                                                </div>
+													</div>
+                                               
+													
+													
+												<div class="col-md-6 col-12 internsHistory" <?php if(@$UserHostedInternsBefore == '' || @$UserHostedInternsBefore == 'No'){ echo 'style="display:none;"';} ?>>
+                                                    <div class="form-group">
+                                                        <label for="NumberHosted">Total number of interns hosted by your institution <span style="color:red">*</span></label>
+                                                        <input type="number" id="NumberHosted" class="form-control"
+                                                             name="NumberHosted" value="<?php echo @$NumberHosted; ?>">
+                                                    </div>
+                                                </div>	
+													
+												<div class="col-md-6 col-12 internsHistory" <?php if(@$UserHostedInternsBefore == '' || @$UserHostedInternsBefore == 'No'){ echo 'style="display:none;"';} ?>>
+                                                    <div class="form-group">
+                                                        <label for="NumberEmployed">How many interns have been employed by your institution after their internship? <span style="color:red">*</span></label>
+                                                        <input type="number" id="NumberEmployed" class="form-control"
+                                                             name="NumberEmployed" value="<?php echo @$NumberHosted; ?>">
+                                                    </div>
+                                                </div>	
+													
+													
+                                         
 												
 												
 												
@@ -489,9 +541,9 @@ if(@$_SESSION['InstitutionID']){
 $('#HostedInternsBefore').change(function() {
 	var val = $(this).val();
     if(val === "Yes") {
-		$('#internsHistory').show();
+		$('.internsHistory').show();
 	}else{
-		$('#internsHistory').hide();
+		$('.internsHistory').hide();
 	}
 });
 

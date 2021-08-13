@@ -286,7 +286,7 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12">
 													<div class="form-group">
-														<label for="Type">Type <span style="color:red">*</span></label>
+														<label for="Type">Type of Institution <span style="color:red">*</span></label>
 														<fieldset class="form-group">
 													<select class="choices form-select" name="Type" id="Type" required="required">
 													<option></option>
