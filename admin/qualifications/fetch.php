@@ -37,7 +37,7 @@ if(@$_POST["length"] != -1 && !isset($_POST["rowid"]))
  $query1 = 'LIMIT ' . @$_POST['start'] . ', ' . @$_POST['length'];
 }
 
-
+echo $query. $query1;
 $result = mysqli_query($conn,$query. $query1);
 
 $QualificationLevel = mysqli_query($conn,"SELECT distinct * FROM LookupQualificationLevel WHERE IsActive = '1'");
@@ -80,7 +80,9 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 											
 											
 											
-											
+												';
+												
+												 if(@$_SESSION['user_type'] == '4'){ echo '
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="TitleOfResearchProject">Title of Research Project <span style="color:red">*</span></label>
@@ -206,7 +208,10 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 												
                                                 
 												
-											</div>	
+											</div>	';
+											
+												 }
+												 echo '
 												
                                             </div>';
 				
@@ -261,8 +266,8 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 					</div>
 				</div>
 			
-			
-			
+			';
+			if(@$_SESSION['user_type'] == '4'){ echo '
 			
 				<div class="col-md-6 col-12">
 					<div class="form-group">
@@ -392,7 +397,9 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 					</div>
 				</div>
 				
-				
+				';
+			}
+			echo '
 				
 				</div>';
 					
@@ -409,8 +416,11 @@ while($row = mysqli_fetch_array($result))
  $sub_array = array();
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="AcademicLevel">' . $row["Level"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="NameOfDegree">' . $row["NameOfDegree"] . '</div>';
+ if(@$_SESSION['user_type'] == '4'){
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="HighestCompletedQualification">' . $row["HighestCompletedQualification"] . '</div>';
   $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="AnticipatedDateCompletion">' . $row["AnticipatedDateCompletion"] . '</div>';
+  
+ }
 	$sub_array[] = '<div class="icon dripicons-document-edit" data-id="'.$row["ID"].'" style="float:left;" data-bs-toggle="modal" data-bs-target="#capture-new"></div><a style="color:red; " class="icon dripicons-document-delete" href="?record='.$row["ID"].'">';
  $data[] = $sub_array;
 }

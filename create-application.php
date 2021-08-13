@@ -83,7 +83,7 @@ $query = "SELECT * FROM ApplicantChecklist
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3><?php echo $title; ?></h3>
+                            <h3><?php echo $_SESSION['headingType'] . ' - ' . $title; ?></h3>
                             
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">

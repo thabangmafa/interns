@@ -158,7 +158,7 @@ if (@$_POST['InstitutionID'] != '') {
 										<th>Open Date</th>
 										<th>Closing Date</th>
 										<th>Status</th>
-	
+										<th>Documents</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -189,9 +189,7 @@ if (@$_POST['InstitutionID'] != '') {
 													left join `CallInstitutionLink` d on d.CallID = a.ID
 										" . $filter;
 										
-										 $hostReq = '';
-											$appReq = '';
- 
+										  
 
 
 										
@@ -199,23 +197,35 @@ if (@$_POST['InstitutionID'] != '') {
 
 										while($calls = mysqli_fetch_array($result)) {
 											
+											$hostReq = 'No Host Document';
+											 $appReq = 'No Applicant Document';
+											 
+											 if($calls["HostRequirementsFile"]){
+												 $hostReq = '<a target="_blank" href="../../../uploads/calls/'.$calls["ID"].'/'.$calls["HostRequirementsFile"].'">Framework Documents</a>';
+											 }
+											 
+											 if($calls["ApplicantRequirementsFile"]){
+												 $appReq = '<a target="_blank" href="../../../uploads/calls/'.$calls["ID"].'/'.$calls["ApplicantRequirementsFile"].'">Advert Documents</a>';
+											 }
+											
 											if(@$_SESSION['user_type'] != '1' && $calls['Status'] == 'Open'){
 											echo '<tr>';
 												 echo '<td>' . $calls['Title'] . '</td>';
 												 echo '<td>' . $calls['Description'] . '</td>';
 												 echo '<td>' . $calls['OpenDate'] . '</td>';
 												 echo '<td>' . $calls['ClosingDate'] . '</td>';
+												 echo '<td>' . $appReq .'<br />'. $hostReq . '</td>';
 												 echo '<td>' . $calls['Status'] . '</td>';
-												 echo '</tr>';
-											}elseif(@$_SESSION['user_type'] == '1'){
+											echo '</tr>';
+											}else{
 												echo '<tr>';
 												 echo '<td>' . $calls['Title'] . '</td>';
 												 echo '<td>' . $calls['Description'] . '</td>';
 												 echo '<td>' . $calls['OpenDate'] . '</td>';
 												 echo '<td>' . $calls['ClosingDate'] . '</td>';
+												 echo '<td>' . $appReq .'<br />'. $hostReq . '</td>';
 												 echo '<td>' . $calls['Status'] . '</td>';
-												 echo '</tr>';
-												
+											echo '</tr>';
 											}
 										}
 

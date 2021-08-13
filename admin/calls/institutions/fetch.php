@@ -191,7 +191,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 					<label for="CallType">Call Type</label>
 					<fieldset class="form-group">
 				<select class="form-select" name="CallType" id="CallType">
-				<option>"' . $row["CallType"] . '"</option>
+				<option>' . $row["CallType"] . '</option>
 				<option>Host Institutions</option>
 				<option>Graduates</option>
 				</select>
@@ -228,12 +228,12 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 			</div>';
 			
 			echo '<div class="form-group">
-				<label for="HostRequirementsFile">Host Requirements</label>
+				<label for="HostRequirementsFile">Framework Document</label>
 				<input type="file" class="form-control-file" id="HostRequirementsFile" name="HostRequirementsFile">
 			  </div>';
 			  
 			  echo '<div class="form-group">
-				<label for="ApplicantRequirementsFile">Applicant Requirements</label>
+				<label for="ApplicantRequirementsFile">Advert Requirements</label>
 				<input type="file" class="form-control-file" id="ApplicantRequirementsFile" name="ApplicantRequirementsFile">
 			  </div>';
 				
@@ -271,11 +271,11 @@ while($row = mysqli_fetch_array($result))
  $appReq = 'No Applicant Document';
  
  if($row["HostRequirementsFile"]){
-	 $hostReq = '<a target="_blank" href="../../../uploads/calls/'.$row["CID"].'/'.$row["HostRequirementsFile"].'">Host Requirements</a>';
+	 $hostReq = '<a target="_blank" href="../../../uploads/calls/'.$row["CID"].'/'.$row["HostRequirementsFile"].'">Framework Document</a>';
  }
  
  if($row["ApplicantRequirementsFile"]){
-	 $appReq = '<a target="_blank" href="../../../uploads/calls/'.$row["CID"].'/'.$row["ApplicantRequirementsFile"].'">Applicant Requirements</a>';
+	 $appReq = '<a target="_blank" href="../../../uploads/calls/'.$row["CID"].'/'.$row["ApplicantRequirementsFile"].'">Advert Document</a>';
  }
  
  

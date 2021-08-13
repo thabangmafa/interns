@@ -39,6 +39,21 @@ if (isset($_POST['Username']) && isset($_POST['Password'])) {
             	$_SESSION['email'] = $row['Email'];
             	$_SESSION['id'] = $row['UserID'];
 				$_SESSION['user_type'] = $row['UserType'];
+				if($row['UserType'] == '4'){
+					$_SESSION['headingType'] = 'Intern';
+				}
+				
+				if($row['UserType'] == '3'){
+					$_SESSION['headingType'] = 'Mentor';
+				}
+				
+				if($row['UserType'] == '2'){
+					$_SESSION['headingType'] = 'Host Administrator';
+				}
+				
+				if($row['UserType'] == '1'){
+					$_SESSION['headingType'] = 'System Administrator';
+				}
 				$_SESSION['last_activity'] = time();
 				$_SESSION['expire_time'] = 30 * 60; 
             	header("Location: /");
