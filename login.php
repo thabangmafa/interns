@@ -40,7 +40,7 @@ if (isset($_POST['Username']) && isset($_POST['Password'])) {
             	$_SESSION['id'] = $row['UserID'];
 				$_SESSION['user_type'] = $row['UserType'];
 				$_SESSION['last_activity'] = time();
-				$_SESSION['expire_time'] = 10 * 60; 
+				$_SESSION['expire_time'] = 30 * 60; 
             	header("Location: /");
 		        exit();
             }else{
