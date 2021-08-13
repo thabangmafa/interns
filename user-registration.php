@@ -42,6 +42,7 @@ if (isset($_POST['Submit'])) {
 	$maiden_name = validate($_POST['maiden_name']);
 	$last_name = validate($_POST['last_name']);
 	$first_name = validate($_POST['first_name']);
+	$HostedInternsBefore = validate($_POST['HostedInternsBefore']);
 	$PreviouslyApplied = validate($_POST['PreviouslyApplied']);
 	$HowManyTimes = validate($_POST['HowManyTimes']);
 	$initials = validate($_POST['initials']);
@@ -106,6 +107,7 @@ if (isset($_POST['Submit'])) {
 						FirstName,
 						Initials,
 						Title,
+						HostedInternsBefore,
 						PreviouslyApplied,
 						HowManyTimes,
 						Disability,
@@ -125,6 +127,7 @@ if (isset($_POST['Submit'])) {
 						'$first_name',
 						'$initials',
 						'$utitle',
+						'$HostedInternsBefore',
 						'$PreviouslyApplied',
 						'$HowManyTimes',
 						 '$Disability',
@@ -157,6 +160,7 @@ if (isset($_POST['Submit'])) {
 						FirstName = '$first_name',
 						Initials = '$initials',
 						Title = '$utitle',
+						HostedInternsBefore = '$HostedInternsBefore',
 						PreviouslyApplied = '$PreviouslyApplied',
 						HowManyTimes = '$HowManyTimes',
 						Disability = '$Disability',
@@ -452,12 +456,12 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:inline;"'; }else{ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
-                                                        <label for="PreviouslyApplied">Have you previously hosted interns? <span style="color:red">*</span></label>
+                                                        <label for="HostedInternsBefore">Have you previously hosted interns? <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="choices form-select" id="PreviouslyApplied" name="PreviouslyApplied">
+                                                    <select class="choices form-select" id="HostedInternsBefore" name="HostedInternsBefore">
                                                         <option></option>
-                                                        <option <?php if(@$PreviouslyApplied == 'Yes'){ echo "selected='selected'"; } ?>>Yes</option>
-                                                        <option <?php if(@$PreviouslyApplied == 'No'){ echo "selected='selected'"; } ?>>No</option>
+                                                        <option <?php if(@$HostedInternsBefore == 'Yes'){ echo "selected='selected'"; } ?>>Yes</option>
+                                                        <option <?php if(@$HostedInternsBefore == 'No'){ echo "selected='selected'"; } ?>>No</option>
                                                     </select>
                                                 </fieldset>
                                                     </div>
