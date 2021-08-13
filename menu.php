@@ -108,15 +108,15 @@ $query = "SELECT * FROM ApplicantChecklist
 								<li class="submenu-item <?php if($title == "Contact Details"){ echo "active"; } ?>">
                                     <a href="contact-details.php">Contact Details <?php echo $ContactDetails; ?></a>
                                 </li>
-								<?php if(@$_SESSION['user_type'] != '4'){ ?>
+								<?php // if(@$_SESSION['user_type'] != '4'){ ?>
 								<li class="submenu-item <?php if($title == "Employment Details"){ echo "active"; } ?>">
                                     <a href="employment-details.php">Employment Details <?php echo $EmploymentDetails; ?></a>
                                 </li>
-								<?php } ?>
+								<?php // } ?>
 								<li class="submenu-item <?php if($title == "Language Proficiency"){ echo "active"; } ?>">
                                     <a href="language-proficiency.php">Language Proficiency <?php echo $LanguageProficiency; ?></a>
                                 </li>
-								<?php if(@$_SESSION['user_type'] == '4'){ ?>
+								<?php // if(@$_SESSION['user_type'] == '4'){ ?>
 								<li class="submenu-item <?php if($title == "Next of Kin"){ echo "active"; } ?>">
                                     <a href="guardian.php">Next of Kin <?php echo $NextOfKin; ?></a>
                                 </li>
@@ -129,7 +129,7 @@ $query = "SELECT * FROM ApplicantChecklist
 								<li class="submenu-item <?php if($title == "References"){ echo "active"; } ?>">
                                     <a href="references.php">References <?php echo $References; ?></a>
                                 </li>
-								<?php } ?>
+								<?php // } ?>
 								<li class="submenu-item <?php if($title == "Qualifications"){ echo "active"; } ?>">
                                     <a href="qualification.php">Qualifications <?php echo $Qualifications; ?></a>
                                 </li>
@@ -140,7 +140,7 @@ $query = "SELECT * FROM ApplicantChecklist
                                 
                             </ul>
                         </li>
-						<?php if(@$_SESSION['user_type'] == '4'){ ?>
+						<?php //if(@$_SESSION['user_type'] == '4'){ ?>
 						<li class="sidebar-item  has-sub ">
                             <a href="#" class='sidebar-link '>
                                 <i class="bi bi-stack <?php if($menu_item == "4"){ echo "active"; } ?>"></i>
@@ -158,7 +158,7 @@ $query = "SELECT * FROM ApplicantChecklist
 								
                             </ul>
                         </li>
-						<?php } ?>
+						<?php// } ?>
 						<!--li class="sidebar-item  has-sub ">
                             <a href="#" class='sidebar-link '>
                                 <i class="bi bi-stack <?php if($menu_item == "7"){ echo "active"; } ?>"></i>

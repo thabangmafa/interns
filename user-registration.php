@@ -439,7 +439,7 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="PreviouslyApplied">Have you previously applied for the DST Internship? <span style="color:red">*</span></label>
+                                                        <label for="PreviouslyApplied">Have you previously applied for the DSI Internship? <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="choices form-select" id="PreviouslyApplied" name="PreviouslyApplied" required="required">
                                                         <option></option>
@@ -458,7 +458,7 @@ if (isset($_POST['Submit'])) {
                                                     </div>
                                                 </div>
 
-												<div class="col-md-6 col-12">
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="Disability">Do you have any serious disability that limits your full participation in life activities (such as education, work, social life)? <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
@@ -470,7 +470,7 @@ if (isset($_POST['Submit'])) {
                                                 </fieldset>
                                                     </div>
                                                 </div>
-												<div class="col-md-6 col-12">
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
                                                     
 													
 													<div class="form-group" id="disabilityDiv" <?php if(@$UserDisability == '' || @$UserDisability == 'No'){ echo 'style="display:none;"';} ?>>
