@@ -1,7 +1,7 @@
 <?php 
 include 'admin/connect.php';
 $conn = OpenCon();
-$menu_item = "2";
+$menu_item = "4";
 $title = "Position Applied For";
 
 $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Position Applied For' ";

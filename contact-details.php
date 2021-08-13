@@ -40,6 +40,66 @@ if (isset($_POST['FullTimeStudent'])) {
 	$Country = validate($_POST['Country']);
 	$WorkCountry = validate($_POST['WorkCountry']);
 	
+	$Name = validate($_POST['Name']);
+	$Telephone = validate($_POST['Telephone']);
+	$Cellnumber = validate($_POST['Cellnumber']);
+	$Relationship = validate($_POST['Relationship']);
+	$Address = validate($_POST['Address']);
+	
+	$query = "SELECT * FROM NextOfKin WHERE UserID = '".$_SESSION['id']."'";
+	$result = mysqli_query($conn, $query);
+	if (mysqli_num_rows($result) === 0) {
+	
+	$sql2 = "INSERT INTO NextOfKin(
+						UserID,
+						Name,
+						Telephone,
+						Cellnumber,
+						Relationship,
+						Address
+) VALUES(
+						'$id',
+						'$Name',
+						'$Telephone',
+						'$Cellnumber',
+						'$Relationship',
+						'$Address'
+
+)";
+
+
+    $result2 = mysqli_query($conn, $sql2);
+	
+	unset($_POST);
+	}else{
+		
+	$sql2 = "UPDATE NextOfKin SET 
+						Name = '$Name',
+						Telephone = '$Telephone',
+						Cellnumber = '$Cellnumber',
+						Relationship = '$Relationship',
+						Address = '$Address'
+	
+	WHERE UserID = '".$id."'";
+
+	$result2 = mysqli_query($conn, $sql2);
+	$message = "Details successfully updated.";
+	unset($_POST);	
+	}
+	
+	$query = "SELECT * FROM NextOfKin a
+	WHERE a.UserID = '".$_SESSION['id']."'";
+	$result = mysqli_query($conn, $query);
+
+	while($userdetails = mysqli_fetch_array($result)) {
+
+			$Name = $userdetails['Name'];
+			$Telephone = $userdetails['Telephone'];
+			$Cellnumber = $userdetails['Cellnumber'];
+			$Relationship = $userdetails['Relationship'];
+			$Address = $userdetails['Address'];
+	}
+	
 	
 	
 	$checkOrganisation = "SELECT * FROM LookupInstitutions WHERE lower(Name) = lower('".$CurrentOrganisation."')";
@@ -487,9 +547,47 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     </div>
                                                 </div>
 												
-								
+												<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%;">NEXT OF KIN DETAILS.</div>
 												
 												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="Name">Name <span style="color:red">*</span></label>
+                                                        <input type="text" id="Name" class="form-control"
+                                                             name="Name" value="<?php echo @$Name; ?>" required="required">
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="Telephone">Telephone Number <span style="color:red">*</span></label>
+                                                        <input type="text" id="Telephone" class="form-control"
+                                                             name="Telephone" value="<?php echo @$Telephone; ?>" required="required">
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="Cellnumber">Cellphone Number <span style="color:red">*</span></label>
+                                                        <input type="text" id="Cellnumber" class="form-control"
+                                                             name="Cellnumber" value="<?php echo @$Cellnumber; ?>" required="required">
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="Relationship">Relationship to you <span style="color:red">*</span></label>
+                                                        <input type="text" id="Relationship" class="form-control"
+                                                             name="Relationship" value="<?php echo @$Relationship; ?>" required="required">
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="Address">Physical Address <span style="color:red">*</span></label>
+                                                        <textarea class="form-control" id="Address" name="Address" rows="3" required="required"><?php echo @$Address; ?></textarea>
+                                                    </div>
+                                                </div>
 												
 												
                                

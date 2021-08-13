@@ -8,7 +8,6 @@ $query = "SELECT * FROM ApplicantChecklist
 	$ContactDetails = '<span class="fa-fw select-all fas" style="color:red"></span>';
 	$EmploymentDetails = '<span class="fa-fw select-all fas" style="color:red"></span>';
 	$LanguageProficiency = '<span class="fa-fw select-all fas" style="color:red"></span>';
-	$NextOfKin = '<span class="fa-fw select-all fas" style="color:red"></span>';
 	$PositionAppliedFor = '<span class="fa-fw select-all fas" style="color:red"></span>';
 	$PersonalProfile = '<span class="fa-fw select-all fas" style="color:red"></span>';
 	$Qualifications = '<span class="fa-fw select-all fas" style="color:red"></span>';
@@ -32,9 +31,6 @@ $query = "SELECT * FROM ApplicantChecklist
 			$LanguageProficiency = ' <span class="fa-fw select-all fas" style="color:green"></span>';
 		}
 		
-		if($details['Section'] == 'Next Of Kin'){
-			$NextOfKin = ' <span class="fa-fw select-all fas" style="color:green"></span>';
-		}
 		
 		if($details['Section'] == 'Position Applied For'){
 			$PositionAppliedFor = ' <span class="fa-fw select-all fas" style="color:green"></span>';
@@ -98,49 +94,56 @@ $query = "SELECT * FROM ApplicantChecklist
                                 <span>Dashboard</span>
                             </a>
                         </li>
-						
 						<li class="sidebar-item  has-sub ">
                             <a href="#" class='sidebar-link '>
                                 <i class="bi bi-stack <?php if($menu_item == "2"){ echo "active"; } ?>"></i>
                                 <span>My Profile</span>
                             </a>
-                            <ul class="submenu <?php if($menu_item == "2"){ echo "active"; } ?>">
-								<li class="submenu-item <?php if($title == "Contact Details"){ echo "active"; } ?>">
-                                    <a href="contact-details.php">Contact Details <?php echo $ContactDetails; ?></a>
-                                </li>
-								<?php // if(@$_SESSION['user_type'] != '4'){ ?>
-								<li class="submenu-item <?php if($title == "Employment Details"){ echo "active"; } ?>">
-                                    <a href="employment-details.php">Employment Details <?php echo $EmploymentDetails; ?></a>
-                                </li>
-								<?php // } ?>
-								<li class="submenu-item <?php if($title == "Language Proficiency"){ echo "active"; } ?>">
-                                    <a href="language-proficiency.php">Language Proficiency <?php echo $LanguageProficiency; ?></a>
-                                </li>
-								<?php // if(@$_SESSION['user_type'] == '4'){ ?>
-								<li class="submenu-item <?php if($title == "Next of Kin"){ echo "active"; } ?>">
-                                    <a href="guardian.php">Next of Kin <?php echo $NextOfKin; ?></a>
-                                </li>
-								<li class="submenu-item <?php if($title == "Position Applied For"){ echo "active"; } ?>">
-                                    <a href="position-applied-for.php">Position Applied For <?php echo $PositionAppliedFor; ?></a>
-                                </li>
-								<li class="submenu-item <?php if($title == "Personal Profile"){ echo "active"; } ?>">
-                                    <a href="personal-profile.php">Personal Profile <?php echo $PersonalProfile; ?></a>
-                                </li>
-								<li class="submenu-item <?php if($title == "References"){ echo "active"; } ?>">
-                                    <a href="references.php">References <?php echo $References; ?></a>
-                                </li>
-								<?php // } ?>
-								<li class="submenu-item <?php if($title == "Qualifications"){ echo "active"; } ?>">
-                                    <a href="qualification.php">Qualifications <?php echo $Qualifications; ?></a>
-                                </li>
-								<li class="submenu-item <?php if($title == "Registration Details"){ echo "active"; } ?>">
-                                    <a href="user-registration.php">Registration Details <?php echo $RegistrationDetails; ?></a>
-                                </li>
-								
-                                
+							<ul class="submenu <?php if($menu_item == "2"){ echo "active"; } ?>">
+						<?php
+						//Interns Menu
+						if(@$_SESSION['user_type'] == '4'){ ?>
+						
+						<li class="submenu-item <?php if($title == "Registration Details"){ echo "active"; } ?>">
+							<a href="user-registration.php">Registration Details <?php echo $RegistrationDetails; ?></a>
+						</li>
+						<li class="submenu-item <?php if($title == "Contact Details"){ echo "active"; } ?>">
+							<a href="contact-details.php">Contact Details <?php echo $ContactDetails; ?></a>
+						</li>
+						<li class="submenu-item <?php if($title == "Language Proficiency"){ echo "active"; } ?>">
+							<a href="language-proficiency.php">Language Proficiency <?php echo $LanguageProficiency; ?></a>
+						</li>
+						<li class="submenu-item <?php if($title == "Qualifications"){ echo "active"; } ?>">
+							<a href="qualification.php">Qualifications <?php echo $Qualifications; ?></a>
+						</li>
+						<li class="submenu-item <?php if($title == "Personal Profile"){ echo "active"; } ?>">
+							<a href="personal-profile.php">Personal Profile <?php echo $PersonalProfile; ?></a>
+						</li>
+						<li class="submenu-item <?php if($title == "References"){ echo "active"; } ?>">
+							<a href="references.php">References <?php echo $References; ?></a>
+						</li>
+						<?php } 
+						
+						//Admin & Mentor Menu
+						if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '3'){ ?>
+						<li class="submenu-item <?php if($title == "Registration Details"){ echo "active"; } ?>">
+							<a href="user-registration.php">Registration Details <?php echo $RegistrationDetails; ?></a>
+						</li>
+						<li class="submenu-item <?php if($title == "Contact Details"){ echo "active"; } ?>">
+							<a href="contact-details.php">Contact Details <?php echo $ContactDetails; ?></a>
+						</li>
+						<li class="submenu-item <?php if($title == "Employment Details"){ echo "active"; } ?>">
+							<a href="employment-details.php">Employment Details <?php echo $EmploymentDetails; ?></a>
+						</li>
+						<li class="submenu-item <?php if($title == "Qualifications"){ echo "active"; } ?>">
+							<a href="qualification.php">Qualifications <?php echo $Qualifications; ?></a>
+						</li>
+						
+						<?php } ?>
+						
                             </ul>
                         </li>
-						<?php //if(@$_SESSION['user_type'] == '4'){ ?>
+						<?php if(@$_SESSION['user_type'] == '4'){ ?>
 						<li class="sidebar-item  has-sub ">
                             <a href="#" class='sidebar-link '>
                                 <i class="bi bi-stack <?php if($menu_item == "4"){ echo "active"; } ?>"></i>
@@ -148,6 +151,9 @@ $query = "SELECT * FROM ApplicantChecklist
                             </a>
                             <ul class="submenu <?php if($menu_item == "4"){ echo "active"; } ?>">
 							
+								<li class="submenu-item <?php if($title == "Position Applied For"){ echo "active"; } ?>">
+                                    <a href="position-applied-for.php">Position Applied For <?php echo $PositionAppliedFor; ?></a>
+                                </li>
 								<li class="submenu-item <?php if($title == "Create Application"){ echo "active"; } ?>">
                                     <a href="create-application.php">Create Application</a>
                                 </li>
@@ -158,25 +164,8 @@ $query = "SELECT * FROM ApplicantChecklist
 								
                             </ul>
                         </li>
-						<?php// } ?>
-						<!--li class="sidebar-item  has-sub ">
-                            <a href="#" class='sidebar-link '>
-                                <i class="bi bi-stack <?php if($menu_item == "7"){ echo "active"; } ?>"></i>
-                                <span>My Progress Reports</span>
-                            </a>
-                            <ul class="submenu <?php if($menu_item == "7"){ echo "active"; } ?>">
-							
-								<li class="submenu-item <?php if($title == "Create Progress Report"){ echo "active"; } ?>">
-                                    <a href="create-progress-report.php">Create Progress Report</a>
-                                </li>
-								
-								<li class="submenu-item <?php if($title == "List of Progress Reports"){ echo "active"; } ?>">
-                                    <a href="progress-reports.php">List of Progress Reports</a>
-                                </li>
-								
-                            </ul>
-                        </li-->
-						<?php
+						<?php } 
+
 
 						$query = "SELECT b.* FROM HostAdministrator a
 										left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = '1'
@@ -249,55 +238,7 @@ $query = "SELECT * FROM ApplicantChecklist
                                 <li class="submenu-item <?php if($title == "Page Headings"){ echo "active"; } ?>">
                                     <a href="headings.php">Page Headings</a>
                                 </li>
-                                <!--li class="submenu-item ">
-                                    <a href="#">Provices</a>
-                                </li>
                                 
-                                <li class="submenu-item ">
-                                    <a href="#">Languages</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="#">Titles</a>
-                                </li>
-								<li class="submenu-item ">
-                                    <a href="#">Qualification Status</a>
-                                </li>
-								<li class="submenu-item ">
-                                    <a href="#">Citizenship Status</a>
-                                </li>
-								<li class="submenu-item ">
-                                    <a href="#">ID Types</a>
-                                </li>
-								<li class="submenu-item ">
-                                    <a href="#">Race</a>
-                                </li>
-								<li class="submenu-item ">
-                                    <a href="#">Gender</a>
-                                </li>
-								<li class="submenu-item ">
-                                    <a href="#">Institution Categories</a>
-                                </li>
-								<li class="submenu-item ">
-                                    <a href="#">Basic Available Resources</a>
-                                </li>
-								<li class="submenu-item ">
-                                    <a href="#">Sector</a>
-                                </li>
-								<li class="submenu-item ">
-                                    <a href="#">Career Profile Type</a>
-                                </li>
-								<li class="submenu-item ">
-                                    <a href="#">Funding Period</a>
-                                </li>
-								<li class="submenu-item ">
-                                    <a href="#">Discipline (of degree to be funded)</a>
-                                </li>
-								<li class="submenu-item ">
-                                    <a href="#">Completion time for undergraduate degree</a>
-                                </li>
-								<li class="submenu-item ">
-                                    <a href="#">Language Proficiency</a>
-                                </li-->
                             </ul>
                         </li>
 						<?php } ?>
