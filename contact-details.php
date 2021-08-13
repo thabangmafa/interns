@@ -222,11 +222,11 @@ if (isset($_POST['FullTimeStudent'])) {
                                     <div class="card-body">
                                         <form class="form" action="" method="post">
                                             <div class="row">
-												<div class="col-md-6 col-12">
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"' } ?>>
                                                     <div class="form-group">
                                                         <label for="FullTimeStudent">Are you a full time student? <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="choices form-select" id="FullTimeStudent" name="FullTimeStudent" required="required">
+                                                    <select class="choices form-select" id="FullTimeStudent" name="FullTimeStudent"  <?php if(@$_SESSION['user_type'] != '2'){ echo 'required="required"' } ?>>
 													<option></option>
                                                         <option <?php if(@$FullTimeStudent == 'Yes'){ echo "selected='selected'"; } ?>>Yes</option>
 														<option <?php if(@$FullTimeStudent == 'No'){ echo "selected='selected'"; } ?>>No</option>
@@ -256,7 +256,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     </div>
                                                 </div>						
 												
-												<div class="col-md-6 col-12">
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display"none;"' } ?>>
                                                     <div class="form-group">
                                                         <label for="IsOrganisationFundingSalary">Is this the organisation that funds your salary?</label>
                                                         <fieldset class="form-group">
@@ -307,12 +307,12 @@ if (isset($_POST['FullTimeStudent'])) {
                                     
                                                     </div>
                                                 </div>
-												<div class="col-md-6 col-12">
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"' } ?>>
                                                     <div class="form-group">
                                                         
                                         <label for="HomePhysicalAddress" class="form-label">Home Physical Address <span style="color:red">*</span></label>
                                         <textarea class="form-control" id="HomePhysicalAddress" name="HomePhysicalAddress"
-                                            rows="3" required="required"><?php echo @$HomePhysicalAddress; ?></textarea>
+                                            rows="3"  <?php if(@$_SESSION['user_type'] != '2'){ echo 'required="required"' } ?>><?php echo @$HomePhysicalAddress; ?></textarea>
                                     
                                                     </div>
                                                 </div>
@@ -324,11 +324,11 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12">
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"' } ?>>
                                                     <div class="form-group">
                                                         <label for="HomeCityTown">Home City/Town <span style="color:red">*</span></label>
                                                         <input type="text" id="HomeCityTown" class="form-control"
-                                                             name="HomeCityTown" value="<?php echo @$HomeCityTown; ?>" required="required">
+                                                             name="HomeCityTown" value="<?php echo @$HomeCityTown; ?>"  <?php if(@$_SESSION['user_type'] != '2'){ echo 'required="required"' } ?>>
                                                     </div>
                                                 </div>
 												
@@ -340,11 +340,11 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12">
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"' } ?>>
                                                     <div class="form-group">
                                                         <label for="HomePostalCode">Home Postal Code <span style="color:red">*</span></label>
                                                         <input type="text" id="HomePostalCode" class="form-control"
-                                                             name="HomePostalCode" value="<?php echo @$HomePostalCode; ?>" required="required">
+                                                             name="HomePostalCode" value="<?php echo @$HomePostalCode; ?>"  <?php if(@$_SESSION['user_type'] != '2'){ echo 'required="required"' } ?>>
                                                     </div>
                                                 </div>
 												
@@ -372,11 +372,11 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12">
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"' } ?>>
                                                     <div class="form-group">
                                                         <label for="HomeProvince">Home Province <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="choices form-select" id="HomeProvince" name="HomeProvince" required="required">
+                                                    <select class="choices form-select" id="HomeProvince" name="HomeProvince"  <?php if(@$_SESSION['user_type'] != '2'){ echo 'required="required"' } ?>>
                                                         <option></option>
                                                         <?php
 				
@@ -420,11 +420,11 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12">
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"' } ?>>
                                                     <div class="form-group">
                                                         <label for="Country">Home Country <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="choices form-select" id="Country" name="Country" required="required">
+                                                    <select class="choices form-select" id="Country" name="Country" <?php if(@$_SESSION['user_type'] != '2'){ echo 'required="required"' } ?>>
 													<option> </option>
                                                         <?php
 				
@@ -447,7 +447,7 @@ if (isset($_POST['FullTimeStudent'])) {
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="TelephoneNumber">Primary Telephone Number <span style="color:red">*</span></label>
-                                                        <input type="text" id="TelephoneNumber" class="form-control"
+                                                        <input type="number" id="TelephoneNumber" class="form-control"
                                                              name="TelephoneNumber" value="<?php echo @$HomePostalCode; ?>" required="required">
                                                     </div>
                                                 </div>
@@ -457,7 +457,7 @@ if (isset($_POST['FullTimeStudent'])) {
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="MobileNumber">Mobile Number <span style="color:red">*</span></label>
-                                                        <input type="text" value="<?php echo @$MobileNumber; ?>" id="MobileNumber" class="form-control"
+                                                        <input type="number" value="<?php echo @$MobileNumber; ?>" id="MobileNumber" class="form-control"
                                                             name="MobileNumber" required="required">
                                                     </div>
                                                 </div>
