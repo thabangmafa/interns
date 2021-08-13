@@ -160,7 +160,7 @@ if (isset($_POST['Username']) && isset($_POST['Password'])
 								<option value="4">Intern</option>
 								<option value="3">Mentor</option>
 								<option value="2">Host Institution Admin</option>
-								<option value="1">System Admin</option>
+								<!--option value="1">System Admin</option-->
 							</select>
                             <div class="form-control-icon">
                                 <i class="bi bi-stack"></i>
