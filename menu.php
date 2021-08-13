@@ -116,6 +116,7 @@ $query = "SELECT * FROM ApplicantChecklist
 								<li class="submenu-item <?php if($title == "Language Proficiency"){ echo "active"; } ?>">
                                     <a href="language-proficiency.php">Language Proficiency <?php echo $LanguageProficiency; ?></a>
                                 </li>
+								<?php if(@$_SESSION['user_type'] == '4'){ ?>
 								<li class="submenu-item <?php if($title == "Next of Kin"){ echo "active"; } ?>">
                                     <a href="guardian.php">Next of Kin <?php echo $NextOfKin; ?></a>
                                 </li>
@@ -125,15 +126,17 @@ $query = "SELECT * FROM ApplicantChecklist
 								<li class="submenu-item <?php if($title == "Personal Profile"){ echo "active"; } ?>">
                                     <a href="personal-profile.php">Personal Profile <?php echo $PersonalProfile; ?></a>
                                 </li>
+								<li class="submenu-item <?php if($title == "References"){ echo "active"; } ?>">
+                                    <a href="references.php">References <?php echo $References; ?></a>
+                                </li>
+								<?php } ?>
 								<li class="submenu-item <?php if($title == "Qualifications"){ echo "active"; } ?>">
                                     <a href="qualification.php">Qualifications <?php echo $Qualifications; ?></a>
                                 </li>
 								<li class="submenu-item <?php if($title == "Registration Details"){ echo "active"; } ?>">
                                     <a href="user-registration.php">Registration Details <?php echo $RegistrationDetails; ?></a>
                                 </li>
-								<li class="submenu-item <?php if($title == "References"){ echo "active"; } ?>">
-                                    <a href="references.php">References <?php echo $References; ?></a>
-                                </li>
+								
                                 
                             </ul>
                         </li>

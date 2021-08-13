@@ -173,7 +173,7 @@ $query = "SELECT * FROM ApplicantChecklist
 											 echo '<td>' . $calls['OpenDate'] . '</td>';
 											 echo '<td>' . $calls['ClosingDate'] . '</td>';
 											 echo '<td>' . $appReq . '</td>';
-											 if(($Total == '9' && @$_SESSION['user_type'] != '4') or ($Total == '8' && @$_SESSION['user_type'] == '4')){
+											 if(($Total == '5' && @$_SESSION['user_type'] != '4') or ($Total == '8' && @$_SESSION['user_type'] == '4')){
 											 echo '<td><div class="icon dripicons-enter" data-id="'.$calls["ID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div></td>';
 											 }									 
 											 else{
