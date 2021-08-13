@@ -140,7 +140,7 @@ $query = "SELECT * FROM ApplicantChecklist
                                 
                             </ul>
                         </li>
-						
+						<?php if(@$_SESSION['user_type'] == '4'){ ?>
 						<li class="sidebar-item  has-sub ">
                             <a href="#" class='sidebar-link '>
                                 <i class="bi bi-stack <?php if($menu_item == "4"){ echo "active"; } ?>"></i>
@@ -158,7 +158,7 @@ $query = "SELECT * FROM ApplicantChecklist
 								
                             </ul>
                         </li>
-						
+						<?php } ?>
 						<!--li class="sidebar-item  has-sub ">
                             <a href="#" class='sidebar-link '>
                                 <i class="bi bi-stack <?php if($menu_item == "7"){ echo "active"; } ?>"></i>

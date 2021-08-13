@@ -157,7 +157,7 @@ $query = "SELECT * FROM ApplicantChecklist
 										AND (SELECT DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(DateOfBirth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(DateOfBirth, '00-%m-%d')) AS age FROM RegistrationDetails WHERE UserID = '".$_SESSION['id']."') < 36
 										AND (SELECT COUNT(*) FROM RegistrationDetails WHERE UserID = '".$_SESSION['id']."' AND Citizenship IN ('1','2')) > 0
 										" . $filter;
-
+			
 										$result = mysqli_query($conn, $query);
 
 										while($calls = mysqli_fetch_array($result)) {
