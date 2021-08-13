@@ -58,6 +58,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Manage Calls'
 							 <thead>
 							  <tr>
 							   <th>Budget Year</th>
+							   <th>Call Type</th>
 								<th>Title</th>
 								<th>Description</th>
 								<th>Open Date</th>
@@ -323,6 +324,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Manage Calls'
   
   $(document).on('click', '#insert', function(){
    var BudgetYear = $("#BudgetYear").val();
+   var CallType = $("#CallType").val();
    var Title = $("#Title").val();
    var Description = $("#Description").val();
    var OpenDate = $("#OpenDate").val();
@@ -330,12 +332,12 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Manage Calls'
   
    var IsActive = $("#IsActive").val();
    
-   if(Title != '')
+   if(BudgetYear != '' && CallType != '' && Description != ''  && OpenDate != '' && ClosingDate != ''  && IsActive != '')
    {
     $.ajax({
      url:"admin/calls/institutions/insert.php",
      method:"POST",
-     data:{BudgetYear:BudgetYear, Title:Title, Description:Description, OpenDate:OpenDate, ClosingDate:ClosingDate, IsActive:IsActive},
+     data:{BudgetYear:BudgetYear,CallType:CallType, Title:Title, Description:Description, OpenDate:OpenDate, ClosingDate:ClosingDate, IsActive:IsActive},
      success:function(data)
      {
       location.reload();
@@ -346,7 +348,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Manage Calls'
    }
    else
    {
-    alert("TItle is required!");
+    alert("Please make sure all the field have been captured");
    }
   });
   

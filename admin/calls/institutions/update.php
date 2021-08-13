@@ -6,6 +6,7 @@ if(isset($_POST["ID"]))
 {
 $update = '';
  $BudgetYear = mysqli_real_escape_string($conn,$_POST["BudgetYear"]);
+ $CallType = mysqli_real_escape_string($conn,$_POST["CallType"]);
  $Title = mysqli_real_escape_string($conn,$_POST["Title"]);
  $Description = mysqli_real_escape_string($conn,$_POST["Description"]);
  $OpenDate = mysqli_real_escape_string($conn,$_POST["OpenDate"]);
@@ -75,6 +76,7 @@ $update = '';
 
 $query = "UPDATE `HostInstitutionCalls` SET 
  BudgetYear='".$BudgetYear."',
+ CallType='".$CallType."',
  Title='".$Title."',
  Description='".$Description."',
  OpenDate='".$OpenDate."',

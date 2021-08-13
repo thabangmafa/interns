@@ -2,9 +2,10 @@
 include '../../connect.php';
 $conn = OpenCon();
 
-if(isset($_POST["BudgetYear"], $_POST["Title"], $_POST["Description"], $_POST["BudgetYear"],$_POST["OpenDate"], $_POST["ClosingDate"],$_POST["IsActive"]))
+if($_POST["BudgetYear"] != '' && $_POST["CallType"] != '' && $_POST["Title"] != '' && $_POST["Description"] != '' && $_POST["BudgetYear"] != '' && $_POST["OpenDate"] != '' && $_POST["ClosingDate"] != '' && $_POST["IsActive"] != ''))
 {
  $BudgetYear = mysqli_real_escape_string($conn,$_POST["BudgetYear"]);
+ $CallType = mysqli_real_escape_string($conn,$_POST["CallType"]);
  $Title = mysqli_real_escape_string($conn,$_POST["Title"]);
  $Description = mysqli_real_escape_string($conn,$_POST["Description"]);
  $OpenDate = mysqli_real_escape_string($conn,$_POST["OpenDate"]);
@@ -14,8 +15,8 @@ if(isset($_POST["BudgetYear"], $_POST["Title"], $_POST["Description"], $_POST["B
 
  
  
- $InsertCall = "INSERT INTO `HostInstitutionCalls`(BudgetYear, Title, Description, OpenDate, ClosingDate, RegisteredBy,IsActive) 
- VALUES('$BudgetYear', '$Title', '$Description', '$OpenDate', '$ClosingDate', '$RegisteredBy',$Status)";
+ $InsertCall = "INSERT INTO `HostInstitutionCalls`(BudgetYear, CallType, Title, Description, OpenDate, ClosingDate, RegisteredBy,IsActive) 
+ VALUES('$BudgetYear', '$CallType', '$Title', '$Description', '$OpenDate', '$ClosingDate', '$RegisteredBy',$Status)";
  
  
 
@@ -25,6 +26,8 @@ if(isset($_POST["BudgetYear"], $_POST["Title"], $_POST["Description"], $_POST["B
  }else{
 	 echo 'Data Not Inserted';
  }
+}else{
+	echo 'Data Not inserted due to missing information.';
 }
 CloseCon($conn);
 ?>

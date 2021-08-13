@@ -5,7 +5,7 @@ $conn = OpenCon();
 
 $columns = array('BudgetYear', 'Title', 'IsActive');
 
-$query = "SELECT DISTINCT a.ID AS CID, a.BudgetYear, a.Title, a.Description, a.OpenDate, a.ClosingDate, a.HostRequirementsFile, a.ApplicantRequirementsFile,
+$query = "SELECT DISTINCT a.ID AS CID, a.BudgetYear, a.CallType, a.Title, a.Description, a.OpenDate, a.ClosingDate, a.HostRequirementsFile, a.ApplicantRequirementsFile,
 a.HostSubmissionDueDate,
 a.InternsApplicationDueDate,
 a.InternshipStartDate,
@@ -96,6 +96,18 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 				</div>
 			</div>';
 			
+		echo '<div class="col-md-12 col-12">
+				<div class="form-group">
+					<label for="CallType">Call Type</label>
+					<fieldset class="form-group">
+				<select class="form-select" name="CallType" id="CallType">
+				<option>Host Institutions</option>
+				<option>Graduates</option>
+				</select>
+			</fieldset>
+				</div>
+			</div>';
+			
 	echo '<div class="col-md-12 col-12">
 				<div class="form-group">
 					<label for="Title">Title</label>
@@ -169,6 +181,19 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				} 
 				
 				echo '
+				</select>
+			</fieldset>
+				</div>
+			</div>';
+			
+			echo '<div class="col-md-12 col-12">
+				<div class="form-group">
+					<label for="CallType">Call Type</label>
+					<fieldset class="form-group">
+				<select class="form-select" name="CallType" id="CallType">
+				<option>"' . $row["CallType"] . '"</option>
+				<option>Host Institutions</option>
+				<option>Graduates</option>
 				</select>
 			</fieldset>
 				</div>
@@ -256,6 +281,7 @@ while($row = mysqli_fetch_array($result))
  
  $sub_array = array();
  $sub_array[] = '<div data-id="'.$row["CID"].'" data-column="BudgetYear">' . $row["Budgy"] . '</div>';
+ $sub_array[] = '<div data-id="'.$row["CID"].'" data-column="CallType">' . $row["CallType"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["CID"].'" data-column="Title">' . $row["Title"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["CID"].'" data-column="Description">' . $row["Description"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["CID"].'" data-column="OpenDate">' . $row["OpenDate"] . '</div>';
@@ -272,7 +298,7 @@ while($row = mysqli_fetch_array($result))
 
 function get_all_data($conn)
 {
- $query = "SELECT DISTINCT a.ID AS CID, a.BudgetYear, a.Title, a.Description, a.OpenDate, a.ClosingDate, a.HostRequirementsFile, a.ApplicantRequirementsFile, 
+ $query = "SELECT DISTINCT a.ID AS CID, a.BudgetYear, a.CallType, a.Title, a.Description, a.OpenDate, a.ClosingDate, a.HostRequirementsFile, a.ApplicantRequirementsFile, 
 CASE WHEN `ClosingDate` < CURDATE() THEN 'Closed' 
 WHEN a.IsActive = 0 THEN 'Inactive' 
 WHEN d.InstitutionID = '' OR d.InstitutionID is null THEN 'Missing Institution' 
