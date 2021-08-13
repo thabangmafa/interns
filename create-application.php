@@ -133,6 +133,16 @@ $query = "SELECT * FROM ApplicantChecklist
                                 <tbody>
                                     
 									<?php
+									
+									$filter = '';
+									
+									if(@$_SESSION['user_type'] == '4' || @$_SESSION['user_type'] == '3'){
+										$filter = "AND CallType = 'Graduates'";
+									}elseif(@$_SESSION['user_type'] == '2'){
+										$filter = "AND CallType = 'Host Institutions'";
+									}else{
+										$filter = '';
+									}
 				
 										$query = "SELECT distinct HostInstitutionCalls.* FROM HostInstitutionCalls 
 										left join `CallInstitutionLink` d on d.CallID = HostInstitutionCalls.ID 
@@ -146,7 +156,7 @@ $query = "SELECT * FROM ApplicantChecklist
 										AND 0 = (SELECT count(CallID) FROM UserApplications WHERE Status != 'Withdrawn' AND UserID = '".$_SESSION['id']."')
 										AND (SELECT DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(DateOfBirth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(DateOfBirth, '00-%m-%d')) AS age FROM RegistrationDetails WHERE UserID = '".$_SESSION['id']."') < 36
 										AND (SELECT COUNT(*) FROM RegistrationDetails WHERE UserID = '".$_SESSION['id']."' AND Citizenship IN ('1','2')) > 0
-										";
+										" . $filter;
 
 										$result = mysqli_query($conn, $query);
 

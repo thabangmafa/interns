@@ -144,6 +144,17 @@ $query = "SELECT * FROM ApplicantChecklist
 												</thead>
 												<tbody> 
 <?php
+
+$filter = '';
+									
+									if(@$_SESSION['user_type'] == '4' || @$_SESSION['user_type'] == '3'){
+										$filter = "AND CallType = 'Graduates'";
+									}elseif(@$_SESSION['user_type'] == '2'){
+										$filter = "AND CallType = 'Host Institutions'";
+									}else{
+										$filter = '';
+									}
+
 if(@$_SESSION["InstitutionID"] != ''){
 										$query = "SELECT distinct HostInstitutionCalls.* FROM HostInstitutionCalls 
 										left join `CallInstitutionLink` d on d.CallID = HostInstitutionCalls.ID 
@@ -156,7 +167,7 @@ if(@$_SESSION["InstitutionID"] != ''){
 										AND `ClosingDate` >= CURDATE()
 										AND d.Status = 'Active'
 										AND 0 = (SELECT COUNT(*) FROM HostApplications WHERE InstitutionID = '".@$_SESSION["InstitutionID"]."')
-										AND InstitutionID != '".@$_SESSION["InstitutionID"]."'";
+										AND InstitutionID != '".@$_SESSION["InstitutionID"]."'" . $filter;
 
 										$result = mysqli_query($conn,$query);
 

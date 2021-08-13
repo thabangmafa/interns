@@ -164,6 +164,16 @@ if (@$_POST['InstitutionID'] != '') {
                                 <tbody>
                                     
 									<?php
+									
+									$filter = '';
+									
+									if(@$_SESSION['user_type'] == '4' || @$_SESSION['user_type'] == '3'){
+										$filter = "WHERE CallType = 'Graduates'";
+									}elseif(@$_SESSION['user_type'] == '2'){
+										$filter = "WHERE CallType = 'Host Institutions'";
+									}else{
+										$filter = '';
+									}
 				
 										$query = "SELECT DISTINCT a.ID, a.BudgetYear, a.Title, a.Description, a.OpenDate, a.ClosingDate, a.HostRequirementsFile, a.ApplicantRequirementsFile, 
 													CASE WHEN `ClosingDate` < CURDATE() THEN 'Closed' 
@@ -172,11 +182,12 @@ if (@$_POST['InstitutionID'] != '') {
 													WHEN HostRequirementsFile = '' OR HostRequirementsFile IS NULL THEN 'Missing Documents' 
 													WHEN ApplicantRequirementsFile = '' OR ApplicantRequirementsFile IS NULL THEN 'Missing Documents' 
 													WHEN a.IsActive = 1 AND HostRequirementsFile != '' AND ApplicantRequirementsFile != '' AND `ClosingDate` >= CURDATE() THEN 'Open' END Status , 
-													c.StatusId,c.Status as IsActive, e.Name as Budgy FROM HostInstitutionCalls a 
+													c.StatusId,c.Status as IsActive, e.Name as Budgy 
+													FROM HostInstitutionCalls a 
 													left join `LookupIsActive` c on c.`StatusId` = a.`IsActive` 
 													left join `LookupBudgetYear` e on e.`ID` = a.`BudgetYear`
 													left join `CallInstitutionLink` d on d.CallID = a.ID
-										";
+										" . $filter;
 										
 										 $hostReq = '';
 											$appReq = '';
