@@ -64,7 +64,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 					echo '<div class="col-md-6 col-12">
 						<div class="form-group">
 							<label for="Telephone">Telephone Number <span style="color:red">*</span></label>
-							<input type="text" id="Telephone" class="form-control"
+							<input type="number" id="Telephone" class="form-control"
 								 name="Telephone">
 						</div>
 					</div>';
