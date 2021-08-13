@@ -37,7 +37,7 @@ if(@$_POST["length"] != -1 && !isset($_POST["rowid"]))
  $query1 = 'LIMIT ' . @$_POST['start'] . ', ' . @$_POST['length'];
 }
 
-echo $query. $query1;
+
 $result = mysqli_query($conn,$query. $query1);
 
 $QualificationLevel = mysqli_query($conn,"SELECT distinct * FROM LookupQualificationLevel WHERE IsActive = '1'");
