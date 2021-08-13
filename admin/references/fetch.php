@@ -76,6 +76,14 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 								 name="Email">
 						</div>
 					</div>';
+					
+					echo '<div class="col-md-6 col-12">
+						<div class="form-group">
+							<label for="Organisation">Organisation <span style="color:red">*</span></label>
+							<input type="text" id="Organisation" class="form-control"
+								 name="Organisation">
+						</div>
+					</div>';
 			echo '</div>';
 			exit;
 }
@@ -119,6 +127,14 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 								 name="Email" value="'.$row["Email"].'">
 						</div>
 					</div>';
+					
+					echo '<div class="col-md-6 col-12">
+						<div class="form-group">
+							<label for="Organisation">Organisation</label>
+							<input type="text" id="Organisation" class="form-control"
+								 name="Organisation" value="'.$row["Organisation"].'">
+						</div>
+					</div>';
 				echo '</div>';
 	}
 	exit;
@@ -133,6 +149,7 @@ while($row = mysqli_fetch_array($result))
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Relationship">' . $row["Relationship"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Telephone">' . $row["Telephone"] . '</div>';
   $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Email">' . $row["Email"] . '</div>';
+  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Organisation">' . $row["Organisation"] . '</div>';
 	$sub_array[] = '<div class="icon dripicons-document-edit" data-id="'.$row["ID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div>';
  $data[] = $sub_array;
 }
