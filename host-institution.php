@@ -312,7 +312,7 @@ if(@$_SESSION['InstitutionID']){
                                                     <div class="form-group">
                                                         <label for="NumberEmployed">How many interns have been employed by your institution after their internship? <span style="color:red">*</span></label>
                                                         <input type="number" id="NumberEmployed" class="form-control"
-                                                             name="NumberEmployed" value="<?php echo @$NumberHosted; ?>">
+                                                             name="NumberEmployed" value="<?php echo @$NumberEmployed; ?>">
                                                     </div>
                                                 </div>	
 													
