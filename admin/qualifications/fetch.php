@@ -85,7 +85,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 												 if(@$_SESSION['user_type'] == '4'){ echo '
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="TitleOfResearchProject">Title of Research Project <span style="color:red">*</span></label>
+                                                        <label for="TitleOfResearchProject">Title of thesis (if applicable) <span style="color:red">*</span></label>
                                                         <input type="text" id="TitleOfResearchProject" class="form-control"
                                                              name="TitleOfResearchProject" required="required">
                                                     </div>
@@ -115,12 +115,13 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="Distinction">Distinction <span style="color:red">*</span></label>
+                                                        <label for="Distinction">Degree Classification <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="form-select" id="Distinction" name="Distinction" required="required">
 													<option></option>
-                                                        <option>Yes</option>
-														<option>No</option> 
+                                                        <option>Distinction</option>
+														<option>Merit</option>
+														<option>Pass</option>														
                                                     </select>
                                                 </fieldset>
                                                     </div>
@@ -152,7 +153,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="HighestCompletedQualification">Highest Completed Qualification <span style="color:red">*</span></label>
+                                                        <label for="HighestCompletedQualification">Is this your Hisgest Completed Qualification? <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="form-select" id="HighestCompletedQualification" name="HighestCompletedQualification" required="required">
 													<option></option>
@@ -271,7 +272,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 			
 				<div class="col-md-6 col-12">
 					<div class="form-group">
-						<label for="TitleOfResearchProject">Title of Research Project</label>
+						<label for="TitleOfResearchProject">Title of thesis (if applicable)</label>
 						<input type="text" id="TitleOfResearchProject" required="required" class="form-control"
 							 name="TitleOfResearchProject" value=' . $row["TitleOfResearchProject"] . '>
 					</div>
@@ -302,12 +303,13 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				
 				<div class="col-md-6 col-12">
 					<div class="form-group">
-						<label for="Distinction">Distinction</label>
+						<label for="Distinction">Degree Classification</label>
 						<fieldset class="form-group">
 					<select class="form-select" id="Distinction" name="Distinction" required="required">
 					<option>' . $row["Distinction"] . '</option>
-						<option>Yes</option>
-						<option>No</option> 
+						<option>Distinction</option>
+						<option>Merit</option>
+						<option>Pass</option> 
 					</select>
 				</fieldset>
 					</div>
@@ -339,7 +341,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				
 				<div class="col-md-6 col-12">
 					<div class="form-group">
-						<label for="HighestCompletedQualification">Highest Completed Qualification</label>
+						<label for="HighestCompletedQualification">Is this your Hisgest Completed Qualification?</label>
 						<fieldset class="form-group">
 					<select class="form-select" id="HighestCompletedQualification" required="required" name="HighestCompletedQualification">
 					<option>' . $row["HighestCompletedQualification"] . '</option>

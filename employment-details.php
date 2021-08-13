@@ -307,7 +307,6 @@ if (isset($_POST['Submit'])) {
 													</div>
 												</div>
 												
-												
 												<div class="col-12 d-flex justify-content-end">
 												<button type="reset"
                                                         class="btn btn-light-secondary me-1 mb-1">Reset</button>
