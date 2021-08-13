@@ -102,7 +102,7 @@ $query = "SELECT * FROM ApplicantChecklist
 							<ul class="submenu <?php if($menu_item == "2"){ echo "active"; } ?>">
 						<?php
 						//Interns Menu
-						if(@$_SESSION['user_type'] == '4'){ ?>
+						if(@$_SESSION['user_type'] == '4' || @$_SESSION['user_type'] == '1'){ ?>
 						
 						<li class="submenu-item <?php if($title == "Registration Details"){ echo "active"; } ?>">
 							<a href="user-registration.php">Registration Details <?php echo $RegistrationDetails; ?></a>
@@ -125,7 +125,7 @@ $query = "SELECT * FROM ApplicantChecklist
 						<?php } 
 						
 						//Admin & Mentor Menu
-						if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '3'){ ?>
+						if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '3' || @$_SESSION['user_type'] == '1'){ ?>
 						<li class="submenu-item <?php if($title == "Registration Details"){ echo "active"; } ?>">
 							<a href="user-registration.php">Registration Details <?php echo $RegistrationDetails; ?></a>
 						</li>
@@ -143,7 +143,7 @@ $query = "SELECT * FROM ApplicantChecklist
 						
                             </ul>
                         </li>
-						<?php if(@$_SESSION['user_type'] == '4'){ ?>
+						<?php if(@$_SESSION['user_type'] == '4' || @$_SESSION['user_type'] == '1'){ ?>
 						<li class="sidebar-item  has-sub ">
                             <a href="#" class='sidebar-link '>
                                 <i class="bi bi-stack <?php if($menu_item == "4"){ echo "active"; } ?>"></i>
