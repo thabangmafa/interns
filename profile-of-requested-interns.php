@@ -55,6 +55,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Profile of Re
                                         <th>Primary Scientific Field</th>
                                         <th>Secondary Scientific Field</th>
                                         <th>Number Required</th>
+										<th>Office location of intern(s)</th>
                                         <th>Qualification Level</th>
 										<th>Edit</th>
                                     </tr>

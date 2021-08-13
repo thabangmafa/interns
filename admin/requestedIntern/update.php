@@ -9,6 +9,7 @@ $InstitutionID = mysqli_real_escape_string($conn,$_POST["InstitutionID"]);
  $PrimaryScientificField = mysqli_real_escape_string($conn,$_POST["PrimaryScientificField"]);
   $SecondaryScientificField = mysqli_real_escape_string($conn,$_POST["SecondaryScientificField"]);
   $NumberRequired = mysqli_real_escape_string($conn,$_POST["NumberRequired"]);
+  $Location = mysqli_real_escape_string($conn,$_POST["Location"]);
   $QualificationLevel = mysqli_real_escape_string($conn,$_POST["QualificationLevel"]);
  
  $query = "UPDATE `ProfileOfRequestedInterns` SET 
@@ -16,6 +17,7 @@ $InstitutionID = mysqli_real_escape_string($conn,$_POST["InstitutionID"]);
   PrimaryScientificField='".$PrimaryScientificField."',
   SecondaryScientificField='".$SecondaryScientificField."',
   NumberRequired='".$NumberRequired."',
+  Location='".$Location."',
   QualificationLevel='".$QualificationLevel."'
  WHERE ID = '".$_POST["ID"]."'";
  

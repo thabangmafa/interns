@@ -2,13 +2,14 @@
 include '../connect.php';
 $conn = OpenCon();
 
-if($_POST["InstitutionID"] != '' && $_POST["PrimaryScientificField"] != '' && $_POST["SecondaryScientificField"] != '' && $_POST["NumberRequired"] != '' && $_POST["QualificationLevel"] != '')
+if($_POST["InstitutionID"] != '' && $_POST["PrimaryScientificField"] != '' && $_POST["SecondaryScientificField"] != '' && $_POST["Location"] && $_POST["NumberRequired"] != '' && $_POST["QualificationLevel"] != '')
 {
 	
   $InstitutionID = mysqli_real_escape_string($conn,$_POST["InstitutionID"]);
   $PrimaryScientificField = mysqli_real_escape_string($conn,$_POST["PrimaryScientificField"]);
   $SecondaryScientificField = mysqli_real_escape_string($conn,$_POST["SecondaryScientificField"]);
   $NumberRequired = mysqli_real_escape_string($conn,$_POST["NumberRequired"]);
+  $Location = mysqli_real_escape_string($conn,$_POST["Location"]);
   $QualificationLevel = mysqli_real_escape_string($conn,$_POST["QualificationLevel"]);
   
  $ID = $_SESSION['id'];
@@ -21,12 +22,14 @@ if($_POST["InstitutionID"] != '' && $_POST["PrimaryScientificField"] != '' && $_
   PrimaryScientificField,
   SecondaryScientificField,
   NumberRequired,
+  Location,
   QualificationLevel) 
   VALUES('$ID',
   '$InstitutionID',
   '$PrimaryScientificField',
   '$SecondaryScientificField',
   '$NumberRequired',
+  '$Location',
   '$QualificationLevel')";
 
  if(mysqli_query($conn,$query))

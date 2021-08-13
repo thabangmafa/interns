@@ -3,9 +3,9 @@
 include '../connect.php';
 $conn = OpenCon();
 
-$columns = array('PrimaryScientificField', 'SecondaryScientificField', 'QualificationLevel', 'NumberRequired');
+$columns = array('PrimaryScientificField', 'SecondaryScientificField', 'QualificationLevel', 'NumberRequired', 'Location');
 
-$query = "SELECT a.ID,a.NumberRequired, b.Name, c.Name as PrimaryScientificField, d.Name as SecondaryScientificField, e.Name as QualificationLevel FROM ProfileOfRequestedInterns a 
+$query = "SELECT a.ID,a.NumberRequired,a.Location, b.Name, c.Name as PrimaryScientificField, d.Name as SecondaryScientificField, e.Name as QualificationLevel FROM ProfileOfRequestedInterns a 
 left join LookupInstitutions b on b.InstitutionId = a.InstitutionID
 left join LookupStudyField c on c.ID = a.PrimaryScientificField
 left join LookupStudyField d on d.ID = a.SecondaryScientificField
@@ -109,6 +109,28 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
+                                                        <label for="Location">Office location of intern(s)</label>
+                                                        <fieldset class="form-group">
+                                                    <select class="choices form-select" id="Location" name="Location">
+                                                        <option></option>
+                                                        ';
+				
+															$query = "SELECT * FROM LookupProvince WHERE IsActive = '1' ORDER BY Name asc";
+															$result = mysqli_query($conn, $query);
+															
+
+															while($province = mysqli_fetch_array($result)) {
+															 echo '<option value="'.$province['ID'].'">'.ucwords($province['Name']).'</option>';
+															}
+
+														echo '
+                                                    </select>
+                                                </fieldset>
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
                                                         <label for="QualificationLevel">Qualification Level <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="choices form-select" id="QualificationLevel" name="QualificationLevel">
@@ -195,6 +217,30 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 		
 		<div class="col-md-6 col-12">
 			<div class="form-group">
+				<label for="Location">Office location of intern(s)</label>
+				<fieldset class="form-group">
+			<select class="choices form-select" id="Location" name="Location">
+				<option></option>
+				';
+
+					$query = "SELECT * FROM LookupProvince WHERE IsActive = '1' ORDER BY Name asc";
+					$result = mysqli_query($conn, $query);
+					
+
+					while($province = mysqli_fetch_array($result)) {
+						$select = "";
+						if(@$row["Location"] == $province['ID']){ $select = "selected='selected'"; }
+					 echo '<option value="'.$province['ID'].'" '.$select.'>'.ucwords($province['Name']).'</option>';
+					}
+
+				echo '
+			</select>
+		</fieldset>
+			</div>
+		</div>
+		
+		<div class="col-md-6 col-12">
+			<div class="form-group">
 				<label for="QualificationLevel">Qualification Level</label>
 				<fieldset class="form-group">
 			<select class="choices form-select" id="QualificationLevel" name="QualificationLevel">
@@ -225,6 +271,7 @@ while($row = mysqli_fetch_array($result))
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="PrimaryScientificField">' . $row["PrimaryScientificField"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="SecondaryScientificField">' . $row["SecondaryScientificField"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="NumberRequired">' . $row["NumberRequired"] . '</div>';
+ $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Location">' . $row["Location"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="QualificationLevel">' . $row["QualificationLevel"] . '</div>';
  $sub_array[] = '<div class="icon dripicons-document-edit" data-id="'.$row["ID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div>';
  $data[] = $sub_array;
@@ -234,7 +281,7 @@ while($row = mysqli_fetch_array($result))
 
 function get_all_data($conn)
 {
- $query = "SELECT a.ID,a.NumberRequired, b.Name, c.Name as PrimaryScientificField, d.Name as SecondaryScientificField, e.Name as QualificationLevel FROM ProfileOfRequestedInterns a 
+ $query = "SELECT a.ID,a.NumberRequired,a.Location, b.Name, c.Name as PrimaryScientificField, d.Name as SecondaryScientificField, e.Name as QualificationLevel FROM ProfileOfRequestedInterns a 
 left join LookupInstitutions b on b.InstitutionId = a.InstitutionID
 left join LookupStudyField c on c.ID = a.PrimaryScientificField
 left join LookupStudyField d on d.ID = a.SecondaryScientificField
