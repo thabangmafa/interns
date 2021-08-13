@@ -350,7 +350,7 @@ if (isset($_POST['Submit'])) {
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="id_number">ID/Passport Number <span style="color:red">*</span></label>
-                                                        <input type="text" id="id_number" name="id_number" value="<?php echo @$UserIDNumber; ?>" class="form-control" required="required">
+                                                        <input type="number" maxlength="13" id="id_number" name="id_number" value="<?php echo @$UserIDNumber; ?>" class="form-control" required="required">
                                                     </div>
                                                 </div>
 												
@@ -424,12 +424,12 @@ if (isset($_POST['Submit'])) {
 
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="Disability">Do you have any disability? <span style="color:red">*</span></label>
+                                                        <label for="Disability">Do you have any serious disability that limits your full participation in life activities (such as education, work, social life)? <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="choices form-select" id="Disability" name="Disability">
-													<option><?php echo @$UserDisability; ?></option>
-                                                        <option>Yes</option>
-                                                        <option>No</option>
+			
+                                                        <option <?php if(@$UserDisability == 'Yes'){ $select = "selected='selected'"; } ?>>Yes</option>
+                                                        <option <?php if(@$UserDisability == 'No'){ $select = "selected='selected'"; } ?>>No</option>
                                                     </select>
                                                 </fieldset>
                                                     </div>
@@ -439,9 +439,18 @@ if (isset($_POST['Submit'])) {
 													
 													<div class="form-group" id="disabilityDiv" <?php if(@$UserDisability == '' || @$UserDisability == 'No'){ echo 'style="display:none;"';} ?>>
                                                         
-                                        <label for="DisabilityDetails" class="form-label">Disablity Details <span style="color:red">*</span></label>
-                                        <textarea class="form-control" id="DisabilityDetails" name="DisabilityDetails" 
-                                            rows="3" ><?php echo @$UserDisabilityDetails; ?></textarea>
+														<label for="Disability">Disablity Details <span style="color:red">*</span></label>
+                                                        <fieldset class="form-group">
+                                                    <select class="choices form-select" id="DisabilityDetails" name="DisabilityDetails">
+                                                        <option>None</option>
+															<option <?php if(@$DisabilityDetails == 'Sight (blind/severe visual limitation)'){ $select = "selected='selected'"; } ?>>Sight (blind/severe visual limitation)</option>
+															<option <?php if(@$DisabilityDetails == 'Hearing (deaf, profoundly hard of hearing)'){ $select = "selected='selected'"; } ?>>Hearing (deaf, profoundly hard of hearing)</option>
+															<option <?php if(@$DisabilityDetails == 'Communication (speech impairment)'){ $select = "selected='selected'"; } ?>>Communication (speech impairment)</option>
+															<option <?php if(@$DisabilityDetails == 'Physical disability (needs wheelchair, crutches or prosthesis: limb, hand usage limitations)'){ $select = "selected='selected'"; } ?>>Physical disability (needs wheelchair, crutches or prosthesis: limb, hand usage limitations)</option>
+															<option <?php if(@$DisabilityDetails == 'Intellectual (serious difficulties in learning)'){ $select = "selected='selected'"; } ?>>Intellectual (serious difficulties in learning)</option>
+															<option <?php if(@$DisabilityDetails == 'Emotional (behavioural, psychological)'){ $select = "selected='selected'"; } ?>>Emotional (behavioural, psychological)</option>
+                                                    </select>
+                                                </fieldset>
                                     
                                                     </div>
                                                 </div>
