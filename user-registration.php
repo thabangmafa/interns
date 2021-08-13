@@ -22,7 +22,7 @@ if (isset($_POST['Submit'])) {
 	}
 	$id = $_SESSION['id'];
 	
-	$date_of_birth = validate($_POST['date_of_birth']);
+	//$date_of_birth = validate($_POST['date_of_birth']);
 	$gender = validate($_POST['gender']);
 	$race = validate($_POST['race']);
 	$id_number = validate($_POST['id_number']);
@@ -81,7 +81,6 @@ if (isset($_POST['Submit'])) {
 	
 	$sql2 = "INSERT INTO RegistrationDetails(
 						UserID,
-						DateOfBirth,
 						Gender,
 						Race,
 						IDNumber,
@@ -100,7 +99,7 @@ if (isset($_POST['Submit'])) {
 						$insert1
 ) VALUES(
 						'$id',
-						'$date_of_birth',
+						
 						'$gender',
 						'$race',
 						'$id_number',
@@ -132,7 +131,7 @@ if (isset($_POST['Submit'])) {
 	}else{
 		
 	$sql2 = "UPDATE RegistrationDetails SET 
-						DateOfBirth = '$date_of_birth',
+						
 						Gender = '$gender',
 						Race = '$race',
 						IDNumber = '$id_number',
@@ -169,7 +168,7 @@ if (isset($_POST['Submit'])) {
 
 	while($userdetails = mysqli_fetch_array($result)) {
 
-			$UserDateOfBirth = $userdetails['DateOfBirth'];
+			
 			$UserGender = $userdetails['Gender'];
 			$UserRace = $userdetails['Race'];
 			$UserIDNumber = $userdetails['IDNumber'];
@@ -424,13 +423,13 @@ if (isset($_POST['Submit'])) {
 												
 												
 												
-                                                <div class="col-md-6 col-12">
+                                                <!--div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="date_of_birth">Date of Birth <span style="color:red">*</span></label>
                                                         <input type="date" id="date_of_birth" class="form-control"
-                                                            name="date_of_birth" value="<?php echo @$UserDateOfBirth; ?>" required="required">
+                                                            name="date_of_birth" value="<?php //echo @$UserDateOfBirth; ?>" required="required">
                                                     </div>
-                                                </div>
+                                                </div-->
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
