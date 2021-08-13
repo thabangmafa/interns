@@ -127,7 +127,28 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
                                                     </div>
                                                 </div>
 												
-
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="Sector">Sector <span style="color:red">*</span></label>
+                                                        <fieldset class="form-group">
+                                                    <select class="form-select" id="Sector" name="Sector" required="required">
+													<option></option>
+                                                    <option>Agriculture, Forestry, And Fishing</option>
+													<option>Mining</option>
+													<option>Construction</option>
+													<option>Manufacturing</option>
+													<option>Transportation, Communications, Electric, Gas, and Sanitary Services</option>
+													<option>Wholesale Trade</option>
+													<option>Retail Trade</option>
+													<option>Finance, Insurance, and Real Estate</option>
+													<option>Services</option>
+													<option>Public Administration</option>
+													<option>Eduction (e.g. High Education institutions)</option>
+													<option>Research & Development</option>
+                                                    </select>
+                                                </fieldset>
+                                                    </div>
+                                                </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
@@ -315,7 +336,28 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 					</div>
 				</div>
 				
-
+				<div class="col-md-6 col-12">
+					<div class="form-group">
+						<label for="Sector">Sector <span style="color:red">*</span></label>
+						<fieldset class="form-group">
+					<select class="form-select" id="Sector" name="Sector" required="required">
+					<option>' . $row["Sector"] . '</option>
+					<option>Agriculture, Forestry, And Fishing</option>
+					<option>Mining</option>
+					<option>Construction</option>
+					<option>Manufacturing</option>
+					<option>Transportation, Communications, Electric, Gas, and Sanitary Services</option>
+					<option>Wholesale Trade</option>
+					<option>Retail Trade</option>
+					<option>Finance, Insurance, and Real Estate</option>
+					<option>Services</option>
+					<option>Public Administration</option>
+					<option>Eduction (e.g. High Education institutions)</option>
+					<option>Research & Development</option>
+					</select>
+				</fieldset>
+					</div>
+				</div>
 				
 				<div class="col-md-6 col-12">
 					<div class="form-group">
