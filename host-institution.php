@@ -5,6 +5,22 @@ $conn = OpenCon();
 $menu_item = "3";
 $title = "Host Institution";
 
+if(@$_GET['tax']){
+	$f = "uploads/institution/".$_SESSION['InstitutionID']."/".$_GET['tax'];
+	if( file_exists($f)) unlink($f);
+	$query = "UPDATE HostInstitutionDetails SET TaxPin = '' WHERE UserID = '".$_SESSION['id']."'";
+	mysqli_query($conn, $query);
+	header('Location: host-institution.php');
+}
+
+if(@$_GET['certificate']){
+	$f = "uploads/institution/".$_SESSION['InstitutionID']."/".$_GET['certificate'];
+	if( file_exists($f)) unlink($f);
+	$query = "UPDATE HostInstitutionDetails SET InstitutionRegistrationCertificate = '' WHERE UserID = '".$_SESSION['id']."'";
+	mysqli_query($conn, $query);
+	header('Location: host-institution.php');
+}
+
 $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Host Institution' ";
 		$result = mysqli_query($conn, $sql);
 		$headings = mysqli_fetch_assoc($result);
@@ -30,18 +46,71 @@ if (isset($_POST['Country']) && $_POST['Country'] != '' && isset($_POST['Institu
   
   $SufficientResources = validate($_POST['SufficientResources']);
   $Resources = implode(',',$_POST['Resources']);
-  $Faculty = validate($_POST['Faculty']);
-  $PostalAddress = validate($_POST['PostalAddress']);
-  $CityTown = validate($_POST['CityTown']);
-  $FaxNumber = validate($_POST['FaxNumber']);
-  $PostalCode = validate($_POST['PostalCode']);
-  $TelephoneNumber = validate($_POST['TelephoneNumber']);
-  $PrimaryEmail = validate($_POST['PrimaryEmail']);
-  $ConfirmPrimaryEmail = validate($_POST['ConfirmPrimaryEmail']);
-  $AlternateEmail = validate($_POST['AlternateEmail']);
-  $WebAddress = validate($_POST['WebAddress']);
-  $Country = validate($_POST['Country']);
+  
+  $TaxPin = validate($_POST['TaxPin']);
+  $InstitutionRegistrationCertificate = validate($_POST['InstitutionRegistrationCertificate']);
+  $update = '';
   $UpdatedBy = $_SESSION['id'];
+  
+  if(isset($_FILES['TaxPin']['name'])){
+
+		   /* Getting file name */
+		   $TaxPin = $_FILES['TaxPin']['name'];
+			
+			
+			if (!file_exists('uploads/institution/'.$_SESSION['InstitutionID'])) {
+				mkdir('uploads/institution/'.$_SESSION['InstitutionID'], 0777, true);
+			}
+			
+		   /* Location */
+		   $location = "uploads/institution/".$_SESSION['InstitutionID'].'/'.$TaxPin;
+		   $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
+		   $imageFileType = strtolower($imageFileType);
+
+		   /* Valid extensions */
+		   $valid_extensions = array("pdf","doc","docx");
+
+		   $response = 0;
+		   /* Check file extension */
+		   if(in_array(strtolower($imageFileType), $valid_extensions)) {
+			  /* Upload file */
+			  if(move_uploaded_file($_FILES['TaxPin']['tmp_name'],$location)){
+				 $response = $location;
+				 $update = ",TaxPin = '$TaxPin'";
+			  }
+		   }
+
+	}
+	
+	if(isset($_FILES['InstitutionRegistrationCertificate']['name'])){
+
+		   /* Getting file name */
+		   $InstitutionRegistrationCertificate = $_FILES['InstitutionRegistrationCertificate']['name'];
+			
+			
+			if (!file_exists('uploads/institution/'.$_SESSION['InstitutionID'])) {
+				mkdir('uploads/institution/'.$_SESSION['InstitutionID'], 0777, true);
+			}
+			
+		   /* Location */
+		   $location = "uploads/institution/".$_SESSION['InstitutionID'].'/'.$IDDocument;
+		   $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
+		   $imageFileType = strtolower($imageFileType);
+
+		   /* Valid extensions */
+		   $valid_extensions = array("pdf","doc","docx");
+
+		   $response = 0;
+		   /* Check file extension */
+		   if(in_array(strtolower($imageFileType), $valid_extensions)) {
+			  /* Upload file */
+			  if(move_uploaded_file($_FILES['InstitutionRegistrationCertificate']['tmp_name'],$location)){
+				 $response = $location;
+				 $update = ",InstitutionRegistrationCertificate = '$InstitutionRegistrationCertificate'";
+			  }
+		   }
+
+	}
 	
 
 	
@@ -59,17 +128,8 @@ if (isset($_POST['Country']) && $_POST['Country'] != '' && isset($_POST['Institu
 							HostedYear,
 						  SufficientResources,
 						  Resources,
-						  Faculty,
-						  PostalAddress,
-						  CityTown,
-						  FaxNumber,
-						  PostalCode,
-						  TelephoneNumber,
-						  PrimaryEmail,
-						  ConfirmPrimaryEmail,
-						  AlternateEmail,
-						  WebAddress,
-						  Country,
+						  TaxPin,
+						  InstitutionRegistrationCertificate,
 						  UpdatedBy
 ) VALUES(
 							'$InstitutionID',
@@ -81,17 +141,8 @@ if (isset($_POST['Country']) && $_POST['Country'] != '' && isset($_POST['Institu
 							'$HostedYear',
 						  '$SufficientResources',
 						  '$Resources',
-						  '$Faculty',
-						  '$PostalAddress',
-						  '$CityTown',
-						  '$FaxNumber',
-						  '$PostalCode',
-						  '$TelephoneNumber',
-						  '$PrimaryEmail',
-						  '$ConfirmPrimaryEmail',
-						  '$AlternateEmail',
-						  '$WebAddress',
-						  '$Country',
+						  '$TaxPin',
+						  '$InstitutionRegistrationCertificate',
 						  '$UpdatedBy'
 
 )";
@@ -113,19 +164,11 @@ if (isset($_POST['Country']) && $_POST['Country'] != '' && isset($_POST['Institu
 				HostedYear = '$HostedYear',
 			  SufficientResources = '$SufficientResources',
 			  Resources = '$Resources',
-			  Faculty = '$Faculty',
-			  PostalAddress = '$PostalAddress',
-			  CityTown = '$CityTown',
-			  FaxNumber = '$FaxNumber',
-			  PostalCode = '$PostalCode',
-			  TelephoneNumber = '$TelephoneNumber',
-			  PrimaryEmail = '$PrimaryEmail',
-			  ConfirmPrimaryEmail = '$ConfirmPrimaryEmail',
-			  AlternateEmail = '$AlternateEmail',
-			  WebAddress = '$WebAddress',
-			  Country = '$Country',
+			  TaxPin = '$TaxPin',
+			  InstitutionRegistrationCertificate = '$InstitutionRegistrationCertificate',
+			  
 			  UpdatedBy = '$UpdatedBy'
-	
+				".$update."
 	WHERE InstitutionID = '".$InstitutionID."'";
 
 	$result2 = mysqli_query($conn, $sql2);
@@ -162,17 +205,9 @@ if(@$_SESSION['InstitutionID']){
 		$HostedYear = $userdetails['HostedYear'];
 	  $SufficientResources = $userdetails['SufficientResources'];
 	  $Resources = $userdetails['Resources'];
-	  $Faculty = $userdetails['Faculty'];
-	  $PostalAddress = $userdetails['PostalAddress'];
-	  $CityTown = $userdetails['CityTown'];
-	  $FaxNumber = $userdetails['FaxNumber'];
-	  $PostalCode = $userdetails['PostalCode'];
-	  $TelephoneNumber = $userdetails['TelephoneNumber'];
-	  $PrimaryEmail = $userdetails['PrimaryEmail'];
-	  $ConfirmPrimaryEmail = $userdetails['ConfirmPrimaryEmail'];
-	  $AlternateEmail = $userdetails['AlternateEmail'];
-	  $WebAddress = $userdetails['WebAddress'];
-	  $Country = $userdetails['Country'];
+	  $TaxPin = $userdetails['TaxPin'];
+	  $InstitutionRegistrationCertificate = $userdetails['InstitutionRegistrationCertificate'];
+	  
 	  $UpdatedBy = $userdetails['UpdatedBy'];
 		
 
@@ -359,144 +394,24 @@ if(@$_SESSION['InstitutionID']){
                                                     </select>
                                                 </div>
                                             </div>
-												
-
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="Faculty">Faculty <span style="color:red">*</span></label>
-                                                        <input type="text" id="Faculty" class="form-control"
-                                                             name="Faculty" required="required" value="<?php echo @$Faculty; ?>">
-                                                    </div>
-                                                </div>
 											
 											<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="TelephoneNumber">Primary Telephone Number <span style="color:red">*</span></label>
-                                                        <input type="text" required="required" id="TelephoneNumber" class="form-control"
-                                                             name="TelephoneNumber" value="<?php echo @$TelephoneNumber; ?>">
+                                                        <label for="TaxPin">Attach Tax Pin <span style="color:red">*</span></label> <span  style="float:right"> <?php if(@$TaxPin){
+	 echo '<a style="color:red;" class="icon dripicons-document-delete" href="?tax='.@$TaxPin.'"></a> <a target="_blank" href="uploads/institution/'.$_SESSION['InstitutionID'].'/'.@$TaxPin.'">Attached Document</a>';
+ } ?></span>
+                                                        <input type="file" id="TaxPin" name="TaxPin" value="<?php echo @$TaxPin; ?>" class="form-control" <?php if(!@$TaxPin){ echo 'required="required"'; } ?>>
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="FaxNumber">Fax Number</label>
-                                                        <input type="text" id="FaxNumber" class="form-control"
-                                                             name="FaxNumber" value="<?php echo @$FaxNumber; ?>">
+                                                        <label for="InstitutionRegistrationCertificate">Attach institution registration certificate <span style="color:red">*</span></label> <span  style="float:right"> <?php if(@$InstitutionRegistrationCertificate){
+	 echo '<a style="color:red;" class="icon dripicons-document-delete" href="?certificate='.@$InstitutionRegistrationCertificate.'"></a> <a target="_blank" href="uploads/institution/'.$_SESSION['InstitutionID'].'/'.@$InstitutionRegistrationCertificate.'">Attached Document</a>';
+ } ?></span>
+                                                        <input type="file" id="InstitutionRegistrationCertificate" name="InstitutionRegistrationCertificate" value="<?php echo @$InstitutionRegistrationCertificate; ?>" class="form-control" <?php if(!@$InstitutionRegistrationCertificate){ echo 'required="required"'; } ?>>
                                                     </div>
                                                 </div>
-												
-												
-												
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="PrimaryEmail">Primary Email Address <span style="color:red">*</span></label>
-                                                        <input type="email" id="PrimaryEmail" class="form-control"
-                                                            name="PrimaryEmail" value="<?php echo @$PrimaryEmail; ?>" required="required">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="ConfirmPrimaryEmail">Confirm Primary Email Address <span style="color:red">*</span></label>
-                                                        <input type="email" required="required" id="ConfirmPrimaryEmail" class="form-control"
-                                                            name="ConfirmPrimaryEmail" value="<?php echo @$ConfirmPrimaryEmail; ?>">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="AlternateEmail">Alternate Email Address <span style="color:red">*</span></label>
-                                                        <input type="email" required="required" id="AlternateEmail" class="form-control"
-                                                            name="AlternateEmail" value="<?php echo @$AlternateEmail; ?>">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="WebAddress">Web Address <span style="color:red">*</span></label>
-                                                        <input type="text" required="required" id="WebAddress" class="form-control"
-                                                            name="WebAddress" value="<?php echo @$WebAddress; ?>">
-                                                    </div>
-                                                </div>
-											
-											
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        
-                                        <label for="PostalAddress" class="form-label">Work Postal Address (excluding department) <span style="color:red">*</span> </label>
-                                        <textarea class="form-control" required="required" id="PostalAddress" name="PostalAddress"
-                                            rows="3"><?php echo @$PostalAddress; ?></textarea>
-                                    
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="CityTown">City/Town <span style="color:red">*</span></label>
-                                                        <input type="text" required="required" id="CityTown" class="form-control"
-                                                             name="CityTown" value="<?php echo @$CityTown; ?>">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="PostalCode">Postal Code <span style="color:red">*</span></label>
-                                                        <input type="text" required="required" id="PostalCode" class="form-control"
-                                                             name="PostalCode" value="<?php echo @$PostalCode; ?>">
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="Province">Province <span style="color:red">*</span></label>
-                                                        <fieldset class="form-group">
-                                                    <select class="choices form-select" required="required" id="Province" name="Province">
-													<option></option>
-                                                        <?php
-				
-															$query = "SELECT * FROM LookupProvince WHERE IsActive = '1' ORDER BY Name asc";
-															$result = mysqli_query($conn, $query);
-
-															while($province = mysqli_fetch_array($result)) {
-																$select = '';
-																if(@$Province == $province['ID']){ $select = "selected='selected'"; }
-															 echo '<option value="'.$province['ID'].'" '.$select.'>'.ucwords($province['Name']).'</option>';
-															}
-
-														?>
-														
-                                                    </select>
-                                                </fieldset>
-                                                    </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="Country">Country <span style="color:red">*</span></label>
-                                                        <fieldset class="form-group">
-                                                    <select class="choices form-select" required="required" id="Country" name="Country">
-                                                        <option></option>
-                                                        <?php
-				
-															$query = "SELECT * FROM LookupCountry WHERE IsActive = '1' ORDER BY Country asc";
-															$result = mysqli_query($conn, $query);
-
-															while($country = mysqli_fetch_array($result)) {
-																$select = '';
-																if(@$Country == $country['ID']){ $select = "selected='selected'"; }
-															 echo '<option value="'.$country['ID'].'" '.$select.'>'.ucwords($country['Country']).'</option>';
-															}
-
-														?>
-                                                    </select>
-                                                </fieldset>
-                                                    </div>
-                                                </div>
-												
-												
-												
-												
-												
 
                                                 
                                             </div>
