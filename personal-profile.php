@@ -12,14 +12,24 @@ $sql = "SELECT distinct * FROM UserProfile WHERE UserID='".$_SESSION['id']."' ";
 		$result = mysqli_query($conn, $sql);
 		$row = mysqli_fetch_assoc($result);
 $id = $_SESSION['id'];
-if (isset($_POST['profile'])) {
+if (@$_POST['EducationalandProfessional'] != '' || @$_POST['GoalsandAspirations'] != '' || @$_POST['Awards'] != '' || @$_POST['CommunityEngagement'] != '') {
 	
-	$profile = $_POST['profile'];
+	$EducationalandProfessional = $_POST['EducationalandProfessional'];
+	$GoalsandAspirations = $_POST['GoalsandAspirations'];
+	$Awards = $_POST['Awards'];
+	$Platform = $_POST['Platform'];
+	$CommunityEngagement = $_POST['CommunityEngagement'];
 	
 	if (mysqli_num_rows($result) > 0) {
-		mysqli_query($conn,"UPDATE UserProfile SET Description = '$profile' WHERE UserID = '".$_SESSION['id']."'");
+		mysqli_query($conn,"UPDATE UserProfile SET 
+		EducationalandProfessional = '$EducationalandProfessional', 
+		GoalsandAspirations = '$GoalsandAspirations', 
+		Awards = '$Awards', 
+		Platform = '$Platform',
+		CommunityEngagement = '$CommunityEngagement' WHERE UserID = '".$_SESSION['id']."'");
 	}else{
-		mysqli_query($conn,"INSERT INTO UserProfile(UserID,Description) VALUES('".$_SESSION['id']."','$profile')");
+		mysqli_query($conn,"INSERT INTO UserProfile(UserID,EducationalandProfessional,GoalsandAspirations,Awards,CommunityEngagement,Platform) 
+		VALUES('".$_SESSION['id']."','$EducationalandProfessional','$GoalsandAspirations','$Awards','$CommunityEngagement','$Platform')");
 		$checklist = "INSERT INTO ApplicantChecklist(UserID, Section)VALUES('$id','Personal Profile')";
 		mysqli_query($conn, $checklist);
 	} 
@@ -69,21 +79,74 @@ if (isset($_POST['profile'])) {
                                     <div class="card-body">
                                         <form class="form" action="" method="post">
                                             <div class="row">
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="Platform">Where did you find out about this internship opportunity?</label>
+                                                        <fieldset class="form-group">
+                                                    <select class="choices form-select" id="Platform" name="Platform">
+													<option><?php echo @$row['Platform']; ?></option>
+                                                        <option>Newspaper advertisement</option>
+														<option>Employment website e.g. Indeed, Careers24.com etc</option>
+														<option>HSRC website</option>
+														<option>Through social media</option>
+														<option>While searching for jobs using the Internet</option>
+														<option>Made enquiries at workplaces</option>
+														<option>Through recruitment agencies</option>
+														<option>From a friend/family member</option>
+
+                                                    </select>
+                                                </fieldset>
+                                                    </div>
+                                                </div>
+												
+												
 												<div class="col-md-12 col-12">
                                                     <div class="form-group">
                                                         
-                                        <label for="profile" class="form-label">Description <span style="color:red">*</span></label>
-                                        <textarea class="form-control" required="required" name="profile" id="profile"
-                                            rows="3"><?php echo @$row['Description']; ?></textarea>
+                                        <label for="EducationalandProfessional" class="form-label">Educational and Professional Summary</label>
+                                        <textarea class="form-control" name="EducationalandProfessional" id="EducationalandProfessional"
+                                            rows="3"><?php echo @$row['EducationalandProfessional']; ?></textarea>
+                                    
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-12 col-12">
+                                                    <div class="form-group">
+                                                        
+                                        <label for="GoalsandAspirations" class="form-label">Educational and Career, Goals and Aspirations</label>
+                                        <textarea class="form-control" name="GoalsandAspirations" id="GoalsandAspirations"
+                                            rows="3"><?php echo @$row['GoalsandAspirations']; ?></textarea>
+                                    
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-12 col-12">
+                                                    <div class="form-group">
+                                                        
+                                        <label for="Awards" class="form-label">Awards and Special Achievements</label>
+                                        <textarea class="form-control" name="Awards" id="Awards"
+                                            rows="3"><?php echo @$row['Awards']; ?></textarea>
+                                    
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-12 col-12">
+                                                    <div class="form-group">
+                                                        
+                                        <label for="CommunityEngagement" class="form-label">Civic, community engagement and other interests</label>
+                                        <textarea class="form-control" name="CommunityEngagement" id="CommunityEngagement"
+                                            rows="3"><?php echo @$row['CommunityEngagement']; ?></textarea>
                                     
                                                     </div>
                                                 </div>
                                
                                                 <div class="col-12 d-flex justify-content-end">
-                                                    <button type="submit"
-                                                        class="btn btn-primary me-1 mb-1">Submit</button>
+                                          
                                                     <button type="reset"
                                                         class="btn btn-light-secondary me-1 mb-1">Reset</button>
+														<button type="submit"
+                                                        class="btn btn-primary me-1 mb-1">Submit</button>
                                                 </div>
                                             </div>
                                         </form>
