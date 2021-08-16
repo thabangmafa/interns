@@ -25,7 +25,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Host Institut
 		$result = mysqli_query($conn, $sql);
 		$headings = mysqli_fetch_assoc($result);
 
-if ($_POST['Country'] != '' && @$_SESSION['InstitutionID'] != '' && $_POST['Submit'] != '') {
+if (@$_POST['Country'] != '' && @$_SESSION['InstitutionID'] != '' && @$_POST['Submit'] != '') {
 
 	function validate($data){
        $data = trim($data);
