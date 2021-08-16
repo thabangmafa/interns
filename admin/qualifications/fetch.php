@@ -251,10 +251,13 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 	$files = '';
 	$req = '';
 	$i = 0;
-	foreach(@$scanned_directory as @$file){
+	if(@$scanned_directory){
+	foreach($scanned_directory as $file){
 		$i++;
 		$files .= '<a style="color:red" class="icon dripicons-document-delete" href="?section=qualifications&file='.@$file.'"></a> <a target="_blank" href="../../uploads/qualifications/'.@$_SESSION["id"].'/'.$file.'"> Transcript '.$i.'</a> | ';
 		$req = 'required="required"';
+	}
+	
 	}
 
 
