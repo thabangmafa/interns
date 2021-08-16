@@ -8,7 +8,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Contact Detai
 		$result = mysqli_query($conn, $sql);
 		$headings = mysqli_fetch_assoc($result);
 
-if (isset($_POST['FullTimeStudent'])) {
+if ($_POST['Submit'] != '') {
 	
 	function validate($data){
        $data = trim($data);

@@ -7,7 +7,7 @@ $query = "SELECT a.InstitutionID, WorkPostalAddress, WorkCityTown, WorkPostalCod
 left join LookupInstitutions b on b.InstitutionId = a.InstitutionID 
 left join UserContactDetails C on C.CurrentOrganisation = a.InstitutionID 
 WHERE a.InstitutionID = '".$_POST['InstitutionID']."' and C.UserID = '".$_SESSION['id']."'";
-
+echo $query;
 
 $result = mysqli_query($conn,$query);
 $row = mysqli_fetch_array($result);
