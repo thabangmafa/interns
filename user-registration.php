@@ -100,7 +100,7 @@ if (isset($_POST['Submit'])) {
 						Gender,
 						Race,
 						IDNumber,
-						PassportNumber
+						PassportNumber,
 						IDType,
 						Citizenship,
 						Country,
@@ -182,6 +182,8 @@ if (isset($_POST['Submit'])) {
 	 
 	
 }
+
+//echo $sql2;
 
 	$query = "SELECT a.*, b.Email FROM RegistrationDetails a
 	left join users b on b.UserID = a.UserID
@@ -534,10 +536,11 @@ if (isset($_POST['Submit'])) {
 												
                                
                                                 <div class="col-12 d-flex justify-content-end">
-                                                    <button type="submit"
-                                                        class="btn btn-primary me-1 mb-1" name="Submit" value="Submit">Submit</button>
+                                                    
                                                     <button type="reset"
                                                         class="btn btn-light-secondary me-1 mb-1">Reset</button>
+														<button type="submit"
+                                                        class="btn btn-primary me-1 mb-1" name="Submit" value="Submit">Submit</button>
                                                 </div>
                                             </div>
                                         </form>
