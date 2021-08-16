@@ -34,7 +34,7 @@ if (isset($_POST['Country']) && $_POST['Country'] != '' && isset(@$_SESSION['Ins
 	   return $data;
 	}
 
-	$InstitutionID = $_SESSION['InstitutionID']);
+	$InstitutionID = $_SESSION['InstitutionID'];
   $CategoriseInstitution = validate($_POST['CategoriseInstitution']);
   $Province = validate($_POST['Province']);
   $HostedInternsBefore = validate($_POST['HostedInternsBefore']);
