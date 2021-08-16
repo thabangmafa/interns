@@ -587,7 +587,7 @@ if (@$_POST['Submit'] != '') {
 												
 												<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%; <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1'){ echo 'display:inline;'; }else{ echo 'display:none;'; } ?>">Alternate Contact Person in Institution.</div>
 												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1'){ echo 'display:inline;'; }else{ echo 'display:none;'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1'){ echo 'style="display:inline;"'; }else{ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="AlternateContactName">Name <span style="color:red">*</span></label>
                                                         <input type="text" id="AlternateContactName" class="form-control"
@@ -595,7 +595,7 @@ if (@$_POST['Submit'] != '') {
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1'){ echo 'display:inline;'; }else{ echo 'display:none;'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1'){ echo 'style="display:inline;"'; }else{ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="AlternateContactEmail">Email <span style="color:red">*</span></label>
                                                         <input type="email" id="AlternateContactEmail" class="form-control"
@@ -603,7 +603,7 @@ if (@$_POST['Submit'] != '') {
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1'){ echo 'display:inline;'; }else{ echo 'display:none;'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1'){ echo 'style="display:inline;"'; }else{ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="AlternateContactDesignation">Designation <span style="color:red">*</span></label>
                                                         <input type="text" id="AlternateContactDesignation" class="form-control"
@@ -611,7 +611,7 @@ if (@$_POST['Submit'] != '') {
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1'){ echo 'display:inline;'; }else{ echo 'display:none;'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1'){ echo 'style="display:inline;"'; }else{ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="AlternateContactTelephone">Telephone</label>
                                                         <input type="number" id="AlternateContactTelephone" class="form-control"
@@ -619,7 +619,7 @@ if (@$_POST['Submit'] != '') {
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1'){ echo 'display:inline;'; }else{ echo 'display:none;'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1'){ echo 'style="display:inline;"'; }else{ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="AlternateContactCellphone">Cellphone <span style="color:red">*</span></label>
                                                         <input type="number" id="AlternateContactCellphone" class="form-control"
