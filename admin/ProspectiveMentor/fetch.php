@@ -44,7 +44,7 @@ $result = mysqli_query($conn,$query. $query1);
 	
 $data = array();
 
-$LookupQualificationLevels = mysqli_query($conn,"SELECT distinct * FROM LookupQualificationLevel WHERE IsActive = '1'");
+$LookupQualificationLevels = mysqli_query($conn,"SELECT distinct * FROM LookupQualificationLevel WHERE IsActive = '1' AND UserType IN (2,3)");
 
 while($LookupQualificationLevel = mysqli_fetch_array($LookupQualificationLevels))
 	{
