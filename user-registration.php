@@ -183,7 +183,6 @@ if (isset($_POST['Submit'])) {
 	
 }
 
-//echo $sql2;
 
 	$query = "SELECT a.*, b.Email FROM RegistrationDetails a
 	left join users b on b.UserID = a.UserID
