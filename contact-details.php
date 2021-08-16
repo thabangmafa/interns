@@ -554,7 +554,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     <div class="form-group">
                                                         <label for="Name">Name <span style="color:red">*</span></label>
                                                         <input type="text" id="Name" class="form-control"
-                                                             name="Name" value="<?php echo @$Name; ?>" required="required">
+                                                             name="Name" value="<?php echo @$Name; ?>">
                                                     </div>
                                                 </div>
 												
@@ -562,7 +562,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     <div class="form-group">
                                                         <label for="Telephone">Telephone Number <span style="color:red">*</span></label>
                                                         <input type="text" id="Telephone" class="form-control"
-                                                             name="Telephone" value="<?php echo @$Telephone; ?>" required="required">
+                                                             name="Telephone" value="<?php echo @$Telephone; ?>">
                                                     </div>
                                                 </div>
 												
@@ -570,7 +570,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     <div class="form-group">
                                                         <label for="Cellnumber">Cellphone Number <span style="color:red">*</span></label>
                                                         <input type="text" id="Cellnumber" class="form-control"
-                                                             name="Cellnumber" value="<?php echo @$Cellnumber; ?>" required="required">
+                                                             name="Cellnumber" value="<?php echo @$Cellnumber; ?>">
                                                     </div>
                                                 </div>
 												
@@ -578,14 +578,14 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     <div class="form-group">
                                                         <label for="Relationship">Relationship to you <span style="color:red">*</span></label>
                                                         <input type="text" id="Relationship" class="form-control"
-                                                             name="Relationship" value="<?php echo @$Relationship; ?>" required="required">
+                                                             name="Relationship" value="<?php echo @$Relationship; ?>">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="Address">Physical Address <span style="color:red">*</span></label>
-                                                        <textarea class="form-control" id="Address" name="Address" rows="3" required="required"><?php echo @$Address; ?></textarea>
+                                                        <textarea class="form-control" id="Address" name="Address" rows="3"><?php echo @$Address; ?></textarea>
                                                     </div>
                                                 </div>
 												
