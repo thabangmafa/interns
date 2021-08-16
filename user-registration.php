@@ -193,7 +193,7 @@ if (isset($_POST['Submit'])) {
 
 
 			$UserGender = $userdetails['Gender'];
-			$UserDateofBirth = $userdetails['date_of_birth'];
+			$UserDateofBirth = $userdetails['DateOfBirth'];
 			$UserRace = $userdetails['Race'];
 			$UserIDNumber = $userdetails['IDNumber'];
 			$UserIDType = $userdetails['IDType'];
