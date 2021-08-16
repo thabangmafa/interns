@@ -416,11 +416,12 @@ if(@$_SESSION['InstitutionID']){
                                                 
                                             </div>
 											<div class="col-12 d-flex justify-content-end">
-                                                    
+                                                    <?php if(@$_SESSION['user_type'] == '2'){ ?>
                                                     <button type="reset"
                                                         class="btn btn-light-secondary me-1 mb-1">Reset</button>
 														<button type="submit"
                                                         class="btn btn-primary me-1 mb-1" name="Submit" value="Submit">Submit</button>
+														<? }else{ echo '<div class="alert alert-light-danger color-danger"><i class="bi bi-exclamation-circle"></i>Only Host Admin can capture this information</div>'; } ?>
                                                 </div>
                                         </form>
                                     </div>
