@@ -24,6 +24,7 @@ if (isset($_POST['Submit'])) {
 	
 	
 	$id_number = validate($_POST['id_number']);
+	$passport_number = validate($_POST['passport_number']);
 	
 	$oldstr = substr($id_number,0,6);
 
@@ -99,6 +100,7 @@ if (isset($_POST['Submit'])) {
 						Gender,
 						Race,
 						IDNumber,
+						PassportNumber
 						IDType,
 						Citizenship,
 						Country,
@@ -119,6 +121,7 @@ if (isset($_POST['Submit'])) {
 						'$gender',
 						'$race',
 						'$id_number',
+						'$passport_number',
 						'$id_type',
 						'$citizenship',
 						'$country',
@@ -152,6 +155,7 @@ if (isset($_POST['Submit'])) {
 						Gender = '$gender',
 						Race = '$race',
 						IDNumber = '$id_number',
+						PassportNumber = '$passport_number',
 						IDType = '$id_type',
 						Citizenship = '$citizenship',
 						Country = '$country',
@@ -375,10 +379,21 @@ if (isset($_POST['Submit'])) {
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12">
+												<div class="col-md-6 col-12 IDView" <?php if(@$id_type == '2'){ echo 'style="display:none;"'; }elseif(@$id_type == '1'){ echo 'style="display:inline;"'; }else{
+													 echo 'style="display:none;"';
+												} ?>>
                                                     <div class="form-group">
-                                                        <label for="id_number">ID/Passport Number <span style="color:red">*</span></label>
+                                                        <label for="id_number">ID Number <span style="color:red">*</span></label>
                                                         <input type="number" maxlength="13" id="id_number" name="id_number" value="<?php echo @$UserIDNumber; ?>" class="form-control" required="required">
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-6 col-12 PassportView" <?php if(@$id_type == '1'){ echo 'style="display:none;"'; }elseif(@$id_type == '2'){ echo 'style="display:inline;"'; }else{
+													 echo 'style="display:none;"';
+												} ?>>
+                                                    <div class="form-group">
+                                                        <label for="passport_number">Passport Number <span style="color:red">*</span></label>
+                                                        <input type="text" id="passport_number" name="passport_number" value="<?php echo @$PassportNumber; ?>" class="form-control">
                                                     </div>
                                                 </div>
 												
@@ -568,6 +583,20 @@ $('#Disability').change(function() {
 		$('#disabilityDiv').show();
 	}else{
 		$('#disabilityDiv').hide();
+	}
+});
+
+
+$('#id_type').change(function() {
+	var val = $(this).val();
+
+    if(val === "2") {
+		$('.PassportView').show();
+		$('.IDView').hide();
+	}else{
+		$('.PassportView').hide();
+		$('.IDView').show();
+		
 	}
 });
 
