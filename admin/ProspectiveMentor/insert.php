@@ -49,8 +49,7 @@ $Person = mysqli_fetch_array($result);
 	
 	'. @$Person['Initials'] . ' ' . @$Person['FirstName'] . ' ' . @$Person['LastName'] . ' has invited you to become a mentor on the HSRC Interns Programme.
 	
-	Please click on this link in order to register on the portal: http://interns.hsrc.ac.za 
-	
+	Please click on this link in order to register on the portal: http://interns.hsrc.ac.za
 	Regards,
 	HSRC Internship Programme';
 	
@@ -59,7 +58,7 @@ $Person = mysqli_fetch_array($result);
 	
 	'. @$Person['Initials'] . ' ' . @$Person['FirstName'] . ' ' . @$Person['LastName'] . ' has invited you to become a mentor on the HSRC Interns Programme.
 	
-	Please login to the platform in order to respond to this invitation. http://interns.hsrc.ac.za 
+	Please login to the platform in order to respond to this invitation. http://interns.hsrc.ac.za
 	
 	Regards,
 	HSRC Internship Programme';
