@@ -5,7 +5,7 @@ $conn = OpenCon();
 if($_POST["PrimaryScientificField"] != '' && $_POST["SecondaryScientificField"] != '' && $_POST["Location"] && $_POST["NumberRequired"] != '' && $_POST["QualificationLevel"] != '')
 {
 	
-  $InstitutionID = mysqli_real_escape_string($conn,$_POST["InstitutionID"]);
+  $InstitutionID = $_SESSION['InstitutionID'];
   $PrimaryScientificField = mysqli_real_escape_string($conn,$_POST["PrimaryScientificField"]);
   $SecondaryScientificField = mysqli_real_escape_string($conn,$_POST["SecondaryScientificField"]);
   $NumberRequired = mysqli_real_escape_string($conn,$_POST["NumberRequired"]);
