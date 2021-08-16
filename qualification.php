@@ -90,7 +90,7 @@ if(@$_GET['record']){
                             </table>
 							<div class="col-12 d-flex justify-content-end">
      
-													<div class="btn btn-primary me-1 mb-1" data-bs-toggle="modal" data-id="000" data-bs-target="#capture-new">Add Another</div>
+													<div class="btn btn-primary me-1 mb-1" data-bs-toggle="modal" data-id="000" data-bs-target="#capture-new">Add</div>
                                                    
                                                 </div>
 							
