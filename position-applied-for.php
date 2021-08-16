@@ -17,7 +17,7 @@ if (isset($_POST['Submit'])) {
 	   return $data;
 	}
 	$id = $_SESSION['id'];
-	$CurrentInstitution = validate($_POST['CurrentInstitution']);
+	$CurrentInstitution = '';
 	
 	$FirstProvince = validate($_POST['FirstProvince']);
 	$FirstDiscipline = validate($_POST['FirstDiscipline']);
@@ -162,7 +162,7 @@ if (isset($_POST['Submit'])) {
                                         <form class="form" method="POST" action="">
                                             <div class="row">
 												
-												<div class="col-md-6 col-12">
+												<!--div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="CurrentInstitution">Organization <span style="color:red">*</span></label>
                                                         <input autocomplete="off" list="OrganisationList" id="CurrentInstitution" class="form-control" name="CurrentInstitution" value="<?php echo @$OrganisationName; ?>">
@@ -174,13 +174,13 @@ if (isset($_POST['Submit'])) {
 															
 
 															while($institution = mysqli_fetch_array($result)) {
-															 echo '<option>'.ucwords($institution['Name']).'</option>';
+															 //echo '<option>'.ucwords($institution['Name']).'</option>';
 															}
 
 														?>
                                                     </datalist>
                                                     </div>
-                                                </div>
+                                                </div-->
 												
 												
 												
