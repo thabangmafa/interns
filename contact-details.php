@@ -282,7 +282,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                     <div class="card-body">
                                         <form class="form" action="" method="post">
                                             <div class="row">
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '3'){ echo 'style="display:none;"'; } ?>>
+												<!--div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '3'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="FullTimeStudent">Are you a full time student? <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
@@ -294,9 +294,9 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     </select>
                                                 </fieldset>
                                                     </div>
-                                                </div>
-												
-												<div class="col-md-6 col-12">
+                                                </div-->
+												<?php if(@$_SESSION['user_type'] != '4'){  ?>
+												<div class="col-md-6 col-12" >
                                                     <div class="form-group">
                                                         <label for="CurrentOrganisation">Current organisation</label>
                                                         <input autocomplete="off" list="OrganisationList" id="CurrentOrganisation" class="form-control" name="CurrentOrganisation" value="<?php echo @$OrganisationName; ?>">
@@ -316,7 +316,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     </div>
                                                 </div>						
 												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display"none;"'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="IsOrganisationFundingSalary">Is this the organisation that funds your salary?</label>
                                                         <fieldset class="form-group">
@@ -355,9 +355,10 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     </div>
                                                 </div>
 											
+											<?php } ?>
 											
 											
-											
+											<?php if(@$_SESSION['user_type'] != '4'){  ?>
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         
@@ -367,6 +368,8 @@ if (isset($_POST['FullTimeStudent'])) {
                                     
                                                     </div>
                                                 </div>
+												<?php } ?>
+												
 												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         
@@ -376,6 +379,8 @@ if (isset($_POST['FullTimeStudent'])) {
                                     
                                                     </div>
                                                 </div>
+												
+												<?php if(@$_SESSION['user_type'] != '4'){  ?>
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="WorkCityTown">Work City/Town</label>
@@ -383,6 +388,8 @@ if (isset($_POST['FullTimeStudent'])) {
                                                              name="WorkCityTown" value="<?php echo @$WorkCityTown; ?>">
                                                     </div>
                                                 </div>
+												<?php } ?>
+												
 												
 												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
@@ -392,6 +399,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     </div>
                                                 </div>
 												
+												<?php if(@$_SESSION['user_type'] != '4'){  ?>
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="WorkPostalCode">Work Postal Code</label>
@@ -399,6 +407,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                              name="WorkPostalCode" value="<?php echo @$WorkPostalCode; ?>">
                                                     </div>
                                                 </div>
+												<?php } ?>
 												
 												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
@@ -408,6 +417,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     </div>
                                                 </div>
 												
+												<?php if(@$_SESSION['user_type'] != '4'){  ?>
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="WorkProvince">Work Province/State</label>
@@ -431,6 +441,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                 </fieldset>
                                                     </div>
                                                 </div>
+												<?php } ?>
 												
 												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
@@ -456,6 +467,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     </div>
                                                 </div>
 												
+												<?php if(@$_SESSION['user_type'] != '4'){  ?>
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="WorkCountry">Work Country <span style="color:red">*</span></label>
@@ -479,7 +491,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                 </fieldset>
                                                     </div>
                                                 </div>
-												
+												<?php } ?>
 												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="Country">Home Country <span style="color:red">*</span></label>
