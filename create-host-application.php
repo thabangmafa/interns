@@ -14,6 +14,21 @@ if(@$_POST['InstitutionID'] != '')
 	
 	 if(mysqli_query($conn,$InsertApplication))
 	 {
+		 $subject = "DSI-HSRC Internship Programme - Application";
+		 
+		 $txt = "Dear Applicant,
+		 
+		 We are pleased to confirm that your application for the DSI-HSRC Internship Programme has been received and is under review. 
+		 
+		 You will be notified once the process has been concluded.
+		 
+		 Regards,
+		 HSRC Team";
+				$headers = "From: noreply@hsrc.ac.za" . "\r\n";
+
+				mail($_SESSION['email'],$subject,$txt,$headers);  
+		 
+		 
 		$message = 'Application Submitted Successful';
 	 }else{
 		 $message =  'Oops. Something went wrong. Try Again.';
