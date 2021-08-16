@@ -380,7 +380,7 @@ if (isset($_POST['Submit'])) {
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12 IDView" <?php if(@$id_type == '2'){ echo 'style="display:none;"'; }elseif(@$id_type == '1'){ echo 'style="display:inline;"'; }else{
+												<div class="col-md-6 col-12 IDView" <?php if(@$id_type == '2'){ echo 'style="display:none;"'; }elseif(@$id_type == '1' || @$UserIDType == '1'){ echo 'style="display:inline;"'; }else{
 													 echo 'style="display:none;"';
 												} ?>>
                                                     <div class="form-group">
@@ -389,7 +389,7 @@ if (isset($_POST['Submit'])) {
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12 PassportView" <?php if(@$id_type == '1'){ echo 'style="display:none;"'; }elseif(@$id_type == '2'){ echo 'style="display:inline;"'; }else{
+												<div class="col-md-6 col-12 PassportView" <?php if(@$id_type == '1'){ echo 'style="display:none;"'; }elseif(@$id_type == '2' || @$UserIDType == '2'){ echo 'style="display:inline;"'; }else{
 													 echo 'style="display:none;"';
 												} ?>>
                                                     <div class="form-group">
