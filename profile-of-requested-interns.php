@@ -66,7 +66,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Profile of Re
 							<?php if(@$_SESSION['user_type'] == '2'){ ?>
      
 													<div class="btn btn-primary me-1 mb-1" data-bs-toggle="modal" data-id="000" data-bs-target="#capture-new">Capture Profile</div>
-													<? }else{ echo '<div class="alert alert-light-danger color-danger"><i class="bi bi-exclamation-circle"></i>Only Host Admin can capture this information</div>'; } ?>
+													<?php }else{ echo '<div class="alert alert-light-danger color-danger"><i class="bi bi-exclamation-circle"></i>Only Host Admin can capture this information</div>'; } ?>
                                                    
                                                 </div>
 							
