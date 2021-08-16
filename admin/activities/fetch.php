@@ -64,10 +64,10 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 	{
 		echo '<h5>'.$message.'</h5>';
 		echo '<hr />';
-		echo '<input type="hidden" id="ID" class="form-control" name="ID" value="' . $_POST["rowid"] . '">';
-		echo '<input type="hidden" id="Table" class="form-control" name="Table" value="' . $_POST["section"] . '">';
-		echo '<input type="hidden" id="institutionid" class="form-control" name="institutionid" value="' . $_POST["institutionid"] . '">';
-		echo '<input type="hidden" id="callid" class="form-control" name="callid" value="' . $_POST["callid"] . '">';
+		echo '<input type="hidden" id="ID" class="form-control" name="ID" value="' . @$_POST["rowid"] . '">';
+		echo '<input type="hidden" id="Table" class="form-control" name="Table" value="' . @$_POST["section"] . '">';
+		echo '<input type="hidden" id="institutionid" class="form-control" name="institutionid" value="' . @$_POST["institutionid"] . '">';
+		echo '<input type="hidden" id="callid" class="form-control" name="callid" value="' . @$_POST["callid"] . '">';
 		echo '<div class="row col px-md-3">
 											<table>
 											
@@ -86,7 +86,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 											</tr>
 											<tr>
 												<td>ID/Passport Number</td>
-												<td>'.$row["IDNumber"].'</td>
+												<td>'.@$row["IDNumber"].'</td>
 											</tr>
 											<tr>
 												<td>Primary Email Address</td>
