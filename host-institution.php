@@ -250,6 +250,9 @@ if(@$_SESSION['InstitutionID']){
                                     
                                 </div>
                                 <div class="card-content">
+								<?php if(@$message){ ?>	
+								<div class="alert alert-success" role="alert"><?php echo @$message; ?></div>
+								<?php } ?>
                                     <div class="card-body">
                                         <form class="form" method="post" action="" enctype="multipart/form-data">
 

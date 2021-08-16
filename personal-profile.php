@@ -27,11 +27,13 @@ if (@$_POST['EducationalandProfessional'] != '' || @$_POST['GoalsandAspirations'
 		Awards = '$Awards', 
 		Platform = '$Platform',
 		CommunityEngagement = '$CommunityEngagement' WHERE UserID = '".$_SESSION['id']."'");
+		$message = "Details successfully updated.";
 	}else{
 		mysqli_query($conn,"INSERT INTO UserProfile(UserID,EducationalandProfessional,GoalsandAspirations,Awards,CommunityEngagement,Platform) 
 		VALUES('".$_SESSION['id']."','$EducationalandProfessional','$GoalsandAspirations','$Awards','$CommunityEngagement','$Platform')");
 		$checklist = "INSERT INTO ApplicantChecklist(UserID, Section)VALUES('$id','Personal Profile')";
 		mysqli_query($conn, $checklist);
+		$message = "Details successfully captured.";
 	} 
 	
 }
@@ -76,6 +78,9 @@ if (@$_POST['EducationalandProfessional'] != '' || @$_POST['GoalsandAspirations'
 
                                 </div>
                                 <div class="card-content">
+								<?php if(@$message){ ?>	
+								<div class="alert alert-success" role="alert"><?php echo @$message; ?></div>
+								<?php } ?>
                                     <div class="card-body">
                                         <form class="form" action="" method="post">
                                             <div class="row">
