@@ -2,7 +2,7 @@
 include '../connect.php';
 $conn = OpenCon();
 
-if($_POST["InstitutionID"] != '' && $_POST["PrimaryScientificField"] != '' && $_POST["SecondaryScientificField"] != '' && $_POST["Location"] && $_POST["NumberRequired"] != '' && $_POST["QualificationLevel"] != '')
+if($_POST["PrimaryScientificField"] != '' && $_POST["SecondaryScientificField"] != '' && $_POST["Location"] && $_POST["NumberRequired"] != '' && $_POST["QualificationLevel"] != '')
 {
 	
   $InstitutionID = mysqli_real_escape_string($conn,$_POST["InstitutionID"]);
