@@ -266,7 +266,7 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="Organization">Organization <span style="color:red">*</span></label><small><i> *A request will be sent to the intitution admin for your Mentor request.</i></small>
+                                                        <label for="Organization">Organization <span style="color:red">*</span></label><small><i> *A request will be sent to the institutional admin for your mentorship request.</i></small>
                                                         <input autocomplete="off" list="OrganisationList" id="Organization"  required="required" class="form-control" name="Organization" value="<?php echo @$OrganisationName; ?>">
 														<datalist id="OrganisationList">
                                                         <?php
