@@ -351,11 +351,12 @@ if (@$_POST['InstitutionID'] != '') {
 															
 															
 															
-															$query = "SELECT c.Email, UpdatedDate, UserName FROM ProspectiveMentors a 
+															$query = "SELECT a.ID, c.Email, UpdatedDate, UserName FROM ProspectiveMentors a 
 															left join users c on c.UserID = a.MentorID 
 															WHERE a.InstitutionID  in (SELECT InstitutionID from HostAdministrator WHERE UserID = '".$_SESSION['id']."' and IsActive = '1') 
 															and Status = 'Pending Host Approval' ORDER BY UpdatedDate DESC LIMIT 3";
 															$result = mysqli_query($conn, $query);
+
 															while($institution = mysqli_fetch_array($result)) {
 																
 																?>
