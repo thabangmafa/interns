@@ -409,7 +409,7 @@ if (isset($_POST['Submit'])) {
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="id_number">Date of Birth <span style="color:red">*</span></label>
-                                                        <input type="date_of_birth" id="date_of_birth" name="date_of_birth" value="<?php echo @$UserDateofBirth; ?>" class="form-control" required="required">
+                                                        <input type="date" id="date_of_birth" name="date_of_birth" value="<?php echo @$UserDateofBirth; ?>" class="form-control" required="required">
                                                     </div>
                                                 </div>
 												
