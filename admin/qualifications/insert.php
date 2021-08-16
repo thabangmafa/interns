@@ -6,22 +6,21 @@ if($_POST["AcademicLevel"] != '' && $_POST["NameOfDegree"] != '')
 {
 	
 
-  $AcademicLevel = mysqli_real_escape_string($conn,$_POST["AcademicLevel"]);
-  $NameOfDegree = mysqli_real_escape_string($conn,$_POST["NameOfDegree"]);
-  $TitleOfResearchProject = mysqli_real_escape_string($conn,$_POST["TitleOfResearchProject"]);
-  $Institution = mysqli_real_escape_string($conn,$_POST["Institution"]);
-  $Fulltime = mysqli_real_escape_string($conn,$_POST["Fulltime"]);
-  $Distinction = mysqli_real_escape_string($conn,$_POST["Distinction"]);
-  $Sector = mysqli_real_escape_string($conn,$_POST["Sector"]);
-  $DateFirstRegistration = mysqli_real_escape_string($conn,$_POST["DateFirstRegistration"]);
-  $Completed = mysqli_real_escape_string($conn,$_POST["Completed"]);
-  $HighestCompletedQualification = mysqli_real_escape_string($conn,$_POST["HighestCompletedQualification"]);
-  //$Transcript = mysqli_real_escape_string($conn,$_POST["Transcript"]);
-  $Status = mysqli_real_escape_string($conn,$_POST["Status"]);
-  $Reason = mysqli_real_escape_string($conn,$_POST["Reason"]);
-  $AnticipatedDateCompletion = mysqli_real_escape_string($conn,$_POST["AnticipatedDateCompletion"]);
- $ID = $_SESSION['id'];
- $TranscriptFile = '';
+  @$AcademicLevel = mysqli_real_escape_string($conn,@$_POST["AcademicLevel"]);
+  @$NameOfDegree = mysqli_real_escape_string($conn,@$_POST["NameOfDegree"]);
+  @$TitleOfResearchProject = mysqli_real_escape_string($conn,@$_POST["TitleOfResearchProject"]);
+  @$Institution = mysqli_real_escape_string($conn,@$_POST["Institution"]);
+  @$Fulltime = mysqli_real_escape_string($conn,@$_POST["Fulltime"]);
+  @$Distinction = mysqli_real_escape_string($conn,@$_POST["Distinction"]);
+  @$Sector = mysqli_real_escape_string($conn,$_POST["Sector"]);
+  @$DateFirstRegistration = mysqli_real_escape_string($conn,@$_POST["DateFirstRegistration"]);
+  @$Completed = mysqli_real_escape_string($conn,@$_POST["Completed"]);
+  @$HighestCompletedQualification = mysqli_real_escape_string($conn,@$_POST["HighestCompletedQualification"]);
+  @$Status = mysqli_real_escape_string($conn,@$_POST["Status"]);
+  @$Reason = mysqli_real_escape_string($conn,@$_POST["Reason"]);
+  @$AnticipatedDateCompletion = mysqli_real_escape_string($conn,@$_POST["AnticipatedDateCompletion"]);
+ @$ID = $_SESSION['id'];
+ @$TranscriptFile = '';
  
  
  
