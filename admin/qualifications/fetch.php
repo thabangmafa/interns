@@ -40,7 +40,7 @@ if(@$_POST["length"] != -1 && !isset($_POST["rowid"]))
 
 $result = mysqli_query($conn,$query. $query1);
 
-$QualificationLevel = mysqli_query($conn,"SELECT distinct * FROM LookupQualificationLevel WHERE IsActive = '1'");
+$QualificationLevel = mysqli_query($conn,"SELECT distinct * FROM LookupQualificationLevel WHERE IsActive = '1' AND UserType = '".$_SESSION['user_type']."' ORDER BY Name ASC");
 
 while($QLevels = mysqli_fetch_array($QualificationLevel))
 	{
