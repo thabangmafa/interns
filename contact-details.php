@@ -229,9 +229,10 @@ if (@$_POST['Submit'] != '') {
 	
 }
 
-	$query = "SELECT a.*, b.Email, c.Name as OrganisationName FROM UserContactDetails a
+	$query = "SELECT a.*, b.Email, c.Name as OrganisationName, d.Name, d.Telephone, d.Cellnumber, d.Relationship, d.Address FROM UserContactDetails a
 	left join users b on b.UserID = a.UserID
 	left join LookupInstitutions c on c.InstitutionId = a.CurrentOrganisation
+	left join NextOfKin d on d.UserID = a.UserID
 	WHERE a.UserID = '".$_SESSION['id']."'";
 	$result = mysqli_query($conn, $query);
 
@@ -263,6 +264,11 @@ if (@$_POST['Submit'] != '') {
 							$AlternateContactDesignation = $userdetails['AlternateContactDesignation'];
 							$AlternateContactTelephone = $userdetails['AlternateContactTelephone'];
 							$AlternateContactCellphone = $userdetails['AlternateContactCellphone'];
+							$Name = $userdetails['Name'];
+							$Telephone = $userdetails['Telephone'];
+							$Cellnumber = $userdetails['Cellnumber'];
+							$Relationship = $userdetails['Relationship'];
+							$Address = $userdetails['Address'];
 
 	}
  ?>
