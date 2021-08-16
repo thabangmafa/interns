@@ -464,11 +464,11 @@ if (isset($_POST['Submit'])) {
 												
 								
 												
-												<div class="col-md-6 col-12">
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:inline;"'; }else{ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="PreviouslyApplied">Have you previously applied for the DSI Internship? <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="choices form-select" id="PreviouslyApplied" name="PreviouslyApplied" required="required">
+                                                    <select class="choices form-select" id="PreviouslyApplied" name="PreviouslyApplied">
                                                         <option></option>
                                                         <option <?php if(@$PreviouslyApplied == 'Yes'){ echo "selected='selected'"; } ?>>Yes</option>
                                                         <option <?php if(@$PreviouslyApplied == 'No'){ echo "selected='selected'"; } ?>>No</option>
@@ -490,7 +490,7 @@ if (isset($_POST['Submit'])) {
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12 HowManyTimes" <?php if(@$PreviouslyApplied == 'No' || @$PreviouslyApplied == ''){ echo 'style="display:none;"';} ?>>
+												<div class="col-md-6 col-12 HowManyTimes" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:inline;"'; }else{ echo 'style="display:none;"'; } ?> <?php if(@$PreviouslyApplied == 'No' || @$PreviouslyApplied == ''){ echo 'style="display:none;"';} ?>>
                                                     <div class="form-group">
                                                         <label for="HowManyTimes">How many times have you applied</label>
                                                         <input type="number" id="HowManyTimes" class="form-control"
