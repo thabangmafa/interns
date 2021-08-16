@@ -8,7 +8,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Contact Detai
 		$result = mysqli_query($conn, $sql);
 		$headings = mysqli_fetch_assoc($result);
 
-if ($_POST['Submit'] != '') {
+if (@$_POST['Submit'] != '') {
 	
 	function validate($data){
        $data = trim($data);
@@ -18,7 +18,7 @@ if ($_POST['Submit'] != '') {
 	}
 	
 	$id = $_SESSION['id'];
-	$FullTimeStudent = validate($_POST['FullTimeStudent']);
+	$FullTimeStudent = validate(@$_POST['FullTimeStudent']);
 	$CurrentOrganisation = validate($_POST['CurrentOrganisation']);
 	$IsOrganisationFundingSalary = validate($_POST['IsOrganisationFundingSalary']);
 	$OrganisationFundingSalary = validate($_POST['OrganisationFundingSalary']);
@@ -583,11 +583,11 @@ if ($_POST['Submit'] != '') {
                                                             name="AlternativeEmail">
                                                     </div>
                                                 </div>
+
 												
+												<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%; <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1'){ echo 'display:inline;'; }else{ echo 'display:none;'; } ?>">Alternate Contact Person in Institution.</div>
 												
-												<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%; <?php if(@$_SESSION['user_type'] != '2' || @$_SESSION['user_type'] != '1'){ echo 'display:none;'; } ?>">Alternate Contact Person in Institution.</div>
-												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] != '2' || @$_SESSION['user_type'] != '1'){ echo 'style="display:none;"'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1'){ echo 'display:inline;'; }else{ echo 'display:none;'; } ?>>
                                                     <div class="form-group">
                                                         <label for="AlternateContactName">Name <span style="color:red">*</span></label>
                                                         <input type="text" id="AlternateContactName" class="form-control"
@@ -595,15 +595,15 @@ if ($_POST['Submit'] != '') {
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] != '2' || @$_SESSION['user_type'] != '1'){ echo 'style="display:none;"'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1'){ echo 'display:inline;'; }else{ echo 'display:none;'; } ?>>
                                                     <div class="form-group">
                                                         <label for="AlternateContactEmail">Email <span style="color:red">*</span></label>
-                                                        <input type="text" id="AlternateContactEmail" class="form-control"
+                                                        <input type="email" id="AlternateContactEmail" class="form-control"
                                                              name="AlternateContactEmail" value="<?php echo @$AlternateContactEmail; ?>">
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] != '2' || @$_SESSION['user_type'] != '1'){ echo 'style="display:none;"'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1'){ echo 'display:inline;'; }else{ echo 'display:none;'; } ?>>
                                                     <div class="form-group">
                                                         <label for="AlternateContactDesignation">Designation <span style="color:red">*</span></label>
                                                         <input type="text" id="AlternateContactDesignation" class="form-control"
@@ -611,18 +611,18 @@ if ($_POST['Submit'] != '') {
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] != '2' || @$_SESSION['user_type'] != '1'){ echo 'style="display:none;"'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1'){ echo 'display:inline;'; }else{ echo 'display:none;'; } ?>>
                                                     <div class="form-group">
                                                         <label for="AlternateContactTelephone">Telephone</label>
-                                                        <input type="text" id="AlternateContactTelephone" class="form-control"
+                                                        <input type="number" id="AlternateContactTelephone" class="form-control"
                                                              name="AlternateContactTelephone" value="<?php echo @$AlternateContactTelephone; ?>">
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] != '2' || @$_SESSION['user_type'] != '1'){ echo 'style="display:none;"'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1'){ echo 'display:inline;'; }else{ echo 'display:none;'; } ?>>
                                                     <div class="form-group">
                                                         <label for="AlternateContactCellphone">Cellphone <span style="color:red">*</span></label>
-                                                        <input type="text" id="AlternateContactCellphone" class="form-control"
+                                                        <input type="number" id="AlternateContactCellphone" class="form-control"
                                                              name="AlternateContactCellphone" value="<?php echo @$AlternateContactCellphone; ?>">
                                                     </div>
                                                 </div>
