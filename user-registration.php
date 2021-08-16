@@ -191,7 +191,7 @@ if (isset($_POST['Submit'])) {
 
 	while($userdetails = mysqli_fetch_array($result)) {
 
-
+			$HostedInternsBefore = $userdetails['HostedInternsBefore'];
 			$UserGender = $userdetails['Gender'];
 			$UserDateofBirth = $userdetails['DateOfBirth'];
 			$UserRace = $userdetails['Race'];
