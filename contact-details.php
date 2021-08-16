@@ -547,7 +547,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     </div>
                                                 </div>
 												
-												<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%;">NEXT OF KIN DETAILS.</div>
+												<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%; <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>">NEXT OF KIN DETAILS.</div>
 												
 												
 												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
