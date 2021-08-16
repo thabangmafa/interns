@@ -4,6 +4,10 @@ $conn = OpenCon();
 $menu_item = "2";
 $title = "Registration Details";
 
+$sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Registration Details' ";
+		$result = mysqli_query($conn, $sql);
+		$headings = mysqli_fetch_assoc($result);
+
 if(@$_GET['file']){
 	$f = "uploads/applicants/".$_SESSION['id']."/".$_GET['file'];
 	if( file_exists($f)) unlink($f);
@@ -249,11 +253,7 @@ if (isset($_POST['Submit'])) {
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header alert alert-primary alert-dismissible fade show">
-                                    <ul>
-									<li>Kindly note that this registration process hould be completed only once.</li>
-<li>You need to comple all the required fields (indicated with *) before you will be able to submit your registration.</li>
-<li>The field indicated with I are searchable fields. To avoid having to search through the full list, simpluy type one keyword into the field provided. The results will appear in the drop-down list.</li>
-</ul>
+                                    <?php echo $headings['Details']; ?>
                                 </div>
                                 <div class="card-content">
 								<?php if(@$message){ ?>	
