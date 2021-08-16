@@ -105,7 +105,7 @@ if (@$_SESSION['InstitutionID'] != '' && @$_POST['Submit'] != '') {
 			  /* Upload file */
 			  if(move_uploaded_file($_FILES['InstitutionRegistrationCertificate']['tmp_name'],$location)){
 				 $response = $location;
-				 $update = .",InstitutionRegistrationCertificate = '$InstitutionRegistrationCertificate'";
+				 $update .= ",InstitutionRegistrationCertificate = '$InstitutionRegistrationCertificate'";
 			  }
 		   }
 
