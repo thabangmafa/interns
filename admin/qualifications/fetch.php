@@ -283,15 +283,20 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 					</div>
 					
 				</div>
-				<div class="col-md-6 col-12">
-					<div class="form-group">
-						<label for="NameOfDegree">Name of Degree/Diploma</label>
-						<input type="text" id="NameOfDegree" class="form-control"
-							 name="NameOfDegree" required="required" value=' . $row["NameOfDegree"] . '>
-					</div>
-				</div>
+				
 			
 			';
+			
+			
+			echo "<div class='col-md-6 col-12'>
+					<div class='form-group'>
+						<label for='NameOfDegree'>Name of Degree/Diploma</label>
+						<input type='text' id='NameOfDegree' class='form-control'
+							 name='NameOfDegree' required='required' value='" . $row['NameOfDegree'] . "'>
+					</div>
+				</div>
+				";
+				
 			if(@$_SESSION['user_type'] == '4'){ echo '
 			
 				<div class="col-md-6 col-12">
