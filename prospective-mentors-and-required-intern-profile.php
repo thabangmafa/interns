@@ -109,7 +109,7 @@ $query = "SELECT * FROM ApplicantChecklist
                                         <th>Surname</th>
                                         <th>Email Address</th>
 										<th>Institution</th>
-										<th>Response</th>
+										<th>Status</th>
 										<th>Edit</th>
                                         <!--th>Manage</th-->
                                     </tr>
