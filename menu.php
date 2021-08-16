@@ -77,7 +77,7 @@ $query = "SELECT * FROM ApplicantChecklist
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="/"><img src="assets/images/logo/DSI.png" style="width:100%" alt="Logo" srcset=""></a>
+                            <a href="/"><img src="assets/images/logo/logo.png" style="width:100%" alt="Logo" srcset=""><img src="assets/images/logo/DSI.png" style="width:100%" alt="Logo" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>

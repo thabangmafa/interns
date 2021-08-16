@@ -6,7 +6,7 @@ $menu_item = "3";
 $title = "Host Institution";
 
 if(@$_GET['tax']){
-	$f = "uploads/institution/".$_SESSION['InstitutionID']."/".$_GET['tax'];
+	$f = "uploads/institution/".@$_SESSION['InstitutionID']."/".$_GET['tax'];
 	if( file_exists($f)) unlink($f);
 	$query = "UPDATE HostInstitutionDetails SET TaxPin = '' WHERE UserID = '".$_SESSION['id']."'";
 	mysqli_query($conn, $query);
@@ -14,7 +14,7 @@ if(@$_GET['tax']){
 }
 
 if(@$_GET['certificate']){
-	$f = "uploads/institution/".$_SESSION['InstitutionID']."/".$_GET['certificate'];
+	$f = "uploads/institution/".@$_SESSION['InstitutionID']."/".$_GET['certificate'];
 	if( file_exists($f)) unlink($f);
 	$query = "UPDATE HostInstitutionDetails SET InstitutionRegistrationCertificate = '' WHERE UserID = '".$_SESSION['id']."'";
 	mysqli_query($conn, $query);
@@ -25,7 +25,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Host Institut
 		$result = mysqli_query($conn, $sql);
 		$headings = mysqli_fetch_assoc($result);
 
-if (isset($_POST['Country']) && $_POST['Country'] != '' && isset($_POST['InstitutionID']) && $_POST['InstitutionID'] != '' && $_POST['Submit'] != '') {
+if (isset($_POST['Country']) && $_POST['Country'] != '' && isset(@$_SESSION['InstitutionID']) && @$_SESSION['InstitutionID'] != '' && $_POST['Submit'] != '') {
 
 	function validate($data){
        $data = trim($data);
@@ -34,7 +34,7 @@ if (isset($_POST['Country']) && $_POST['Country'] != '' && isset($_POST['Institu
 	   return $data;
 	}
 
-	$InstitutionID = validate($_POST['InstitutionID']);
+	$InstitutionID = $_SESSION['InstitutionID']);
   $CategoriseInstitution = validate($_POST['CategoriseInstitution']);
   $Province = validate($_POST['Province']);
   $HostedInternsBefore = validate($_POST['HostedInternsBefore']);
@@ -146,7 +146,7 @@ if (isset($_POST['Country']) && $_POST['Country'] != '' && isset($_POST['Institu
 						  '$UpdatedBy'
 
 )";
-
+echo $sql2;
 
     $result2 = mysqli_query($conn, $sql2);
 	$message = "Details successfully captured.";
