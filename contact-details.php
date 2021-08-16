@@ -282,7 +282,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                     <div class="card-body">
                                         <form class="form" action="" method="post">
                                             <div class="row">
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '3'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="FullTimeStudent">Are you a full time student? <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
