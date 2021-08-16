@@ -25,9 +25,10 @@ if($_POST["AcademicLevel"] != '' && $_POST["NameOfDegree"] != '')
  
  
   // Count total files
- $Transcripts = count($_FILES['TranscriptFile']['name']);
+ @$Transcripts = count($_FILES['TranscriptFile']['name']);
 
  // Looping all files
+ if($_FILES['TranscriptFile']['name']){
  for($i=0;$i<$Transcripts;$i++){
 	 
  
@@ -53,6 +54,7 @@ if($_POST["AcademicLevel"] != '' && $_POST["NameOfDegree"] != '')
 
    }
  
+ }
  }
  
  $query = "INSERT INTO `Qualifications`(
