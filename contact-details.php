@@ -508,7 +508,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     <div class="form-group">
                                                         <label for="TelephoneNumber">Primary Telephone Number <span style="color:red">*</span></label>
                                                         <input type="number" id="TelephoneNumber" class="form-control"
-                                                             name="TelephoneNumber" value="<?php echo @$HomePostalCode; ?>" required="required">
+                                                             name="TelephoneNumber" value="<?php echo @$TelephoneNumber; ?>" required="required">
                                                     </div>
                                                 </div>
 												
