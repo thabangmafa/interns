@@ -300,8 +300,8 @@ if(@$_SESSION['InstitutionID']){
                                                 </fieldset>
                                                     </div>
                                                 </div>
-												
-													<div class="col-md-6 col-12 internsHistory" <?php if(@$UserHostedInternsBefore == '' || @$UserHostedInternsBefore == 'No'){ echo 'style="display:none;"';} ?>>
+
+													<div class="col-md-6 col-12 internsHistory" <?php if(@$HostedInternsBefore == '' || @$HostedInternsBefore == 'No'){ echo 'style="display:none;"';}else{ echo 'style="display:inline;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="HostedYear">When was the first year your institution hosted an intern? <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
@@ -332,7 +332,7 @@ if(@$_SESSION['InstitutionID']){
                                                
 													
 													
-												<div class="col-md-6 col-12 internsHistory" <?php if(@$UserHostedInternsBefore == '' || @$UserHostedInternsBefore == 'No'){ echo 'style="display:none;"';} ?>>
+												<div class="col-md-6 col-12 internsHistory" <?php if(@$HostedInternsBefore == '' || @$HostedInternsBefore == 'No'){ echo 'style="display:none;"';}else{ echo 'style="display:inline;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="NumberHosted">Total number of interns hosted by your institution <span style="color:red">*</span></label>
                                                         <input type="number" id="NumberHosted" class="form-control"
@@ -340,7 +340,7 @@ if(@$_SESSION['InstitutionID']){
                                                     </div>
                                                 </div>	
 													
-												<div class="col-md-6 col-12 internsHistory" <?php if(@$UserHostedInternsBefore == '' || @$UserHostedInternsBefore == 'No'){ echo 'style="display:none;"';} ?>>
+												<div class="col-md-6 col-12 internsHistory" <?php if(@$HostedInternsBefore == '' || @$HostedInternsBefore == 'No'){ echo 'style="display:none;"';} ?>>
                                                     <div class="form-group">
                                                         <label for="NumberEmployed">How many interns have been employed by your institution after their internship? <span style="color:red">*</span></label>
                                                         <input type="number" id="NumberEmployed" class="form-control"
