@@ -110,7 +110,9 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Profile of Re
 															
 															</form>
                                                         </div>
-                                                        <div class="modal-footer">
+                                                        
+														<?php if(@$_SESSION['user_type'] == '2'){ ?>
+														<div class="modal-footer">
 															<button type="button"
 																class="btn btn-light-secondary"
 																data-bs-dismiss="modal">
@@ -128,6 +130,8 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Profile of Re
 																<span class="d-none d-sm-block">Submit</span>
 															</button>
 														</div>
+														<? }else{ echo "Only Host Admin can capture this information"; } ?>
+														
                                                     </div>
                                                 </div>
                                             </div>
