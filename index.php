@@ -163,8 +163,9 @@ if (@$_POST['InstitutionID'] != '') {
 										<th>Description</th>
 										<th>Open Date</th>
 										<th>Closing Date</th>
-										<th>Status</th>
 										<th>Documents</th>
+										<th>Status</th>
+										
                                     </tr>
                                 </thead>
                                 <tbody>
