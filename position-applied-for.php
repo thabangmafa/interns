@@ -17,7 +17,7 @@ if (isset($_POST['Submit'])) {
 	   return $data;
 	}
 	$id = $_SESSION['id'];
-	$CurrentInstitution = '';
+
 	
 	$FirstProvince = validate($_POST['FirstProvince']);
 	$FirstDiscipline = validate($_POST['FirstDiscipline']);
@@ -26,30 +26,13 @@ if (isset($_POST['Submit'])) {
 	$ThirdProvince = validate($_POST['ThirdProvince']);
 	$ThirdDiscipline = validate($_POST['ThirdDiscipline']);
 	
-	$OriginalOrganisation = $CurrentInstitution;
-	
-	$checkOrganisation = "SELECT * FROM LookupInstitutions WHERE lower(Name) = lower('".$CurrentInstitution."')";
-	$result = mysqli_query($conn, $checkOrganisation);
-	$Orgs = mysqli_fetch_array($result);
-	if (mysqli_num_rows($result) === 0) {
-		$insertNew = "INSERT INTO LookupInstitutions(Name, IsActive)VALUES('$CurrentInstitution','1')";
-		mysqli_query($conn, $insertNew);
-		$CurrentInstitution = mysqli_insert_id($conn);
-	}else{
-		$CurrentInstitution = $Orgs['InstitutionId'];
-	}
-	
-	if($PreviouslyApplied == 'No'){
-		$HowManyTimes = '';
-	}
-	
+
 	$query = "SELECT * FROM PositionAppliedFor WHERE UserID = '".$_SESSION['id']."'";
 	$result = mysqli_query($conn, $query);
 	if (mysqli_num_rows($result) === 0) {
 	
 	$sql2 = "INSERT INTO PositionAppliedFor(
 						UserID,
-						CurrentInstitution,
 						
 						FirstProvince,
 						FirstDiscipline,
@@ -59,7 +42,6 @@ if (isset($_POST['Submit'])) {
 						ThirdDiscipline
 ) VALUES(
 						'$id',
-						'$CurrentInstitution',
 						
 						'$FirstProvince',
 						'$FirstDiscipline',
@@ -80,8 +62,6 @@ if (isset($_POST['Submit'])) {
 		
 	$sql2 = "UPDATE PositionAppliedFor SET 
 	
-						CurrentInstitution = '$CurrentInstitution',
-						
 						FirstProvince = '$FirstProvince',
 						FirstDiscipline = '$FirstDiscipline',
 						SecondProvince = '$SecondProvince',
@@ -105,9 +85,6 @@ if (isset($_POST['Submit'])) {
 
 	while($userdetails = mysqli_fetch_array($result)) {
 
-			$CurrentInstitution = $userdetails['CurrentInstitution'];
-			$OrganisationName = $userdetails['OrganisationName'];
-			
 			$FirstProvince = $userdetails['FirstProvince'];
 			$FirstDiscipline = $userdetails['FirstDiscipline'];
 			$SecondProvince = $userdetails['SecondProvince'];
@@ -161,29 +138,6 @@ if (isset($_POST['Submit'])) {
 									<div class="row">
                                         <form class="form" method="POST" action="">
                                             <div class="row">
-												
-												<!--div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="CurrentInstitution">Organization <span style="color:red">*</span></label>
-                                                        <input autocomplete="off" list="OrganisationList" id="CurrentInstitution" class="form-control" name="CurrentInstitution" value="<?php echo @$OrganisationName; ?>">
-														<datalist id="OrganisationList">
-                                                        <?php
-				
-															$query = "SELECT * FROM LookupInstitutions WHERE IsActive = '1' ORDER BY Name asc";
-															$result = mysqli_query($conn, $query);
-															
-
-															while($institution = mysqli_fetch_array($result)) {
-															 //echo '<option>'.ucwords($institution['Name']).'</option>';
-															}
-
-														?>
-                                                    </datalist>
-                                                    </div>
-                                                </div-->
-												
-												
-												
 												
 												<h5 class="divider divider-left">
                                         <div class="divider-text">Option 1:</div>
