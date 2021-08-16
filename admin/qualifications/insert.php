@@ -12,7 +12,6 @@ if($_POST["AcademicLevel"] != '' && $_POST["NameOfDegree"] != '')
   @$Institution = mysqli_real_escape_string($conn,@$_POST["Institution"]);
   @$Fulltime = mysqli_real_escape_string($conn,@$_POST["Fulltime"]);
   @$Distinction = mysqli_real_escape_string($conn,@$_POST["Distinction"]);
-  @$Sector = mysqli_real_escape_string($conn,$_POST["Sector"]);
   @$DateFirstRegistration = mysqli_real_escape_string($conn,@$_POST["DateFirstRegistration"]);
   @$Completed = mysqli_real_escape_string($conn,@$_POST["Completed"]);
   @$HighestCompletedQualification = mysqli_real_escape_string($conn,@$_POST["HighestCompletedQualification"]);
@@ -66,7 +65,6 @@ if($_POST["AcademicLevel"] != '' && $_POST["NameOfDegree"] != '')
   Institution,
   Fulltime,
   Distinction,
-  Sector,
   DateFirstRegistration,
   Completed,
   HighestCompletedQualification,
@@ -81,7 +79,6 @@ if($_POST["AcademicLevel"] != '' && $_POST["NameOfDegree"] != '')
   '$Institution',
   '$Fulltime',
   '$Distinction',
-  '$Sector',
   '$DateFirstRegistration',
   '$Completed',
   '$HighestCompletedQualification',
