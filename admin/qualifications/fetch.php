@@ -72,7 +72,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
                                                 </div>
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="NameOfDegree">Name of Degree/Diploma (e.g. PhD) <span style="color:red">*</span></label>
+                                                        <label for="NameOfDegree">Name of Degree/Diploma <span style="color:red">*</span></label>
                                                         <input type="text" id="NameOfDegree" class="form-control"
                                                              name="NameOfDegree" required="required">
                                                     </div>
@@ -85,7 +85,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 												 if(@$_SESSION['user_type'] == '4'){ echo '
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="TitleOfResearchProject">Title of thesis (if applicable) <span style="color:red">*</span></label>
+                                                        <label for="TitleOfResearchProject">Title of thesis (if applicable)</label>
                                                         <input type="text" id="TitleOfResearchProject" class="form-control"
                                                              name="TitleOfResearchProject" required="required">
                                                     </div>
@@ -282,7 +282,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				</div>
 				<div class="col-md-6 col-12">
 					<div class="form-group">
-						<label for="NameOfDegree">Name of Degree/Diploma (e.g. PhD)</label>
+						<label for="NameOfDegree">Name of Degree/Diploma</label>
 						<input type="text" id="NameOfDegree" class="form-control"
 							 name="NameOfDegree" required="required" value=' . $row["NameOfDegree"] . '>
 					</div>
@@ -294,7 +294,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				<div class="col-md-6 col-12">
 					<div class="form-group">
 						<label for="TitleOfResearchProject">Title of thesis (if applicable)</label>
-						<input type="text" id="TitleOfResearchProject" required="required" class="form-control"
+						<input type="text" id="TitleOfResearchProject"  class="form-control"
 							 name="TitleOfResearchProject" value=' . $row["TitleOfResearchProject"] . '>
 					</div>
 				</div>
