@@ -25,7 +25,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Host Institut
 		$result = mysqli_query($conn, $sql);
 		$headings = mysqli_fetch_assoc($result);
 
-if (@$_POST['Country'] != '' && @$_SESSION['InstitutionID'] != '' && @$_POST['Submit'] != '') {
+if (@$_SESSION['InstitutionID'] != '' && @$_POST['Submit'] != '') {
 
 	function validate($data){
        $data = trim($data);
@@ -36,7 +36,7 @@ if (@$_POST['Country'] != '' && @$_SESSION['InstitutionID'] != '' && @$_POST['Su
 
 	$InstitutionID = $_SESSION['InstitutionID'];
   $CategoriseInstitution = validate($_POST['CategoriseInstitution']);
-  $Province = validate($_POST['Province']);
+
   $HostedInternsBefore = validate($_POST['HostedInternsBefore']);
   
     $NumberEmployed = validate($_POST['NumberEmployed']);
@@ -47,8 +47,7 @@ if (@$_POST['Country'] != '' && @$_SESSION['InstitutionID'] != '' && @$_POST['Su
   $SufficientResources = validate($_POST['SufficientResources']);
   $Resources = implode(',',$_POST['Resources']);
   
-  $TaxPin = validate($_POST['TaxPin']);
-  $InstitutionRegistrationCertificate = validate($_POST['InstitutionRegistrationCertificate']);
+
   $update = '';
   $UpdatedBy = $_SESSION['id'];
   
@@ -76,7 +75,7 @@ if (@$_POST['Country'] != '' && @$_SESSION['InstitutionID'] != '' && @$_POST['Su
 			  /* Upload file */
 			  if(move_uploaded_file($_FILES['TaxPin']['tmp_name'],$location)){
 				 $response = $location;
-				 $update = ",TaxPin = '$TaxPin'";
+				 $update .= ",TaxPin = '$TaxPin'";
 			  }
 		   }
 
@@ -93,7 +92,7 @@ if (@$_POST['Country'] != '' && @$_SESSION['InstitutionID'] != '' && @$_POST['Su
 			}
 			
 		   /* Location */
-		   $location = "uploads/institution/".$_SESSION['InstitutionID'].'/'.$IDDocument;
+		   $location = "uploads/institution/".$_SESSION['InstitutionID'].'/'.$InstitutionRegistrationCertificate;
 		   $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
 		   $imageFileType = strtolower($imageFileType);
 
@@ -106,13 +105,13 @@ if (@$_POST['Country'] != '' && @$_SESSION['InstitutionID'] != '' && @$_POST['Su
 			  /* Upload file */
 			  if(move_uploaded_file($_FILES['InstitutionRegistrationCertificate']['tmp_name'],$location)){
 				 $response = $location;
-				 $update = ",InstitutionRegistrationCertificate = '$InstitutionRegistrationCertificate'";
+				 $update = .",InstitutionRegistrationCertificate = '$InstitutionRegistrationCertificate'";
 			  }
 		   }
 
 	}
 	
-
+	
 	
 	$query = "SELECT * FROM HostInstitutionDetails WHERE InstitutionID = '".$InstitutionID."'";
 	$result = mysqli_query($conn, $query);
@@ -121,7 +120,7 @@ if (@$_POST['Country'] != '' && @$_SESSION['InstitutionID'] != '' && @$_POST['Su
 	$sql2 = "INSERT INTO HostInstitutionDetails(
 						InstitutionID,
 						  CategoriseInstitution,
-						  Province,
+	
 						  HostedInternsBefore,
 						  NumberEmployed,
 							NumberHosted,
@@ -134,7 +133,7 @@ if (@$_POST['Country'] != '' && @$_SESSION['InstitutionID'] != '' && @$_POST['Su
 ) VALUES(
 							'$InstitutionID',
 						  '$CategoriseInstitution',
-						  '$Province',
+			
 						  '$HostedInternsBefore',
 						  '$NumberEmployed',
 							'$NumberHosted',
@@ -146,7 +145,7 @@ if (@$_POST['Country'] != '' && @$_SESSION['InstitutionID'] != '' && @$_POST['Su
 						  '$UpdatedBy'
 
 )";
-echo $sql2;
+
 
     $result2 = mysqli_query($conn, $sql2);
 	$message = "Details successfully captured.";
@@ -157,15 +156,13 @@ echo $sql2;
 		
 	$sql2 = "UPDATE HostInstitutionDetails SET 
 			  CategoriseInstitution = '$CategoriseInstitution',
-			  Province = '$Province',
+
 			  HostedInternsBefore = '$HostedInternsBefore',
 			  NumberEmployed = '$NumberEmployed',
 				NumberHosted = '$NumberHosted',
 				HostedYear = '$HostedYear',
 			  SufficientResources = '$SufficientResources',
 			  Resources = '$Resources',
-			  TaxPin = '$TaxPin',
-			  InstitutionRegistrationCertificate = '$InstitutionRegistrationCertificate',
 			  
 			  UpdatedBy = '$UpdatedBy'
 				".$update."
@@ -198,7 +195,7 @@ if(@$_SESSION['InstitutionID']){
 	$InstitutionName = $userdetails['InstitutionName'];	
 	$InstitutionID = $userdetails['InstitutionID'];
 	  $CategoriseInstitution = $userdetails['CategoriseInstitution'];
-	  $Province = $userdetails['Province'];
+
 	  $HostedInternsBefore = $userdetails['HostedInternsBefore'];
 	  $NumberEmployed = $userdetails['NumberEmployed'];
 		$NumberHosted = $userdetails['NumberHosted'];
