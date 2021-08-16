@@ -362,7 +362,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         
-                                        <label for="WorkPostalAddress" class="form-label">Work Postal Address (excluding department) </label>
+                                        <label for="WorkPostalAddress" class="form-label">Work Physical Address </label>
                                         <textarea class="form-control" id="WorkPostalAddress" name="WorkPostalAddress"
                                             rows="3"><?php echo @$WorkPostalAddress; ?></textarea>
                                     
@@ -518,7 +518,7 @@ if (isset($_POST['FullTimeStudent'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="TelephoneNumber">Primary Telephone Number <span style="color:red">*</span></label>
+                                                        <label for="TelephoneNumber">Telephone Number <span style="color:red">*</span></label>
                                                         <input type="number" id="TelephoneNumber" class="form-control"
                                                              name="TelephoneNumber" value="<?php echo @$TelephoneNumber; ?>" required="required">
                                                     </div>
@@ -553,9 +553,9 @@ if (isset($_POST['FullTimeStudent'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="AlternativeEmail">Alternate Email Address <span style="color:red">*</span></label>
+                                                        <label for="AlternativeEmail">Alternate Email Address</label>
                                                         <input type="email" value="<?php echo @$AlternativeEmail; ?>" id="AlternativeEmail" class="form-control"
-                                                            name="AlternativeEmail" required="required">
+                                                            name="AlternativeEmail">
                                                     </div>
                                                 </div>
 												

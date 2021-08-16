@@ -11,7 +11,7 @@ if(isset($_POST["section"]) && $_POST["section"] == 'HostAdministrator')
 	left join users c on c.UserID = a.UserID 
 	left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = '1'
 	left join RegistrationDetails d on d.UserID = a.UserID
-	left join UserContactDetails e on d.UserID = a.UserID
+	left join UserContactDetails e on e.UserID = a.UserID
 	WHERE a.ID = '".$_POST["rowid"]."'
 	";
 	
@@ -26,7 +26,7 @@ if(isset($_POST["section"]) && $_POST["section"] == 'ProspectiveMentors')
 	left join users c on c.UserID = a.MentorID
 	left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = '1'
 	left join RegistrationDetails d on d.UserID = c.UserID
-	left join UserContactDetails e on d.UserID = c.UserID	
+	left join UserContactDetails e on e.UserID = c.UserID	
 	WHERE a.ID = '".$_POST["rowid"]."'
 	";
 	
@@ -40,12 +40,11 @@ if(isset($_POST["section"]) && $_POST["section"] == 'HostApplications')
 		left join users c on c.UserID = a.UserID
 	left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = '1'
 	left join RegistrationDetails d on d.UserID = c.UserID
-	left join UserContactDetails e on d.UserID = c.UserID	
+	left join UserContactDetails e on e.UserID = c.UserID	
 	WHERE a.ID = '".$_POST["rowid"]."'";
 	
 	$message = 'Host Institution application details.';
 }
-
 
 
 $result = mysqli_query($conn,$query);

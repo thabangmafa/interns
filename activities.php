@@ -146,7 +146,7 @@ if (isset($_POST['InstitutionID'])) {
 														//Mentor
 														if(@$_SESSION['user_type'] == '3' || @$_SESSION['user_type'] == '4'){
 															
-															$query = "SELECT a.UpdatedDate, c.FirstName, c.LastName FROM ProspectiveMentors a
+															$query = "SELECT a.ID, a.UpdatedDate, c.FirstName, c.LastName FROM ProspectiveMentors a
 															left join RegistrationDetails c on c.UserID = a.AddedBy
 																		WHERE a.Email = '".$_SESSION['email']."' and Status = 'Pending Approval' ORDER BY UpdatedDate";
 															$result = mysqli_query($conn, $query);
