@@ -5,15 +5,16 @@ $conn = OpenCon();
 
 $columns = array('Name', 'Surname', 'Email');
 
-$query = "SELECT a.ID,a.Status,a.Name,a.Email, a.Surname, B.Name as Institution FROM ProspectiveMentors a 
+$query = "SELECT a.ID,a.Status,C.FirstName as Name,a.Email, C.LastName as Surname, B.Name as Institution FROM ProspectiveMentors a 
 LEFT JOIN LookupInstitutions B on B.InstitutionId = a.InstitutionID
+LEFT JOIN RegistrationDetails C on C.UserID = a.MentorID
 WHERE a.InstitutionID = '".@$_SESSION['InstitutionID']."'
 ";
 
 if(isset($_POST["search"]["value"]))
 {
  $query .= '
- AND (a.Name LIKE "%'.$_POST["search"]["value"].'%" || Surname LIKE "%'.$_POST["search"]["value"].'%" || Email LIKE "%'.$_POST["search"]["value"].'%")';
+ AND (C.FirstName LIKE "%'.$_POST["search"]["value"].'%" || C.LastName LIKE "%'.$_POST["search"]["value"].'%" || Email LIKE "%'.$_POST["search"]["value"].'%")';
 }
 
 if(isset($_POST["rowid"]))
@@ -28,7 +29,7 @@ if(isset($_POST["order"]))
 }
 else
 {
- $query .= 'ORDER BY Surname ASC ';
+ $query .= 'ORDER BY C.LastName ASC ';
 }
 
 $query1 = '';
@@ -166,8 +167,9 @@ while($row = mysqli_fetch_array($result))
 
 function get_all_data($conn)
 {
- $query = "SELECT a.ID,a.Status,a.Name,a.Email, a.Surname, B.Name as Institution FROM ProspectiveMentors a 
+ $query = "SELECT a.ID,a.Status,C.FirstName as Name,a.Email, C.LastName as Surname, B.Name as Institution FROM ProspectiveMentors a 
 LEFT JOIN LookupInstitutions B on B.InstitutionId = a.InstitutionID
+LEFT JOIN RegistrationDetails C on C.UserID = a.MentorID
 WHERE a.InstitutionID = '".@$_SESSION['InstitutionID']."'
 ";
 

@@ -184,6 +184,8 @@ if (isset($_POST['Submit'])) {
 }
 
 
+
+
 	$query = "SELECT a.*, b.Email FROM RegistrationDetails a
 	left join users b on b.UserID = a.UserID
 	WHERE a.UserID = '".$_SESSION['id']."'";
