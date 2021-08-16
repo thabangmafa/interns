@@ -32,7 +32,7 @@ if (isset($_POST['Submit'])) {
 	$time = strtotime($newstr);
 	$dob = date('Y-m-d',$time);
 	
-	$date_of_birth = $dob;
+	$date_of_birth = validate($_POST['date_of_birth']);
 	$gender = validate($_POST['gender']);
 	$race = validate($_POST['race']);
 	
@@ -188,6 +188,7 @@ if (isset($_POST['Submit'])) {
 
 
 			$UserGender = $userdetails['Gender'];
+			$UserDateofBirth = $userdetails['date_of_birth'];
 			$UserRace = $userdetails['Race'];
 			$UserIDNumber = $userdetails['IDNumber'];
 			$UserIDType = $userdetails['IDType'];
@@ -387,6 +388,13 @@ if (isset($_POST['Submit'])) {
 	 echo '<a style="color:red;" class="icon dripicons-document-delete" href="?section=qualifications&file='.@$IDDocument.'"></a> <a target="_blank" href="uploads/applicants/'.$_SESSION['id'].'/'.@$IDDocument.'">Attached Document</a>';
  } ?></span>
                                                         <input type="file" id="id_document" name="id_document" value="<?php echo @$IDDocument; ?>" class="form-control" <?php if(!@$IDDocument){ echo 'required="required"'; } ?>>
+                                                    </div>
+                                                </div>
+												
+												<div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="id_number">Date of Birth <span style="color:red">*</span></label>
+                                                        <input type="date_of_birth" id="date_of_birth" name="date_of_birth" value="<?php echo @$UserDateofBirth; ?>" class="form-control" required="required">
                                                     </div>
                                                 </div>
 												
