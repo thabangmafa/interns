@@ -320,7 +320,7 @@ if (@$_POST['InstitutionID'] != '') {
 																<?php
 																
 															}
-															
+															/*
 															$query = "SELECT Name, ApplicationDate as DateUpdated, UserName, a.ID, c.Email, a.CallID, a.InstitutionID FROM HostApplications a
 																			left join users c on c.UserID = a.UserID
 																			left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = '1'
@@ -344,6 +344,7 @@ if (@$_POST['InstitutionID'] != '') {
 																<?php
 																
 															}
+															*/
 														}
 														
 														//Host Administrator
