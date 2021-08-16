@@ -518,9 +518,9 @@ if ($_POST['Submit'] != '') {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="TelephoneNumber">Telephone Number <span style="color:red">*</span></label>
+                                                        <label for="TelephoneNumber">Telephone Number</label>
                                                         <input type="number" id="TelephoneNumber" class="form-control"
-                                                             name="TelephoneNumber" value="<?php echo @$TelephoneNumber; ?>" required="required">
+                                                             name="TelephoneNumber" value="<?php echo @$TelephoneNumber; ?>">
                                                     </div>
                                                 </div>
 												
