@@ -2,7 +2,7 @@
 include '../connect.php';
 $conn = OpenCon();
 
-if($_POST["PrimaryScientificField"] != '' && $_POST["SecondaryScientificField"] != '' && $_POST["Location"] && $_POST["NumberRequired"] != '' && $_POST["QualificationLevel"] != '')
+if(@$_SESSION['InstitutionID'] != '' && $_POST["PrimaryScientificField"] != '' && $_POST["SecondaryScientificField"] != '' && $_POST["Location"] && $_POST["NumberRequired"] != '' && $_POST["QualificationLevel"] != '')
 {
 	
   $InstitutionID = $_SESSION['InstitutionID'];
