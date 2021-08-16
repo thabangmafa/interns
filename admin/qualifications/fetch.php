@@ -246,14 +246,14 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 {
 	
-	$directory = '../../uploads/qualifications/'.$_SESSION["id"];
-	$scanned_directory = array_diff(scandir($directory), array('..', '.'));
+	@$directory = '../../uploads/qualifications/'.@$_SESSION["id"];
+	@$scanned_directory = array_diff(scandir(@$directory), array('..', '.'));
 	$files = '';
 	$req = '';
 	$i = 0;
-	foreach($scanned_directory as $file){
+	foreach(@$scanned_directory as @$file){
 		$i++;
-		$files .= '<a style="color:red" class="icon dripicons-document-delete" href="?section=qualifications&file='.$file.'"></a> <a target="_blank" href="../../uploads/qualifications/'.$_SESSION["id"].'/'.$file.'"> Transcript '.$i.'</a> | ';
+		$files .= '<a style="color:red" class="icon dripicons-document-delete" href="?section=qualifications&file='.@$file.'"></a> <a target="_blank" href="../../uploads/qualifications/'.@$_SESSION["id"].'/'.$file.'"> Transcript '.$i.'</a> | ';
 		$req = 'required="required"';
 	}
 
