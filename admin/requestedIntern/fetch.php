@@ -5,11 +5,12 @@ $conn = OpenCon();
 
 $columns = array('PrimaryScientificField', 'SecondaryScientificField', 'QualificationLevel', 'NumberRequired', 'Location');
 
-$query = "SELECT a.ID,a.NumberRequired,a.Location, b.Name, c.Name as PrimaryScientificField, d.Name as SecondaryScientificField, e.Name as QualificationLevel FROM ProfileOfRequestedInterns a 
+$query = "SELECT a.ID,a.NumberRequired,a.Location, f.name as Province, b.Name, c.Name as PrimaryScientificField, d.Name as SecondaryScientificField, e.Name as QualificationLevel FROM ProfileOfRequestedInterns a 
 left join LookupInstitutions b on b.InstitutionId = a.InstitutionID
 left join LookupStudyField c on c.ID = a.PrimaryScientificField
 left join LookupStudyField d on d.ID = a.SecondaryScientificField
 left join LookupQualificationLevel e on e.ID = a.QualificationLevel
+left join LookupProvince f on f.ID = a.Location
 WHERE a.InstitutionID = '".@$_SESSION['InstitutionID']."'
 ";
 
@@ -271,7 +272,7 @@ while($row = mysqli_fetch_array($result))
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="PrimaryScientificField">' . $row["PrimaryScientificField"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="SecondaryScientificField">' . $row["SecondaryScientificField"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="NumberRequired">' . $row["NumberRequired"] . '</div>';
- $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Location">' . $row["Location"] . '</div>';
+ $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="Location">' . $row["Province"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["ID"].'" data-column="QualificationLevel">' . $row["QualificationLevel"] . '</div>';
  $sub_array[] = '<div class="icon dripicons-document-edit" data-id="'.$row["ID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div>';
  $data[] = $sub_array;
@@ -281,11 +282,12 @@ while($row = mysqli_fetch_array($result))
 
 function get_all_data($conn)
 {
- $query = "SELECT a.ID,a.NumberRequired,a.Location, b.Name, c.Name as PrimaryScientificField, d.Name as SecondaryScientificField, e.Name as QualificationLevel FROM ProfileOfRequestedInterns a 
+ $query = "SELECT a.ID,a.NumberRequired,a.Location,f.Name as Province, b.Name, c.Name as PrimaryScientificField, d.Name as SecondaryScientificField, e.Name as QualificationLevel FROM ProfileOfRequestedInterns a 
 left join LookupInstitutions b on b.InstitutionId = a.InstitutionID
 left join LookupStudyField c on c.ID = a.PrimaryScientificField
 left join LookupStudyField d on d.ID = a.SecondaryScientificField
 left join LookupQualificationLevel e on e.ID = a.QualificationLevel
+left join LookupProvince f on f.ID = a.Location
 WHERE a.InstitutionID = '".@$_SESSION['InstitutionID']."'
 ";
 
