@@ -18,7 +18,6 @@ if(isset($_POST["ID"]) && isset($_POST["Table"]))
 
 
  $query = "INSERT INTO CallInstitutionLink (CallID, InstitutionID, Status)VALUES('".$_POST["callid"]."','".$_POST["institutionid"]."', 'Actve')";
-	echo $query;
  mysqli_query($conn,$query);
  
 }
