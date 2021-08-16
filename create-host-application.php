@@ -190,7 +190,7 @@ if(@$_SESSION["InstitutionID"] != ''){
 										echo '<td>'. $calls['OpenDate'].'</td>';
 										echo '<td>'. $calls['ClosingDate'].'</td>';
 										echo '<td>'. $appReq.'</td>';
-										 if($Total == '8'){
+										 if($Total == '7'){
 												echo '<td><div class="icon dripicons-enter" data-CallID="'.$calls["ID"].'" data-InstitutionID="'.@$_SESSION["InstitutionID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div></td>';
 											 }else{
 												 echo '<td><div class="alert alert-light-danger color-danger"><i class="bi bi-exclamation-circle"></i> Please complete all required sections first.</div></td>';
