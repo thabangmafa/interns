@@ -352,6 +352,18 @@ $('#EmploymentStatus').change(function() {
 			$('.ContractsView').hide();
 		}
 	});
+	
+	$('#Organization').on('click focusin', function() {
+    this.value = '';
+});
+
+ $("#Organization").focus(function() {
+ 
+      this.value = "";
+
+  });
 
 });
 </script>
+
+<?php echo @$OrganisationName; ?>
