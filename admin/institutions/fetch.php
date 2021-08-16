@@ -5,12 +5,14 @@ $conn = OpenCon();
 
 $columns = array('a.InstitutionId', 'a.Name', 'd.UserID','a.IsActive');
 
-$query = "SELECT a.*, b.*,c.Status, e.* FROM `LookupInstitutions` a 
+$query = "SELECT a.*, b.*,c.Status, e.*, d.ID FROM `LookupInstitutions` a 
 left join `LookupInstitutionTypes` b on b.`InstitutionTypeId` = a.`InstitutionTypeId`
 left join `LookupIsActive` c on c.`StatusId` = a.`IsActive`
 left join HostAdministrator d on d.InstitutionID = a.InstitutionId
 left join users e on e.UserId = d.UserID
 ";
+
+
 
 if(isset($_POST["search"]["value"]))
 {
@@ -21,7 +23,7 @@ if(isset($_POST["search"]["value"]))
 if(isset($_POST["rowid"]))
 {
  $query .= '
- WHERE a.InstitutionId = "'.$_POST["rowid"].'" ';
+ WHERE d.ID = "'.$_POST["rowid"].'" ';
 }
 
 if(isset($_POST["order"]))
@@ -175,7 +177,10 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				
 				
 				foreach ($Administrator as $admin){ 
-						echo '<option value="'.$admin['UserID'].'" >'.$admin['UserName'].' ('.$admin['Email'].')</option>'; 
+				$select = '';
+				
+				if($row["UserID"] == $admin['UserID']){ $select = "selected='selected'"; }
+						echo '<option value="'.$admin['UserID'].'" '.$select.'>'.$admin['UserName'].' ('.$admin['Email'].')</option>'; 
 				} 
 				
 				echo '
@@ -217,7 +222,7 @@ while($row = mysqli_fetch_array($result))
    $sub_array[] = '<div data-id="'.$row["InstitutionId"].'" data-column="UserID">' . $row["UserName"] . ' ('. $row["Email"] . ')</div>';
  $sub_array[] = '<div data-id="'.$row["InstitutionId"].'" data-column="IsActive">' . $row["Status"] . '</div>';
 
-	$sub_array[] = '<div class="icon dripicons-document-edit" data-id="'.$row["InstitutionId"].'" data-bs-toggle="modal" data-bs-target="#manage_institution"></div>';
+	$sub_array[] = '<div class="icon dripicons-document-edit" data-id="'.$row["ID"].'" data-bs-toggle="modal" data-bs-target="#manage_institution"></div>';
  $data[] = $sub_array;
 }
 
@@ -225,7 +230,7 @@ while($row = mysqli_fetch_array($result))
 
 function get_all_data($conn)
 {
- $query = "SELECT a.*, b.*,c.Status, e.* FROM `LookupInstitutions` a 
+ $query = "SELECT a.*, b.*,c.Status, e.*, d.ID FROM `LookupInstitutions` a 
 left join `LookupInstitutionTypes` b on b.`InstitutionTypeId` = a.`InstitutionTypeId`
 left join `LookupIsActive` c on c.`StatusId` = a.`IsActive`
 left join HostAdministrator d on d.InstitutionID = a.InstitutionId

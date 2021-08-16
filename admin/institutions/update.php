@@ -20,6 +20,8 @@ if(isset($_POST["id"]))
  if(mysqli_query($conn,$query))
  {
 	 
+	
+	 
 	 $query = "INSERT INTO `HostAdministrator`(UserID, InstitutionID, Status) VALUES('$Administrator', '".$_POST["id"]."', 'Approved')";
 	 mysqli_query($conn,$query);
   echo 'Data Updated';
