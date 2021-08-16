@@ -258,9 +258,9 @@ if (@$_POST['InstitutionID'] != '') {
 				
 															$query = "SELECT b.* FROM HostAdministrator a
 																		left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = '1'
-																		WHERE a.IsActive = '1' and a.UserID = '".$_SESSION['id']."' ORDER BY Name asc";
+																		WHERE b.IsActive = '1' and a.UserID = '".$_SESSION['id']."' ORDER BY Name asc";
 															$result = mysqli_query($conn, $query);
-
+															
 															while($institution = mysqli_fetch_array($result)) {
 																$select = '';
 																if(@$_SESSION['InstitutionID'] == $institution['InstitutionId']){ $select = "selected='selected'"; }
