@@ -6,7 +6,7 @@ $conn = OpenCon();
 $query = "SELECT a.InstitutionID, WorkPostalAddress, WorkCityTown, WorkPostalCode, TelephoneNumber, PrimaryEmail, b.Name FROM HostInstitutionDetails a 
 left join LookupInstitutions b on b.InstitutionId = a.InstitutionID 
 left join UserContactDetails C on C.CurrentOrganisation = a.InstitutionID 
-WHERE a.InstitutionID = '".$_POST['InstitutionID']."'";
+WHERE a.InstitutionID = '".$_POST['InstitutionID']."' and C.UserID = '".$_SESSION['id']."'";
 
 
 $result = mysqli_query($conn,$query);
