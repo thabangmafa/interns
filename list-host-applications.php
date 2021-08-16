@@ -89,13 +89,15 @@ if(@$_POST['AppID'] != '')
 
 
 										while($calls = mysqli_fetch_array($result)) {
+											$st = '';
+											if($calls['Status'] == 'Pending'){ $st = 'Submitted to HSRC';}else{ $st = $calls['Status']; }
 										echo '<tr>';
 											 echo '<td>' . $calls['Title'] . '</td>';
 											 echo '<td>' . $calls['Description'] . '</td>';
 											 echo '<td>' . $calls['OpenDate'] . '</td>';
 											 echo '<td>' . $calls['ClosingDate'] . '</td>';
 											 echo '<td>' . $calls['ApplicationDate'] . '</td>';
-											 echo '<td>' . $calls['Status'] . '</td>';
+											 echo '<td>' . $st . '</td>';
 											 echo '<td><div class="icon dripicons-wrong" data-id="'.$calls["ID"].'" data-bs-toggle="modal" modal-title="Confirm Delete Item" data-bs-target="#primary"></div></td>';
 										echo '</tr>';
 										}
