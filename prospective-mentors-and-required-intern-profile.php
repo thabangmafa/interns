@@ -116,17 +116,18 @@ $query = "SELECT * FROM ApplicantChecklist
                                 
                             </table>
 							<div class="col-12 d-flex justify-content-end">
-     
+ 
 													
                                                    
 												   <?php
-												   
+												   if(@$_SESSION['user_type'] == '2'){
 												   if($Total == '3'){
 													 echo '<div class="btn btn-primary me-1 mb-1" data-bs-toggle="modal" data-id="000" data-bs-target="#capture-new">Capture Mentor</div>';
 													 }else{
 														 echo '<div class="alert alert-light-danger color-danger"><i class="bi bi-exclamation-circle"></i> You need to complete "My Profile" section before you can invite a mentor.</div>';
 					
 													 }
+													 }else{ echo '<div class="alert alert-light-danger color-danger"><i class="bi bi-exclamation-circle"></i>Only Host Admin can capture this information</div>'; }
 												   
 												   ?>
 												   
@@ -177,7 +178,7 @@ $query = "SELECT * FROM ApplicantChecklist
                                                         </div>
 														
 														
-														<?php if(@$_SESSION['user_type'] == '2'){ ?>
+														
                                                         <div class="modal-footer">
 															<button type="button"
 																class="btn btn-light-secondary"
@@ -201,7 +202,7 @@ $query = "SELECT * FROM ApplicantChecklist
 																<span class="d-none d-sm-block">Submit</span>
 															</button>
 														</div>
-														<? }else{ echo "Only Host Admin can capture this information"; } ?>
+													
 														
 														
                                                     </div>
