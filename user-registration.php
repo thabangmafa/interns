@@ -198,6 +198,7 @@ if (isset($_POST['Submit'])) {
 			$UserDateofBirth = $userdetails['DateOfBirth'];
 			$UserRace = $userdetails['Race'];
 			$UserIDNumber = $userdetails['IDNumber'];
+			$PassportNumber = $userdetails['PassportNumber'];
 			$UserIDType = $userdetails['IDType'];
 			$UserCitizenship = $userdetails['Citizenship'];
 			$UserCountry = $userdetails['Country'];
@@ -209,7 +210,7 @@ if (isset($_POST['Submit'])) {
 			$UserInitials = $userdetails['Initials'];
 			$UserTitle = $userdetails['Title'];
 			$UserDisability = $userdetails['Disability'];
-			$UserDisabilityDetails = $userdetails['DisabilityDetails'];
+			$DisabilityDetails = $userdetails['DisabilityDetails'];
 			$IDDocument = $userdetails['IDDocument'];
 
 	}
