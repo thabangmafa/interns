@@ -316,7 +316,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     </div>
                                                 </div>						
 												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '3'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="IsOrganisationFundingSalary">Is this the organisation that funds your salary?</label>
                                                         <fieldset class="form-group">
@@ -370,7 +370,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                 </div>
 												<?php } ?>
 												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '3'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         
                                         <label for="HomePhysicalAddress" class="form-label">Home Physical Address <span style="color:red">*</span></label>
@@ -391,11 +391,11 @@ if (isset($_POST['FullTimeStudent'])) {
 												<?php } ?>
 												
 												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '3'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="HomeCityTown">Home City/Town <span style="color:red">*</span></label>
                                                         <input type="text" id="HomeCityTown" class="form-control"
-                                                             name="HomeCityTown" value="<?php echo @$HomeCityTown; ?>"  <?php if(@$_SESSION['user_type'] != '2'){ echo 'required="required"'; } ?>>
+                                                             name="HomeCityTown" value="<?php echo @$HomeCityTown; ?>">
                                                     </div>
                                                 </div>
 												
@@ -409,11 +409,11 @@ if (isset($_POST['FullTimeStudent'])) {
                                                 </div>
 												<?php } ?>
 												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '3'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="HomePostalCode">Home Postal Code <span style="color:red">*</span></label>
                                                         <input type="text" id="HomePostalCode" class="form-control"
-                                                             name="HomePostalCode" value="<?php echo @$HomePostalCode; ?>"  <?php if(@$_SESSION['user_type'] != '2'){ echo 'required="required"'; } ?>>
+                                                             name="HomePostalCode" value="<?php echo @$HomePostalCode; ?>">
                                                     </div>
                                                 </div>
 												
@@ -443,11 +443,11 @@ if (isset($_POST['FullTimeStudent'])) {
                                                 </div>
 												<?php } ?>
 												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '3'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="HomeProvince">Home Province <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="choices form-select" id="HomeProvince" name="HomeProvince"  <?php if(@$_SESSION['user_type'] != '2'){ echo 'required="required"'; } ?>>
+                                                    <select class="choices form-select" id="HomeProvince" name="HomeProvince">
                                                         <option></option>
                                                         <?php
 				
@@ -492,11 +492,11 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     </div>
                                                 </div>
 												<?php } ?>
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '3'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="Country">Home Country <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="choices form-select" id="Country" name="Country" <?php if(@$_SESSION['user_type'] != '2'){ echo 'required="required"' ;} ?>>
+                                                    <select class="choices form-select" id="Country" name="Country">
 													<option> </option>
                                                         <?php
 				
@@ -559,10 +559,10 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     </div>
                                                 </div>
 												
-												<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%; <?php if(@$_SESSION['user_type'] == '2'){ echo 'display:none;'; } ?>">NEXT OF KIN DETAILS.</div>
+												<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%; <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '3'){ echo 'display:none;'; } ?>">NEXT OF KIN DETAILS.</div>
 												
 												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '3'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="Name">Name <span style="color:red">*</span></label>
                                                         <input type="text" id="Name" class="form-control"
@@ -570,7 +570,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '3'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="Telephone">Telephone Number <span style="color:red">*</span></label>
                                                         <input type="text" id="Telephone" class="form-control"
@@ -578,7 +578,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '3'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="Cellnumber">Cellphone Number <span style="color:red">*</span></label>
                                                         <input type="text" id="Cellnumber" class="form-control"
@@ -586,7 +586,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '3'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="Relationship">Relationship to you <span style="color:red">*</span></label>
                                                         <input type="text" id="Relationship" class="form-control"
@@ -594,7 +594,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '3'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="Address">Physical Address <span style="color:red">*</span></label>
                                                         <textarea class="form-control" id="Address" name="Address" rows="3"><?php echo @$Address; ?></textarea>
