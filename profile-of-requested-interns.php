@@ -22,7 +22,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Profile of Re
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-10 order-md-1 order-last">
-                            <h3><?php echo $_SESSION['headingType'] .' (' . $_SESSION['SessionInstitutionName'] . ')' . ' - ' . $title; ?></h3>
+                            <h3><?php echo @$_SESSION['headingType'] .' (' . @$_SESSION['SessionInstitutionName'] . ')' . ' - ' . $title; ?></h3>
                             
                         </div>
                         <div class="col-12 col-md-2 order-md-2 order-first">

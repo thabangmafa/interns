@@ -12,7 +12,7 @@ if (@$_POST['InstitutionID'] != '') {
 	$result = mysqli_query($conn, $query);
 	$SessionInstitution = mysqli_fetch_array($result);
 	
-	$_SESSION['SessionInstitutionName'] = @$SessionInstitution['Name'];
+	@$_SESSION['SessionInstitutionName'] = @$SessionInstitution['Name'];
 }
 
  ?>
