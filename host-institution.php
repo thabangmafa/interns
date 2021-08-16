@@ -358,7 +358,7 @@ if(@$_SESSION['InstitutionID']){
                                                         <label for="SufficientResources">Do you have sufficient or adequate resources? <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="form-select" id="SufficientResources" name="SufficientResources" required="required">
-                                                        <option><?php echo @$HostedInternsBefore; ?></option>
+                                                        <option><?php echo @$SufficientResources; ?></option>
                                                         <option>Yes</option>
                                                         <option>No</option>
                                                     </select>
