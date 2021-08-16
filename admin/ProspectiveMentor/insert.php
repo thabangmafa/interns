@@ -2,16 +2,32 @@
 include '../connect.php';
 $conn = OpenCon();
 
-if($_POST["Name"] != '' && $_POST["Surname"] != '' && $_POST["Email"] != '')
+if($_POST["Email"] != '')
 {
 	
-  $MentorID = mysqli_real_escape_string($conn,$_POST["MentorID"]);
-  $Name = mysqli_real_escape_string($conn,$_POST["Name"]);
-  $Surname = mysqli_real_escape_string($conn,$_POST["Surname"]);
-  $Email = mysqli_real_escape_string($conn,$_POST["Email"]);
-  $InstitutionID = mysqli_real_escape_string($conn,$_POST["InstitutionID"]);
+  $MentorID = mysqli_real_escape_string($conn,@$_POST["MentorID"]);
+  $Name = mysqli_real_escape_string($conn,@$_POST["Name"]);
+  $Surname = mysqli_real_escape_string($conn,@$_POST["Surname"]);
+  $Email = mysqli_real_escape_string($conn,@$_POST["Email"]);
+  $InstitutionID = mysqli_real_escape_string($conn,@$_POST["InstitutionID"]);
+  
+  if(@$_POST["Status"] != ''){
+  $Status = mysqli_real_escape_string($conn,@$_POST["Status"]);
+  }else{
+	  $Status = 'Pending Approval';
+  }
+ 
   
  $ID = $_SESSION['id'];
+ 
+ if(@$_POST["ID"] != ''){
+	 
+	 $query = "UPDATE ProspectiveMentors SET Status = '".$Status."' WHERE ID = '".@$_POST["ID"]."'";
+	 
+	 mysqli_query($conn,$query);
+	 echo 'Data Inserted';
+	 
+	 }else{
  
  $query = "SELECT * FROM RegistrationDetails WHERE UserID = '".$_SESSION['id']."'";
 $result = mysqli_query($conn,$query);
@@ -33,7 +49,7 @@ $Person = mysqli_fetch_array($result);
   '$Email',
   '$InstitutionID',
   '$ID',
-  'Pending Approval')";
+  '$Status')";
 
 
  if(mysqli_query($conn,$query))
@@ -72,6 +88,11 @@ $Person = mysqli_fetch_array($result);
  }else{
 	 echo 'Data Not Inserted';
  }
+ 
+
+ }
+ 
+ 
 }else{
 	echo 'Data Not Inserted due to missing information';
 }

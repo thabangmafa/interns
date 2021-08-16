@@ -110,6 +110,7 @@ $query = "SELECT * FROM ApplicantChecklist
                                         <th>Email Address</th>
 										<th>Institution</th>
 										<th>Response</th>
+										<th>Edit</th>
                                         <!--th>Manage</th-->
                                     </tr>
                                 </thead>
@@ -256,17 +257,17 @@ $query = "SELECT * FROM ApplicantChecklist
     $('#capture-new').on('show.bs.modal', function (e) {
         var rowid = $(e.relatedTarget).data('id');
 		
-		if(rowid == '000'){
+		//if(rowid == '000'){
 				$('#update').hide();
 				$('#insert').hide();
 				$('#prepinsert').show();
 				var url = 'admin/ProspectiveMentor/fetch.php';
-			}else{
-				$('#update').show();
-				$('#insert').hide();
-				$('#prepinsert').hide();
-				var url = 'admin/ProspectiveMentor/fetchInterns.php';
-			}
+			//}else{
+				//$('#update').show();
+				//$('#insert').hide();
+				//$('#prepinsert').hide();
+				//var url = 'admin/ProspectiveMentor/fetchInterns.php';
+			//}
 	
         $.ajax({
             type : 'post',
@@ -316,7 +317,7 @@ $query = "SELECT * FROM ApplicantChecklist
     });
 	
 	
-$("#prepinsert").click(function(){
+		$("#prepinsert").click(function(){
 		 var form = $('#QualificationsDetails')[0];
         var formData = new FormData(form);
         event.preventDefault();

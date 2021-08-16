@@ -107,9 +107,9 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 		echo '<div class="row">';
 
 		echo '<input type="hidden" id="ID" class="form-control" name="ID" value="' . $row["ID"] . '">';
+	
 		echo '<input type="hidden" id="InstitutionID" class="form-control" name="InstitutionID" value="' . @$_SESSION['InstitutionID'] . '">';
-		
-		echo '<div class="row">
+									echo '<div class="row">
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="Name">Name</label>
@@ -134,8 +134,23 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
                                                     </div>
                                                 </div>
 												
+												<div class="col-md-6 col-12" >
+                                                    <div class="form-group">
+                                                        <label for="Status">Status</label>
+                                                        <fieldset class="form-group">
+                                                    <select class="choices form-select" id="Status" name="Status">
+													<option>' . $row["Status"] . '</option>
+                                                        <option>Withdraw</option>
+														<option>Delete</option>
+                                                    </select>
+                                                </fieldset>
+                                                    </div>
+                                                </div>
 												
                                             </div>';
+		
+		
+
 					
 					
 		echo '</div>';
@@ -158,6 +173,7 @@ while($row = mysqli_fetch_array($result))
   }else{
 	  //$sub_array[] = '<span class="fa-fw select-all fas"></span>';
   }
+  $sub_array[] = '<div class="icon dripicons-document-edit" data-id="'.$row["ID"].'" data-bs-toggle="modal" data-bs-target="#capture-new"></div>';
  
 
  $data[] = $sub_array;

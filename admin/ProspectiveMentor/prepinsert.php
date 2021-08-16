@@ -11,15 +11,17 @@ if(isset($_POST["Email"]) && $_POST["Email"] != '')
   $Email = mysqli_real_escape_string($conn,$_POST["Email"]);
   $InstitutionID = mysqli_real_escape_string($conn,$_POST["InstitutionID"]);
   
- $ID = $_SESSION['id'];
+ //$ID = $_SESSION['id'];
+
 
  
- $query = "SELECT A.UserID, A.Email, B.Initials, F.Title, B.FirstName, B.LastName, C.Organization, C.Position, D.MobileNumber, D.TelephoneNumber, E.Name as Institution FROM users A 
+ $query = "SELECT G.ID, A.UserID, A.Email, G.Status, B.Initials, F.Title, B.FirstName, B.LastName, C.Organization, C.Position, D.MobileNumber, D.TelephoneNumber, E.Name as Institution FROM users A 
  LEFT JOIN RegistrationDetails B ON B.UserID = A.UserID
  LEFT JOIN EmploymentDetails C ON C.UserID = A.UserID
  LEFT JOIN UserContactDetails D ON D.UserID = A.UserID
  LEFT JOIN LookupInstitutions E ON E.InstitutionId = D.CurrentOrganisation
  LEFT JOIN LookupUserTitle F ON F.ID = B.TITLE
+ LEFT JOIN ProspectiveMentors G ON G.MentorID = A.UserID
  WHERE lower(A.Email) = lower('".$Email."')";
 
 $result = mysqli_query($conn,$query);
@@ -39,9 +41,11 @@ if(isset($Email))
 				echo '<div class="alert alert-light-warning color-warning"><i class="bi-exclamation-triangle"></i> Please confirm if the details below are correct. On confirmation, an email will be sent to the prospective mentor.
                                     </div>';
 									echo '<input type="hidden" id="MentorID" class="form-control" name="MentorID" value="' . $row["UserID"] . '">';
+									echo '<input type="hidden" id="ID" class="form-control" name="ID" value="' . $row["ID"] . '">';
 									echo '<input type="hidden" id="Name" class="form-control" name="Name" value="' . $row["FirstName"] . '">';
 									echo '<input type="hidden" id="Surname" class="form-control" name="Surname" value="' . $row["LastName"] . '">';
 									echo '<input type="hidden" id="Email" class="form-control" name="Email" value="' . $row["Email"] . '">';
+									echo '<input type="hidden" id="Status" class="form-control" name="Status" value="' . @$_POST["Status"] . '">';
 									echo '<input type="hidden" id="InstitutionID" class="form-control" name="InstitutionID" value="' . $InstitutionID . '">';
 									echo '<div class="row">
 											<table>
@@ -89,9 +93,11 @@ if(isset($Email))
 		echo '<div class="alert alert-light-danger color-danger"><i class="bi-exclamation-triangle"></i> Prospective mentor not registered on the system. On confirmation, an invite will be sent to the prospective mentor to register.
                                     </div>';
 									echo '<input type="hidden" id="MentorID" class="form-control" name="MentorID" value="">';
+									echo '<input type="hidden" id="ID" class="form-control" name="ID" value="' . $ID . '">';
 									echo '<input type="hidden" id="Name" class="form-control" name="Name" value="' . $Name . '">';
 									echo '<input type="hidden" id="Surname" class="form-control" name="Surname" value="' . $Surname . '">';
 									echo '<input type="hidden" id="Email" class="form-control" name="Email" value="' . $Email . '">';
+									echo '<input type="hidden" id="Status" class="form-control" name="Status" value="' . $row["Status"] . '">';
 									echo '<input type="hidden" id="InstitutionID" class="form-control" name="InstitutionID" value="' . $InstitutionID . '">';
 									echo '<div class="row">
 											<table>
@@ -120,12 +126,13 @@ if(isset($Email))
 
 function get_all_data($conn)
 {
- $query = "SELECT  A.UserID, A.Email, B.Initials, F.Title, B.FirstName, B.LastName, C.Organization, C.Position, D.MobileNumber, D.TelephoneNumber, E.Name as Institution FROM users A 
+ $query = "SELECT  G.ID, A.UserID, A.Email, B.Initials, F.Title, B.FirstName, B.LastName, C.Organization, C.Position, D.MobileNumber, D.TelephoneNumber, E.Name as Institution FROM users A 
  LEFT JOIN RegistrationDetails B ON B.UserID = A.UserID
  LEFT JOIN EmploymentDetails C ON C.UserID = A.UserID
  LEFT JOIN UserContactDetails D ON D.UserID = A.UserID
  LEFT JOIN LookupInstitutions E ON E.InstitutionId = D.CurrentOrganisation
   LEFT JOIN LookupUserTitle F ON F.ID = B.TITLE
+  LEFT JOIN ProspectiveMentors G ON G.MentorID = A.UserID
  WHERE lower(Email) = lower('".$Email."')
 ";
 
