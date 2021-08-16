@@ -25,21 +25,21 @@ if($_POST["AcademicLevel"] != '' && $_POST["NameOfDegree"] != '')
  
  
   // Count total files
- @$Transcripts = count($_FILES['TranscriptFile']['name']);
+ @$Transcripts = count(@$_FILES['TranscriptFile']['name']);
 
  // Looping all files
- if($_FILES['TranscriptFile']['name']){
+ if(@$_FILES['TranscriptFile']['name']){
  for($i=0;$i<$Transcripts;$i++){
 	 
  
-  $TranscriptFile = $_FILES['TranscriptFile']['name'][$i];
+  $TranscriptFile = @$_FILES['TranscriptFile']['name'][$i];
  
-  	if (!file_exists('../../uploads/qualifications/'.$_SESSION["id"])) {
-		mkdir('../../uploads/qualifications/'.$_SESSION["id"], 0777, true);
+  	if (!file_exists('../../uploads/qualifications/'.@$_SESSION["id"])) {
+		mkdir('../../uploads/qualifications/'.@$_SESSION["id"], 0777, true);
 	}
 	
    /* Location */
-   $location = "../../uploads/qualifications/".$_SESSION["id"].'/'.$TranscriptFile;
+   $location = "../../uploads/qualifications/".@$_SESSION["id"].'/'.@$TranscriptFile;
    $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
    $imageFileType = strtolower($imageFileType);
 
