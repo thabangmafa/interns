@@ -647,6 +647,12 @@ $('#IsOrganisationFundingSalary').change(function() {
 			$('.OrganisationFundingSalaryView').hide();
 		}
 	});
+	
+	 $("#CurrentOrganisation").focus(function() {
+ 
+      this.value = "";
+
+  });
 
 });
 </script>
