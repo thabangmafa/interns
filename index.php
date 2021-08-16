@@ -7,6 +7,12 @@ $menu_item = "1";
 $title = "";
 if (@$_POST['InstitutionID'] != '') {
 	$_SESSION['InstitutionID'] = $_POST['InstitutionID'];
+	
+	$query = "SELECT Name FROM LookupInstitutions WHERE InstitutionID = '".$_SESSION['InstitutionID']."'";
+	$result = mysqli_query($conn, $query);
+	$SessionInstitution = mysqli_fetch_array($result);
+	
+	$_SESSION['SessionInstitutionName'] = @$SessionInstitution['Name'];
 }
 
  ?>
