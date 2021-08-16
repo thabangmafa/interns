@@ -3,9 +3,11 @@
 include '../connect.php';
 $conn = OpenCon();
 
-$query = "SELECT a.InstitutionID, PostalAddress, CityTown, PostalCode, TelephoneNumber, PrimaryEmail, b.Name FROM HostInstitutionDetails a
-left join LookupInstitutions b on b.InstitutionId = a.InstitutionID
+$query = "SELECT a.InstitutionID, WorkPostalAddress, WorkCityTown, WorkPostalCode, TelephoneNumber, PrimaryEmail, b.Name FROM HostInstitutionDetails a 
+left join LookupInstitutions b on b.InstitutionId = a.InstitutionID 
+left join UserContactDetails C on C.CurrentOrganisation = a.InstitutionID 
 WHERE a.InstitutionID = '".$_POST['InstitutionID']."'";
+
 
 $result = mysqli_query($conn,$query);
 $row = mysqli_fetch_array($result);
@@ -24,16 +26,16 @@ if(isset($_POST["CallID"]))
 					<td>'.$row["Name"].'</td>
 				</tr>
 				<tr>
-					<td>Postal Address</td>
-					<td>'.$row["PostalAddress"].'</td>
+					<td>Address</td>
+					<td>'.$row["WorkPostalAddress"].'</td>
 				</tr>
 				<tr>
 					<td>City/Town</td>
-					<td>'.$row["CityTown"].'</td>
+					<td>'.$row["WorkCityTown"].'</td>
 				</tr>
 				<tr>
 					<td>Postal Code</td>
-					<td>'.$row["PostalCode"].'</td>
+					<td>'.$row["WorkPostalCode"].'</td>
 				</tr>
 				<tr>
 					<td>Telephone Number</td>
