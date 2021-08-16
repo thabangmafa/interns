@@ -550,7 +550,7 @@ if (isset($_POST['FullTimeStudent'])) {
 												<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%;">NEXT OF KIN DETAILS.</div>
 												
 												
-												<div class="col-md-6 col-12">
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="Name">Name <span style="color:red">*</span></label>
                                                         <input type="text" id="Name" class="form-control"
@@ -558,7 +558,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12">
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="Telephone">Telephone Number <span style="color:red">*</span></label>
                                                         <input type="text" id="Telephone" class="form-control"
@@ -566,7 +566,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12">
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="Cellnumber">Cellphone Number <span style="color:red">*</span></label>
                                                         <input type="text" id="Cellnumber" class="form-control"
@@ -574,7 +574,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12">
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="Relationship">Relationship to you <span style="color:red">*</span></label>
                                                         <input type="text" id="Relationship" class="form-control"
@@ -582,7 +582,7 @@ if (isset($_POST['FullTimeStudent'])) {
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12">
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="Address">Physical Address <span style="color:red">*</span></label>
                                                         <textarea class="form-control" id="Address" name="Address" rows="3" required="required"><?php echo @$Address; ?></textarea>
