@@ -412,7 +412,7 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="id_document">ID/Passport Number <span style="color:red">*</span></label> <span  style="float:right"> <?php if(@$IDDocument){
+                                                        <label for="id_document">ID/Passport Document <span style="color:red">*</span></label> <span  style="float:right"> <?php if(@$IDDocument){
 	 echo '<a style="color:red;" class="icon dripicons-document-delete" href="?section=qualifications&file='.@$IDDocument.'"></a> <a target="_blank" href="uploads/applicants/'.$_SESSION['id'].'/'.@$IDDocument.'">Attached Document</a>';
  } ?></span>
                                                         <input type="file" id="id_document" name="id_document" value="<?php echo @$IDDocument; ?>" class="form-control" <?php if(!@$IDDocument){ echo 'required="required"'; } ?>>
@@ -613,6 +613,17 @@ $('#id_type').change(function() {
 		
 	}
 });
+
+
+$( "#id_number" ).blur(function() {
+	if($(this).val().length != '13'){
+		alert("Please make sure your ID number is correct.");
+		$(this).val("");
+	}
+  
+});
+
+
 
 });
 </script>
