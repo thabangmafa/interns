@@ -47,7 +47,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 				echo '<div class="row"><div class="message"></div>';
 					echo '<div class="col-md-6 col-12">
 						<div class="form-group">
-							<label for="Name">Name of Referre <span style="color:red">*</span></label>
+							<label for="Name">Name of Referee <span style="color:red">*</span></label>
 							<input type="text" id="Name" class="form-control"
 								 name="Name">
 						</div>
@@ -64,7 +64,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 					echo '<div class="col-md-6 col-12">
 						<div class="form-group">
 							<label for="Telephone">Telephone Number <span style="color:red">*</span></label>
-							<input type="number" id="Telephone" class="form-control"
+							<input type="number" maxlength="10" id="Telephone" class="form-control"
 								 name="Telephone">
 						</div>
 					</div>';
@@ -72,7 +72,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 					echo '<div class="col-md-6 col-12">
 						<div class="form-group">
 							<label for="Email">Email <span style="color:red">*</span></label>
-							<input type="text" id="Email" class="form-control"
+							<input type="email" id="Email" class="form-control"
 								 name="Email">
 						</div>
 					</div>';
@@ -98,7 +98,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 		echo '<input type="hidden" id="ID" class="form-control" name="ID" value="' . $row["ID"] . '">';
 							echo '<div class="col-md-6 col-12">
 						<div class="form-group">
-							<label for="Name">Name of Referre</label>
+							<label for="Name">Name of Referee</label>
 							<input type="text" id="Name" class="form-control"
 								 name="Name" value="'.$row["Name"].'">
 						</div>
@@ -116,14 +116,14 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 						<div class="form-group">
 							<label for="Telephone">Telephone Number</label>
 							<input type="number" id="Telephone" class="form-control"
-								 name="Telephone" value="'.$row["Telephone"].'">
+								 name="Telephone" maxlength="10" value="'.$row["Telephone"].'">
 						</div>
 					</div>';
 					
 					echo '<div class="col-md-6 col-12">
 						<div class="form-group">
 							<label for="Email">Email</label>
-							<input type="text" id="Email" class="form-control"
+							<input type="email" id="Email" class="form-control"
 								 name="Email" value="'.$row["Email"].'">
 						</div>
 					</div>';
