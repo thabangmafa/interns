@@ -582,33 +582,33 @@ if (@$_POST['Submit'] != '') {
                                                 </div>
 
 												
-												<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%; <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1'){ echo 'display:inline;'; }else{ echo 'display:none;'; } ?>">Alternate Contact Person in Institution.</div>
+												<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%; <?php if(@$_SESSION['user_type'] == '2'){ echo 'display:inline;'; }else{ echo 'display:none;'; } ?>">Alternate Contact Person in Institution.</div>
 												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1'){ echo 'style="display:inline;"'; }else{ echo 'style="display:none;"'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:inline;"'; }else{ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="AlternateContactName">Name <span style="color:red">*</span></label>
                                                         <input type="text" id="AlternateContactName" class="form-control"
-                                                             name="AlternateContactName" <?php if(@$_SESSION['user_type'] != '4'){ echo 'required="required"'; } ?> value="<?php echo @$AlternateContactName; ?>">
+                                                             name="AlternateContactName" <?php if(@$_SESSION['user_type'] == '2'){ echo 'required="required"'; } ?> value="<?php echo @$AlternateContactName; ?>">
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1'){ echo 'style="display:inline;"'; }else{ echo 'style="display:none;"'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:inline;"'; }else{ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="AlternateContactEmail">Email <span style="color:red">*</span></label>
                                                         <input type="email" id="AlternateContactEmail" class="form-control"
-                                                             name="AlternateContactEmail" <?php if(@$_SESSION['user_type'] != '4'){ echo 'required="required"'; } ?> value="<?php echo @$AlternateContactEmail; ?>">
+                                                             name="AlternateContactEmail" <?php if(@$_SESSION['user_type'] == '2'){ echo 'required="required"'; } ?> value="<?php echo @$AlternateContactEmail; ?>">
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1'){ echo 'style="display:inline;"'; }else{ echo 'style="display:none;"'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:inline;"'; }else{ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="AlternateContactDesignation">Designation <span style="color:red">*</span></label>
                                                         <input type="text" id="AlternateContactDesignation" class="form-control"
-                                                             name="AlternateContactDesignation" <?php if(@$_SESSION['user_type'] != '4'){ echo 'required="required"'; } ?> value="<?php echo @$AlternateContactDesignation; ?>">
+                                                             name="AlternateContactDesignation" <?php if(@$_SESSION['user_type'] == '2'){ echo 'required="required"'; } ?> value="<?php echo @$AlternateContactDesignation; ?>">
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1'){ echo 'style="display:inline;"'; }else{ echo 'style="display:none;"'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:inline;"'; }else{ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="AlternateContactTelephone">Telephone</label>
                                                         <input type="number" maxlength="10" id="AlternateContactTelephone" class="form-control"
@@ -616,11 +616,11 @@ if (@$_POST['Submit'] != '') {
                                                     </div>
                                                 </div>
 												
-												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1'){ echo 'style="display:inline;"'; }else{ echo 'style="display:none;"'; } ?>>
+												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2'){ echo 'style="display:inline;"'; }else{ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="AlternateContactCellphone">Cellphone <span style="color:red">*</span></label>
                                                         <input type="number" maxlength="10" id="AlternateContactCellphone" class="form-control"
-                                                             name="AlternateContactCellphone" <?php if(@$_SESSION['user_type'] != '4'){ echo 'required="required"'; } ?> value="<?php echo @$AlternateContactCellphone; ?>">
+                                                             name="AlternateContactCellphone" <?php if(@$_SESSION['user_type'] == '2'){ echo 'required="required"'; } ?> value="<?php echo @$AlternateContactCellphone; ?>">
                                                     </div>
                                                 </div>
 												
