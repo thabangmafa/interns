@@ -14,6 +14,7 @@ if (isset($_POST['Email']))
 	$email = validate($_POST['Email']);
 	
 	$sql = "SELECT * FROM users WHERE Email='$email' ";
+	
 		$result = mysqli_query($conn, $sql);
 		$row = mysqli_fetch_assoc($result);
 		
@@ -22,14 +23,15 @@ if (isset($_POST['Email']))
 				//generating the random key
 				$key=md5(time()+123456789% rand(4000, 55000000));
 				//insert this temporary key into database
-				$sql_insert=mysqli_query($conn,"INSERT INTO forget_password(Email,TempKey) VALUES('$email','$key')");
+
+				$sql_insert=mysqli_query($conn,"INSERT INTO forget_password(Email,temp_key) VALUES('$email','$key')");
 				//sending email about update
 
 				$subject = 'HSRC Interns Portal - Password Reset';
 				$txt = "Please copy the link and paste in your browser address bar". "\r\n"."interns.hsrc.ac.za/auth-forgot-password-reset.php?key=".$key."&email=".$email;
 				$headers = "From: noreply@hsrc.ac.za" . "\r\n";
 
-				mail($email,$subject,$txt,$headers); 
+				//mail($email,$subject,$txt,$headers); 
 			}
 			else{
 				$message="Sorry! no account associated with this email";
