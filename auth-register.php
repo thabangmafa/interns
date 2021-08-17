@@ -119,7 +119,7 @@ if (isset($_POST['Username']) && isset($_POST['Password'])
 
         <div class="row h-100 d-flex justify-content-center">
             <div class="col-lg-5 col-12">
-                <div id="auth-left">
+                <div id="auth-left" style="padding:5rem 7rem">
                     <div class="auth-logo">
                         <a href="index.php"><img src="assets/images/logo/logo.png" style="margin-right:5%" alt="Logo"><img src="assets/images/logo/DSI.png" style="width: 49%;" alt="Logo"></a>
                     </div>
