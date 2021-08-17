@@ -23,13 +23,13 @@ if (@$_POST['Submit'] != '') {
 	
 	$query = "INSERT INTO FAQ(User, Message)VALUES('".$user."', '".$Message."')";
 	mysqli_query($conn, $query);
-	$email = 'tmafa@hsrc.ac.za';
+	$email = 'DSI_HSRC_Internship.queries@hsrc.ac.za';
 	$subject = "HSRC Interns Portal FAQ";
 $txt = "Dear Administrator,
 				
-A question has been submitted on the FAQ section for your attention.
+A question has been submitted on the FAQ section.
 
-".$user." said '".$Message."'.
+".$user." said: <strong>".$Message.".</strong>
 
 Regards,
 HSRC Team";
@@ -88,7 +88,7 @@ $headers = "From: noreply@hsrc.ac.za" . "\r\n";
                                     
                                 </div>
                                 <div class="card-body bg-grey">
-                                    <div class="chat-content">
+                                    <div class="chat-content" style="overflow-y: scroll;height: 520px;">
 									<?php
 									$query = "SELECT * FROM FAQ ORDER BY SubmittedDate asc";
 									$result = mysqli_query($conn, $query);
@@ -104,7 +104,7 @@ $headers = "From: noreply@hsrc.ac.za" . "\r\n";
 											echo '<div class="chat '.$check.' ">
 										
                                             <div class="chat-body">
-                                                <div class="chat-message">
+                                                <div class="chat-message" style="margin-right: 10px !important;">
 												
 												<h6 class="mb-0">';
 												echo @$messages['User'] . '<br /><small style="font-size:11px">' .@$messages['SubmittedDate'] .'</small></h6>' . @$messages['Message'] ;
