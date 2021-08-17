@@ -59,7 +59,7 @@ if (isset($_POST['Submit'])) {
 			$checkAdmin = "SELECT Email FROM users WHERE UserType = '1'";
 			$result = mysqli_query($conn, $checkAdmin);
 		
-
+			if(@$User['Email'] != ''){
 			while($User = mysqli_fetch_array($result)) {
 				$email = $User['Email'];
 				$subject = "HSRC Interns Portal - Host Administrator Request";
@@ -75,7 +75,7 @@ if (isset($_POST['Submit'])) {
 
 				mail($email,$subject,$txt,$headers); 
 			}
-			
+			}
 			
 		}
 	}
@@ -93,22 +93,23 @@ if (isset($_POST['Submit'])) {
 			WHERE a.IsActive = '1' AND InstitutionID = '".$Organization."' ";
 			$result = mysqli_query($conn, $checkAdminStatus);
 			//$User = mysqli_fetch_array($result);
-			
-			while($User = mysqli_fetch_array($result)) {
-			
-				$email = $User['Email'];
-				$subject = "HSRC Interns Portal - Mentor Request";
-				$txt = "Dear Administrator,
+			if(@$User['Email'] != ''){
+				while($User = mysqli_fetch_array($result)) {
 				
-				".$_SESSION['username']." (".$_SESSION['email'].") has requested to become a Mentor for Institution: ".$OriginalOrganisation."
-				
-				Please login to the portal to action this request.
-				
-				Regards
-				";
-				$headers = "From: noreply@hsrc.ac.za" . "\r\n";
+					$email = $User['Email'];
+					$subject = "HSRC Interns Portal - Mentor Request";
+					$txt = "Dear Administrator,
+					
+					".$_SESSION['username']." (".$_SESSION['email'].") has requested to become a Mentor for Institution: ".$OriginalOrganisation."
+					
+					Please login to the portal to action this request.
+					
+					Regards
+					";
+					$headers = "From: noreply@hsrc.ac.za" . "\r\n";
 
-				mail($email,$subject,$txt,$headers);
+					mail($email,$subject,$txt,$headers);
+				}
 			}
 		}
 		
