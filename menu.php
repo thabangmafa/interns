@@ -245,7 +245,7 @@ $query = "SELECT * FROM ApplicantChecklist
                         <li class="sidebar-item  <?php if($menu_item == "9"){ echo "active"; } ?>">
                             <a href="faq.php" class='sidebar-link'>
                                 <i class="bi bi-life-preserver"></i>
-                                <span>FAQ</span>
+                                <span>LiveChat</span>
                             </a>
                         </li>
 						
