@@ -5,7 +5,7 @@ $conn = OpenCon();
 
 $columns = array('a.InstitutionId', 'a.Name', 'd.UserID','a.IsActive');
 
-$query = "SELECT a.*, b.ID,b.Name as Type,c.Status, e.*, d.ID FROM `LookupInstitutions` a 
+$query = "SELECT a.*, b.ID,b.Name as Type,c.Status, e.Email, d.ID FROM `LookupInstitutions` a 
 left join `LookupOrganisationType` b on b.`ID` = a.`InstitutionTypeId`
 left join `LookupIsActive` c on c.`StatusId` = a.`IsActive`
 left join HostAdministrator d on d.InstitutionID = a.InstitutionId
@@ -230,7 +230,7 @@ while($row = mysqli_fetch_array($result))
 
 function get_all_data($conn)
 {
- $query = "SELECT a.*, b.*,c.Status, e.*, d.ID FROM `LookupInstitutions` a 
+ $query = "SELECT a.*, b.*,c.Status, e.Email, d.ID FROM `LookupInstitutions` a 
 left join `LookupOrganisationType` b on b.`ID` = a.`InstitutionTypeId`
 left join `LookupIsActive` c on c.`StatusId` = a.`IsActive`
 left join HostAdministrator d on d.InstitutionID = a.InstitutionId
