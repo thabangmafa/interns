@@ -242,10 +242,17 @@ $query = "SELECT * FROM ApplicantChecklist
                             </ul>
                         </li>
 						<?php } ?>
-                        <li class="sidebar-item  ">
+                        <!--li class="sidebar-item  ">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-life-preserver"></i>
                                 <span>FAQ</span>
+                            </a>
+                        </li-->
+						
+						<li class="sidebar-item  ">
+                            <a href="mailto:smotala@hsrc.ac.za" class='sidebar-link'>
+                                <i class="bi bi-life-preserver"></i>
+                                <span>Contact Us</span>
                             </a>
                         </li>
 
