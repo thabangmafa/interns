@@ -5,8 +5,8 @@ $conn = OpenCon();
 
 $columns = array('a.InstitutionId', 'a.Name', 'd.UserID','a.IsActive');
 
-$query = "SELECT a.*, b.*,c.Status, e.*, d.ID FROM `LookupInstitutions` a 
-left join `LookupInstitutionTypes` b on b.`InstitutionTypeId` = a.`InstitutionTypeId`
+$query = "SELECT a.*, b.ID,b.Name as Type,c.Status, e.*, d.ID FROM `LookupInstitutions` a 
+left join `LookupOrganisationType` b on b.`ID` = a.`InstitutionTypeId`
 left join `LookupIsActive` c on c.`StatusId` = a.`IsActive`
 left join HostAdministrator d on d.InstitutionID = a.InstitutionId
 left join users e on e.UserId = d.UserID
@@ -17,13 +17,13 @@ left join users e on e.UserId = d.UserID
 if(isset($_POST["search"]["value"]))
 {
  $query .= '
- WHERE Name LIKE "%'.$_POST["search"]["value"].'%" || c.Status LIKE "%'.$_POST["search"]["value"].'%" || Description LIKE "%'.$_POST["search"]["value"].'%"';
+ WHERE a.Name LIKE "%'.$_POST["search"]["value"].'%" || c.Status LIKE "%'.$_POST["search"]["value"].'%" || b.Name LIKE "%'.$_POST["search"]["value"].'%"';
 }
 
 if(isset($_POST["rowid"]))
 {
  $query .= '
- WHERE d.ID = "'.$_POST["rowid"].'" ';
+ WHERE a.InstitutionId = "'.$_POST["rowid"].'" ';
 }
 
 if(isset($_POST["order"]))
@@ -32,7 +32,7 @@ if(isset($_POST["order"]))
 }
 else
 {
- $query .= 'ORDER BY a.IsActive DESC, Name ASC ';
+ $query .= 'ORDER BY a.IsActive DESC,a. Name ASC ';
 }
 
 $query1 = '';
@@ -52,7 +52,7 @@ while($stat = mysqli_fetch_array($status))
 	}
 	
 
-$InstitutionTypes = mysqli_query($conn,"SELECT distinct * FROM LookupInstitutionTypes");
+$InstitutionTypes = mysqli_query($conn,"SELECT distinct * FROM LookupOrganisationType");
 
 while($types = mysqli_fetch_array($InstitutionTypes))
 	{
@@ -86,7 +86,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 
 				<?php foreach ($type as $t){ 
 				
-				echo '<option value="'.$t['InstitutionTypeId'].'" >'.$t['Description'].'</option>'; 
+				echo '<option value="'.$t['ID'].'" >'.$t['Name'].'</option>'; 
 				} 
 				
 				echo '
@@ -154,10 +154,10 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 
 				<?php foreach ($type as $t){ 
 				$select = '';
-				if($row["Description"] === $t['Description']){
+				if($row["InstitutionTypeId"] === $t['ID']){
 					$select = 'selected="selected"';
 				}
-				echo '<option value="'.$t['InstitutionTypeId'].'" '.$select.'>'.$t['Description'].'</option>'; 
+				echo '<option value="'.$t['ID'].'" '.$select.'>'.$t['Name'].'</option>'; 
 				} 
 				
 				echo '
@@ -218,11 +218,11 @@ while($row = mysqli_fetch_array($result))
  	
  $sub_array = array();
  $sub_array[] = '<div data-id="'.$row["InstitutionId"].'" data-column="Name">' . $row["Name"] . '</div>';
- $sub_array[] = '<div data-id="'.$row["InstitutionId"].'" data-column="InstitutionTypeId">' . $row["Description"] . '</div>';
+ $sub_array[] = '<div data-id="'.$row["InstitutionId"].'" data-column="InstitutionTypeId">' . $row["Type"] . '</div>';
    $sub_array[] = '<div data-id="'.$row["InstitutionId"].'" data-column="UserID">' . $row["UserName"] . ' ('. $row["Email"] . ')</div>';
  $sub_array[] = '<div data-id="'.$row["InstitutionId"].'" data-column="IsActive">' . $row["Status"] . '</div>';
 
-	$sub_array[] = '<div class="icon dripicons-document-edit" data-id="'.$row["ID"].'" data-bs-toggle="modal" data-bs-target="#manage_institution"></div>';
+	$sub_array[] = '<div class="icon dripicons-document-edit" data-id="'.$row["InstitutionId"].'" data-bs-toggle="modal" data-bs-target="#manage_institution"></div>';
  $data[] = $sub_array;
 }
 
@@ -231,7 +231,7 @@ while($row = mysqli_fetch_array($result))
 function get_all_data($conn)
 {
  $query = "SELECT a.*, b.*,c.Status, e.*, d.ID FROM `LookupInstitutions` a 
-left join `LookupInstitutionTypes` b on b.`InstitutionTypeId` = a.`InstitutionTypeId`
+left join `LookupOrganisationType` b on b.`ID` = a.`InstitutionTypeId`
 left join `LookupIsActive` c on c.`StatusId` = a.`IsActive`
 left join HostAdministrator d on d.InstitutionID = a.InstitutionId
 left join users e on e.UserId = d.UserID";
