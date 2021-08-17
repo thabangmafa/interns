@@ -153,7 +153,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="HighestCompletedQualification">Is this your Hisgest Completed Qualification? <span style="color:red">*</span></label>
+                                                        <label for="HighestCompletedQualification">Is this your Highest Completed Qualification? <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="form-select" id="HighestCompletedQualification" name="HighestCompletedQualification" required="required">
 													<option></option>
@@ -174,7 +174,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="AnticipatedDateCompletion">Completion date/Anticipated Date of Completion <span style="color:red">*</span></label>
+                                                        <label for="AnticipatedDateCompletion">Completion Date <span style="color:red">*</span></label>
                                                         <input type="date" id="AnticipatedDateCompletion" class="form-control"
                                                             name="AnticipatedDateCompletion">
                                                     </div>
@@ -348,7 +348,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				
 				<div class="col-md-6 col-12">
 					<div class="form-group">
-						<label for="HighestCompletedQualification">Is this your Hisgest Completed Qualification?</label>
+						<label for="HighestCompletedQualification">Is this your Highest Completed Qualification?</label>
 						<fieldset class="form-group">
 					<select class="form-select" id="HighestCompletedQualification" required="required" name="HighestCompletedQualification">
 					<option>' . $row["HighestCompletedQualification"] . '</option>
@@ -371,7 +371,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				
 				<div class="col-md-6 col-12">
 					<div class="form-group">
-						<label for="AnticipatedDateCompletion">Completion date/Anticipated Date of Completion</label>
+						<label for="AnticipatedDateCompletion">Completion Date</label>
 						<input type="date" id="AnticipatedDateCompletion" class="form-control"
 							name="AnticipatedDateCompletion" value=' . $row["AnticipatedDateCompletion"] . '>
 					</div>
