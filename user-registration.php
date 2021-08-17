@@ -28,6 +28,14 @@ if (isset($_POST['Submit'])) {
 	
 	
 	$id_number = validate($_POST['id_number']);
+	
+	if(strlen($id_number) != '13'){
+		$message = '<div class="alert alert-danger" role="alert">Please correct your ID number before you continue.</div>';
+		
+	}else{
+	
+	
+	
 	$passport_number = validate($_POST['passport_number']);
 	
 	$oldstr = substr($id_number,0,6);
@@ -145,7 +153,7 @@ if (isset($_POST['Submit'])) {
 
 
     $result2 = mysqli_query($conn, $sql2);
-	$message = "Details successfully captured.";
+	$message = '<div class="alert alert-success" role="alert">Details successfully captured.</div>';
 	
 	
 	$checklist = "INSERT INTO ApplicantChecklist(UserID, Section)VALUES('$id','Registration Details')";
@@ -178,13 +186,14 @@ if (isset($_POST['Submit'])) {
 	WHERE UserID = '".$id."'";
 
 	$result2 = mysqli_query($conn, $sql2);
-	$message = "Details successfully updated.";
+	$message = '<div class="alert alert-success" role="alert">Details successfully updated.</div>';
 	unset($_POST);	
 	}
 	
 	
 	 
 	
+}
 }
 
 
@@ -257,7 +266,7 @@ if (isset($_POST['Submit'])) {
                                 </div>
                                 <div class="card-content">
 								<?php if(@$message){ ?>	
-								<div class="alert alert-success" role="alert"><?php echo @$message; ?></div>
+								<?php echo @$message; ?>
 								<?php } ?>
                                     <div class="card-body">
                                         <form class="form" action="" method="post" enctype="multipart/form-data">
@@ -388,7 +397,7 @@ if (isset($_POST['Submit'])) {
 												} ?>>
                                                     <div class="form-group">
                                                         <label for="id_number">ID Number <span style="color:red">*</span></label>
-                                                        <input type="number" maxlength="13" id="id_number" name="id_number" value="<?php echo @$UserIDNumber; ?>" class="form-control" required="required">
+                                                        <input type="number" minlength="13" maxlength="13" id="id_number" name="id_number" value="<?php echo @$UserIDNumber; ?>" class="form-control" required="required">
                                                     </div>
                                                 </div>
 												
@@ -605,6 +614,6 @@ $('#id_type').change(function() {
 	}
 });
 
-
 });
 </script>
+
