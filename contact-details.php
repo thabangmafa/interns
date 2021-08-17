@@ -316,19 +316,7 @@ if (@$_POST['Submit'] != '') {
                                     <div class="card-body">
                                         <form class="form" action="" method="post">
                                             <div class="row">
-												<!--div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '3'){ echo 'style="display:none;"'; } ?>>
-                                                    <div class="form-group">
-                                                        <label for="FullTimeStudent">Are you a full time student? <span style="color:red">*</span></label>
-                                                        <fieldset class="form-group">
-                                                    <select class="choices form-select" id="FullTimeStudent" name="FullTimeStudent"  <?php if(@$_SESSION['user_type'] != '2'){ echo 'required="required"'; } ?>>
-													<option></option>
-                                                        <option <?php if(@$FullTimeStudent == 'Yes'){ echo "selected='selected'"; } ?>>Yes</option>
-														<option <?php if(@$FullTimeStudent == 'No'){ echo "selected='selected'"; } ?>>No</option>
-														
-                                                    </select>
-                                                </fieldset>
-                                                    </div>
-                                                </div-->
+
 												<?php if(@$_SESSION['user_type'] != '4'){  ?>
 												<div class="col-md-6 col-12" >
                                                     <div class="form-group">
@@ -396,9 +384,9 @@ if (@$_POST['Submit'] != '') {
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         
-                                        <label for="WorkPostalAddress" class="form-label">Work Physical Address </label>
+                                        <label for="WorkPostalAddress" class="form-label">Work Physical Address <span style="color:red">*</span> </label>
                                         <textarea class="form-control" id="WorkPostalAddress" name="WorkPostalAddress"
-                                            rows="3"><?php echo @$WorkPostalAddress; ?></textarea>
+                                            rows="3" <?php if(@$_SESSION['user_type'] != '4'){ echo 'required="required"'; } ?>><?php echo @$WorkPostalAddress; ?></textarea>
                                     
                                                     </div>
                                                 </div>
@@ -409,7 +397,7 @@ if (@$_POST['Submit'] != '') {
                                                         
                                         <label for="HomePhysicalAddress" class="form-label">Home Physical Address <span style="color:red">*</span></label>
                                         <textarea class="form-control" id="HomePhysicalAddress" name="HomePhysicalAddress"
-                                            rows="3"  <?php if(@$_SESSION['user_type'] != '2'){ echo 'required="required"'; } ?>><?php echo @$HomePhysicalAddress; ?></textarea>
+                                            rows="3"  <?php if(@$_SESSION['user_type'] == '4'){ echo 'required="required"'; } ?>><?php echo @$HomePhysicalAddress; ?></textarea>
                                     
                                                     </div>
                                                 </div>
@@ -417,9 +405,9 @@ if (@$_POST['Submit'] != '') {
 												<?php if(@$_SESSION['user_type'] != '4'){  ?>
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="WorkCityTown">Work City/Town</label>
+                                                        <label for="WorkCityTown">Work City/Town <span style="color:red">*</span></label>
                                                         <input type="text" id="WorkCityTown" class="form-control"
-                                                             name="WorkCityTown" value="<?php echo @$WorkCityTown; ?>">
+                                                             name="WorkCityTown" <?php if(@$_SESSION['user_type'] != '4'){ echo 'required="required"'; } ?> value="<?php echo @$WorkCityTown; ?>">
                                                     </div>
                                                 </div>
 												<?php } ?>
@@ -429,16 +417,16 @@ if (@$_POST['Submit'] != '') {
                                                     <div class="form-group">
                                                         <label for="HomeCityTown">Home City/Town <span style="color:red">*</span></label>
                                                         <input type="text" id="HomeCityTown" class="form-control"
-                                                             name="HomeCityTown" value="<?php echo @$HomeCityTown; ?>">
+                                                             name="HomeCityTown" <?php if(@$_SESSION['user_type'] == '2'){ echo 'required="required"'; } ?> value="<?php echo @$HomeCityTown; ?>">
                                                     </div>
                                                 </div>
 												
 												<?php if(@$_SESSION['user_type'] != '4'){  ?>
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="WorkPostalCode">Work Postal Code</label>
+                                                        <label for="WorkPostalCode">Work Postal Code <span style="color:red">*</span></label>
                                                         <input type="text" id="WorkPostalCode" class="form-control"
-                                                             name="WorkPostalCode" value="<?php echo @$WorkPostalCode; ?>">
+                                                             name="WorkPostalCode" <?php if(@$_SESSION['user_type'] != '4'){ echo 'required="required"'; } ?> value="<?php echo @$WorkPostalCode; ?>">
                                                     </div>
                                                 </div>
 												<?php } ?>
@@ -447,16 +435,16 @@ if (@$_POST['Submit'] != '') {
                                                     <div class="form-group">
                                                         <label for="HomePostalCode">Home Postal Code <span style="color:red">*</span></label>
                                                         <input type="text" id="HomePostalCode" class="form-control"
-                                                             name="HomePostalCode" value="<?php echo @$HomePostalCode; ?>">
+                                                             name="HomePostalCode" <?php if(@$_SESSION['user_type'] == '2'){ echo 'required="required"'; } ?> value="<?php echo @$HomePostalCode; ?>">
                                                     </div>
                                                 </div>
 												
 												<?php if(@$_SESSION['user_type'] != '4'){  ?>
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="WorkProvince">Work Province/State</label>
+                                                        <label for="WorkProvince">Work Province/State <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="choices form-select" id="WorkProvince" name="WorkProvince">
+                                                    <select class="choices form-select" <?php if(@$_SESSION['user_type'] != '4'){ echo 'required="required"'; } ?> id="WorkProvince" name="WorkProvince">
                                                         <option></option>
                                                         <?php
 				
@@ -481,7 +469,7 @@ if (@$_POST['Submit'] != '') {
                                                     <div class="form-group">
                                                         <label for="HomeProvince">Home Province <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="choices form-select" id="HomeProvince" name="HomeProvince">
+                                                    <select class="choices form-select" id="HomeProvince" name="HomeProvince" <?php if(@$_SESSION['user_type'] == '2'){ echo 'required="required"'; } ?>>
                                                         <option></option>
                                                         <?php
 				
@@ -506,7 +494,7 @@ if (@$_POST['Submit'] != '') {
                                                     <div class="form-group">
                                                         <label for="WorkCountry">Work Country <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="choices form-select" id="WorkCountry" name="WorkCountry">
+                                                    <select class="choices form-select" id="WorkCountry" name="WorkCountry" <?php if(@$_SESSION['user_type'] != '4'){ echo 'required="required"'; } ?>>
 													<option> </option>
                                                         <?php
 				
@@ -530,7 +518,7 @@ if (@$_POST['Submit'] != '') {
                                                     <div class="form-group">
                                                         <label for="Country">Home Country <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="choices form-select" id="Country" name="Country">
+                                                    <select class="choices form-select" id="Country" name="Country" <?php if(@$_SESSION['user_type'] == '4'){ echo 'required="required"'; } ?>>
 													<option> </option>
                                                         <?php
 				
@@ -600,7 +588,7 @@ if (@$_POST['Submit'] != '') {
                                                     <div class="form-group">
                                                         <label for="AlternateContactName">Name <span style="color:red">*</span></label>
                                                         <input type="text" id="AlternateContactName" class="form-control"
-                                                             name="AlternateContactName" value="<?php echo @$AlternateContactName; ?>">
+                                                             name="AlternateContactName" <?php if(@$_SESSION['user_type'] != '4'){ echo 'required="required"'; } ?> value="<?php echo @$AlternateContactName; ?>">
                                                     </div>
                                                 </div>
 												
@@ -608,7 +596,7 @@ if (@$_POST['Submit'] != '') {
                                                     <div class="form-group">
                                                         <label for="AlternateContactEmail">Email <span style="color:red">*</span></label>
                                                         <input type="email" id="AlternateContactEmail" class="form-control"
-                                                             name="AlternateContactEmail" value="<?php echo @$AlternateContactEmail; ?>">
+                                                             name="AlternateContactEmail" <?php if(@$_SESSION['user_type'] != '4'){ echo 'required="required"'; } ?> value="<?php echo @$AlternateContactEmail; ?>">
                                                     </div>
                                                 </div>
 												
@@ -616,7 +604,7 @@ if (@$_POST['Submit'] != '') {
                                                     <div class="form-group">
                                                         <label for="AlternateContactDesignation">Designation <span style="color:red">*</span></label>
                                                         <input type="text" id="AlternateContactDesignation" class="form-control"
-                                                             name="AlternateContactDesignation" value="<?php echo @$AlternateContactDesignation; ?>">
+                                                             name="AlternateContactDesignation" <?php if(@$_SESSION['user_type'] != '4'){ echo 'required="required"'; } ?> value="<?php echo @$AlternateContactDesignation; ?>">
                                                     </div>
                                                 </div>
 												
@@ -632,7 +620,7 @@ if (@$_POST['Submit'] != '') {
                                                     <div class="form-group">
                                                         <label for="AlternateContactCellphone">Cellphone <span style="color:red">*</span></label>
                                                         <input type="number" maxlength="10" id="AlternateContactCellphone" class="form-control"
-                                                             name="AlternateContactCellphone" value="<?php echo @$AlternateContactCellphone; ?>">
+                                                             name="AlternateContactCellphone" <?php if(@$_SESSION['user_type'] != '4'){ echo 'required="required"'; } ?> value="<?php echo @$AlternateContactCellphone; ?>">
                                                     </div>
                                                 </div>
 												
@@ -643,14 +631,14 @@ if (@$_POST['Submit'] != '') {
 												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '3'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="Name">Name <span style="color:red">*</span></label>
-                                                        <input type="text" id="Name" class="form-control"
+                                                        <input type="text" <?php if(@$_SESSION['user_type'] == '4'){ echo 'required="required"'; } ?> id="Name" class="form-control"
                                                              name="Name" value="<?php echo @$Name; ?>">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '3'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
-                                                        <label for="Telephone">Telephone Number <span style="color:red">*</span></label>
+                                                        <label for="Telephone">Telephone Number</label>
                                                         <input type="number" maxlength="10" id="Telephone" class="form-control"
                                                              name="Telephone" value="<?php echo @$Telephone; ?>">
                                                     </div>
@@ -660,7 +648,7 @@ if (@$_POST['Submit'] != '') {
                                                     <div class="form-group">
                                                         <label for="Cellnumber">Cellphone Number <span style="color:red">*</span></label>
                                                         <input type="number" maxlength="10" id="Cellnumber" class="form-control"
-                                                             name="Cellnumber" value="<?php echo @$Cellnumber; ?>">
+                                                             name="Cellnumber" <?php if(@$_SESSION['user_type'] == '4'){ echo 'required="required"'; } ?> value="<?php echo @$Cellnumber; ?>">
                                                     </div>
                                                 </div>
 												
@@ -668,14 +656,14 @@ if (@$_POST['Submit'] != '') {
                                                     <div class="form-group">
                                                         <label for="Relationship">Relationship to you <span style="color:red">*</span></label>
                                                         <input type="text" id="Relationship" class="form-control"
-                                                             name="Relationship" value="<?php echo @$Relationship; ?>">
+                                                             name="Relationship" <?php if(@$_SESSION['user_type'] == '4'){ echo 'required="required"'; } ?> value="<?php echo @$Relationship; ?>">
                                                     </div>
                                                 </div>
 												
 												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '3'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="Address">Physical Address <span style="color:red">*</span></label>
-                                                        <textarea class="form-control" id="Address" name="Address" rows="3"><?php echo @$Address; ?></textarea>
+                                                        <textarea class="form-control" <?php if(@$_SESSION['user_type'] == '4'){ echo 'required="required"'; } ?> id="Address" name="Address" rows="3"><?php echo @$Address; ?></textarea>
                                                     </div>
                                                 </div>
 												
