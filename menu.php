@@ -250,7 +250,7 @@ $query = "SELECT * FROM ApplicantChecklist
                         </li>
 						
 						<li class="sidebar-item  ">
-                            <a href="mailto:smotala@hsrc.ac.za" class='sidebar-link'>
+                            <a href="mailto:DSI_HSRC_Internship.queries@hsrc.ac.za" class='sidebar-link'>
                                 <i class="bi bi-envelope-fill"></i>
                                 <span>Email Us</span>
                             </a>
