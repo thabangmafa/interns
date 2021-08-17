@@ -554,7 +554,7 @@ if (@$_POST['Submit'] != '') {
                                                     <div class="form-group">
                                                         <label for="TelephoneNumber">Telephone Number</label>
                                                         <input type="number" id="TelephoneNumber" class="form-control"
-                                                             name="TelephoneNumber" value="<?php echo @$TelephoneNumber; ?>">
+                                                             name="TelephoneNumber" maxlength="10" value="<?php echo @$TelephoneNumber; ?>">
                                                     </div>
                                                 </div>
 												
@@ -564,7 +564,7 @@ if (@$_POST['Submit'] != '') {
                                                     <div class="form-group">
                                                         <label for="MobileNumber">Mobile Number <span style="color:red">*</span></label>
                                                         <input type="number" value="<?php echo @$MobileNumber; ?>" id="MobileNumber" class="form-control"
-                                                            name="MobileNumber" required="required">
+                                                            name="MobileNumber"  maxlength="10"required="required">
                                                     </div>
                                                 </div>
 												
@@ -623,7 +623,7 @@ if (@$_POST['Submit'] != '') {
 												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1'){ echo 'style="display:inline;"'; }else{ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="AlternateContactTelephone">Telephone</label>
-                                                        <input type="number" id="AlternateContactTelephone" class="form-control"
+                                                        <input type="number" maxlength="10" id="AlternateContactTelephone" class="form-control"
                                                              name="AlternateContactTelephone" value="<?php echo @$AlternateContactTelephone; ?>">
                                                     </div>
                                                 </div>
@@ -631,7 +631,7 @@ if (@$_POST['Submit'] != '') {
 												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1'){ echo 'style="display:inline;"'; }else{ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="AlternateContactCellphone">Cellphone <span style="color:red">*</span></label>
-                                                        <input type="number" id="AlternateContactCellphone" class="form-control"
+                                                        <input type="number" maxlength="10" id="AlternateContactCellphone" class="form-control"
                                                              name="AlternateContactCellphone" value="<?php echo @$AlternateContactCellphone; ?>">
                                                     </div>
                                                 </div>
@@ -651,7 +651,7 @@ if (@$_POST['Submit'] != '') {
 												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '3'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="Telephone">Telephone Number <span style="color:red">*</span></label>
-                                                        <input type="text" id="Telephone" class="form-control"
+                                                        <input type="number" maxlength="10" id="Telephone" class="form-control"
                                                              name="Telephone" value="<?php echo @$Telephone; ?>">
                                                     </div>
                                                 </div>
@@ -659,7 +659,7 @@ if (@$_POST['Submit'] != '') {
 												<div class="col-md-6 col-12" <?php if(@$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '3'){ echo 'style="display:none;"'; } ?>>
                                                     <div class="form-group">
                                                         <label for="Cellnumber">Cellphone Number <span style="color:red">*</span></label>
-                                                        <input type="text" id="Cellnumber" class="form-control"
+                                                        <input type="number" maxlength="10" id="Cellnumber" class="form-control"
                                                              name="Cellnumber" value="<?php echo @$Cellnumber; ?>">
                                                     </div>
                                                 </div>
