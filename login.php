@@ -122,7 +122,7 @@ if (isset($_POST['Username']) && isset($_POST['Password'])) {
                                 class="font-bold">Register</a>.</p>
                         <p><a class="font-bold" href="auth-forgot-password.php">Forgot password?</a>.</p>
                     </div>
-					For any queries please contact us at: <a href="mailto:DSI_HSRC_Internship.queries@hsrc.ac.za">DSI_HSRC_Internship.queries@hsrc.ac.za</a>.
+					For any queries contact: <a href="mailto:DSI_HSRC_Internship.queries@hsrc.ac.za">dsi_hsrc_internship.queries@hsrc.ac.za</a>.
                 </div>
             </div>
 

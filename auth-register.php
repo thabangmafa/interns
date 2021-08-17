@@ -172,6 +172,7 @@ if (isset($_POST['Username']) && isset($_POST['Password'])
                         <p class='text-gray-600'>Already have an account? <a href="login.php"
                                 class="font-bold">Login</a>.</p>
                     </div>
+					For any queries contact: <a href="mailto:DSI_HSRC_Internship.queries@hsrc.ac.za">dsi_hsrc_internship.queries@hsrc.ac.za</a>.
                 </div>
             </div>
             
