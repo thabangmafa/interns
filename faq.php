@@ -84,7 +84,7 @@ $headers = "From: noreply@hsrc.ac.za" . "\r\n";
                         <div class="col-md-12">
                             <div class="card">
 							<div class="card-header alert alert-primary alert-dismissible fade show">
-								Type your question or comment here and the system administrator will respond to it in due time.
+								Type your question or comment here and we will respond to it in due time.
                                     
                                 </div>
                                 <div class="card-body bg-grey">
