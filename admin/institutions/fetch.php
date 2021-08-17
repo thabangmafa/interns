@@ -103,7 +103,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 
 				<?php foreach ($Administrator as $admin){ 
 				
-				echo '<option value="'.$admin['UserID'].'" >'.$admin['UserName'].' ('.$admin['Email'].')</option>'; 
+				echo '<option value="'.$admin['UserID'].'" >'.$admin['Email'].'</option>'; 
 				} 
 				
 				echo '
@@ -180,7 +180,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				$select = '';
 				
 				if($row["UserID"] == $admin['UserID']){ $select = "selected='selected'"; }
-						echo '<option value="'.$admin['UserID'].'" '.$select.'>'.$admin['UserName'].' ('.$admin['Email'].')</option>'; 
+						echo '<option value="'.$admin['UserID'].'" '.$select.'>'.$admin['Email'].'</option>'; 
 				} 
 				
 				echo '
@@ -219,7 +219,7 @@ while($row = mysqli_fetch_array($result))
  $sub_array = array();
  $sub_array[] = '<div data-id="'.$row["InstitutionId"].'" data-column="Name">' . $row["Name"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["InstitutionId"].'" data-column="InstitutionTypeId">' . $row["Type"] . '</div>';
-   $sub_array[] = '<div data-id="'.$row["InstitutionId"].'" data-column="UserID">' . $row["UserName"] . ' ('. $row["Email"] . ')</div>';
+   $sub_array[] = '<div data-id="'.$row["InstitutionId"].'" data-column="UserID">' . strtolower($row["Email"]) . '</div>';
  $sub_array[] = '<div data-id="'.$row["InstitutionId"].'" data-column="IsActive">' . $row["Status"] . '</div>';
 
 	$sub_array[] = '<div class="icon dripicons-document-edit" data-id="'.$row["InstitutionId"].'" data-bs-toggle="modal" data-bs-target="#manage_institution"></div>';

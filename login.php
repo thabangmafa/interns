@@ -2,10 +2,9 @@
 include 'admin/connect.php';
 $conn = OpenCon();
 $error = '';
-if (isset($_POST['Username']) && isset($_POST['Password'])) {
+if (isset($_POST['Email']) && isset($_POST['Password'])) {
 	
 
-	
 
 	function validate($data){
        $data = trim($data);
@@ -14,7 +13,7 @@ if (isset($_POST['Username']) && isset($_POST['Password'])) {
 	   return $data;
 	}
 
-	$uname = validate($_POST['Username']);
+	$uname = validate(strtolower($_POST['Email']));
 	$pass = validate($_POST['Password']);
 
 	if (empty($uname)) {
@@ -26,7 +25,7 @@ if (isset($_POST['Username']) && isset($_POST['Password'])) {
         $pass = md5($pass);
 
         
-		$sql = "SELECT * FROM users WHERE UserName='$uname' AND Password='$pass'";
+		$sql = "SELECT * FROM users WHERE lower(Email)='$uname' AND Password='$pass'";
 
 		$result = mysqli_query($conn, $sql);
 		
@@ -34,8 +33,8 @@ if (isset($_POST['Username']) && isset($_POST['Password'])) {
 
 		if (mysqli_num_rows($result) === 1) {
 			$row = mysqli_fetch_assoc($result);
-            if ($row['UserName'] === $uname && $row['Password'] === $pass) {
-            	$_SESSION['username'] = $row['UserName'];
+            if ($row['Email'] === $uname && $row['Password'] === $pass) {
+            	$_SESSION['username'] = $row['Email'];
             	$_SESSION['email'] = $row['Email'];
             	$_SESSION['id'] = $row['UserID'];
 				$_SESSION['user_type'] = $row['UserType'];
@@ -103,7 +102,7 @@ if (isset($_POST['Username']) && isset($_POST['Password'])) {
 					<?php } ?>
                     <form action="" method="post">
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" name="Username" id="Username" placeholder="Username" required="required">
+                            <input type="text" class="form-control form-control-xl" name="Email" id="Email" placeholder="Email" required="required">
                             <div class="form-control-icon">
                                 <i class="bi bi-person"></i>
                             </div>

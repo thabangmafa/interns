@@ -3,8 +3,8 @@
 include 'admin/connect.php';
 $conn = OpenCon();
 
-if (isset($_POST['Username']) && isset($_POST['Password'])
-    && isset($_POST['Username']) && isset($_POST['Re_Password'])) {
+if (isset($_POST['Email']) && isset($_POST['Password'])
+    && isset($_POST['Email']) && isset($_POST['Re_Password'])) {
 
 	function validate($data){
        $data = trim($data);
@@ -13,7 +13,7 @@ if (isset($_POST['Username']) && isset($_POST['Password'])
 	   return $data;
 	}
 
-	$uname = validate($_POST['Username']);
+
 	$pass = validate($_POST['Password']);
 
 	$re_pass = validate($_POST['Re_Password']);
@@ -24,9 +24,7 @@ if (isset($_POST['Username']) && isset($_POST['Password'])
 	$user_data = 'uname='. $uname. '&email='. $email;
 
 
-	if (empty($uname)) {
-		$error = 'User Name is required.';
-	}else if(empty($pass)){
+	if(empty($pass)){
 		$error = 'Password is required.';
 	}
 	else if(empty($re_pass)){
@@ -46,7 +44,7 @@ if (isset($_POST['Username']) && isset($_POST['Password'])
 		// hashing the password
         $pass = md5($pass);
 
-	    $sql = "SELECT * FROM users WHERE UserName='$uname' or Email='$email' ";
+	    $sql = "SELECT * FROM users WHERE Email='$email' ";
 		$result = mysqli_query($conn, $sql);
 		$row = mysqli_fetch_assoc($result);
 		$error = '';
@@ -56,32 +54,24 @@ if (isset($_POST['Username']) && isset($_POST['Password'])
 			$error .= 'Email is already registered.';
 		}
 		
-		if($row['UserName'] === $uname){
-			if($error){
-				$error .= '<br />Username is taken try another.';
-			}else{
-				$error .= 'Username is taken try another.';
-			}
-			
-		}
 		
 		if ($error) {
 			$error = $error;
 		}else {
-           $sql2 = "INSERT INTO users(UserName, Password, Email, UserType) VALUES('$uname', '$pass', '$email', '$user_type')";
+           $sql2 = "INSERT INTO users(Password, Email, UserType) VALUES('$pass', '$email', '$user_type')";
 
            $result2 = mysqli_query($conn, $sql2);
            if ($result2) {
 			   
-				$subject = "HSRC Interns Portal Registration";
-				$txt = "Welcome to the HSRC's Interns Portal.
+$subject = "HSRC Interns Portal Registration";
+$txt = "Welcome to the HSRC's Interns Portal.
 				
-				Please note that you will need to login to the portal in order to complete your registration details.
-				
-				For any queries please contact Sello Raseruthe @ sraseruthe@hsrc.ac.za
-				
-				Regards,
-				HSRC Team";
+Please note that you will need to login to the portal in order to complete your registration details.
+
+For any queries please contact Sello Raseruthe @ sraseruthe@hsrc.ac.za
+
+Regards,
+HSRC Team";
 				$headers = "From: noreply@hsrc.ac.za" . "\r\n";
 
 				mail($email,$subject,$txt,$headers);  
@@ -133,12 +123,6 @@ if (isset($_POST['Username']) && isset($_POST['Password'])
                             <input type="text" class="form-control form-control-xl" placeholder="Email" name="Email" id="Email" required="required">
                             <div class="form-control-icon">
                                 <i class="bi bi-envelope"></i>
-                            </div>
-                        </div>
-						<div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" placeholder="Username" name="Username" id="Username" required="required">
-                            <div class="form-control-icon">
-                                <i class="bi bi-grid-fill"></i>
                             </div>
                         </div>
                         
