@@ -15,7 +15,7 @@ if (isset($_POST['Email']) && isset($_POST['Password'])
 
 
 	$pass = validate($_POST['Password']);
-
+	$Name = validate($_POST['Name']);
 	$re_pass = validate($_POST['Re_Password']);
 	$email = validate($_POST['Email']);
 	
@@ -58,7 +58,7 @@ if (isset($_POST['Email']) && isset($_POST['Password'])
 		if ($error) {
 			$error = $error;
 		}else {
-           $sql2 = "INSERT INTO users(Password, Email, UserType) VALUES('$pass', '$email', '$user_type')";
+           $sql2 = "INSERT INTO users(Name, Password, Email, UserType) VALUES('$Name','$pass', '$email', '$user_type')";
 
            $result2 = mysqli_query($conn, $sql2);
            if ($result2) {
@@ -119,8 +119,15 @@ HSRC Team";
 					<div class="alert alert-warning" role="alert"><?php echo @$error; ?></div>
 					<?php } ?>
                     <form action="" method="post">
+					<div class="form-group position-relative has-icon-left mb-4">
+                            <input type="text" class="form-control form-control-xl" placeholder="Name" name="Name" id="Name" required="required">
+                            <div class="form-control-icon">
+                                <i class="bi bi-envelope"></i>
+                            </div>
+                        </div>
+						
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" placeholder="Email" name="Email" id="Email" required="required">
+                            <input type="email" class="form-control form-control-xl" placeholder="Email" name="Email" id="Email" required="required">
                             <div class="form-control-icon">
                                 <i class="bi bi-envelope"></i>
                             </div>
