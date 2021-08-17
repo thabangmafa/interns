@@ -417,7 +417,7 @@ if (@$_POST['Submit'] != '') {
                                                     <div class="form-group">
                                                         <label for="HomeCityTown">Home City/Town <span style="color:red">*</span></label>
                                                         <input type="text" id="HomeCityTown" class="form-control"
-                                                             name="HomeCityTown" <?php if(@$_SESSION['user_type'] == '2'){ echo 'required="required"'; } ?> value="<?php echo @$HomeCityTown; ?>">
+                                                             name="HomeCityTown" <?php if(@$_SESSION['user_type'] == '4'){ echo 'required="required"'; } ?> value="<?php echo @$HomeCityTown; ?>">
                                                     </div>
                                                 </div>
 												
@@ -435,7 +435,7 @@ if (@$_POST['Submit'] != '') {
                                                     <div class="form-group">
                                                         <label for="HomePostalCode">Home Postal Code <span style="color:red">*</span></label>
                                                         <input type="text" id="HomePostalCode" class="form-control"
-                                                             name="HomePostalCode" <?php if(@$_SESSION['user_type'] == '2'){ echo 'required="required"'; } ?> value="<?php echo @$HomePostalCode; ?>">
+                                                             name="HomePostalCode" <?php if(@$_SESSION['user_type'] == '4'){ echo 'required="required"'; } ?> value="<?php echo @$HomePostalCode; ?>">
                                                     </div>
                                                 </div>
 												
@@ -469,7 +469,7 @@ if (@$_POST['Submit'] != '') {
                                                     <div class="form-group">
                                                         <label for="HomeProvince">Home Province <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
-                                                    <select class="choices form-select" id="HomeProvince" name="HomeProvince" <?php if(@$_SESSION['user_type'] == '2'){ echo 'required="required"'; } ?>>
+                                                    <select class="choices form-select" id="HomeProvince" name="HomeProvince" <?php if(@$_SESSION['user_type'] == '4'){ echo 'required="required"'; } ?>>
                                                         <option></option>
                                                         <?php
 				
