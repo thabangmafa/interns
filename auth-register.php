@@ -124,7 +124,7 @@ if (isset($_POST['Username']) && isset($_POST['Password'])
                         <a href="index.php"><img src="assets/images/logo/logo.png" alt="Logo"></a>
                     </div>
 
-                    <p class="auth-subtitle mb-5">HSRC Interns Management System.</p>
+                    <p class="auth-subtitle mb-5">DSI-HSRC Internship Management System.</p>
 					<?php if(@$error){ ?>	
 					<div class="alert alert-warning" role="alert"><?php echo @$error; ?></div>
 					<?php } ?>

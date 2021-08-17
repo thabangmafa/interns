@@ -58,7 +58,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <div class="auth-logo">
                         <a href="index.php"><img src="assets/images/logo/logo.png" alt="Logo"></a>
                     </div>
-                    <p class="auth-subtitle mb-5">HSRC Interns Management System.</p>
+                    <p class="auth-subtitle mb-5">DSI-HSRC Internship Management System.</p>
 					<?php if(@$message){ ?>	
 					<div class="alert alert-warning" role="alert"><?php echo @$message; ?></div>
 					<?php } ?>
