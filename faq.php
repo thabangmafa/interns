@@ -25,15 +25,15 @@ if (@$_POST['Submit'] != '') {
 	mysqli_query($conn, $query);
 	$email = 'tmafa@hsrc.ac.za';
 	$subject = "HSRC Interns Portal FAQ";
-				$txt = "Dear Administrator,
+$txt = "Dear Administrator,
 				
-				A question has been submitted on the FAQ section for your attention.
-				
-				".$user." said '".$Message."'.
-				
-				Regards,
-				HSRC Team";
-				$headers = "From: noreply@hsrc.ac.za" . "\r\n";
+A question has been submitted on the FAQ section for your attention.
+
+".$user." said '".$Message."'.
+
+Regards,
+HSRC Team";
+$headers = "From: noreply@hsrc.ac.za" . "\r\n";
 
 				mail($email,$subject,$txt,$headers);
 				
