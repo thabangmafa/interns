@@ -122,7 +122,7 @@ HSRC Team";
 					<div class="form-group position-relative has-icon-left mb-4">
                             <input type="text" class="form-control form-control-xl" placeholder="Name" name="Name" id="Name" required="required">
                             <div class="form-control-icon">
-                                <i class="bi bi-envelope"></i>
+                                <i class="bi bi-person"></i>
                             </div>
                         </div>
 						
