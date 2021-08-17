@@ -105,7 +105,7 @@ if (isset($_POST['Username']) && isset($_POST['Password'])
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Mazer Admin Dashboard</title>
+    <title>DSI-HSRC Internship Management System - Registration</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/bootstrap.css">
     <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
@@ -121,7 +121,7 @@ if (isset($_POST['Username']) && isset($_POST['Password'])
             <div class="col-lg-5 col-12">
                 <div id="auth-left">
                     <div class="auth-logo">
-                        <a href="index.php"><img src="assets/images/logo/logo.png" alt="Logo"></a>
+                        <a href="index.php"><img src="assets/images/logo/logo.png" style="margin-right:5%" alt="Logo"><img src="assets/images/logo/DSI.png" style="width: 49%;" alt="Logo"></a>
                     </div>
 
                     <p class="auth-subtitle mb-5">DSI-HSRC Internship Management System.</p>
