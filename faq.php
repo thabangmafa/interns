@@ -90,7 +90,7 @@ $headers = "From: noreply@hsrc.ac.za" . "\r\n";
                                 <div class="card-body bg-grey">
                                     <div class="chat-content" style="overflow-y: scroll;height: 520px;">
 									<?php
-									$query = "SELECT * FROM FAQ ORDER BY SubmittedDate asc";
+									$query = "SELECT * FROM FAQ ORDER BY SubmittedDate desc";
 									$result = mysqli_query($conn, $query);
 
 									while($messages = mysqli_fetch_array($result)) {

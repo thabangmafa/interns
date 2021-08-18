@@ -298,7 +298,7 @@ if (@$_POST['InstitutionID'] != '') {
 												<?php
 												//System Administrator
 														if(@$_SESSION['user_type'] == '1'){
-															$query = "SELECT b.Name, DateUpdated, c.Name as UserName, a.ID FROM HostAdministrator a
+															$query = "SELECT Name, DateUpdated, UserName, a.ID FROM HostAdministrator a
 															left join users c on c.UserID = a.UserID
 																		left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = '1'
 																		WHERE a.Status = 'Pending' ORDER BY DateUpdated DESC LIMIT 3";
@@ -353,7 +353,7 @@ if (@$_POST['InstitutionID'] != '') {
 															
 															
 															
-															$query = "SELECT a.ID, c.Email, UpdatedDate, c.Name as UserName FROM ProspectiveMentors a 
+															$query = "SELECT a.ID, c.Email, UpdatedDate, UserName FROM ProspectiveMentors a 
 															left join users c on c.UserID = a.MentorID 
 															WHERE a.InstitutionID  in (SELECT InstitutionID from HostAdministrator WHERE UserID = '".$_SESSION['id']."' and IsActive = '1') 
 															and Status = 'Pending Host Approval' ORDER BY UpdatedDate DESC LIMIT 3";

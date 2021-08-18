@@ -3,8 +3,8 @@
 include 'admin/connect.php';
 $conn = OpenCon();
 
-if (isset($_POST['Email']) && isset($_POST['Password'])
-    && isset($_POST['Email']) && isset($_POST['Re_Password'])) {
+if (isset($_POST['Username']) && isset($_POST['Password'])
+    && isset($_POST['Username']) && isset($_POST['Re_Password'])) {
 
 	function validate($data){
        $data = trim($data);
@@ -13,18 +13,20 @@ if (isset($_POST['Email']) && isset($_POST['Password'])
 	   return $data;
 	}
 
-
+	$uname = validate($_POST['Username']);
 	$pass = validate($_POST['Password']);
-	$Name = validate($_POST['Name']);
+
 	$re_pass = validate($_POST['Re_Password']);
-	$email = validate($_POST['Email']);
+	$email = strtolower(validate($_POST['Email']));
 	
 	$user_type = validate($_POST['user_type']);
 
 	$user_data = 'uname='. $uname. '&email='. $email;
 
 
-	if(empty($pass)){
+	if (empty($uname)) {
+		$error = 'Name is required.';
+	}else if(empty($pass)){
 		$error = 'Password is required.';
 	}
 	else if(empty($re_pass)){
@@ -44,7 +46,7 @@ if (isset($_POST['Email']) && isset($_POST['Password'])
 		// hashing the password
         $pass = md5($pass);
 
-	    $sql = "SELECT * FROM users WHERE Email='$email' ";
+	    $sql = "SELECT * FROM users WHERE lower(Email)='$email' ";
 		$result = mysqli_query($conn, $sql);
 		$row = mysqli_fetch_assoc($result);
 		$error = '';
@@ -54,16 +56,17 @@ if (isset($_POST['Email']) && isset($_POST['Password'])
 			$error .= 'Email is already registered.';
 		}
 		
+
 		
 		if ($error) {
 			$error = $error;
 		}else {
-           $sql2 = "INSERT INTO users(Name, Password, Email, UserType) VALUES('$Name','$pass', '$email', '$user_type')";
+           $sql2 = "INSERT INTO users(UserName, Password, Email, UserType) VALUES('$uname', '$pass', '$email', '$user_type')";
 
            $result2 = mysqli_query($conn, $sql2);
            if ($result2) {
 			   
-$subject = "HSRC Interns Portal Registration";
+				$subject = "HSRC Interns Portal Registration";
 $txt = "Welcome to the HSRC's Interns Portal.
 				
 Please note that you will need to login to the portal in order to complete your registration details.
@@ -120,18 +123,19 @@ HSRC Team";
 					<?php } ?>
                     <form action="" method="post">
 					<div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" placeholder="Name" name="Name" id="Name" required="required">
+                            <input type="text" class="form-control form-control-xl" placeholder="Name" name="Username" id="Username" required="required">
                             <div class="form-control-icon">
-                                <i class="bi bi-person"></i>
+                                <i class="bi bi-grid-fill"></i>
                             </div>
                         </div>
 						
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="email" class="form-control form-control-xl" placeholder="Email" name="Email" id="Email" required="required">
+                            <input type="text" class="form-control form-control-xl" placeholder="Email" name="Email" id="Email" required="required">
                             <div class="form-control-icon">
                                 <i class="bi bi-envelope"></i>
                             </div>
                         </div>
+						
                         
                         <div class="form-group position-relative has-icon-left mb-4">
                             <input type="password" class="form-control form-control-xl" placeholder="Password" name="Password" id="Password" required="required">

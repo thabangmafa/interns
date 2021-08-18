@@ -5,7 +5,7 @@ $conn = OpenCon();
 
 $columns = array('a.InstitutionId', 'a.Name', 'd.UserID','a.IsActive');
 
-$query = "SELECT a.*, b.ID,b.Name as Type,c.Status, e.Email, d.ID FROM `LookupInstitutions` a 
+$query = "SELECT a.*, b.ID,b.Name as Type,c.Status, e.*, d.ID FROM `LookupInstitutions` a 
 left join `LookupOrganisationType` b on b.`ID` = a.`InstitutionTypeId`
 left join `LookupIsActive` c on c.`StatusId` = a.`IsActive`
 left join HostAdministrator d on d.InstitutionID = a.InstitutionId
@@ -103,7 +103,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 
 				<?php foreach ($Administrator as $admin){ 
 				
-				echo '<option value="'.$admin['UserID'].'" >'.$admin['Email'].'</option>'; 
+				echo '<option value="'.$admin['UserID'].'" >'.$admin['UserName'].' ('.$admin['Email'].')</option>'; 
 				} 
 				
 				echo '
@@ -180,7 +180,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				$select = '';
 				
 				if($row["UserID"] == $admin['UserID']){ $select = "selected='selected'"; }
-						echo '<option value="'.$admin['UserID'].'" '.$select.'>'.$admin['Email'].'</option>'; 
+						echo '<option value="'.$admin['UserID'].'" '.$select.'>'.$admin['UserName'].' ('.$admin['Email'].')</option>'; 
 				} 
 				
 				echo '
@@ -219,7 +219,7 @@ while($row = mysqli_fetch_array($result))
  $sub_array = array();
  $sub_array[] = '<div data-id="'.$row["InstitutionId"].'" data-column="Name">' . $row["Name"] . '</div>';
  $sub_array[] = '<div data-id="'.$row["InstitutionId"].'" data-column="InstitutionTypeId">' . $row["Type"] . '</div>';
-   $sub_array[] = '<div data-id="'.$row["InstitutionId"].'" data-column="UserID">' . strtolower($row["Email"]) . '</div>';
+   $sub_array[] = '<div data-id="'.$row["InstitutionId"].'" data-column="UserID">' . $row["UserName"] . ' ('. $row["Email"] . ')</div>';
  $sub_array[] = '<div data-id="'.$row["InstitutionId"].'" data-column="IsActive">' . $row["Status"] . '</div>';
 
 	$sub_array[] = '<div class="icon dripicons-document-edit" data-id="'.$row["InstitutionId"].'" data-bs-toggle="modal" data-bs-target="#manage_institution"></div>';
@@ -230,7 +230,7 @@ while($row = mysqli_fetch_array($result))
 
 function get_all_data($conn)
 {
- $query = "SELECT a.*, b.*,c.Status, e.Email, d.ID FROM `LookupInstitutions` a 
+ $query = "SELECT a.*, b.*,c.Status, e.*, d.ID FROM `LookupInstitutions` a 
 left join `LookupOrganisationType` b on b.`ID` = a.`InstitutionTypeId`
 left join `LookupIsActive` c on c.`StatusId` = a.`IsActive`
 left join HostAdministrator d on d.InstitutionID = a.InstitutionId
