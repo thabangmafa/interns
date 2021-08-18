@@ -550,7 +550,7 @@ if (@$_POST['Submit'] != '') {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="MobileNumber">Mobile Number <span style="color:red">*</span></label>
+                                                        <label for="MobileNumber">Mobile Number <span style="color:red">*</span><span id="cellChecker"></span></label>
                                                         <input type="number" value="<?php echo @$MobileNumber; ?>" id="MobileNumber" class="form-control"
                                                             name="MobileNumber"  maxlength="10" required="required">
                                                     </div>
@@ -733,6 +733,20 @@ $('#ConfirmEmail').blur(function() {
 		$('#checkEmail').html('');
 	}
 });
+
+
+$('#MobileNumber').blur(function() {
+
+var CellNumber = $(this).val();
+
+	if(CellNumber.length != '10'){
+		$('#cellChecker').html('<span style="color:red"> Mobile number  '+ $(this).val() +' does not seem to be correct.</span>');
+		this.value = "";
+	}else{
+		$('#cellChecker').html('');
+	}
+});
+
 
 
 
