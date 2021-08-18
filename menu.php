@@ -242,12 +242,12 @@ $query = "SELECT * FROM ApplicantChecklist
                             </ul>
                         </li>
 						<?php } ?>
-                        <li class="sidebar-item  <?php if($menu_item == "9"){ echo "active"; } ?>">
+                        <!--li class="sidebar-item  <?php if($menu_item == "9"){ echo "active"; } ?>">
                             <a href="faq.php" class='sidebar-link'>
                                 <i class="bi bi-life-preserver"></i>
                                 <span>LiveChat</span>
                             </a>
-                        </li>
+                        </li-->
 						
 						<li class="sidebar-item  ">
                             <a href="mailto:DSI_HSRC_Internship.queries@hsrc.ac.za" class='sidebar-link'>

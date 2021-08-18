@@ -552,7 +552,7 @@ if (@$_POST['Submit'] != '') {
                                                     <div class="form-group">
                                                         <label for="MobileNumber">Mobile Number <span style="color:red">*</span></label>
                                                         <input type="number" value="<?php echo @$MobileNumber; ?>" id="MobileNumber" class="form-control"
-                                                            name="MobileNumber"  maxlength="10"required="required">
+                                                            name="MobileNumber"  maxlength="10" required="required">
                                                     </div>
                                                 </div>
 												
@@ -567,7 +567,7 @@ if (@$_POST['Submit'] != '') {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="ConfirmEmail">Confirm Primary Email Address <span style="color:red">*</span></label>
+                                                        <label for="ConfirmEmail">Confirm Primary Email Address <span style="color:red">*</span><span id="checkEmail"></span></label>
                                                         <input type="email" value="<?php echo @$ConfirmEmail; ?>" id="ConfirmEmail" class="form-control"
                                                             name="ConfirmEmail" required="required">
                                                     </div>
@@ -719,6 +719,23 @@ $('#IsOrganisationFundingSalary').change(function() {
       this.value = "";
 
   });
+  
+
+	
+	
+$('#ConfirmEmail').blur(function() {
+
+
+	if($(this).val() != $('#PrimaryEmail').val()){
+		$('#checkEmail').html('<span style="color:red"> Confirmation email  '+ $(this).val() +' does not match your primary email.</span>');
+		this.value = "";
+	}else{
+		$('#checkEmail').html('');
+	}
+});
+
+
+
 
 });
 </script>
