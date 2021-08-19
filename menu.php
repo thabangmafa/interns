@@ -249,6 +249,13 @@ $query = "SELECT * FROM ApplicantChecklist
                             </a>
                         </li-->
 						
+						<li class="sidebar-item  <?php if($menu_item == "11"){ echo "active"; } ?>">
+                            <a href="documentation.php" class='sidebar-link'>
+                                <i class="bi bi-life-preserver"></i>
+                                <span>Supporting Documents</span>
+                            </a>
+                        </li>
+						
 						<li class="sidebar-item  ">
                             <a href="mailto:DSI_HSRC_Internship.queries@hsrc.ac.za" class='sidebar-link'>
                                 <i class="bi bi-envelope-fill"></i>
