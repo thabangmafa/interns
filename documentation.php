@@ -63,7 +63,7 @@ if (@$_POST['Submit'] != '') {
 					
 							
 									<div class="card-body">
-									<div class="col-12" <?php if($_SESSION['type'] = '1'){ echo 'style="display:inline"'; }else{ echo 'style="display:none"';} ?> >
+									<div class="col-12" <?php if($_SESSION['user_type'] == '1'){ echo 'style="display:inline"'; }else{ echo 'style="display:none"';} ?> >
                                                     
 													
 									<div class="form-group">
