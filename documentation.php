@@ -86,10 +86,10 @@ if (@$_POST['Submit'] != '') {
 														<td>DSI-HSRC Internship Programme Web Text - HOST Institution Call 2021-23</td><td><a href="documents/DSI-HSRC Internship Programme Web Text - HOST Institution Call 2021-23.pdf" target="_blank">Attached</a></td>
 													</tr>
 													<tr>
-														<td>DSI-HSRC Internship Advert - Call for GRADUATES to Apply 2021-23.</td><td><a href="documents/DSI-HSRC INTERN Recruitment Process Flowchart FINAL.pdf" target="_blank">Attached</a></td>
+														<td>DSI-HSRC INTERN Recruitment Process Flowchart FINAL</td><td><a href="documents/DSI-HSRC INTERN Recruitment Process Flowchart FINAL.pdf" target="_blank">Attached</a></td>
 													</tr>
 													<tr>
-														<td>DSI-HSRC HOST Institution Recruitment Process Flow Guide.</td><td><a href="documents/" target="_blank">Attached</a></td>
+														<td>DSI-HSRC HOST Institution Recruitment Process Flow Guide.</td><td><a href="documents/DSI-HSRC HOST Institution Recruitment Process Flow Guide.pdf" target="_blank">Attached</a></td>
 													</tr>
 												</tbody>
 											</table>
