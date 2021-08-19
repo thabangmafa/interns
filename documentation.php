@@ -63,48 +63,38 @@ if (@$_POST['Submit'] != '') {
 					
 							
 									<div class="card-body">
-									<div class="col-12" <?php if($_SESSION['user_type'] == '1'){ echo 'style="display:inline"'; }else{ echo 'style="display:none"';} ?> >
-                                                    
-													
-									<div class="form-group">
-										<textarea class="form-control" id="editor" name="deails" rows="3" >
-											
-											
-											<?php
-
-												$sql = "SELECT Details FROM LookupDocumentation ";
-													$result = mysqli_query($conn, $sql);
-
-												while($documents = mysqli_fetch_array($result)) {
-												echo $documents['Details'];
-												}	
-											?>
-											
-										</textarea>
-										
-                                                    </div>
-													
-													<div class="col-12 d-flex justify-content-end">
-                                                    
-                                                    <button type="submit" class="btn btn-primary me-1 mb-1" name="Submit" value="Submit">Save</button>
-												</div>
-													
-													
-										</div>
+				
 												
-												
+										<div class="col-12">		
 										 
-										 <?php
-
-											$sql = "SELECT Details FROM LookupDocumentation ";
-												$result = mysqli_query($conn, $sql);
-
-											while($documents = mysqli_fetch_array($result)) {
-											echo $documents['Details'];
-											}	
-										?>
-										 
-										 
+										 <div class="table-responsive">
+                                            <table class="table table-lg">
+												<thead>
+													<tr>
+														<td><strong>Name of document</strong></td>
+														<td><strong>See attached PDF</strong></td>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>DSI-HSRC Internship Programme Framework for HOST Institution Call 2021-23</td><td><a href="documents/DSI-HSRC Internship Programme Framework for HOST Institution Call 2021-23.pdf" target="_blank">Attached</a></td>
+													</tr>
+													<tr>
+														<td>DSI-HSRC Internship Advert - Call for GRADUATES to Apply 2021-23</td><td><a href="documents/DSI-HSRC Internship Advert - Call for GRADUATES to Apply 2021-23.pdf" target="_blank">Attached</a></td>
+														</tr>
+													<tr>
+														<td>DSI-HSRC Internship Programme Web Text - HOST Institution Call 2021-23</td><td><a href="documents/DSI-HSRC Internship Programme Web Text - HOST Institution Call 2021-23.pdf" target="_blank">Attached</a></td>
+													</tr>
+													<tr>
+														<td>DSI-HSRC Internship Advert - Call for GRADUATES to Apply 2021-23.</td><td><a href="documents/DSI-HSRC INTERN Recruitment Process Flowchart FINAL.pdf" target="_blank">Attached</a></td>
+													</tr>
+													<tr>
+														<td>DSI-HSRC HOST Institution Recruitment Process Flow Guide.</td><td><a href="documents/" target="_blank">Attached</a></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>	 
+									</div>	 
                                     </div>
 
                                 </div>
@@ -121,24 +111,8 @@ if (@$_POST['Submit'] != '') {
             
         </div>
     </div>
-    <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
 
-    <script src="assets/vendors/apexcharts/apexcharts.js"></script>
-	<script src="assets/vendors/ckeditor/ckeditor.js"></script>
-
-
-					<script>
-						ClassicEditor
-							.create(document.querySelector('#editor'))
-							.catch(error => {
-								console.error(error);
-							});
-					</script>
-	
-
-    <script src="assets/js/main.js"></script>
-	<?php // require_once("footer.php"); ?>
+	<?php  require_once("footer.php"); ?>
 </body>
 
 </html>
