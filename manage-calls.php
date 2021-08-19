@@ -340,7 +340,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Manage Calls'
      data:{BudgetYear:BudgetYear,CallType:CallType, Title:Title, Description:Description, OpenDate:OpenDate, ClosingDate:ClosingDate, IsActive:IsActive},
      success:function(data)
      {
-      //location.reload();
+      location.reload();
 	  
      }
     });
