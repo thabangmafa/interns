@@ -2,7 +2,7 @@
 include '../../connect.php';
 $conn = OpenCon();
 print_r($_POST);
-if($_POST["BudgetYear"] != '' && $_POST["CallType"] != '' && $_POST["Title"] != '' && $_POST["Description"] != '' && $_POST["BudgetYear"] != '' && $_POST["OpenDate"] != '' && $_POST["ClosingDate"] != '' && $_POST["IsActive"] != ''))
+if($_POST["BudgetYear"] != '' && $_POST["CallType"] != '' && $_POST["Title"] != '' && $_POST["Description"] != '' && $_POST["BudgetYear"] != '' && $_POST["OpenDate"] != '' && $_POST["ClosingDate"] != '' && $_POST["IsActive"] != '')
 {
  $BudgetYear = mysqli_real_escape_string($conn,$_POST["BudgetYear"]);
  $CallType = mysqli_real_escape_string($conn,$_POST["CallType"]);
