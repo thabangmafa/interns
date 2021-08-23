@@ -166,7 +166,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] == '000')
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="TranscriptFile">Add Transcript <span style="color:red">*</span></label>
+                                                        <label for="TranscriptFile">Add Transcript (Accepted attachment types: pdf,doc,docx,png,gif,jpg,jpeg)<span style="color:red">*</span></label>
                                                         
                                                 <input class="form-control" type="file" id="TranscriptFile" required="required" name="TranscriptFile[]" multiple>
                                                     </div>

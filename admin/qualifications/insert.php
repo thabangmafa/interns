@@ -43,7 +43,7 @@ if($_POST["AcademicLevel"] != '' && $_POST["NameOfDegree"] != '')
    $imageFileType = strtolower($imageFileType);
 
    /* Valid extensions */
-   $valid_extensions = array("pdf","doc","docx");
+   $valid_extensions = array("pdf","doc","docx","png","gif","tif","tiff","jpg","jpeg");
 
    $response = 0;
    /* Check file extension */
