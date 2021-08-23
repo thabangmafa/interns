@@ -67,7 +67,7 @@ if (@$_SESSION['InstitutionID'] != '' && @$_POST['Submit'] != '') {
 		   $imageFileType = strtolower($imageFileType);
 
 		   /* Valid extensions */
-		   $valid_extensions = array("pdf","doc","docx");
+		   $valid_extensions = array("pdf","doc","docx","png","gif","tif","tiff","jpg","jpeg");
 
 		   $response = 0;
 		   /* Check file extension */
@@ -97,7 +97,7 @@ if (@$_SESSION['InstitutionID'] != '' && @$_POST['Submit'] != '') {
 		   $imageFileType = strtolower($imageFileType);
 
 		   /* Valid extensions */
-		   $valid_extensions = array("pdf","doc","docx");
+		   $valid_extensions = array("pdf","doc","docx","png","gif","tif","tiff","jpg","jpeg");
 
 		   $response = 0;
 		   /* Check file extension */
@@ -397,7 +397,7 @@ if(@$_SESSION['InstitutionID']){
 											
 											<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="TaxPin">Attach Tax Pin <span style="color:red">*</span></label> <span  style="float:right"> <?php if(@$TaxPin){
+                                                        <label for="TaxPin">Attach Tax Pin  (Accepted attachment types: pdf,doc,docx,png,gif,jpg,jpeg)<span style="color:red">*</span></label> <span  style="float:right"> <?php if(@$TaxPin){
 	 echo '<a style="color:red;" class="icon dripicons-document-delete" href="?tax='.@$TaxPin.'"></a> <a target="_blank" href="uploads/institution/'.$_SESSION['InstitutionID'].'/'.@$TaxPin.'">Attached Document</a>';
  } ?></span>
                                                         <input type="file" id="TaxPin" name="TaxPin" value="<?php echo @$TaxPin; ?>" class="form-control" <?php if(!@$TaxPin){ echo 'required="required"'; } ?>>
@@ -406,7 +406,7 @@ if(@$_SESSION['InstitutionID']){
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="InstitutionRegistrationCertificate">Attach institution registration certificate <span style="color:red">*</span></label> <span  style="float:right"> <?php if(@$InstitutionRegistrationCertificate){
+                                                        <label for="InstitutionRegistrationCertificate">Attach institution registration certificate  (Accepted attachment types: pdf,doc,docx,png,gif,jpg,jpeg)<span style="color:red">*</span></label> <span  style="float:right"> <?php if(@$InstitutionRegistrationCertificate){
 	 echo '<a style="color:red;" class="icon dripicons-document-delete" href="?certificate='.@$InstitutionRegistrationCertificate.'"></a> <a target="_blank" href="uploads/institution/'.$_SESSION['InstitutionID'].'/'.@$InstitutionRegistrationCertificate.'">Attached Document</a>';
  } ?></span>
                                                         <input type="file" id="InstitutionRegistrationCertificate" name="InstitutionRegistrationCertificate" value="<?php echo @$InstitutionRegistrationCertificate; ?>" class="form-control" <?php if(!@$InstitutionRegistrationCertificate){ echo 'required="required"'; } ?>>
