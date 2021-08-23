@@ -71,7 +71,7 @@ $txt = "Welcome to the HSRC's Interns Portal.
 				
 Please note that you will need to login to the portal in order to complete your registration details.
 
-For any queries please contact Sello Raseruthe @ sraseruthe@hsrc.ac.za
+For any queries please contact us @ dsi_hsrc_internship.queries@hsrc.ac.za
 
 Regards,
 HSRC Team";
