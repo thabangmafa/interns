@@ -85,7 +85,7 @@ if (isset($_POST['Submit'])) {
 		   $imageFileType = strtolower($imageFileType);
 
 		   /* Valid extensions */
-		   $valid_extensions = array("pdf","doc","docx","png","gif","tif","tiff");
+		   $valid_extensions = array("pdf","doc","docx","png","gif","tif","tiff","jpg","jpeg");
 
 		   $response = 0;
 		   /* Check file extension */
@@ -412,7 +412,7 @@ if (isset($_POST['Submit'])) {
 												
 												<div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="id_document">ID/Passport Document <span style="color:red">*</span></label> <span  style="float:right"> <?php if(@$IDDocument){
+                                                        <label for="id_document">ID/Passport Document (Accepted attachment types: pdf,doc,docx,png,gif,jpg,jpeg)<span style="color:red">*</span></label> <span  style="float:right"> <?php if(@$IDDocument){
 	 echo '<a style="color:red;" class="icon dripicons-document-delete" href="?section=qualifications&file='.@$IDDocument.'"></a> <a target="_blank" href="uploads/applicants/'.$_SESSION['id'].'/'.@$IDDocument.'">Attached Document</a>';
  } ?></span>
                                                         <input type="file" id="id_document" name="id_document" value="<?php echo @$IDDocument; ?>" class="form-control" <?php if(!@$IDDocument){ echo 'required="required"'; } ?>>
