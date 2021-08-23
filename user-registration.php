@@ -85,7 +85,7 @@ if (isset($_POST['Submit'])) {
 		   $imageFileType = strtolower($imageFileType);
 
 		   /* Valid extensions */
-		   $valid_extensions = array("pdf","doc","docx");
+		   $valid_extensions = array("pdf","doc","docx","png","gif","tif","tiff");
 
 		   $response = 0;
 		   /* Check file extension */
