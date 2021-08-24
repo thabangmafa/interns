@@ -91,6 +91,9 @@ if (@$_POST['Submit'] != '') {
 													<tr>
 														<td>DSI-HSRC HOST Institution Recruitment Process Flow Guide</td><td><a href="documents/DSI-HSRC HOST Institution Recruitment Process Flow Guide.pdf" target="_blank">Attached</a></td>
 													</tr>
+													<tr>
+														<td>DSI-HSRC MENTOR INTERN REQUEST FORM</td><td><a href="documents/DSI-HSRC Mentor Intern Request Form.docx" target="_blank">Attached</a></td>
+													</tr>
 												</tbody>
 											</table>
 										</div>	 
