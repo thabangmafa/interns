@@ -18,7 +18,7 @@ else
   {
     $ip_address = $_SERVER['REMOTE_ADDR'];
   }
-echo $ip_address;
+
 
 
 if (isset($_POST['Email']) && isset($_POST['Password'])) {
