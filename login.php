@@ -25,6 +25,7 @@ if (isset($_POST['Email']) && isset($_POST['Password'])) {
         $pass = md5($pass);
 
         
+		
 		$sql = "SELECT * FROM users WHERE lower(Email)='$uname' AND Password='$pass'";
 
 		$result = mysqli_query($conn, $sql);
@@ -96,7 +97,7 @@ if (isset($_POST['Email']) && isset($_POST['Password'])) {
                     <div class="auth-logo">
                         <a href="index.php"><img src="assets/images/logo/logo.png" style="margin-right:5%" alt="Logo"><img src="assets/images/logo/DSI.png" style="width: 49%;" alt="Logo"></a>
                     </div>
-                    <p class="auth-subtitle mb-5">DSI-HSRC Internship Management System.</p>
+                    <p class="auth-subtitle mb-5">DSI-HSRC Internship Management System. <?php echo $_SERVER['HTTP_CLIENT_IP'];  ?></p>
 					<?php if(@$error){ ?>	
 					<div class="alert alert-warning" role="alert"><?php echo @$error; ?></div>
 					<?php } ?>
