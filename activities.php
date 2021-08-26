@@ -117,7 +117,7 @@ if (isset($_POST['InstitutionID'])) {
 															
 															
 															
-															$query = "SELECT c.Email, UpdatedDate, UserName FROM ProspectiveMentors a 
+															$query = "SELECT a.ID, c.Email, UpdatedDate, UserName FROM ProspectiveMentors a 
 															left join users c on c.UserID = a.MentorID 
 															WHERE a.InstitutionID  = (SELECT InstitutionID from HostAdministrator WHERE UserID = '".$_SESSION['id']."' and IsActive = '1') 
 															and Status = 'Pending Host Approval' ORDER BY UpdatedDate DESC";
