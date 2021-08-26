@@ -17,7 +17,7 @@ if (isset($_POST['Username']) && isset($_POST['Password'])
 	$pass = validate($_POST['Password']);
 
 	$re_pass = validate($_POST['Re_Password']);
-	$email = strtolower(validate($_POST['Email']));
+	$email = validate(strtolower(trim($_POST['Email'])));
 	
 	$user_type = validate($_POST['user_type']);
 
@@ -46,7 +46,7 @@ if (isset($_POST['Username']) && isset($_POST['Password'])
 		// hashing the password
         $pass = md5($pass);
 
-	    $sql = "SELECT * FROM users WHERE lower(Email)='$email' ";
+	    $sql = "SELECT * FROM users WHERE lower(Email)=lower('$email') ";
 		$result = mysqli_query($conn, $sql);
 		$row = mysqli_fetch_assoc($result);
 		$error = '';
