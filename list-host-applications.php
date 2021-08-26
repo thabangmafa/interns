@@ -10,7 +10,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='List of Appli
 
 if(@$_POST['AppID'] != '')
 {
-	$UpdateApplication = "UPDATE HostApplications SET Status = 'Withdrawn' WHERE CallID = '".$_POST['AppID']."'";
+	$UpdateApplication = "UPDATE HostApplications SET Status = 'Withdrawn' WHERE CallID = '".$_POST['AppID']."' AND UserID = '".$_SESSION['id']."'";
 	
 	 if(mysqli_query($conn,$UpdateApplication))
 	 {
