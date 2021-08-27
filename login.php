@@ -57,7 +57,7 @@ if (isset($_POST['Email']) && isset($_POST['Password'])) {
 
 		if (mysqli_num_rows($result) === 1) {
 			$row = mysqli_fetch_assoc($result);
-            if ($row['Email'] === $uname) {
+            if (strtolower($row['Email']) === $uname) {
             	$_SESSION['username'] = $row['UserName'];
             	$_SESSION['email'] = $row['Email'];
             	$_SESSION['id'] = $row['UserID'];
@@ -82,10 +82,10 @@ if (isset($_POST['Email']) && isset($_POST['Password'])) {
             	header("Location: /");
 		        exit();
             }else{
-				$error = 'Incorrect username or password.';
+				$error = 'Incorrect username or password1.';
 			}
 		}else{
-			$error = 'Incorrect username or password.';
+			$error = 'Incorrect username or password2.';
 
 		}
 	}
