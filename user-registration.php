@@ -156,12 +156,12 @@ if (isset($_POST['Submit'])) {
 	
 	$message = '<div class="alert alert-success" role="alert">Details successfully captured.</div>';
 	
-	if(mysqli_insert_id($conn)){
+	//if(mysqli_insert_id($conn)){
 		$checklist = "INSERT INTO ApplicantChecklist(UserID, Section)VALUES('$id','Registration Details')";
 		mysqli_query($conn, $checklist);
 		
 		unset($_POST);
-	}
+	//}
 	}else{
 		
 	$sql2 = "UPDATE RegistrationDetails SET 
