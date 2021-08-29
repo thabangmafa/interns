@@ -189,6 +189,8 @@ if (isset($_POST['Submit'])) {
 
 	$result2 = mysqli_query($conn, $sql2);
 	$message = '<div class="alert alert-success" role="alert">Details successfully updated.</div>';
+	$checklist = "INSERT INTO ApplicantChecklist(UserID, Section)VALUES('$id','Contact Details')";
+	mysqli_query($conn, $checklist);
 	unset($_POST);	
 	}
 	
