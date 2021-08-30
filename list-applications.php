@@ -8,7 +8,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='List of Appli
 		$result = mysqli_query($conn, $sql);
 		$headings = mysqli_fetch_assoc($result);
 
-if($_POST['AppID'] != '')
+if(@$_POST['AppID'] != '')
 {
 	$UpdateApplication = "UPDATE UserApplications SET Status = 'Withdrawn' WHERE CallID = '".$_POST['AppID']."' AND UserID = '".$_SESSION['id']."'";
 	
