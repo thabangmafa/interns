@@ -53,7 +53,7 @@ if (@$_POST['InstitutionID'] != '') {
                     <div class="col-12 col-lg-9">
 					<?php if(@$_SESSION['user_type'] == '1'){ ?>
                         <div class="row">
-                            <div class="col-6 col-lg-3 col-md-6">
+                            <div class="col-6 col-lg-4 col-md-6">
                                 <div class="card">
                                     <div class="card-body px-3 py-4-5">
                                         <div class="row">
@@ -63,14 +63,24 @@ if (@$_POST['InstitutionID'] != '') {
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Interns</h6>
-                                                <h6 class="font-extrabold mb-0">450</h6>
+                                                <h6 class="text-muted font-semibold">No. of Interns Applied</h6>
+                                                <h6 class="font-extrabold mb-0"><?php
+				
+													$query = "SELECT count(distinct a.UserID) inst FROM UserApplications a
+left join UserContactDetails b on b.UserID = a.UserID WHERE a.Status != 'Withdrawn' and b.UserID is not NULL";
+													$result = mysqli_query($conn, $query);
+
+													while($applications = mysqli_fetch_array($result)) {
+													 echo $applications['inst'];
+													}
+
+												?></h6>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 col-lg-3 col-md-6">
+                            <div class="col-6 col-lg-4 col-md-6">
                                 <div class="card">
                                     <div class="card-body px-3 py-4-5">
                                         <div class="row">
@@ -80,14 +90,23 @@ if (@$_POST['InstitutionID'] != '') {
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Mentors</h6>
-                                                <h6 class="font-extrabold mb-0">20</h6>
+                                                <h6 class="text-muted font-semibold">No. of Mentors Applied</h6>
+                                                <h6 class="font-extrabold mb-0"><?php
+				
+													$query = "SELECT count(distinct Email) inst FROM ProspectiveMentors WHERE Status != 'Delete'";
+													$result = mysqli_query($conn, $query);
+
+													while($applications = mysqli_fetch_array($result)) {
+													 echo $applications['inst'];
+													}
+
+												?></h6>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 col-lg-3 col-md-6">
+                            <div class="col-6 col-lg-4 col-md-6">
                                 <div class="card">
                                     <div class="card-body px-3 py-4-5">
                                         <div class="row">
@@ -97,15 +116,15 @@ if (@$_POST['InstitutionID'] != '') {
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Host Institutions</h6>
+                                                <h6 class="text-muted font-semibold">No. of Hosts Applied</h6>
                                                 <h6 class="font-extrabold mb-0">
 												<?php
 				
-													$query = "SELECT count(*) inst FROM LookupInstitutions WHERE IsActive = '1'";
+													$query = "SELECT count(distinct InstitutionID) inst FROM HostApplications WHERE Status != 'Withdrawn'";
 													$result = mysqli_query($conn, $query);
 
-													while($institution = mysqli_fetch_array($result)) {
-													 echo '<a href="/institutions.php">' . $institution['inst'] . '</a>';
+													while($Institution = mysqli_fetch_array($result)) {
+													 echo $Institution['inst'];
 													}
 
 												?>
@@ -116,7 +135,7 @@ if (@$_POST['InstitutionID'] != '') {
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 col-lg-3 col-md-6">
+                            <!--div class="col-6 col-lg-3 col-md-6">
                                 <div class="card">
                                     <div class="card-body px-3 py-4-5">
                                         <div class="row">
@@ -132,7 +151,7 @@ if (@$_POST['InstitutionID'] != '') {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div-->
                         </div>
                         <div class="row">
                             <div class="col-12">
@@ -141,12 +160,14 @@ if (@$_POST['InstitutionID'] != '') {
                                         <h4>Interns by Province</h4>
                                     </div>
                                     <div class="card-body">
-                                        <div id="chart-profile-visit"></div>
+                                        <div id="chart-profile-visit"><div class="spinner-border text-primary" role="status">
+												<span class="visually-hidden">Loading...</span>
+											</div></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-						
+
 						<?php } ?>
 						<div class="row">
                             <div class="col-12 col-xl-12">
@@ -422,15 +443,21 @@ if (@$_POST['InstitutionID'] != '') {
                                 <h4>Interns Qualifications Level</h4>
                             </div>
                             <div class="card-body">
-                                <div id="chart-interns-qualifications"></div>
+                                <div id="chart-interns-qualifications"><div class="spinner-border text-primary" role="status">
+												<span class="visually-hidden">Loading...</span>
+											</div></div>
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-header">
-                                <h4>Interns Disability Status</h4>
+                                <h4>Interns Gender</h4>
                             </div>
                             <div class="card-body">
-                                <div id="chart-visitors-profile"></div>
+                                <div id="chart-visitors-profile">
+										<div class="spinner-border text-primary" role="status">
+												<span class="visually-hidden">Loading...</span>
+											</div>
+									</div>
                             </div>
                         </div>
 						<?php } ?>
@@ -508,27 +535,89 @@ if (@$_POST['InstitutionID'] != '') {
 <?php
 //include 'admin/connect.php';
 $conn = OpenCon();
-$query = "SELECT count(*) disabled FROM RegistrationDetails WHERE Disability = 'Yes'";
+
+
+
+//Get interns by province
+$query = "SELECT count(DISTINCT a.UserID) as CN, b.Name from `UserApplications` a
+left join UserContactDetails c on c.UserID = a.UserID
+left join LookupProvince b on b.ID = c.HomeProvince
+WHERE a.Status != 'Withdrawn' and b.Name is not NULL group by b.Name order by Name";
 $result = mysqli_query($conn, $query);
+$locCount = "[";
+$locName = '["';
+while($internLocation = mysqli_fetch_array($result)) {
+	$locCount .= $internLocation['CN'] . ',';
+	$locName .= $internLocation['Name'] . '","';
+}
+$locCount = rtrim($locCount,',');
+$locName = rtrim($locName,'","');
 
-$row = mysqli_fetch_array($result);
-$disabled = $row['disabled'];	
+$locCount = $locCount."]";
+$locName = $locName.'"]';
 
-$query = "SELECT count(*) notdisabled FROM RegistrationDetails WHERE Disability = 'No'";
+
+//Get qualifications
+$query = "SELECT count(DISTINCT a.UserID) as CN, b.Name from `UserApplications` a 
+left join Qualifications c on c.UserID = a.UserID 
+left join LookupQualificationLevel b on b.ID = c.AcademicLevel 
+left join users d on d.UserID = a.UserID 
+left join UserContactDetails e on e.UserID = a.UserID
+WHERE d.UserType = '4' and a.Status != 'Withdrawn' and e.UserID is not NULL and b.Name is not NULL group by b.Name order by Name";
 $result = mysqli_query($conn, $query);
+$quaCount = "[";
+$quaName = '["';
+while($internQualification = mysqli_fetch_array($result)) {
+	$quaCount .= $internQualification['CN'] . ',';
+	$quaName .= $internQualification['Name'] . '","';
+}
+$quaCount = rtrim($quaCount,',');
+$quaName = rtrim($quaName,'","');
 
-$row = mysqli_fetch_array($result);
-$notdisabled = $row['notdisabled'];													
+$quaCount = $quaCount."]";
+$quaName = $quaName.'"]';
+
+//Get interns gender
+$query = "SELECT count(DISTINCT a.UserID) as CN, b.Gender as Name from `UserApplications` a 
+left join RegistrationDetails c on c.UserID = a.UserID 
+left join LookupGender b on b.ID = c.Gender 
+left join UserContactDetails d on d.UserID = a.UserID
+WHERE b.Gender is not NULL and a.Status != 'Withdrawn' and d.UserID is not NULL group by b.Gender order by Name";
+$result = mysqli_query($conn, $query);
+$genCount = "[";
+$genName = '["';
+while($internGender = mysqli_fetch_array($result)) {
+	$genCount .= $internGender['CN'] . ',';
+	$genName .= $internGender['Name'] . '","';
+}
+$genCount = rtrim($genCount,',');
+$genName = rtrim($genName,'","');
+
+$genCount = $genCount."]";
+$genName = $genName.'"]';
+
+
+												
 ?>
 <script>
-var disabled = <?php echo $disabled; ?>;
-var notdisabled = <?php echo $notdisabled; ?>;
+//var disabled = <?php //echo $disabled; ?>;
+//var notdisabled = <?php //echo $notdisabled; ?>;
+
+var locCount = <?php echo $locCount; ?>;
+var locName = <?php echo $locName; ?>;
+
+var quaCount = <?php echo $quaCount; ?>;
+var quaName = <?php echo $quaName; ?>;
+
+var genCount = <?php echo $genCount; ?>;
+var genName = <?php echo $genName; ?>;
+
 var optionsProfileVisit = {
 	annotations: {
 		position: 'back'
 	},
 	dataLabels: {
-		enabled:false
+		enabled:true
 	},
 	chart: {
 		type: 'bar',
@@ -541,17 +630,17 @@ var optionsProfileVisit = {
 	},
 	series: [{
 		name: 'Interns',
-		data: [9,20,30,20,10,20,30,20,10]
+		data: locCount
 	}],
 	colors: '#435ebe',
 	xaxis: {
-		categories: ["Eastern Cape","Free State","Gauteng","KwaZulu-Natal","Limpopo","Mpumalanga","North West", "Northern Cape","Western Cape"],
+		categories: locName,
 	},
 }
 let optionsVisitorsProfile  = {
-	series: [notdisabled, disabled],
-	labels: ['Not Disabled', 'Disabled'],
-	colors: ['#435ebe','#55c6e8'],
+	series: genCount,
+	labels: genName,
+	colors: ['#435ebe','#55c6e8','#0C2D48'],
 	chart: {
 		type: 'donut',
 		width: '100%',
@@ -570,8 +659,8 @@ let optionsVisitorsProfile  = {
 }
  
 let optionsInternsQualifications  = {
-	series: [70, 30, 40],
-	labels: ['Masters', 'Honours','B Degree'],
+	series: quaCount,
+	labels: quaName,
 	colors: ['#435ebe','#55c6e8','#0C2D48'],
 	chart: {
 		type: 'donut',
@@ -674,7 +763,16 @@ chartInternsQualifications.render()
 	display:none;
 }
 </style>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
 
+    <link rel="stylesheet" href="assets/vendors/iconly/bold.css">
+
+    <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
 
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 
@@ -686,7 +784,7 @@ chartInternsQualifications.render()
 
 <script type="text/javascript" language="javascript" >
  $(document).ready(function(){
-	 
+	 $('.spinner-border').hide();
 
     $('#capture-new').on('show.bs.modal', function (e) {
         var rowid = $(e.relatedTarget).data('id');
