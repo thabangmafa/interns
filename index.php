@@ -597,6 +597,8 @@ $genCount = $genCount."]";
 $genName = $genName.'"]';
 
 
+CloseCon($conn);
+
 												
 ?>
 <script>
