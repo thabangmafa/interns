@@ -29,7 +29,7 @@ if (isset($_POST['Submit'])) {
 	
 	$id_number = validate($_POST['id_number']);
 	
-	if(strlen($id_number) != '13'){
+	if(strlen($id_number) != '13' && $id_number!= ''){
 		$message = '<div class="alert alert-danger" role="alert">Please correct your ID number before you continue.</div>';
 		
 	}else{
@@ -401,7 +401,7 @@ if (isset($_POST['Submit'])) {
 												} ?>>
                                                     <div class="form-group">
                                                         <label for="id_number">ID Number <span style="color:red">*</span><span class="checker" id="checker"></span></label>
-                                                        <input type="number" minlength="13" maxlength="13" id="id_number" name="id_number" value="<?php echo @$UserIDNumber; ?>" class="form-control" required="required">
+                                                        <input type="number" minlength="13" maxlength="13" id="id_number" name="id_number" value="<?php echo @$UserIDNumber; ?>" <?php if(@$id_type == '1' || @$UserIDType == '1'){ echo 'required="required"'; } ?> class="form-control">
                                                     </div>
                                                 </div>
 												
@@ -698,6 +698,8 @@ $('#id_number').blur(function() {
 		$(this).val('');
     }   
     });
+	
+
 
 
 
