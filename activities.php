@@ -148,7 +148,7 @@ if (isset($_POST['InstitutionID'])) {
 															
 															$query = "SELECT a.ID, a.UpdatedDate, c.FirstName, c.LastName FROM ProspectiveMentors a
 															left join RegistrationDetails c on c.UserID = a.AddedBy
-																		WHERE a.Email = '".$_SESSION['email']."' and Status = 'Pending Approval' ORDER BY UpdatedDate";
+																		WHERE a.Email = '".$_SESSION['email']."' and Status = 'Pending Mentor Approval' ORDER BY UpdatedDate";
 															$result = mysqli_query($conn, $query);
 
 															while($institution = mysqli_fetch_array($result)) {
