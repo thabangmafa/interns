@@ -14,7 +14,7 @@ if($_POST["Email"] != '')
   if(@$_POST["Status"] != ''){
   $Status = mysqli_real_escape_string($conn,@$_POST["Status"]);
   }else{
-	  $Status = 'Pending Approval';
+	  $Status = 'Pending Mentor Approval';
   }
  
   
