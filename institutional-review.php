@@ -45,7 +45,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Institutional
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header alert alert-primary alert-dismissible fade show">
-								<?php echo $headings['Details']; ?>
+								<?php echo @$headings['Details']; ?>
                                     
                                 </div>
                                 <div class="card-content">
