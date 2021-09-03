@@ -3,7 +3,7 @@
 include '../connect.php';
 $conn = OpenCon();
 
-$query = 'SELECT a.ID, CONCAT("DSI/HSRC/2021/", a.CallID,"/", a.UserID) as Reference, c.Title,r.Race,p.Citizenship	,q.Gender,b.FirstName,b.DateOfBirth,m.PrimaryEmail, o.Title as CallTitle,o.OpenDate, o.ClosingDate, b.Initials,b.LastName,b.IDNumber,b.PassportNumber, CONCAT("1st: ", e.Name, " (" , j.Name, ")", "<br />2nd: ", f.Name, " (" , k.Name, ")", "<br />3rd: ", g.Name, " (" , l.Name, ")" ) as Discipline, GROUP_CONCAT(DISTINCT  h.NameOfDegree SEPARATOR "<br />") NameOfDegree, a.Status, j.Name FROM UserApplications a 
+$query = 'SELECT distinct a.ID, CONCAT("DSI/HSRC/2021/", a.CallID,"/", a.UserID) as Reference, c.Title,r.Race,p.Citizenship	,q.Gender,b.FirstName,b.DateOfBirth,m.PrimaryEmail, o.Title as CallTitle,o.OpenDate, o.ClosingDate, b.Initials,b.LastName,b.IDNumber,b.PassportNumber, CONCAT("1st: ", e.Name, " (" , j.Name, ")", "<br />2nd: ", f.Name, " (" , k.Name, ")", "<br />3rd: ", g.Name, " (" , l.Name, ")" ) as Discipline, GROUP_CONCAT(DISTINCT  h.NameOfDegree SEPARATOR "<br />") NameOfDegree, a.Status, j.Name FROM UserApplications a 
 																left join RegistrationDetails b on b.UserID = a.UserID
 																left join LookupUserTitle c on c.ID = b.TItle
 																left join PositionAppliedFor d on d.UserID = a.UserID
@@ -19,34 +19,59 @@ $query = 'SELECT a.ID, CONCAT("DSI/HSRC/2021/", a.CallID,"/", a.UserID) as Refer
 																left join HostInstitutionCalls o on o.ID = a.CallID
 																left join LookupCitizenshipStatus p on p.ID = b.Citizenship	
 																left join LookupGender q on q.ID = b.Gender
-																left join LookupRace r on r.ID = b.Race																
+																left join LookupRace r on r.ID = b.Race  WHERE a.ID = "'.$_POST["rowid"].'" 															
 																';
 
 
-
-if(isset($_POST["rowid"]))
-{
- $query .= '
- WHERE a.ID = "'.$_POST["rowid"].'" ';
-}
-
-
 $result = mysqli_query($conn,$query);
+
+
+$query = 'SELECT distinct HomePhysicalAddress,HomeCityTown,HomePostalCode,b.Name as HomeProvince,c.Country,MobileNumber,PrimaryEmail,AlternativeEmail FROM `UserContactDetails` a 
+LEFT JOIN LookupProvince b on b.ID = a.HomeProvince
+left join LookupCountry c on c.ID = a.Country
+left join UserApplications d on d.UserID = a.UserID
+ WHERE d.ID = "'.$_POST["rowid"].'"';
+$ContactDetails = mysqli_query($conn,$query);
+
+$query = 'SELECT distinct  * FROM `NextOfKin` a 
+left join UserApplications d on d.UserID = a.UserID
+ WHERE d.ID = "'.$_POST["rowid"].'"';
+$NextOfKin = mysqli_query($conn,$query);
+
+$query = 'SELECT distinct e.Name as Language, b.Name as Speak, c.Name as `Read`, d.Name as `Write` FROM UserApplications a
+left join `LanguageProficiency` f on f.UserID = a.UserID 
+left join LookupProficiency b on b.ID = f.Speak
+left join LookupProficiency c on c.ID = f.Read
+left join LookupProficiency d on d.ID = f.Write
+left join LookupLanguages e on e.ID = f.Language
+ WHERE a.ID = "'.$_POST["rowid"].'"';
+
+$LanguageProficiency = mysqli_query($conn,$query);
+
+
+$query = 'SELECT c.Name as AcademicLevel, b.NameOfDegree, Institution, Fulltime, Distinction,DateFirstRegistration, Completed, HighestCompletedQualification, AnticipatedDateCompletion FROM `UserApplications` a 
+left join Qualifications b on b.UserID = a.UserID
+left join LookupQualificationLevel c on c.ID = b.AcademicLevel
+ WHERE a.ID = "'.$_POST["rowid"].'"';
+
+$Qualifications = mysqli_query($conn,$query);
 
 
 $data = array();
 
 if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 {
+	echo '<div class="row table-responsive">';
+	//Registration Details
 	while($row = mysqli_fetch_array($result))
 	{
-		echo '<div class="row table-responsive">';
+		
 		
 		echo '<table class="mb-0">';
 					
 			echo '<tbody>';
 				echo '<tr>';
-					echo '<th>Application</th>';
+					echo '<th width="50%">Application</th>';
 					echo '<td>'.$row['CallTitle'].'</td>';
 				echo '</tr>';
 				
@@ -102,10 +127,200 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				
 			echo '</tbody>';
 		echo '</table>';
-		echo '<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%;">Alternate Contact Person in Institution.</div>';
-		echo '</div>';
 		
 	}
+	
+	
+	//Contact Details
+	while(@$Contacts = mysqli_fetch_array($ContactDetails))
+	{
+		
+		echo '<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%;">Contact Details.</div>';
+		
+		echo '<table class="mb-0">';
+					
+			echo '<tbody>';
+				echo '<tr>';
+					echo '<th width="50%">Home Physical Address</th>';
+					echo '<td>'.$Contacts['HomePhysicalAddress'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';
+					echo '<th>Home City/Town</th>';
+					echo '<td>'.$Contacts['HomeCityTown'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';	
+					echo '<th>Home Postal Code</th>';
+					echo '<td>'.$Contacts['HomePostalCode'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';	
+					echo '<th>Home Province</th>';
+					echo '<td>'.$Contacts['HomeProvince'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';	
+					echo '<th>Home Country</th>';
+					echo '<td>'.$Contacts['Country'] .'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';	
+					echo '<th>Mobile Number</th>';
+					echo '<td>'.$Contacts['MobileNumber'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';	
+					echo '<th>Primary Email Address</th>';
+					echo '<td>'.$Contacts['PrimaryEmail'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';	
+					echo '<th>Alternate Email Address</th>';
+					echo '<td>'.$Contacts['AlternativeEmail'].'</td>';
+				echo '</tr>';
+				
+			echo '</tbody>';
+		echo '</table>';
+		
+	}
+	
+	//Next of Kin
+	while(@$NOK = mysqli_fetch_array(@$NextOfKin))
+	{
+		
+		
+		echo '<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%;">Next of Kin.</div>';
+		
+		echo '<table class="mb-0">';
+					
+			echo '<tbody>';
+				echo '<tr>';
+					echo '<th width="50%">Name</th>';
+					echo '<td>'.$NOK['Name'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';
+					echo '<th>Cellphone Number</th>';
+					echo '<td>'.$NOK['Cellnumber'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';	
+					echo '<th>Relationship</th>';
+					echo '<td>'.$NOK['Relationship'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';	
+					echo '<th>Physical Address</th>';
+					echo '<td>'.$NOK['Address'].'</td>';
+				echo '</tr>';
+				
+			echo '</tbody>';
+		echo '</table>';
+	}
+	
+	echo '<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%;">Language Proficiency.</div>';
+	echo '<table class="mb-0">';
+	echo '<tbody>';
+	//Language Proficiency
+	while(@$LanguageP = mysqli_fetch_array(@$LanguageProficiency))
+	{
+		
+				echo '<tr>';
+					echo '<th width="50%">Language</th>';
+					echo '<td>'.$LanguageP['Language'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';
+					echo '<th>Speak</th>';
+					echo '<td>'.$LanguageP['Speak'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';	
+					echo '<th>Read</th>';
+					echo '<td>'.$LanguageP['Read'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';	
+					echo '<th>Write</th>';
+					echo '<td>'.$LanguageP['Write'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';
+					echo '<td colspan="2"><hr /></td>';
+					echo '</tr>';
+				
+			
+	}
+	echo '</tbody>';
+		echo '</table>';
+		
+		
+		echo '<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%;">Qualifications.</div>';
+	echo '<table class="mb-0">';
+	echo '<tbody>';
+	//Qualifications
+	while(@$Qual = mysqli_fetch_array(@$Qualifications))
+	{
+		
+				echo '<tr>';
+					echo '<th width="50%">Name Of Degree</th>';
+					echo '<td>'.$Qual['NameOfDegree'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';
+					echo '<th>AcademicLevel</th>';
+					echo '<td>'.$Qual['AcademicLevel'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';	
+					echo '<th>Institution</th>';
+					echo '<td>'.$Qual['Institution'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';	
+					echo '<th>Fulltime</th>';
+					echo '<td>'.$Qual['Fulltime'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';	
+					echo '<th>Degree Classification</th>';
+					echo '<td>'.$Qual['Distinction'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';	
+					echo '<th>Date First Registration</th>';
+					echo '<td>'.$Qual['DateFirstRegistration'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';	
+					echo '<th>Completed</th>';
+					echo '<td>'.$Qual['Completed'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';	
+					echo '<th>Highest Completed Qualification</th>';
+					echo '<td>'.$Qual['HighestCompletedQualification'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';	
+					echo '<th>Date of Completion</th>';
+					echo '<td>'.$Qual['AnticipatedDateCompletion'].'</td>';
+				echo '</tr>';
+				
+			
+				echo '<tr>';
+					echo '<td colspan="2"><hr /></td>';
+					echo '</tr>';
+				
+			
+	}
+	echo '</tbody>';
+		echo '</table>';
+	
+	echo '</div>';
+	
+	
 	exit;
 }
 
