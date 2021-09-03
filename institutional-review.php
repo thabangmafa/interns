@@ -1,10 +1,10 @@
 <?php 
 include 'admin/connect.php';
 $conn = OpenCon();
-$menu_item = "4";
+$menu_item = "1";
 $title = "Institutional Review";
 
-$sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='List of Applications' ";
+$sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Institutional Review' ";
 		$result = mysqli_query($conn, $sql);
 		$headings = mysqli_fetch_assoc($result);
 		
@@ -45,7 +45,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='List of Appli
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header alert alert-primary alert-dismissible fade show">
-								<?php //echo $headings['Details']; ?>
+								<?php echo $headings['Details']; ?>
                                     
                                 </div>
                                 <div class="card-content">
@@ -758,9 +758,9 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='List of Appli
 													$AcademicLevel .= ' h.AcademicLevel = "'.@$_POST['AcademicLevel'].'" AND ';
 												}
 												
-												$where .= ' and ( '.$FirstLocation.$AcademicLevel.$FirstDiscipline.'" 1=1") 
+												$where .= ' and (( '.$FirstLocation.$AcademicLevel.$FirstDiscipline.'" 1=1") 
 												 or ( '.$SecondLocation.$AcademicLevel.$SecondDiscipline.'" 1=1")
-												 or ( '.$ThirdLocation.$AcademicLevel.$ThirdDiscipline.'" 1=1")
+												 or ( '.$ThirdLocation.$AcademicLevel.$ThirdDiscipline.'" 1=1"))
 												
 												';
 												
@@ -784,6 +784,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='List of Appli
 																											right join UserContactDetails m on m.UserID = a.UserID
 																											left join LookupProvince z on z.ID = m.HomeProvince
 																											WHERE a.Status != "Withdrawn" '.$where.' group by a.UserID';				
+										
 													$result = mysqli_query($conn, $query);
 													while($calls = mysqli_fetch_array($result)) {
 														
