@@ -67,7 +67,7 @@ if (@$_POST['InstitutionID'] != '') {
                                                 <h6 class="font-extrabold mb-0"><?php
 				
 													$query = "SELECT count(distinct a.UserID) inst FROM UserApplications a
-left join UserContactDetails b on b.UserID = a.UserID WHERE a.Status != 'Withdrawn' and b.UserID is not NULL";
+													right join UserContactDetails b on b.UserID = a.UserID WHERE a.Status != 'Withdrawn' and b.UserID is not NULL";
 													$result = mysqli_query($conn, $query);
 
 													while($applications = mysqli_fetch_array($result)) {
@@ -540,7 +540,7 @@ $conn = OpenCon();
 if(@$_SESSION['user_type'] == '1'){
 //Get interns by province
 $query = "SELECT count(DISTINCT a.UserID) as CN, b.Name from `UserApplications` a
-left join UserContactDetails c on c.UserID = a.UserID
+right join UserContactDetails c on c.UserID = a.UserID
 left join LookupProvince b on b.ID = c.HomeProvince
 WHERE a.Status != 'Withdrawn' and b.Name is not NULL group by b.Name order by Name";
 $result = mysqli_query($conn, $query);
@@ -562,7 +562,7 @@ $query = "SELECT count(DISTINCT a.UserID) as CN, b.Name from `UserApplications` 
 left join Qualifications c on c.UserID = a.UserID 
 left join LookupQualificationLevel b on b.ID = c.AcademicLevel 
 left join users d on d.UserID = a.UserID 
-left join UserContactDetails e on e.UserID = a.UserID
+right join UserContactDetails e on e.UserID = a.UserID
 WHERE d.UserType = '4' and a.Status != 'Withdrawn' and e.UserID is not NULL and b.Name is not NULL group by b.Name order by Name";
 $result = mysqli_query($conn, $query);
 $quaCount = "[";
@@ -579,9 +579,9 @@ $quaName = $quaName.'"]';
 
 //Get interns gender
 $query = "SELECT count(DISTINCT a.UserID) as CN, b.Gender as Name from `UserApplications` a 
-left join RegistrationDetails c on c.UserID = a.UserID 
+right join RegistrationDetails c on c.UserID = a.UserID 
 left join LookupGender b on b.ID = c.Gender 
-left join UserContactDetails d on d.UserID = a.UserID
+right join UserContactDetails d on d.UserID = a.UserID
 WHERE b.Gender is not NULL and a.Status != 'Withdrawn' and d.UserID is not NULL group by b.Gender order by Name";
 $result = mysqli_query($conn, $query);
 $genCount = "[";
