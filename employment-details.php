@@ -111,6 +111,9 @@ if (isset($_POST['Submit'])) {
 					mail($email,$subject,$txt,$headers);
 				}
 			}
+			
+			$checklist = "INSERT INTO ApplicantChecklist(UserID, InstitutionID, Section)VALUES('$id','$Organization','Prospective Mentors and Required Intern Profile')";
+			mysqli_query($conn, $checklist);
 		}
 		
 	}
