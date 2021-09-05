@@ -21,6 +21,13 @@ if(isset($_POST["ID"]) && isset($_POST["Table"]))
  mysqli_query($conn,$query);
  
 }
+
+ if($Table == 'ProspectiveMentors')
+{
+ $checklist = "INSERT INTO ApplicantChecklist(UserID, InstitutionID, Section)VALUES('".$_SESSION['id']."','".$_POST["institutionid"]."','Prospective Mentors and Required Intern Profile')";
+mysqli_query($conn, $checklist);
+ 
+}
  
  
 }
