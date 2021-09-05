@@ -196,6 +196,14 @@ $query = "SELECT * FROM ApplicantChecklist
 											 }
 											 echo '</tr>';
 										}
+										
+										if(@$calls){
+											
+										}else{
+											echo '<tr><td colspan = "6">If you are unable to see the open call on this page please make sure that your profile details are successfully captured. Click on each of the profile pages to make sure that your information is displaying.</tr></td>';
+										}
+											
+										
 
 									?>
                                 </tbody>
