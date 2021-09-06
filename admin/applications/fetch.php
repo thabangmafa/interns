@@ -49,18 +49,24 @@ left join LookupLanguages e on e.ID = f.Language
 $LanguageProficiency = mysqli_query($conn,$query);
 
 
-$query = 'SELECT c.Name as AcademicLevel, b.NameOfDegree, Institution, Fulltime, Distinction,DateFirstRegistration, Completed, HighestCompletedQualification, AnticipatedDateCompletion FROM `UserApplications` a 
+$query = 'SELECT distinct c.Name as AcademicLevel, b.NameOfDegree, Institution, Fulltime, Distinction,DateFirstRegistration, Completed, HighestCompletedQualification, AnticipatedDateCompletion FROM `UserApplications` a 
 left join Qualifications b on b.UserID = a.UserID
 left join LookupQualificationLevel c on c.ID = b.AcademicLevel
  WHERE a.ID = "'.$_POST["rowid"].'"';
 
 $Qualifications = mysqli_query($conn,$query);
 
-$query = 'SELECT * FROM `UserApplications` a
+$query = 'SELECT distinct * FROM `UserApplications` a
 left join `UserProfile` b on b.UserID = a.UserID
  WHERE a.ID = "'.$_POST["rowid"].'"';
 
 $UserProfiles = mysqli_query($conn,$query);
+
+$query = 'SELECT distinct * FROM UserApplications a
+left join `References` b on b.UserID = a.UserID 
+ WHERE a.ID = "'.$_POST["rowid"].'"';
+
+$References = mysqli_query($conn,$query);
 
 
 $data = array();
@@ -72,7 +78,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 	while($row = mysqli_fetch_array($result))
 	{
 		
-		
+		$userid = $row['UserID'];
 		echo '<table class="mb-0">';
 					
 			echo '<tbody>';
@@ -108,7 +114,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				
 				echo '<tr>';	
 					echo '<th>Applicant ID/Passport Document</th>';
-					echo '<td><a target="_blank" href="uploads/applicants/'.$row['UserID'].'/'.$row['IDDocument'].'">View Document</a></td>';
+					echo $iddoc = '<td><a target="_blank" href="uploads/applicants/'.$row['UserID'].'/'.$row['IDDocument'].'">View Document</a></td>';
 				echo '</tr>';
 				
 				echo '<tr>';	
@@ -271,6 +277,8 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 	echo '<table class="mb-0">';
 	echo '<tbody>';
 	//Qualifications
+	
+	
 	while(@$Qual = mysqli_fetch_array(@$Qualifications))
 	{
 		
@@ -370,6 +378,84 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 		echo '</table>';
 		
 	}
+	
+	
+	
+	echo '<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%;">References.</div>';
+	echo '<table class="mb-0" style="width:100%">';
+	echo '<tbody>';
+	//References
+	while(@$Reference = mysqli_fetch_array(@$References))
+	{
+		
+				echo '<tr>';
+					echo '<th width="50%">Name</th>';
+					echo '<td>'.$Reference['Name'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';
+					echo '<th>Relationship</th>';
+					echo '<td>'.$Reference['Relationship'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';	
+					echo '<th>Telephone</th>';
+					echo '<td>'.$Reference['Telephone'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';	
+					echo '<th>Email</th>';
+					echo '<td>'.$Reference['Email'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';	
+					echo '<th>Organisation</th>';
+					echo '<td>'.$Reference['Organisation'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';
+					echo '<td colspan="2"><hr /></td>';
+					echo '</tr>';
+				
+			
+	}
+	echo '</tbody>';
+		echo '</table>';
+		
+		echo '<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%;">User Attachments.</div>';
+	echo '<table class="mb-0" style="width:100%">';
+	echo '<tbody>';
+	//User Atachments
+
+		
+				echo '<tr>';
+					echo '<th width="50%">ID/Passport Document</th>';
+					echo '<td>'.$iddoc.'</td>';
+				echo '</tr>';
+				
+				@$directory = '../../uploads/qualifications/'.@$userid;
+				@$scanned_directory = array_diff(scandir(@$directory), array('..', '.'));
+				$files = '';
+				$req = '';
+				$i = 0;
+				
+							if(@$scanned_directory){
+							foreach($scanned_directory as $file){
+								$i++;
+								echo '<tr>
+										<td>Qualifications Attachment '.$i.'</td>
+										<td>';
+								
+								echo '<a target="_blank" href="../../uploads/qualifications/'.@$userid.'/'.$file.'"> Transcript '.$i.'</a> | ';
+									echo '</td>
+									</tr>';
+							}
+							
+							}
+
+	
+	echo '</tbody>';
+		echo '</table>';
 	
 	
 	exit;
