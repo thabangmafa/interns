@@ -69,7 +69,7 @@ left join `References` b on b.UserID = a.UserID
 $References = mysqli_query($conn,$query);
 
 
-$query = 'SELECT d.ID, a.Status, j.Name as FirstProvince, k.Name as SecondProvince, l.Name as ThirdProvince, e.Name as FirstDiscipline, f.Name as SecondDiscipline, g.Name as ThirdDiscipline FROM UserApplications a 
+$query = 'SELECT d.ID, a.ID as applicationid,FirstOptionStatus,SecondOptionStatus,ThirdOptionStatus,a.Comments, a.Status, j.Name as FirstProvince, k.Name as SecondProvince, l.Name as ThirdProvince, e.Name as FirstDiscipline, f.Name as SecondDiscipline, g.Name as ThirdDiscipline FROM UserApplications a 
 left join `PositionAppliedFor` d on d.UserID = a.UserID
 
 left join LookupProvince j on j.ID = d.FirstProvince
@@ -94,6 +94,8 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 	{
 		
 		$userid = $row['UserID'];
+		$ref = $row['Reference'];
+		$applicant = $row['Title'] . ' ' . $row['Initials'] . ' ' .$row['FirstName'] . ' ' .$row['LastName'];
 		echo '<table class="mb-0">';
 					
 			echo '<tbody>';
@@ -474,64 +476,80 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 		
 		
 		
-		echo '<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%;">Language Proficiency.</div>';
+		echo '<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%;">Position Applied For.</div>';
+		//echo '<input type="hidden" name=""'
 	echo '<table class="mb-0" style="width:100%">';
 	echo '<tbody>';
 	//Language Proficiency
 	while(@$PositionApplied = mysqli_fetch_array(@$PositionAppliedFor))
 	{
-		
+				echo '<input type="hidden" name="recordid" id="recordid" value="'.$PositionApplied['ID'].'" />';
+				echo '<input type="hidden" name="applicationid" id="applicationid" value="'.$PositionApplied['applicationid'].'" />';
+				echo '<input type="hidden" name="UserID" id="UserID" value="'.$userid.'" />';
+				echo '<input type="hidden" name="Ref" id="Ref" value="'.$ref.'" />';
+				echo '<input type="hidden" name="Applicant" id="Applicant" value="'.$applicant.'" />';
+				
 				echo '<tr>';
-					echo '<th >Option 1</th>';
+					echo '<th>Preferences</th>';
+					echo '<th>Province</th>';
+					echo '<th>Discipline</th>';
+					echo '<th>Status</th>';
+				echo '</tr>';
+				
+				echo '<tr><td colspan="4"><hr /></td></tr>';
+				
+				echo '<tr>';
+					echo '<td>Option 1</td>';
 					echo '<td>'.$PositionApplied['FirstProvince'].'</td>';
 					echo '<td>'.$PositionApplied['FirstDiscipline'].'</td>';
-					echo '<td><select class="choices form-select" id="OptionOneStatus" alt="'.$PositionApplied['ID'].'" name="OptionOneStatus">';
-					if($PositionApplied['Status'] == 'Pending'){ echo '<option>Submitted to HSRC</option>'; }else{ echo '<option>' . $PositionApplied['Status'] . '</option>'; }
-					echo '<option>To be interviewed for '.$PositionApplied['FirstDiscipline'].' in '.$PositionApplied['FirstProvince'].'</option>';
-					echo '<option>Interview date set</option>';
-					echo '<option>Interview unsuccessful</option>';
-					echo '<option>Offer to be made for '.$PositionApplied['FirstDiscipline'].' in '.$PositionApplied['FirstProvince'].'</option>';
-					echo '<option>Application withdrawn</option>';
-					echo '</select>';
+					echo '<td>';
+					if($PositionApplied['FirstOptionStatus'] == ''){ echo 'Submitted to HSRC'; }else{ echo $PositionApplied['FirstOptionStatus']; }
 					echo '</td>';
 				echo '</tr>';
 				
 				echo '<tr><td colspan="4"><hr /></td></tr>';
 				
 				echo '<tr>';
-					echo '<th>Option 2</th>';
+					echo '<td>Option 2</td>';
 					echo '<td>'.$PositionApplied['SecondProvince'].'</td>';
 					echo '<td>'.$PositionApplied['SecondDiscipline'].'</td>';
-					echo '<td><select class="choices form-select" id="OptionTwoStatus" alt="'.$PositionApplied['ID'].'" name="OptionTwoStatus">';
-					if($PositionApplied['Status'] == 'Pending'){ echo '<option>Submitted to HSRC</option>'; }else{ echo '<option>' . $PositionApplied['Status'] . '</option>'; }
-					echo '<option>To be interviewed for '.$PositionApplied['SecondDiscipline'].' in '.$PositionApplied['SecondProvince'].'</option>';
-					echo '<option>Interview date set</option>';
-					echo '<option>Interview unsuccessful</option>';
-					echo '<option>Offer to be made for '.$PositionApplied['SecondDiscipline'].' in '.$PositionApplied['SecondProvince'].'</option>';
-					echo '<option>Application withdrawn</option>';
-					echo '</select>';
+					echo '<td>';
+					if($PositionApplied['SecondOptionStatus'] == ''){ echo 'Submitted to HSRC'; }else{ echo $PositionApplied['SecondOptionStatus']; }
 					echo '</td>';
 				echo '</tr>';
 				
 				echo '<tr><td colspan="4"><hr /></td></tr>';
 				
 				echo '<tr>';	
-					echo '<th>Option 3</th>';
+					echo '<td>Option 3</td>';
 					echo '<td>'.$PositionApplied['ThirdProvince'].'</td>';
 					echo '<td>'.$PositionApplied['ThirdDiscipline'].'</td>';
-					echo '<td><select class="choices form-select" id="OptionThreeStatus" alt="'.$PositionApplied['ID'].'" name="OptionThreeStatus">';
-					if($PositionApplied['Status'] == 'Pending'){ echo '<option>Submitted to HSRC</option>'; }else{ echo '<option>' . $PositionApplied['Status'] . '</option>'; }
-					echo '<option>To be interviewed for '.$PositionApplied['ThirdDiscipline'].' in '.$PositionApplied['ThirdProvince'].'</option>';
-					echo '<option>Interview date set</option>';
-					echo '<option>Interview unsuccessful</option>';
-					echo '<option>Offer to be made for '.$PositionApplied['ThirdDiscipline'].' in '.$PositionApplied['ThirdProvince'].'</option>';
-					echo '<option>Application withdrawn</option>';
-					echo '</select>';
+					echo '<td>';
+					if($PositionApplied['ThirdOptionStatus'] == ''){ echo 'Submitted to HSRC'; }else{ echo $PositionApplied['ThirdOptionStatus']; }
 					echo '</td>';
 				echo '</tr>';
 				
+				echo '<tr><td colspan="4"><div class="alert alert-success" style="margin-top: 2%; margin-bottom: 2%;">Respond to application by select the option and feedback.</div></td></tr>';
+			
+				echo '<tr><td colspan="2">Select Option';
+				echo '<select class="choices form-select" id="Options" name="Options">';
+					echo '<option value="'.$PositionApplied['FirstProvince'].'-'.$PositionApplied['FirstDiscipline'].'-FirstOptionStatus">Option 1</option>';
+					echo '<option value="'.$PositionApplied['SecondProvince'].'-'.$PositionApplied['SecondDiscipline'].'-SecondOptionStatus">Option 2</option>';
+					echo '<option value="'.$PositionApplied['ThirdProvince'].'-'.$PositionApplied['ThirdDiscipline'].'-ThirdOptionStatus">Option 3</option>';
+				echo '</select>';
+				
+				echo '</td><td colspan="2">Select Response';
+				echo '<select class="choices form-select" id="Status" name="Status">';
+				echo '<option></option>';
+					echo '<option>To be interviewed</option>';
+					echo '<option>Interview date set</option>';
+					echo '<option>Interview unsuccessful</option>';
+					echo '<option>Offer to be made</option>';
+					echo '<option>Application withdrawn</option>';
+				echo '</select></td></tr>'; 
+				
 				echo '<tr><td colspan="4"><hr /></td></tr>';
-				echo '<tr><td colspan="4"><textarea class="form-control" rows="3" style="width:100%" placeholder="Type any comments here..."></textarea></td></tr>'; 
+				echo '<tr><td colspan="4">Comments<textarea class="form-control" id="Comments" name="Comments" rows="3" style="width:100%" placeholder="Type any comments here...">'.$PositionApplied['Comments'].'</textarea></td></tr>'; 
 				
 			
 	}

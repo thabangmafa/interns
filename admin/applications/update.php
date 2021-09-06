@@ -2,32 +2,87 @@
 include '../connect.php';
 $conn = OpenCon();
 
-if(isset($_POST["id"]))
+if(isset($_POST["recordid"]))
 {
 
- $name = mysqli_real_escape_string($conn,$_POST["name"]);
- $type = mysqli_real_escape_string($conn,$_POST["type"]);
- $status = mysqli_real_escape_string($conn,$_POST["status"]);
- $Administrator = mysqli_real_escape_string($conn,$_POST["Administrator"]);
+ $recordid = mysqli_real_escape_string($conn,$_POST["recordid"]);
+ $UserID = mysqli_real_escape_string($conn,$_POST["UserID"]);
+ $Ref = mysqli_real_escape_string($conn,$_POST["Ref"]);
+ $Applicant = mysqli_real_escape_string($conn,$_POST["Applicant"]);
+ $applicationid = mysqli_real_escape_string($conn,$_POST["applicationid"]);
  
- $query = "UPDATE `LookupInstitutions` SET 
- Name='".$name."',
- InstitutionTypeId='".$type."',
- IsActive='".$status."'
- WHERE InstitutionId = '".$_POST["id"]."'";
+ $Comments = mysqli_real_escape_string($conn,$_POST["Comments"]);
+ $Status = mysqli_real_escape_string($conn,$_POST["Status"]);
+ 
+ $options = explode('-',$_POST['Options']);
+ $Province = $options[0];
+ $Discipline = $options[1];
+ $Option = $options[2];
+ 
+ 
+ $sql = "SELECT distinct c.Email, CASE WHEN FirstName != '' THEN CONCAT(FirstName , ' ' , LastName) ELSE a.UserName END Mentor, d.Name as Institution, e.TelephoneNumber FROM users a 
+	left join RegistrationDetails b on b.UserID = a.UserID
+	left join ProspectiveMentors c on c.Email = a.Email
+	left join LookupInstitutions d on d.InstitutionId = c.InstitutionID
+	left join UserContactDetails e on e.UserID = a.UserID
+ WHERE UserID = '".$_SESSION['id']."'";
+		$result = mysqli_query($conn, $sql);
+		$mentor = mysqli_fetch_assoc($result);
+		
+$FirstQuery = "UPDATE `UserApplications` SET 
+ Status='".$Status."'
+ WHERE UserID = '".$UserID."'";
+	mysqli_query($conn, $FirstQuery); 
+ 
+ $query = "UPDATE `PositionAppliedFor` SET 
+ ".$Option."='".$Status."',
+ Comments='".$Comments."'
+ WHERE ID = '".$recordid."'";
  
 
  if(mysqli_query($conn,$query))
  {
+
+	 if($){
+$email = "tmafa@hsrc.ac.za";		 
+$subject = "HSRC Interns Portal Feedback";		 
+		 
+$txt = 'Dear Raseruthe 
+
+A host institution would like to make an offer to the following applicant:
+
+Reference:  '.$Ref.'
+Applicant:  '.$Applicant.' 
+Province:  '.$Province.' 
+Discipline:  '.$Discipline.' 
+
+
+Person processing application: 
+Name:  '.$mentor['Mentor'].' 
+Telephone: '.$mentor['TelephoneNumber'].' 
+Email Address:  '.$mentor['Email'].'
+Host Institution:  '.$mentor['Institution'].' 
+
+Regards
+DSI-HSRC Internship Programme Team
+
+Please do not reply to this message. Replies to this message are routed to an unmonitored mailbox.
+';
+	$headers = "From: noreply@hsrc.ac.za" . "\r\n";
+
+				mail($email,$subject,$txt,$headers);	 
+	 }
 	 
-	
 	 
-	 $query = "INSERT INTO `HostAdministrator`(UserID, InstitutionID, Status) VALUES('$Administrator', '".$_POST["id"]."', 'Approved')";
-	 mysqli_query($conn,$query);
-  echo 'Data Updated';
+	echo 'Data Updated';
  }else{
 	 echo 'Update not done';
  }
+ 
+ 
+ 
+ 
 }
+
 CloseCon($conn);
 ?>

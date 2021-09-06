@@ -838,7 +838,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Institutional
                                                                         <span class="d-none d-sm-block">Cancel</span>
                                                                     </button>
                                                                     <button type="button" class="btn btn-primary ml-1"
-                                                                        data-bs-dismiss="modal" id="updateHost">
+                                                                        data-bs-dismiss="modal" id="update">
                                                                         <i class="bx bx-check d-block d-sm-none"></i>
                                                                         <span class="d-none d-sm-block">Submit</span>
                                                                     </button>
@@ -911,6 +911,48 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Institutional
         });
 		
      });
+	 
+	   $(document).on('click', '#update', function(){
+		   var recordid = $('#recordid').val();
+		   var UserID = $('#UserID').val();
+		   var Ref = $('#Ref').val();
+		   var Applicant = $('#Applicant').val();
+		   var applicationid = $('#applicationid').val();
+		   
+		   
+		   var Status = $('#Status').val();
+		   var Options = $('#Options').val();
+
+		   var Comments = $("#Comments").val();
+
+		   
+		   $.ajax({
+			url:"admin/applications/update.php",
+			method:"POST",
+			data:{
+				recordid:recordid,
+				UserID:UserID,
+				Applicant:Applicant,
+				Ref:Ref,
+				applicationid:applicationid, 
+				Options:Options, 
+				Status:Status, 
+				Comments:Comments},
+			success:function(data)
+			{
+			 $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
+			 $('#user_data').DataTable().destroy();
+			}
+		   });
+		   setInterval(function(){
+			   location.reload();
+			$('#alert_message').html('');
+		   }, 2000);
+			
+   
+   
+  });
+  
 });	 
 
 </script>
