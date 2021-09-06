@@ -797,7 +797,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Institutional
 															 echo '<td>' . $calls['Home'] . '</td>';
 															 echo '<td>' . $calls['Discipline'] . '</td>';
 															 echo '<td>' . ucwords($calls['NameOfDegree']) . '</td>';
-															 echo '<td>' . $calls['Status']. '</td>';
+															 if($calls['Status'] == 'Pending'){ echo '<td>Submitted to HSRC</td>'; }else{ echo '<td>' . $calls['Status']. '</td>'; }
 															 echo '<td><div class="icon dripicons-gear" data-id="'.$calls["ID"].'" data-bs-toggle="modal" modal-title="Respond to Application" data-bs-target="#primary"></div></td>';
 															 echo '</tr>';
 														}
