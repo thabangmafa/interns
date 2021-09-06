@@ -3,7 +3,7 @@
 include '../connect.php';
 $conn = OpenCon();
 
-$query = 'SELECT distinct a.ID, CONCAT("DSI/HSRC/2021/", a.CallID,"/", a.UserID) as Reference, c.Title,r.Race,p.Citizenship	,q.Gender,b.FirstName,b.DateOfBirth,m.PrimaryEmail, o.Title as CallTitle,o.OpenDate, o.ClosingDate, b.Initials,b.LastName,b.IDNumber,b.PassportNumber, CONCAT("1st: ", e.Name, " (" , j.Name, ")", "<br />2nd: ", f.Name, " (" , k.Name, ")", "<br />3rd: ", g.Name, " (" , l.Name, ")" ) as Discipline, GROUP_CONCAT(DISTINCT  h.NameOfDegree SEPARATOR "<br />") NameOfDegree, a.Status, j.Name FROM UserApplications a 
+$query = 'SELECT distinct a.ID, CONCAT("DSI/HSRC/2021/", a.CallID,"/", a.UserID) as Reference,a.UserID, b.IDDocument, c.Title,r.Race,p.Citizenship	,q.Gender,b.FirstName,b.DateOfBirth,m.PrimaryEmail, o.Title as CallTitle,o.OpenDate, o.ClosingDate, b.Initials,b.LastName,b.IDNumber,b.PassportNumber, CONCAT("1st: ", e.Name, " (" , j.Name, ")", "<br />2nd: ", f.Name, " (" , k.Name, ")", "<br />3rd: ", g.Name, " (" , l.Name, ")" ) as Discipline, GROUP_CONCAT(DISTINCT  h.NameOfDegree SEPARATOR "<br />") NameOfDegree, a.Status, j.Name FROM UserApplications a 
 																left join RegistrationDetails b on b.UserID = a.UserID
 																left join LookupUserTitle c on c.ID = b.TItle
 																left join PositionAppliedFor d on d.UserID = a.UserID
@@ -56,6 +56,12 @@ left join LookupQualificationLevel c on c.ID = b.AcademicLevel
 
 $Qualifications = mysqli_query($conn,$query);
 
+$query = 'SELECT * FROM `UserApplications` a
+left join `UserProfile` b on b.UserID = a.UserID
+ WHERE a.ID = "'.$_POST["rowid"].'"';
+
+$UserProfiles = mysqli_query($conn,$query);
+
 
 $data = array();
 
@@ -98,6 +104,11 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				echo '<tr>';	
 					echo '<th>Applicant ID/Passport Number</th>';
 					echo '<td>'.$row['IDNumber'].$row['PassportNumber'].'</td>';
+				echo '</tr>';
+				
+				echo '<tr>';	
+					echo '<th>Applicant ID/Passport Document</th>';
+					echo '<td><a target="_blank" href="uploads/applicants/'.$row['UserID'].'/'.$row['IDDocument'].'">View Document</a></td>';
 				echo '</tr>';
 				
 				echo '<tr>';	
@@ -319,6 +330,46 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 		echo '</table>';
 	
 	echo '</div>';
+	
+	
+	//User Profile
+	while(@$Profiles = mysqli_fetch_array($UserProfiles))
+	{
+		
+		echo '<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%;">Personal Profile.</div>';
+		
+		echo '<table class="mb-0">';
+					
+			echo '<tbody>';
+				echo '<tr>';
+					echo '<th width="50%">Educational and Professional Summary</th>';
+					echo '<td>'.$Profiles['EducationalandProfessional'].'</td>';
+				echo '</tr>';
+				echo '<tr><td colspan="2"><hr /></td></tr>';
+				echo '<tr>';
+					echo '<th>Educational and Career, Goals and Aspirations</th>';
+					echo '<td>'.$Profiles['GoalsandAspirations'].'</td>';
+				echo '</tr>';
+				echo '<tr><td colspan="2"><hr /></td></tr>';
+				echo '<tr>';	
+					echo '<th>Awards and Special Achievements</th>';
+					echo '<td>'.$Profiles['Awards'].'</td>';
+				echo '</tr>';
+				echo '<tr><td colspan="2"><hr /></td></tr>';
+				echo '<tr>';	
+					echo '<th>Civic, community engagement and other interests</th>';
+					echo '<td>'.$Profiles['CommunityEngagement'].'</td>';
+				echo '</tr>';
+				echo '<tr><td colspan="2"><hr /></td></tr>';
+				echo '<tr>';	
+					echo '<th>Where found out about this internship opportunity</th>';
+					echo '<td>'.$Profiles['Platform'] .'</td>';
+				echo '</tr>';
+				
+			echo '</tbody>';
+		echo '</table>';
+		
+	}
 	
 	
 	exit;
