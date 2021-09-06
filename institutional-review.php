@@ -945,7 +945,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Institutional
 			}
 		   });
 		   setInterval(function(){
-			   location.reload();
+			   //location.reload();
 			$('#alert_message').html('');
 		   }, 2000);
 			

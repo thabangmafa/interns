@@ -28,17 +28,20 @@ if(isset($_POST["recordid"]))
  WHERE UserID = '".$_SESSION['id']."'";
 		$result = mysqli_query($conn, $sql);
 		$mentor = mysqli_fetch_assoc($result);
-		
+		echo $sql;
 $FirstQuery = "UPDATE `UserApplications` SET 
  Status='".$Status."'
  WHERE UserID = '".$UserID."'";
 	mysqli_query($conn, $FirstQuery); 
+	
+	echo $FirstQuery;
  
  $query = "UPDATE `PositionAppliedFor` SET 
  ".$Option."='".$Status."',
  Comments='".$Comments."'
  WHERE ID = '".$recordid."'";
  
+ echo $query;
 
  if(mysqli_query($conn,$query))
  {
