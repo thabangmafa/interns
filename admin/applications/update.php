@@ -46,11 +46,11 @@ $FirstQuery = "UPDATE `UserApplications` SET
  if(mysqli_query($conn,$query))
  {
 
-	 if($){
+
 $email = "tmafa@hsrc.ac.za";		 
 $subject = "HSRC Interns Portal Feedback";		 
 		 
-$txt = 'Dear Raseruthe 
+$txt = 'Dear Administrator 
 
 A host institution would like to make an offer to the following applicant:
 
@@ -74,7 +74,7 @@ Please do not reply to this message. Replies to this message are routed to an un
 	$headers = "From: noreply@hsrc.ac.za" . "\r\n";
 
 				mail($email,$subject,$txt,$headers);	 
-	 }
+	 
 	 
 	 
 	echo 'Data Updated';
