@@ -430,7 +430,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 		
 				echo '<tr>';
 					echo '<th width="50%">ID/Passport Document</th>';
-					echo '<td>'.$iddoc.'</td>';
+					echo $iddoc;
 				echo '</tr>';
 				
 				@$directory = '../../uploads/qualifications/'.@$userid;
@@ -443,10 +443,10 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 							foreach($scanned_directory as $file){
 								$i++;
 								echo '<tr>
-										<td>Qualifications Attachment '.$i.'</td>
+										<td>Qualifications Attachment</td>
 										<td>';
 								
-								echo '<a target="_blank" href="../../uploads/qualifications/'.@$userid.'/'.$file.'"> Transcript '.$i.'</a> | ';
+								echo '<a target="_blank" href="../../uploads/qualifications/'.@$userid.'/'.$file.'"> Transcript(s)</a>';
 									echo '</td>
 									</tr>';
 							}
