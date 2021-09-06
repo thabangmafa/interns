@@ -2,7 +2,22 @@
 include '../connect.php';
 $conn = OpenCon();
 
-if(isset($_POST["recordid"]))
+
+if(isset($_POST["UpdateRecordid"]) && $_POST["UpdateRecordid"] != '')
+{
+	$recordid = mysqli_real_escape_string($conn,$_POST["UpdateRecordid"]);
+	$InterviewDate = mysqli_real_escape_string($conn,$_POST["InterviewDate"]);
+	
+	$query = "UPDATE `PositionAppliedFor` SET 
+	InternviewDate='".$InterviewDate."'
+	WHERE ID = '".$recordid."'";
+ 
+	mysqli_query($conn,$query);
+ 
+}
+
+
+if(isset($_POST["recordid"]) && $_POST["recordid"] != '')
 {
 
  $recordid = mysqli_real_escape_string($conn,$_POST["recordid"]);
@@ -10,11 +25,12 @@ if(isset($_POST["recordid"]))
  $Ref = mysqli_real_escape_string($conn,$_POST["Ref"]);
  $Applicant = mysqli_real_escape_string($conn,$_POST["Applicant"]);
  $applicationid = mysqli_real_escape_string($conn,$_POST["applicationid"]);
+ $MentorInstitution = mysqli_real_escape_string($conn,$_POST["MentorInstitution"]);
  
  $Comments = mysqli_real_escape_string($conn,$_POST["Comments"]);
  $Status = mysqli_real_escape_string($conn,$_POST["Status"]);
  
- $options = explode('-',$_POST['Options']);
+ $options = explode('~',$_POST['Options']);
  $Province = $options[0];
  $Discipline = $options[1];
  $Option = $options[2];
@@ -25,7 +41,7 @@ if(isset($_POST["recordid"]))
 	left join ProspectiveMentors c on c.Email = a.Email
 	left join LookupInstitutions d on d.InstitutionId = c.InstitutionID
 	left join UserContactDetails e on e.UserID = a.UserID
- WHERE a.UserID = '".$_SESSION['id']."'";
+ WHERE a.UserID = '".$_SESSION['id']."' and d.InstitutionId = '".$MentorInstitution."'";
 		$result = mysqli_query($conn, $sql);
 		$mentor = mysqli_fetch_assoc($result);
 		
@@ -39,16 +55,17 @@ $FirstQuery = "UPDATE `UserApplications` SET
 
  
  $query = "UPDATE `PositionAppliedFor` SET 
- ".$Option."='".$Status."',
+ ".$Option."OptionStatus='".$Status."',
+ ".$Option."OptionInstitutionResponse='".$MentorInstitution."',
  Comments='".$Comments."',
  UpdatedBy='".$_SESSION['id']."'
  WHERE ID = '".$recordid."'";
  
 
-
  if(mysqli_query($conn,$query))
  {
 
+if($Status == 'Offer to be made'){
 
 $email = "tmafa@hsrc.ac.za";		 
 $subject = "HSRC Interns Portal Feedback";		 
@@ -79,7 +96,7 @@ Please do not reply to this message. Replies to this message are routed to an un
 
 				mail($email,$subject,$txt,$headers);	 
 	 
-	 
+}
 	 
 	echo 'Data Updated';
  }else{

@@ -68,6 +68,13 @@ left join `References` b on b.UserID = a.UserID
 
 $References = mysqli_query($conn,$query);
 
+$query = 'SELECT distinct a.InstitutionID, b.Name FROM ProspectiveMentors a
+left join `LookupInstitutions` b on b.InstitutionId = a.InstitutionID
+left join users c on c.Email = a.Email 
+ WHERE c.UserID = "'.$_SESSION["id"].'" and a.Status = "Approved"';
+
+$MentorInstitutions = mysqli_query($conn,$query);
+
 
 $query = 'SELECT d.ID, a.ID as applicationid,FirstOptionStatus,SecondOptionStatus,ThirdOptionStatus,a.Comments, a.Status, j.Name as FirstProvince, k.Name as SecondProvince, l.Name as ThirdProvince, e.Name as FirstDiscipline, f.Name as SecondDiscipline, g.Name as ThirdDiscipline FROM UserApplications a 
 left join `PositionAppliedFor` d on d.UserID = a.UserID
@@ -354,7 +361,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 	echo '</tbody>';
 		echo '</table>';
 	
-	echo '</div>';
+	
 	
 	
 	//User Profile
@@ -530,12 +537,24 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				echo '</tr>';
 				
 				echo '<tr><td colspan="4"><div class="alert alert-success" style="margin-top: 2%; margin-bottom: 2%;">Respond to application by select the option and feedback.</div></td></tr>';
+				
+				echo '<tr><td colspan="4">Your Institution(s)';
+						echo '<select class="choices form-select" id="MentorInstitution" name="MentorInstitution">';
+				while(@$MentorInstitution = mysqli_fetch_array(@$MentorInstitutions))
+					{
+						
+
+							echo '<option value="'.@$MentorInstitution['InstitutionID'].'">'.@$MentorInstitution['Name'].'</option>';
+						
+					}
 			
+			echo '</select></td></tr>';
+			echo '<tr><td colspan="4"><hr /></td></tr>';
 				echo '<tr><td colspan="2">Select Option';
 				echo '<select class="choices form-select" id="Options" name="Options">';
-					echo '<option value="'.$PositionApplied['FirstProvince'].'-'.$PositionApplied['FirstDiscipline'].'-FirstOptionStatus">Option 1</option>';
-					echo '<option value="'.$PositionApplied['SecondProvince'].'-'.$PositionApplied['SecondDiscipline'].'-SecondOptionStatus">Option 2</option>';
-					echo '<option value="'.$PositionApplied['ThirdProvince'].'-'.$PositionApplied['ThirdDiscipline'].'-ThirdOptionStatus">Option 3</option>';
+					echo '<option value="'.$PositionApplied['FirstProvince'].'~'.$PositionApplied['FirstDiscipline'].'~First">Option 1</option>';
+					echo '<option value="'.$PositionApplied['SecondProvince'].'~'.$PositionApplied['SecondDiscipline'].'~Second">Option 2</option>';
+					echo '<option value="'.$PositionApplied['ThirdProvince'].'~'.$PositionApplied['ThirdDiscipline'].'~Third">Option 3</option>';
 				echo '</select>';
 				
 				echo '</td><td colspan="2">Select Response';
@@ -555,8 +574,8 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 	}
 	echo '</tbody>';
 		echo '</table>';
-	
-	
+	echo '<div class="response"></div>';
+	echo '</div>';
 	exit;
 }
 

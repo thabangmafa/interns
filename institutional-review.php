@@ -838,7 +838,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Institutional
                                                                         <span class="d-none d-sm-block">Cancel</span>
                                                                     </button>
                                                                     <button type="button" class="btn btn-primary ml-1"
-                                                                        data-bs-dismiss="modal" id="update">
+                                                                         id="update">
                                                                         <i class="bx bx-check d-block d-sm-none"></i>
                                                                         <span class="d-none d-sm-block">Submit</span>
                                                                     </button>
@@ -912,18 +912,46 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Institutional
 		
      });
 	 
+	 
+	 
+	 $(document).on('click', '#InterviewDateSet', function(){
+		   var recordid = $('#recordid').val();
+		   var InterviewDate = $('#InterviewDate').val();
+
+		   $.ajax({
+			url:"admin/applications/update.php",
+			method:"POST",
+			data:{
+				UpdateRecordid:recordid,
+				InterviewDate:InterviewDate},
+			success:function(data)
+			{
+			
+			 location.reload();
+			}
+		   });
+			
+   
+   
+  });
+	 
+	 
+	 
+
 	   $(document).on('click', '#update', function(){
 		   var recordid = $('#recordid').val();
 		   var UserID = $('#UserID').val();
 		   var Ref = $('#Ref').val();
 		   var Applicant = $('#Applicant').val();
 		   var applicationid = $('#applicationid').val();
-		   
+		   var MentorInstitution = $('#MentorInstitution').val();
 		   
 		   var Status = $('#Status').val();
 		   var Options = $('#Options').val();
 
 		   var Comments = $("#Comments").val();
+		   
+		   
 
 		   
 		   $.ajax({
@@ -934,22 +962,25 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Institutional
 				UserID:UserID,
 				Applicant:Applicant,
 				Ref:Ref,
-				applicationid:applicationid, 
+				applicationid:applicationid,
+				MentorInstitution:MentorInstitution,				
 				Options:Options, 
 				Status:Status, 
 				Comments:Comments},
 			success:function(data)
 			{
-			 $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
-			 $('#user_data').DataTable().destroy();
+			if(Status == 'Interview date set'){
+				$('#update').attr('id', 'InterviewDateSet');
+				$('.fetched-data').html('Please confirm interview date: <input type="hidden" name="recordid" id="recordid" value="'+recordid+'" /><input type="date" class="form-control" style="width:20%" name="InterviewDate" id="InterviewDate" />');
+			}else{
+				$('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
+				$('#user_data').DataTable().destroy();
+				location.reload();
+			}
+			 
 			}
 		   });
-		   setInterval(function(){
-			   location.reload();
-			$('#alert_message').html('');
-		   }, 2000);
-			
-   
+		   
    
   });
   
