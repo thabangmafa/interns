@@ -69,6 +69,21 @@ left join `References` b on b.UserID = a.UserID
 $References = mysqli_query($conn,$query);
 
 
+$query = 'SELECT a.Status, j.Name as FirstProvince, k.Name as SecondProvince, l.Name as ThirdProvince, e.Name as FirstDiscipline, f.Name as SecondDiscipline, g.Name as ThirdDiscipline FROM UserApplications a 
+left join `PositionAppliedFor` d on d.UserID = a.UserID
+
+left join LookupProvince j on j.ID = d.FirstProvince
+left join LookupProvince k on k.ID = d.SecondProvince
+left join LookupProvince l on l.ID = d.ThirdProvince
+
+Left join LookupDisciplines e on e.ID = d.FirstDiscipline
+Left join LookupDisciplines f on f.ID = d.SecondDiscipline
+Left join LookupDisciplines g on g.ID = d.ThirdDiscipline
+ WHERE a.ID = "'.$_POST["rowid"].'"';
+
+$PositionAppliedFor = mysqli_query($conn,$query);
+
+
 $data = array();
 
 if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
@@ -114,7 +129,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				
 				echo '<tr>';	
 					echo '<th>Applicant ID/Passport Document</th>';
-					echo $iddoc = '<td><a target="_blank" href="uploads/applicants/'.$row['UserID'].'/'.$row['IDDocument'].'">View Document</a></td>';
+					echo $iddoc = '<td><a target="_blank" href="uploads/applicants/'.$row['UserID'].'/'.$row['IDDocument'].'">View ID/Passport Document</a></td>';
 				echo '</tr>';
 				
 				echo '<tr>';	
@@ -443,10 +458,10 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 							foreach($scanned_directory as $file){
 								$i++;
 								echo '<tr>
-										<td>Qualifications Attachment</td>
+										<th>Qualifications Attachment</th>
 										<td>';
 								
-								echo '<a target="_blank" href="../../uploads/qualifications/'.@$userid.'/'.$file.'"> Transcript(s)</a>';
+								echo '<a target="_blank" href="../../uploads/qualifications/'.@$userid.'/'.$file.'">View Transcript(s)</a>';
 									echo '</td>
 									</tr>';
 							}
@@ -454,6 +469,72 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 							}
 
 	
+	echo '</tbody>';
+		echo '</table>';
+		
+		
+		
+		echo '<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%;">Language Proficiency.</div>';
+	echo '<table class="mb-0" style="width:100%">';
+	echo '<tbody>';
+	//Language Proficiency
+	while(@$PositionApplied = mysqli_fetch_array(@$PositionAppliedFor))
+	{
+		
+				echo '<tr>';
+					echo '<th >Option 1</th>';
+					echo '<td>'.$PositionApplied['FirstProvince'].'</td>';
+					echo '<td>'.$PositionApplied['FirstDiscipline'].'</td>';
+					echo '<td><select class="choices form-select" id="OptionOneStatus" name="OptionOneStatus">';
+					if($PositionApplied['Status'] == 'Pending'){ echo '<option>Submitted to HSRC</option>'; }else{ echo '<option>' . $PositionApplied['Status'] . '</option>'; }
+					echo '<option>To be interviewed for '.$PositionApplied['FirstDiscipline'].' in '.$PositionApplied['FirstProvince'].'</option>';
+					echo '<option>Interview date set</option>';
+					echo '<option>Interview unsuccessful</option>';
+					echo '<option>Offer to be made for '.$PositionApplied['FirstDiscipline'].' in '.$PositionApplied['FirstProvince'].'</option>';
+					echo '<option>Application withdrawn</option>';
+					echo '</select>';
+					echo '</td>';
+				echo '</tr>';
+				
+				echo '<tr><td colspan="4"><hr /></td></tr>';
+				
+				echo '<tr>';
+					echo '<th>Option 2</th>';
+					echo '<td>'.$PositionApplied['SecondProvince'].'</td>';
+					echo '<td>'.$PositionApplied['SecondDiscipline'].'</td>';
+					echo '<td><select class="choices form-select" id="OptionTwoStatus" name="OptionTwoStatus">';
+					if($PositionApplied['Status'] == 'Pending'){ echo '<option>Submitted to HSRC</option>'; }else{ echo '<option>' . $PositionApplied['Status'] . '</option>'; }
+					echo '<option>To be interviewed for '.$PositionApplied['SecondDiscipline'].' in '.$PositionApplied['SecondProvince'].'</option>';
+					echo '<option>Interview date set</option>';
+					echo '<option>Interview unsuccessful</option>';
+					echo '<option>Offer to be made for '.$PositionApplied['SecondDiscipline'].' in '.$PositionApplied['SecondProvince'].'</option>';
+					echo '<option>Application withdrawn</option>';
+					echo '</select>';
+					echo '</td>';
+				echo '</tr>';
+				
+				echo '<tr><td colspan="4"><hr /></td></tr>';
+				
+				echo '<tr>';	
+					echo '<th>Option 3</th>';
+					echo '<td>'.$PositionApplied['ThirdProvince'].'</td>';
+					echo '<td>'.$PositionApplied['ThirdDiscipline'].'</td>';
+					echo '<td><select class="choices form-select" id="OptionThreeStatus" name="OptionThreeStatus">';
+					if($PositionApplied['Status'] == 'Pending'){ echo '<option>Submitted to HSRC</option>'; }else{ echo '<option>' . $PositionApplied['Status'] . '</option>'; }
+					echo '<option>To be interviewed for '.$PositionApplied['ThirdDiscipline'].' in '.$PositionApplied['ThirdProvince'].'</option>';
+					echo '<option>Interview date set</option>';
+					echo '<option>Interview unsuccessful</option>';
+					echo '<option>Offer to be made for '.$PositionApplied['ThirdDiscipline'].' in '.$PositionApplied['ThirdProvince'].'</option>';
+					echo '<option>Application withdrawn</option>';
+					echo '</select>';
+					echo '</td>';
+				echo '</tr>';
+				
+				echo '<tr><td colspan="4"><hr /></td></tr>';
+				echo '<tr><td colspan="4"><textarea class="form-control" rows="3" style="width:100%" placeholder="Type any comments here..."></textarea></td></tr>'; 
+				
+			
+	}
 	echo '</tbody>';
 		echo '</table>';
 	
