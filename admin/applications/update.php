@@ -25,23 +25,26 @@ if(isset($_POST["recordid"]))
 	left join ProspectiveMentors c on c.Email = a.Email
 	left join LookupInstitutions d on d.InstitutionId = c.InstitutionID
 	left join UserContactDetails e on e.UserID = a.UserID
- WHERE UserID = '".$_SESSION['id']."'";
+ WHERE a.UserID = '".$_SESSION['id']."'";
 		$result = mysqli_query($conn, $sql);
 		$mentor = mysqli_fetch_assoc($result);
-		echo $sql;
+		
+		
+		
 $FirstQuery = "UPDATE `UserApplications` SET 
  Status='".$Status."'
  WHERE UserID = '".$UserID."'";
 	mysqli_query($conn, $FirstQuery); 
 	
-	echo $FirstQuery;
+
  
  $query = "UPDATE `PositionAppliedFor` SET 
  ".$Option."='".$Status."',
- Comments='".$Comments."'
+ Comments='".$Comments."',
+ UpdatedBy='".$_SESSION['id']."'
  WHERE ID = '".$recordid."'";
  
- echo $query;
+
 
  if(mysqli_query($conn,$query))
  {
