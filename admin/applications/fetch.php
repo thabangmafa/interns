@@ -69,7 +69,7 @@ left join `References` b on b.UserID = a.UserID
 $References = mysqli_query($conn,$query);
 
 
-$query = 'SELECT a.Status, j.Name as FirstProvince, k.Name as SecondProvince, l.Name as ThirdProvince, e.Name as FirstDiscipline, f.Name as SecondDiscipline, g.Name as ThirdDiscipline FROM UserApplications a 
+$query = 'SELECT d.ID, a.Status, j.Name as FirstProvince, k.Name as SecondProvince, l.Name as ThirdProvince, e.Name as FirstDiscipline, f.Name as SecondDiscipline, g.Name as ThirdDiscipline FROM UserApplications a 
 left join `PositionAppliedFor` d on d.UserID = a.UserID
 
 left join LookupProvince j on j.ID = d.FirstProvince
@@ -485,7 +485,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 					echo '<th >Option 1</th>';
 					echo '<td>'.$PositionApplied['FirstProvince'].'</td>';
 					echo '<td>'.$PositionApplied['FirstDiscipline'].'</td>';
-					echo '<td><select class="choices form-select" id="OptionOneStatus" name="OptionOneStatus">';
+					echo '<td><select class="choices form-select" id="OptionOneStatus" alt="'.$PositionApplied['ID'].'" name="OptionOneStatus">';
 					if($PositionApplied['Status'] == 'Pending'){ echo '<option>Submitted to HSRC</option>'; }else{ echo '<option>' . $PositionApplied['Status'] . '</option>'; }
 					echo '<option>To be interviewed for '.$PositionApplied['FirstDiscipline'].' in '.$PositionApplied['FirstProvince'].'</option>';
 					echo '<option>Interview date set</option>';
@@ -502,7 +502,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 					echo '<th>Option 2</th>';
 					echo '<td>'.$PositionApplied['SecondProvince'].'</td>';
 					echo '<td>'.$PositionApplied['SecondDiscipline'].'</td>';
-					echo '<td><select class="choices form-select" id="OptionTwoStatus" name="OptionTwoStatus">';
+					echo '<td><select class="choices form-select" id="OptionTwoStatus" alt="'.$PositionApplied['ID'].'" name="OptionTwoStatus">';
 					if($PositionApplied['Status'] == 'Pending'){ echo '<option>Submitted to HSRC</option>'; }else{ echo '<option>' . $PositionApplied['Status'] . '</option>'; }
 					echo '<option>To be interviewed for '.$PositionApplied['SecondDiscipline'].' in '.$PositionApplied['SecondProvince'].'</option>';
 					echo '<option>Interview date set</option>';
@@ -519,7 +519,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 					echo '<th>Option 3</th>';
 					echo '<td>'.$PositionApplied['ThirdProvince'].'</td>';
 					echo '<td>'.$PositionApplied['ThirdDiscipline'].'</td>';
-					echo '<td><select class="choices form-select" id="OptionThreeStatus" name="OptionThreeStatus">';
+					echo '<td><select class="choices form-select" id="OptionThreeStatus" alt="'.$PositionApplied['ID'].'" name="OptionThreeStatus">';
 					if($PositionApplied['Status'] == 'Pending'){ echo '<option>Submitted to HSRC</option>'; }else{ echo '<option>' . $PositionApplied['Status'] . '</option>'; }
 					echo '<option>To be interviewed for '.$PositionApplied['ThirdDiscipline'].' in '.$PositionApplied['ThirdProvince'].'</option>';
 					echo '<option>Interview date set</option>';
