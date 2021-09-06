@@ -78,7 +78,7 @@ if (isset($_POST['Submit'])) {
 	
 }
 
-	$query = "SELECT a.ID, a.UserID, b.Name as FirstProvince, c.Name as SecondProvince, d.Name as ThirdProvince, a.FirstDiscipline, a.SecondDiscipline, a.ThirdDiscipline FROM `PositionAppliedFor` a 
+	$query = "SELECT a.ID, a.UserID, a.FirstProvince, a.SecondProvince, a.ThirdProvince, a.FirstDiscipline, a.SecondDiscipline, a.ThirdDiscipline FROM `PositionAppliedFor` a 
 left join LookupProvince b on b.ID = a.FirstProvince 
 left join LookupProvince c on c.ID = a.SecondProvince 
 left join LookupProvince d on d.ID = a.ThirdProvince
@@ -150,16 +150,16 @@ left join LookupProvince d on d.ID = a.ThirdProvince
                                                         <label for="FirstProvince">Province <span style="color:red">*</span></label>
                                                         <fieldset class="form-group">
                                                     <select class="choices form-select" id="FirstProvince" name="FirstProvince" required="required">
-                                                        <option><?php echo @$FirstProvince; ?></option>
-                                                        <option value="1">Gauteng</option>
-<option value="2">Free State</option>
-<option value="3">Eastern Cape</option>
-<option value="4">KwaZulu-Natal</option>
-<option value="5">Limpopo</option>
-<option value="6">Mpumalanga</option>
-<option value="7">Northern Cape</option>
-<option value="8">North West</option>
-<option value="9">Western Cape</option>
+                                                        <option></option>
+                                                        <option value="1" <?php if(@$FirstProvince == "1"){ echo "selected='selected'";} ?>>Gauteng</option>
+<option value="2" <?php if(@$FirstProvince == "2"){ echo "selected='selected'";} ?>>Free State</option>
+<option value="3" <?php if(@$FirstProvince == "3"){ echo "selected='selected'";} ?>>Eastern Cape</option>
+<option value="4" <?php if(@$FirstProvince == "4"){ echo "selected='selected'";} ?>>KwaZulu-Natal</option>
+<option value="5" <?php if(@$FirstProvince == "5"){ echo "selected='selected'";} ?>>Limpopo</option>
+<option value="6" <?php if(@$FirstProvince == "6"){ echo "selected='selected'";} ?>>Mpumalanga</option>
+<option value="7" <?php if(@$FirstProvince == "7"){ echo "selected='selected'";} ?>>Northern Cape</option>
+<option value="8" <?php if(@$FirstProvince == "8"){ echo "selected='selected'";} ?>>North West</option>
+<option value="9" <?php if(@$FirstProvince == "9"){ echo "selected='selected'";} ?>>Western Cape</option>
                                                     </select>
                                                 </fieldset>
                                                     </div>
@@ -783,16 +783,16 @@ left join LookupProvince d on d.ID = a.ThirdProvince
                                                         <label for="SecondProvince">Province</label>
                                                         <fieldset class="form-group">
                                                     <select class="choices form-select" id="SecondProvince" name="SecondProvince">
-                                                        <option><?php echo @$SecondProvince; ?></option>
-                                                        <option value="1">Gauteng</option>
-<option value="2">Free State</option>
-<option value="3">Eastern Cape</option>
-<option value="4">KwaZulu-Natal</option>
-<option value="5">Limpopo</option>
-<option value="6">Mpumalanga</option>
-<option value="7">Northern Cape</option>
-<option value="8">North West</option>
-<option value="9">Western Cape</option>
+                                                        <option></option>
+                                                        <option value="1" <?php if(@$SecondProvince == "1"){ echo "selected='selected'";} ?>>Gauteng</option>
+<option value="2" <?php if(@$SecondProvince == "2"){ echo "selected='selected'";} ?>>Free State</option>
+<option value="3" <?php if(@$SecondProvince == "3"){ echo "selected='selected'";} ?>>Eastern Cape</option>
+<option value="4" <?php if(@$SecondProvince == "4"){ echo "selected='selected'";} ?>>KwaZulu-Natal</option>
+<option value="5" <?php if(@$SecondProvince == "5"){ echo "selected='selected'";} ?>>Limpopo</option>
+<option value="6" <?php if(@$SecondProvince == "6"){ echo "selected='selected'";} ?>>Mpumalanga</option>
+<option value="7" <?php if(@$SecondProvince == "7"){ echo "selected='selected'";} ?>>Northern Cape</option>
+<option value="8" <?php if(@$SecondProvince == "8"){ echo "selected='selected'";} ?>>North West</option>
+<option value="9" <?php if(@$SecondProvince == "9"){ echo "selected='selected'";} ?>>Western Cape</option>
                                                     </select>
                                                 </fieldset>
                                                     </div>
@@ -1414,16 +1414,16 @@ left join LookupProvince d on d.ID = a.ThirdProvince
                                                         <label for="ThirdProvince">Province</label>
                                                         <fieldset class="form-group">
                                                     <select class="choices form-select" id="ThirdProvince" name="ThirdProvince">
-                                                        <option><?php echo @$ThirdProvince; ?></option>
-                                                        <option value="1">Gauteng</option>
-<option value="2">Free State</option>
-<option value="3">Eastern Cape</option>
-<option value="4">KwaZulu-Natal</option>
-<option value="5">Limpopo</option>
-<option value="6">Mpumalanga</option>
-<option value="7">Northern Cape</option>
-<option value="8">North West</option>
-<option value="9">Western Cape</option>
+                                                        <option></option>
+                                                        <option value="1" <?php if(@$ThirdProvince == "1"){ echo "selected='selected'";} ?>>Gauteng</option>
+<option value="2" <?php if(@$ThirdProvince == "2"){ echo "selected='selected'";} ?>>Free State</option>
+<option value="3" <?php if(@$ThirdProvince == "3"){ echo "selected='selected'";} ?>>Eastern Cape</option>
+<option value="4" <?php if(@$ThirdProvince == "4"){ echo "selected='selected'";} ?>>KwaZulu-Natal</option>
+<option value="5" <?php if(@$ThirdProvince == "5"){ echo "selected='selected'";} ?>>Limpopo</option>
+<option value="6" <?php if(@$ThirdProvince == "6"){ echo "selected='selected'";} ?>>Mpumalanga</option>
+<option value="7" <?php if(@$ThirdProvince == "7"){ echo "selected='selected'";} ?>>Northern Cape</option>
+<option value="8" <?php if(@$ThirdProvince == "8"){ echo "selected='selected'";} ?>>North West</option>
+<option value="9" <?php if(@$ThirdProvince == "9"){ echo "selected='selected'";} ?>>Western Cape</option>
                                                     </select>
                                                 </fieldset>
                                                     </div>
