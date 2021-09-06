@@ -62,6 +62,7 @@ Applicant:  '.$Applicant.'
 Province:  '.$Province.' 
 Discipline:  '.$Discipline.' 
 
+-----------------------------------------------------
 
 Person processing application: 
 Name:  '.$mentor['Mentor'].' 
