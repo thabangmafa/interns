@@ -124,7 +124,7 @@ if (@$_POST['InstitutionID'] != '') {
 													$result = mysqli_query($conn, $query);
 
 													while($Institution = mysqli_fetch_array($result)) {
-													 echo $Institution['inst'];
+													 echo '<a href="host-review.php">' . $Institution['inst'] . '</a>';
 													}
 
 												?>
