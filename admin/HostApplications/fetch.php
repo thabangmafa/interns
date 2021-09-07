@@ -51,16 +51,16 @@ $result = mysqli_query($conn,$query);
 
 
 
-$query = 'SELECT a.InstitutionID,a.Allocated,a.ID,b.Name as PrimaryScientificField, c.Name as SecondaryScientificField, a.NumberRequired, d.Name as QualificationLevel, e.Name as Location FROM `ProfileOfRequestedInterns` a 
+$query = 'SELECT distinct a.InstitutionID,a.Allocated,a.ID,b.Name as PrimaryScientificField, c.Name as SecondaryScientificField, a.NumberRequired, d.Name as QualificationLevel, e.Name as Location FROM `ProfileOfRequestedInterns` a 
 left join LookupStudyField b on b.ID = a.PrimaryScientificField
 left join LookupStudyField c on c.ID = a.SecondaryScientificField
 left join LookupQualificationLevel d on d.ID = a.QualificationLevel
 left join LookupProvince e on e.ID = a.Location
- WHERE a.InstitutionID = "'.$_POST["rowid"].'"';
+ WHERE a.InstitutionID = "'.$_POST["rowid"].'" order by QualificationLevel, Location';
 
 $RequestedInterns = mysqli_query($conn,$query);
 
-$query = 'SELECT Comments FROM `HostApplications`
+$query = 'SELECT distinct Comments FROM `HostApplications`
  WHERE InstitutionID = "'.$_POST["rowid"].'"';
 
 $Comments = mysqli_query($conn,$query);
@@ -108,7 +108,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				$res = explode(',',@$row['Resources']);
 
 
-				$query = "SELECT * FROM LookupResources WHERE IsActive = '1' ORDER BY Resource asc";
+				$query = "SELECT distinct * FROM LookupResources WHERE IsActive = '1' ORDER BY Resource asc";
 				$result = mysqli_query($conn, $query);
 				
 				echo '<tr>';	
@@ -280,7 +280,7 @@ echo '<input type="hidden" name="InstitutionID" id="InstitutionID" value="'.@$_P
 
 function get_all_data($conn)
 {
- $query = "SELECT a.*, b.*,c.Status, e.*, d.ID FROM `LookupInstitutions` a 
+ $query = "SELECT distinct a.*, b.*,c.Status, e.*, d.ID FROM `LookupInstitutions` a 
 left join `LookupOrganisationType` b on b.`ID` = a.`InstitutionTypeId`
 left join `LookupIsActive` c on c.`StatusId` = a.`IsActive`
 left join HostAdministrator d on d.InstitutionID = a.InstitutionId
