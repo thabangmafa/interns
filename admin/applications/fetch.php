@@ -76,7 +76,7 @@ left join users c on c.Email = a.Email
 $MentorInstitutions = mysqli_query($conn,$query);
 
 
-$query = 'SELECT d.ID, a.ID as applicationid,FirstOptionStatus,SecondOptionStatus,ThirdOptionStatus,a.Comments, a.Status, j.Name as FirstProvince, k.Name as SecondProvince, l.Name as ThirdProvince, e.Name as FirstDiscipline, f.Name as SecondDiscipline, g.Name as ThirdDiscipline FROM UserApplications a 
+$query = 'SELECT d.ID, a.ID as applicationid,FirstOptionStatus,SecondOptionStatus,ThirdOptionStatus,FirstOptionInstitutionResponse,SecondOptionInstitutionResponse,ThirdOptionInstitutionResponse,a.Comments, a.Status, j.Name as FirstProvince, k.Name as SecondProvince, l.Name as ThirdProvince, e.Name as FirstDiscipline, f.Name as SecondDiscipline, g.Name as ThirdDiscipline FROM UserApplications a 
 left join `PositionAppliedFor` d on d.UserID = a.UserID
 
 left join LookupProvince j on j.ID = d.FirstProvince
@@ -538,6 +538,22 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				
 				echo '<tr><td colspan="4"><div class="alert alert-success" style="margin-top: 2%; margin-bottom: 2%;">Respond to application by select the option and feedback.</div></td></tr>';
 				
+				
+				if($PositionApplied['Status'] == 'Offer to be made' && 
+				
+				
+				!@in_array(@$PositionApplied['FirstOptionInstitutionResponse'], mysqli_fetch_array(@$MentorInstitutions)) && 
+				!@in_array(@$PositionApplied['SecondOptionInstitutionResponse'], mysqli_fetch_array(@$MentorInstitutions)) &&
+				!@in_array(@$PositionApplied['ThirdOptionInstitutionResponse'], mysqli_fetch_array(@$MentorInstitutions))
+
+				
+				
+				){
+					
+					
+				echo '<tr><td colspan="4">You will not be able to respond to this application as there is a pending offer to be made.</td></tr>';
+				}else{
+				
 				echo '<tr><td colspan="4">Your Institution';
 						echo '<select class="choices form-select" id="MentorInstitution" name="MentorInstitution">';
 				while(@$MentorInstitution = mysqli_fetch_array(@$MentorInstitutions))
@@ -569,12 +585,11 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				
 				echo '<tr><td colspan="4"><hr /></td></tr>';
 				echo '<tr><td colspan="4">Comments<textarea class="form-control" id="Comments" name="Comments" rows="3" style="width:100%" placeholder="Type any comments here...">'.$PositionApplied['Comments'].'</textarea></td></tr>'; 
-				
+				}
 			
 	}
 	echo '</tbody>';
 		echo '</table>';
-	echo '<div class="response"></div>';
 	echo '</div>';
 	exit;
 }

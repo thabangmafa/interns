@@ -980,7 +980,11 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Institutional
 		   });
 		   
 		}else{
-			alert("You are not aligned to any institution. Please make sure your institution details are correctly captured on the system.");
+			if(Status != null){
+				alert("You are not aligned to any institution. Please make sure your institution details are correctly captured on the system.");
+			}else{
+				$('#primary').modal('toggle');
+			}
 		}
 		   
    
