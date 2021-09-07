@@ -97,7 +97,7 @@ if (@$_POST['InstitutionID'] != '') {
 													$result = mysqli_query($conn, $query);
 
 													while($applications = mysqli_fetch_array($result)) {
-													 echo $applications['inst'];
+													 echo '<a href="mentors-review.php">' . $applications['inst'] . '</a>';
 													}
 
 												?></h6>
