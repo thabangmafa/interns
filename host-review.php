@@ -154,7 +154,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Host Applicat
 							
 							
 			
-									<form class="form">
+									<form class="form" method="post" id="HostAllocations" name="HostAllocations" enctype="multipart/form-data">
 							<!--primary theme Modal -->
                                                     <div class="modal fade text-left" id="primary" tabindex="-1"
                                                         role="dialog" aria-labelledby="myModalLabel160"
@@ -181,6 +181,11 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Host Applicat
                                                                         data-bs-dismiss="modal">
                                                                         <i class="bx bx-x d-block d-sm-none"></i>
                                                                         <span class="d-none d-sm-block">Close</span>
+                                                                    </button>
+																	<button type="button" class="btn btn-primary ml-1"
+                                                                         id="update">
+                                                                        <i class="bx bx-check d-block d-sm-none"></i>
+                                                                        <span class="d-none d-sm-block">Submit</span>
                                                                     </button>
                                                                     
                                                                 </div>
@@ -252,7 +257,31 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Host Applicat
         });
 		
      });
-	
+	 
+	 
+	 
+	 
+	 
+	 $("#update").click(function(){
+		  
+		  
+		 var form = $('#HostAllocations')[0];
+        var formData = new FormData(form);
+        event.preventDefault();
+        $.ajax({
+            url: "admin/HostApplications/update.php", // the endpoint
+            type: "POST", // http method
+            processData: false,
+            contentType: false,
+            data: formData,        
+              success: function(response){
+                 //location.reload();
+             
+           }
+        });
+
+    });
+	 
   
 });	 
 

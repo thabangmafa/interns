@@ -34,6 +34,7 @@ f.Country,
 a.Resources,
 a.InstitutionID
 
+
 FROM `HostInstitutionDetails` a 
 left join LookupInstitutions b on b.InstitutionId = a.InstitutionID
 left join LookupCategoriseInstitution c on c.ID = a.CategoriseInstitution
@@ -46,6 +47,23 @@ where a.InstitutionID = "'.$_POST["rowid"].'"';
 
 
 $result = mysqli_query($conn,$query);
+
+
+
+
+$query = 'SELECT a.InstitutionID,a.ID,b.Name as PrimaryScientificField, c.Name as SecondaryScientificField, a.NumberRequired, d.Name as QualificationLevel, e.Name as Location FROM `ProfileOfRequestedInterns` a 
+left join LookupStudyField b on b.ID = a.PrimaryScientificField
+left join LookupStudyField c on c.ID = a.SecondaryScientificField
+left join LookupQualificationLevel d on d.ID = a.QualificationLevel
+left join LookupProvince e on e.ID = a.Location
+ WHERE a.InstitutionID = "'.$_POST["rowid"].'"';
+
+$RequestedInterns = mysqli_query($conn,$query);
+
+$query = 'SELECT Comments FROM `HostApplications`
+ WHERE InstitutionID = "'.$_POST["rowid"].'"';
+
+$Comments = mysqli_query($conn,$query);
 
 $data = array();
 
@@ -196,6 +214,49 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 		echo '</table>';
 		
 	}
+	
+	echo '<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%;">Profile of Requested Interns.</div>';
+	echo '<table class="mb-0" style="width:100%">';
+	echo '<tbody>';
+		echo '<tr>';
+					echo '<th>Primary Scientific Field</th>';
+					echo '<th>Secondary Scientific Field</th>';
+					echo '<th>Number Required</th>';
+					echo '<th>Qualification Level</th>';
+					echo '<th>Location</th>';
+					echo '<th>Allocation</th>';
+				echo '</tr>';
+echo '<tr><td colspan="6"><hr /></td></tr>';
+echo '<input type="hidden" name="InstitutionID" id="InstitutionID" value="'.@$_POST["rowid"].'" />';
+	while(@$Requested = mysqli_fetch_array(@$RequestedInterns))
+	{
+
+				echo '<tr>';
+					echo '<td>'.@$Requested['PrimaryScientificField'].'</td>';
+					echo '<td>'.@$Requested['SecondaryScientificField'].'</td>';
+					echo '<td>'.@$Requested['NumberRequired'].'</td>';
+					echo '<td>'.@$Requested['QualificationLevel'].'</td>';
+					echo '<td>'.@$Requested['Location'].'</td>';
+					echo '<td><select class="choices form-select" name="allocation[]" id="allocation">';
+					for($i=0;$i<=@$Requested['NumberRequired'];$i++){
+							echo '<option value="'.@$Requested['ID'].'~'.@$i.'">'.@$i.'</option>';
+					}
+						echo '</select></td>';
+				echo '</tr>';
+				
+				
+				
+			
+	}
+	echo '<tr><td colspan="6"><hr /></td></tr>';
+	
+	
+	while(@$Comment = mysqli_fetch_array(@$Comments))
+	{
+		echo '<tr><td colspan="6">Comments<textarea class="form-control" id="Comments" name="Comments" rows="3" style="width:100%" placeholder="Type any comments here...">'.@$Comment['Comments'].'</textarea></td></tr>'; 
+	}		
+	echo '</tbody>';
+		echo '</table>';
 	
 	echo '</div>';
 	exit;
