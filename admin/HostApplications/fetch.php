@@ -51,7 +51,7 @@ $result = mysqli_query($conn,$query);
 
 
 
-$query = 'SELECT a.InstitutionID,a.ID,b.Name as PrimaryScientificField, c.Name as SecondaryScientificField, a.NumberRequired, d.Name as QualificationLevel, e.Name as Location FROM `ProfileOfRequestedInterns` a 
+$query = 'SELECT a.InstitutionID,a.Allocated,a.ID,b.Name as PrimaryScientificField, c.Name as SecondaryScientificField, a.NumberRequired, d.Name as QualificationLevel, e.Name as Location FROM `ProfileOfRequestedInterns` a 
 left join LookupStudyField b on b.ID = a.PrimaryScientificField
 left join LookupStudyField c on c.ID = a.SecondaryScientificField
 left join LookupQualificationLevel d on d.ID = a.QualificationLevel
@@ -239,7 +239,9 @@ echo '<input type="hidden" name="InstitutionID" id="InstitutionID" value="'.@$_P
 					echo '<td>'.@$Requested['Location'].'</td>';
 					echo '<td><select class="choices form-select" name="allocation[]" id="allocation">';
 					for($i=0;$i<=@$Requested['NumberRequired'];$i++){
-							echo '<option value="'.@$Requested['ID'].'~'.@$i.'">'.@$i.'</option>';
+						@$selected = '';
+						if(@$Requested['Allocated'] == @$i){ @$selected = 'selected="selected"';}
+							echo '<option value="'.@$Requested['ID'].'~'.@$i.'" '.@$selected.'>'.@$i.'</option>';
 					}
 						echo '</select></td>';
 				echo '</tr>';

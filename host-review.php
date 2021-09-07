@@ -275,7 +275,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Host Applicat
             contentType: false,
             data: formData,        
               success: function(response){
-                 //location.reload();
+                 location.reload();
              
            }
         });
