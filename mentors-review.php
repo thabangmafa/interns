@@ -22,6 +22,7 @@ function validate($data){
 
 if(@$id != '' && @$_POST['Submit'] == ''){
 	@$_POST['Institution'] = $_GET['id'];
+	@$_POST['Status'] = 'Approved';
 }
  ?>
 <?php require_once("admin/header.php"); ?>
