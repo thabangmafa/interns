@@ -31,7 +31,8 @@ d.AlternateContactDesignation,
 d.AlternateContactTelephone, 
 d.AlternateContactCellphone,
 f.Country,
-a.Resources
+a.Resources,
+a.InstitutionID
 
 FROM `HostInstitutionDetails` a 
 left join LookupInstitutions b on b.InstitutionId = a.InstitutionID
