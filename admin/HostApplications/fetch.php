@@ -3,7 +3,7 @@
 include '../connect.php';
 $conn = OpenCon();
 
-$query = 'SELECT 
+$query = 'SELECT distinct
 a.HostedInternsBefore, 
 NumberEmployed,
 NumberHosted, 

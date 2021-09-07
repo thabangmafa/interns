@@ -70,7 +70,7 @@ $FirstQuery = "UPDATE `UserApplications` SET
 
 if($Status == 'Offer to be made'){
 
-$email = "tmafa@hsrc.ac.za";		 
+$email = "dsi_hsrc_internship.queries@hsrc.ac.za";		 
 $subject = "HSRC Interns Portal Feedback";		 
 		 
 $txt = 'Dear Administrator 

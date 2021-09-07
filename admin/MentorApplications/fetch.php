@@ -3,7 +3,7 @@
 include '../connect.php';
 $conn = OpenCon();
 
-$query = 'SELECT l.EmploymentStatus,l.Position, l.EmployedFromDate,l.EmployedToDate, m.Name as InstitutionType, n.Name as Institution,
+$query = 'SELECT distinct l.EmploymentStatus,l.Position, l.EmployedFromDate,l.EmployedToDate, m.Name as InstitutionType, n.Name as Institution,
 i.DepartmentSchoolInstitution,Faculty,WorkPostalAddress, WorkCityTown, WorkPostalCode,j.Name as Province,TelephoneNumber,MobileNumber, k.Country,
 b.UserID,c.IDDocument,a.Email,d.Title, c.Initials,g.Gender,c.DateOfBirth, c.FirstName, c.LastName, c.IDNumber, c.PassportNumber, c.HostedInternsBefore, e.Race, h.Citizenship FROM ProspectiveMentors a 
 left join users b on lower(b.Email) = lower(a.Email)

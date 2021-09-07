@@ -130,7 +130,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Host Applicat
 												$where .= $Status.$Institution." Status != 'Delete'";
 												
 												
-												$query = 'SELECT a.ID,a.Status, b.Name as Institution, c.Username, c.Email, a.InstitutionID FROM `HostApplications` a 
+												$query = 'SELECT distinct a.ID,a.Status, b.Name as Institution, c.Username, c.Email, a.InstitutionID FROM `HostApplications` a 
 															left join LookupInstitutions b on b.InstitutionId = a.InstitutionID
 															left join users c on c.UserID = a.userID
 												WHERE '.$where.' order by Institution';		
