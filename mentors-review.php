@@ -133,7 +133,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Institutional
 												$where .= $Status.$Institution." Status != 'Delete'";
 												
 												
-												$query = 'SELECT distinct c.UserID as ID,CASE WHEN a.Name != "" THEN CONCAT(a.Name , " " , a.Surname) ELSE c.UserName END as Mentor, lower(a.Email) as Email, a.Status, b.Name as Institution FROM `ProspectiveMentors` a left join LookupInstitutions b on b.InstitutionId = a.InstitutionID left join users c on lower(c.Email) = lower(a.Email)
+												$query = 'SELECT distinct a.ID,CASE WHEN a.Name != "" THEN CONCAT(a.Name , " " , a.Surname) ELSE c.UserName END as Mentor, lower(a.Email) as Email, a.Status, b.Name as Institution FROM `ProspectiveMentors` a left join LookupInstitutions b on b.InstitutionId = a.InstitutionID left join users c on lower(c.Email) = lower(a.Email)
 												WHERE '.$where.' order by Institution';		
 
 													$result = mysqli_query($conn, $query);
@@ -165,7 +165,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Institutional
                                                             <div class="modal-content">
                                                                 <div class="modal-header bg-success">
                                                                     <h5 class="modal-title white" id="myModalLabel160">
-                                                                        Review Application
+                                                                        Mentor Details
                                                                     </h5>
                                                                     <button type="button" class="close"
                                                                         data-bs-dismiss="modal" aria-label="Close">
@@ -181,13 +181,9 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Institutional
                                                                         class="btn btn-light-secondary"
                                                                         data-bs-dismiss="modal">
                                                                         <i class="bx bx-x d-block d-sm-none"></i>
-                                                                        <span class="d-none d-sm-block">Cancel</span>
+                                                                        <span class="d-none d-sm-block">Close</span>
                                                                     </button>
-                                                                    <button type="button" class="btn btn-primary ml-1"
-                                                                         id="update">
-                                                                        <i class="bx bx-check d-block d-sm-none"></i>
-                                                                        <span class="d-none d-sm-block">Submit</span>
-                                                                    </button>
+                                                                    
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -247,7 +243,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Institutional
 	
         $.ajax({
             type : 'post',
-            url : 'admin/applications/fetch.php', //Here you will fetch records 
+            url : 'admin/MentorApplications/fetch.php', //Here you will fetch records 
             data :  'rowid='+ rowid, //Pass $id
             success : function(data){
             $('.fetched-data').html(data);//Show fetched data from database
@@ -257,85 +253,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Institutional
         });
 		
      });
-	 
-	 
-	 
-	 $(document).on('click', '#InterviewDateSet', function(){
-		   var recordid = $('#recordid').val();
-		   var InterviewDate = $('#InterviewDate').val();
-
-		   $.ajax({
-			url:"admin/applications/update.php",
-			method:"POST",
-			data:{
-				UpdateRecordid:recordid,
-				InterviewDate:InterviewDate},
-			success:function(data)
-			{
-			
-			 location.reload();
-			}
-		   });
-			
-   
-   
-  });
-	 
-	 
-	 
-
-	   $(document).on('click', '#update', function(){
-		   var recordid = $('#recordid').val();
-		   var UserID = $('#UserID').val();
-		   var Ref = $('#Ref').val();
-		   var Applicant = $('#Applicant').val();
-		   var applicationid = $('#applicationid').val();
-		   var MentorInstitution = $('#MentorInstitution').val();
-		   
-		   var Status = $('#Status').val();
-		   var Options = $('#Options').val();
-
-		   var Comments = $("#Comments").val();
-		   
-
-		if(MentorInstitution != null){
-		   $.ajax({
-			url:"admin/applications/update.php",
-			method:"POST",
-			data:{
-				recordid:recordid,
-				UserID:UserID,
-				Applicant:Applicant,
-				Ref:Ref,
-				applicationid:applicationid,
-				MentorInstitution:MentorInstitution,				
-				Options:Options, 
-				Status:Status, 
-				Comments:Comments},
-			success:function(data)
-			{
-			if(Status == 'Interview date set'){
-				$('#update').attr('id', 'InterviewDateSet');
-				$('.fetched-data').html('Please confirm interview date: <input type="hidden" name="recordid" id="recordid" value="'+recordid+'" /><input type="date" class="form-control" style="width:20%" name="InterviewDate" id="InterviewDate" />');
-			}else{
-				$('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
-				$('#user_data').DataTable().destroy();
-				location.reload();
-			}
-			 
-			}
-		   });
-		   
-		}else{
-			if(Status != null){
-				alert("You are not aligned to any institution. Please make sure your institution details are correctly captured on the system.");
-			}else{
-				$('#primary').modal('toggle');
-			}
-		}
-		   
-   
-  });
+	
   
 });	 
 
