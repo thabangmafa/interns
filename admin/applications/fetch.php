@@ -539,15 +539,11 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				echo '<tr><td colspan="4"><div class="alert alert-success" style="margin-top: 2%; margin-bottom: 2%;">Respond to application by select the option and feedback.</div></td></tr>';
 				
 				
-				if($PositionApplied['Status'] == 'Offer to be made' && 
-				
-				
-				!@in_array(@$PositionApplied['FirstOptionInstitutionResponse'], mysqli_fetch_array(@$MentorInstitutions)) && 
-				!@in_array(@$PositionApplied['SecondOptionInstitutionResponse'], mysqli_fetch_array(@$MentorInstitutions)) &&
-				!@in_array(@$PositionApplied['ThirdOptionInstitutionResponse'], mysqli_fetch_array(@$MentorInstitutions))
-
-				
-				
+				if(	@$_SESSION['user_type'] != '1' && 
+					$PositionApplied['Status'] == 'Offer to be made' && 
+					!@in_array(@$PositionApplied['FirstOptionInstitutionResponse'], mysqli_fetch_array(@$MentorInstitutions)) && 
+					!@in_array(@$PositionApplied['SecondOptionInstitutionResponse'], mysqli_fetch_array(@$MentorInstitutions)) &&
+					!@in_array(@$PositionApplied['ThirdOptionInstitutionResponse'], mysqli_fetch_array(@$MentorInstitutions))
 				){
 					
 					

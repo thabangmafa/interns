@@ -286,7 +286,7 @@ if (@$_POST['InstitutionID'] != '') {
 				
 															$query = "SELECT b.* FROM HostAdministrator a
 																		left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = '1'
-																		WHERE b.IsActive = '1' and a.UserID = '".$_SESSION['id']."' ORDER BY Name asc";
+																		WHERE b.IsActive = '1' and a.UserID = '".$_SESSION['id']."' and a.Status = 'Approved' ORDER BY Name asc";
 															$result = mysqli_query($conn, $query);
 															
 															while($institution = mysqli_fetch_array($result)) {

@@ -1,15 +1,13 @@
-<?php 
+<?php
+
 include 'admin/connect.php';
 $conn = OpenCon();
 $menu_item = "1";
-$title = "Institutional Review";
+$title = "Interns Applications Review";
 
 $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Institutional Review' ";
 		$result = mysqli_query($conn, $sql);
 		$headings = mysqli_fetch_assoc($result);
-		
-
-
 
  ?>
 <?php require_once("admin/header.php"); ?>
