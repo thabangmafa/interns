@@ -783,8 +783,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Institutional
 																					
 																											right join UserContactDetails m on m.UserID = a.UserID
 																											left join LookupProvince z on z.ID = m.HomeProvince
-																											WHERE a.Status != "Withdrawn" '.$where.' group by a.UserID';				
-										
+																											WHERE a.Status not in ("Withdrawn","Interview date set","Application withdrawn") '.$where.' group by a.UserID';				
 													$result = mysqli_query($conn, $query);
 													while($calls = mysqli_fetch_array($result)) {
 														
@@ -951,9 +950,8 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Institutional
 
 		   var Comments = $("#Comments").val();
 		   
-		   
 
-		   
+		if(MentorInstitution != null){
 		   $.ajax({
 			url:"admin/applications/update.php",
 			method:"POST",
@@ -980,6 +978,10 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Institutional
 			 
 			}
 		   });
+		   
+		}else{
+			alert("You are not aligned to any institution. Please make sure your institution details are correctly captured on the system.");
+		}
 		   
    
   });

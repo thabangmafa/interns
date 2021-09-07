@@ -538,7 +538,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				
 				echo '<tr><td colspan="4"><div class="alert alert-success" style="margin-top: 2%; margin-bottom: 2%;">Respond to application by select the option and feedback.</div></td></tr>';
 				
-				echo '<tr><td colspan="4">Your Institution(s)';
+				echo '<tr><td colspan="4">Your Institution';
 						echo '<select class="choices form-select" id="MentorInstitution" name="MentorInstitution">';
 				while(@$MentorInstitution = mysqli_fetch_array(@$MentorInstitutions))
 					{

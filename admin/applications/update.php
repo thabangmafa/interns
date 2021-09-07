@@ -3,7 +3,7 @@ include '../connect.php';
 $conn = OpenCon();
 
 
-if(isset($_POST["UpdateRecordid"]) && $_POST["UpdateRecordid"] != '')
+if($_POST["UpdateRecordid"] != '')
 {
 	$recordid = mysqli_real_escape_string($conn,$_POST["UpdateRecordid"]);
 	$InterviewDate = mysqli_real_escape_string($conn,$_POST["InterviewDate"]);
@@ -17,7 +17,7 @@ if(isset($_POST["UpdateRecordid"]) && $_POST["UpdateRecordid"] != '')
 }
 
 
-if(isset($_POST["recordid"]) && $_POST["recordid"] != '')
+if($_POST["recordid"] != '' && $_POST['MentorInstitution'] != '')
 {
 
  $recordid = mysqli_real_escape_string($conn,$_POST["recordid"]);
@@ -45,10 +45,13 @@ if(isset($_POST["recordid"]) && $_POST["recordid"] != '')
 		$result = mysqli_query($conn, $sql);
 		$mentor = mysqli_fetch_assoc($result);
 		
-		
-		
+	$st	= $Status;
+	if($Status == 'Interview unsuccessful'){
+		$st	= 'Pending';
+	}
+
 $FirstQuery = "UPDATE `UserApplications` SET 
- Status='".$Status."'
+ Status='".$st."'
  WHERE UserID = '".$UserID."'";
 	mysqli_query($conn, $FirstQuery); 
 	
