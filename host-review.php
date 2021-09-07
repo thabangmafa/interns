@@ -127,7 +127,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Host Applicat
 												}
 												
 												
-												$where .= $Status.$Institution." Status != 'Delete'";
+												$where .= $Status.$Institution." Status != 'Withdrawn'";
 												
 												
 												$query = 'SELECT distinct a.ID,a.Status, b.Name as Institution, c.Username, c.Email, a.InstitutionID FROM `HostApplications` a 
