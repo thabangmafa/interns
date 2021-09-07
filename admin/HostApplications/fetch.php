@@ -38,8 +38,9 @@ a.InstitutionID
 FROM `HostInstitutionDetails` a 
 left join LookupInstitutions b on b.InstitutionId = a.InstitutionID
 left join LookupCategoriseInstitution c on c.ID = a.CategoriseInstitution
-left join UserContactDetails d on d.UserID = a.UpdatedBy
-left join RegistrationDetails g on g.UserID = a.UpdatedBy
+left join HostApplications i on i.InstitutionID = a.InstitutionID
+left join UserContactDetails d on d.UserID = i.UserID
+left join RegistrationDetails g on g.UserID = i.UserID
 left join LookupUserTitle h on h.ID = g.Title
 left join LookupProvince e on e.ID = d.WorkProvince
 left join LookupCountry f on f.ID = d.WorkCountry
