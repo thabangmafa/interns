@@ -5,7 +5,7 @@ $conn = OpenCon();
 
 $query = 'SELECT distinct l.EmploymentStatus,l.Position, l.EmployedFromDate,l.EmployedToDate, m.Name as InstitutionType, n.Name as Institution,
 i.DepartmentSchoolInstitution,Faculty,WorkPostalAddress, WorkCityTown, WorkPostalCode,j.Name as Province,TelephoneNumber,MobileNumber, k.Country,
-b.UserID,c.IDDocument,a.Email,d.Title, c.Initials,g.Gender,c.DateOfBirth, c.FirstName, c.LastName, c.IDNumber, c.PassportNumber, c.HostedInternsBefore, e.Race, h.Citizenship FROM ProspectiveMentors a 
+b.UserID,c.IDDocument,a.InstitutionID,a.Email,d.Title, c.Initials,g.Gender,c.DateOfBirth, c.FirstName, c.LastName, c.IDNumber, c.PassportNumber, c.HostedInternsBefore, e.Race, h.Citizenship FROM ProspectiveMentors a 
 left join users b on lower(b.Email) = lower(a.Email)
 left join RegistrationDetails c on c.UserID = b.UserID
 left join LookupUserTitle d on d.ID = c.Title
@@ -158,7 +158,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				}
 				echo '<tr>';	
 					echo '<th>Organization</th>';
-					echo '<td>'.@$row['Institution'].'</td>';
+					echo '<td><a href="host-review.php?id='.@$row['InstitutionID'].'">'.@$row['Institution'].'</a></td>';
 				echo '</tr>';
 				
 				echo '<tr>';	

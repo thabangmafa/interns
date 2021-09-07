@@ -2,12 +2,26 @@
 
 include 'admin/connect.php';
 $conn = OpenCon();
-$menu_item = "1";
-$title = "Host Applications Review";
+$menu_item = "12";
+$title = "Institution Applications";
 
-$sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Host Applications Review' ";
+$sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Institution Applications' ";
 		$result = mysqli_query($conn, $sql);
 		$headings = mysqli_fetch_assoc($result);
+		
+function validate($data){
+       $data = trim($data);
+	   $data = stripslashes($data);
+	   $data = htmlspecialchars($data);
+	   return $data;
+	}
+	
+	
+	$id = validate(@$_GET['id']);
+
+if(@$id != '' && @$_POST['Submit'] == ''){
+	@$_POST['Institution'] = $_GET['id'];
+}
 
  ?>
 <?php require_once("admin/header.php"); ?>

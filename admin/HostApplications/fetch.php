@@ -65,6 +65,11 @@ $query = 'SELECT Comments FROM `HostApplications`
 
 $Comments = mysqli_query($conn,$query);
 
+$query = 'SELECT count(Email) Mentors FROM `ProspectiveMentors`
+ WHERE InstitutionID = "'.$_POST["rowid"].'" AND Status = "Approved"';
+
+$Mentors = mysqli_query($conn,$query);
+$Mentor = mysqli_fetch_assoc($Mentors);
 $data = array();
 
 if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
@@ -215,9 +220,13 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 		
 	}
 	
-	echo '<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%;">Profile of Requested Interns.</div>';
+	echo '<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%;">Profile of Requested Interns.
+	<a href="mentors-review.php?id='.@$_POST["rowid"].'" style="float:right" class="btn btn-danger">
+                                            Approved Mentors <span class="badge bg-transparent">'.$Mentor['Mentors'].'</span>
+                                        </a></div>';
 	echo '<table class="mb-0" style="width:100%">';
 	echo '<tbody>';
+										
 		echo '<tr>';
 					echo '<th>Primary Scientific Field</th>';
 					echo '<th>Secondary Scientific Field</th>';

@@ -2,13 +2,27 @@
 
 include 'admin/connect.php';
 $conn = OpenCon();
-$menu_item = "1";
-$title = "Mentors Applications Review";
+$menu_item = "12";
+$title = "Mentor Applications";
 
-$sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Institutional Review' ";
+$sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Mentor Applications' ";
 		$result = mysqli_query($conn, $sql);
 		$headings = mysqli_fetch_assoc($result);
+		
+		
+function validate($data){
+       $data = trim($data);
+	   $data = stripslashes($data);
+	   $data = htmlspecialchars($data);
+	   return $data;
+	}
+	
+	
+	$id = validate(@$_GET['id']);
 
+if(@$id != '' && @$_POST['Submit'] == ''){
+	@$_POST['Institution'] = $_GET['id'];
+}
  ?>
 <?php require_once("admin/header.php"); ?>
         <?php require_once("menu.php"); ?>
@@ -133,18 +147,18 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Institutional
 												$where .= $Status.$Institution." Status != 'Delete'";
 												
 												
-												$query = 'SELECT distinct a.ID,CASE WHEN a.Name != "" THEN CONCAT(a.Name , " " , a.Surname) ELSE c.UserName END as Mentor, lower(a.Email) as Email, a.Status, b.Name as Institution FROM `ProspectiveMentors` a left join LookupInstitutions b on b.InstitutionId = a.InstitutionID left join users c on lower(c.Email) = lower(a.Email)
+												$query = 'SELECT distinct a.ID,a.InstitutionID,CASE WHEN a.Name != "" THEN CONCAT(a.Name , " " , a.Surname) ELSE c.UserName END as Mentor, lower(a.Email) as Email, a.Status, b.Name as Institution FROM `ProspectiveMentors` a left join LookupInstitutions b on b.InstitutionId = a.InstitutionID left join users c on lower(c.Email) = lower(a.Email)
 												WHERE '.$where.' order by Institution';		
 
 													$result = mysqli_query($conn, $query);
 													while($calls = mysqli_fetch_array($result)) {
 														
 														echo '<tr>';
-															 echo '<td>' . $calls['Mentor'] . '</td>';
-															 echo '<td>' . $calls['Email'] . '</td>';
-															 echo '<td>' . $calls['Institution'] . '</td>';
-															 echo '<td>' . $calls['Status'] . '</td>';
-															 echo '<td><div class="icon dripicons-gear" data-id="'.$calls["ID"].'" data-bs-toggle="modal" modal-title="View Mentor Details" data-bs-target="#primary"></div></td>';
+															 echo '<td>' . @$calls['Mentor'] . '</td>';
+															 echo '<td>' . @$calls['Email'] . '</td>';
+															 echo '<td><a href="host-review.php?id='.@$calls['InstitutionID'].'">' . @$calls['Institution'] . '</a></td>';
+															 echo '<td>' . @$calls['Status'] . '</td>';
+															 echo '<td><div class="icon dripicons-gear" data-id="'.@$calls["ID"].'" data-bs-toggle="modal" modal-title="View Mentor Details" data-bs-target="#primary"></div></td>';
 															 echo '</tr>';
 														}
 													}

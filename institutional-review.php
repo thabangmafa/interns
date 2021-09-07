@@ -2,10 +2,10 @@
 
 include 'admin/connect.php';
 $conn = OpenCon();
-$menu_item = "1";
-$title = "Interns Applications Review";
+$menu_item = "12";
+$title = "Intern Applications";
 
-$sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Institutional Review' ";
+$sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Intern Applications' ";
 		$result = mysqli_query($conn, $sql);
 		$headings = mysqli_fetch_assoc($result);
 

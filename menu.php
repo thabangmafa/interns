@@ -226,6 +226,25 @@ $query = "SELECT * FROM ApplicantChecklist
                             
                         </li>
 						
+						<li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-stack <?php if($menu_item == "12"){ echo "active"; } ?>"></i>
+                                <span>Submitted Applications</span>
+                            </a>
+                            <ul class="submenu <?php if($menu_item == "12"){ echo "active"; } ?>">
+								<li class="submenu-item <?php if($title == "Intern Applications"){ echo "active"; } ?>">
+                                    <a href="institutional-review.php">Intern Applications</a>
+                                </li>
+                                <li class="submenu-item <?php if($title == "Mentor Applications"){ echo "active"; } ?>">
+                                    <a href="mentors-review.php">Mentor Applications</a>
+                                </li>
+								<li class="submenu-item <?php if($title == "Institution Applications"){ echo "active"; } ?>">
+                                    <a href="host-review.php">Institution Applications</a>
+                                </li>
+                                
+                            </ul>
+                        </li>
+						
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-stack <?php if($menu_item == "6"){ echo "active"; } ?>"></i>
