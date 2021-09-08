@@ -65,47 +65,91 @@ if(@$_POST['AppID'] != '')
                                             <div class="row">
 											
 											
-											
-												<table class="table table-striped" id="table1">
+							
+							
+							<table class="table table-striped" id="table1">
 
-                                <thead>
-                                    <tr>
-                                        <th>Title</th>
-                                        <th>Description</th>
-                                        <th>Open Date</th>
-										<th>Closing Date</th>
-										<th>Applied Date</th>
-										<th>Status</th>
-										<th>Withdraw</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-				
-										$query = "SELECT * FROM UserApplications a 
-										left join HostInstitutionCalls b on b.ID = a.CallID
-										WHERE a.UserID = '".$_SESSION['id']."'";
-										$result = mysqli_query($conn, $query);
-										
+												<thead>
+													<tr>
+													<th>Title</th>
+													<th>Open Date</th>
+													<th>Closing Date</th>
+														<th>Responder(s)</th>
+														<th>Response</th>
+														
+														
+														<th>Position Applied For</th>
 
-										while($calls = mysqli_fetch_array($result)) {
-											$st = '';
-											if($calls['Status'] == 'Pending'){ $st = 'Submitted to HSRC';}else{ $st = $calls['Status']; }
-										echo '<tr>';
-											 echo '<td>' . $calls['Title'] . '</td>';
-											 echo '<td>' . $calls['Description'] . '</td>';
-											 echo '<td>' . $calls['OpenDate'] . '</td>';
-											 echo '<td>' . $calls['ClosingDate'] . '</td>';
-											 echo '<td>' . $calls['ApplicationDate'] . '</td>';
-											 echo '<td>' . $st . '</td>';
-											 echo '<td><div class="icon dripicons-wrong" data-id="'.$calls["ID"].'" data-bs-toggle="modal" modal-title="Confirm Delete Item" data-bs-target="#primary"></div></td>';
-											 echo '</tr>';
-										}
+														<th>Withdraw</th>
+													</tr>
+												</thead>
+												<tbody>
+													<?php
 
-									?>
-                                    
-                                </tbody>
-                            </table>
+						
+												$query = 'SELECT 
+												CONCAT(
+												"1st: ",CASE WHEN i.Name != "" THEN i.Name ELSE "" END ,
+												"<br />2nd: ", CASE WHEN p.Name != "" THEN p.Name ELSE "" END ,
+												"<br />3rd: ", CASE WHEN o.Name != "" THEN o.Name ELSE "" END ) Responder,
+												
+												CONCAT(
+												"1st: ",CASE WHEN FirstOptionStatus != "" THEN FirstOptionStatus ELSE "" END ,
+												"<br />2nd: ",CASE WHEN SecondOptionStatus != "" THEN SecondOptionStatus ELSE "" END ,
+												"<br />3rd: ",CASE WHEN ThirdOptionStatus != "" THEN ThirdOptionStatus ELSE "" END ) Response,
+												
+												a.ID,
+												q.Title as CallTitle,
+												q.OpenDate,
+												q.ClosingDate,
+												
+												CONCAT(
+													"1st: ", e.Name, " (" , j.Name, ")", 
+													"<br />2nd: ", CASE WHEN f.Name != "" THEN f.Name ELSE "N/A" END, " (" , CASE WHEN k.Name != "" THEN k.Name ELSE "N/A" END, ")", 
+													"<br />3rd: ", CASE WHEN g.Name != "" THEN g.Name ELSE "N/A" END, " (" , CASE WHEN l.Name != "" THEN l.Name ELSE "N/A" END, ")" ) as Discipline,  
+												GROUP_CONCAT(DISTINCT  CONCAT( h.NameOfDegree," (",n.Name,") - ",CASE WHEN h.Completed = "Yes" THEN "Completed" ELSE "Not Completed" END) SEPARATOR "<br />") NameOfDegree, a.Status FROM UserApplications a 
+																											right join RegistrationDetails b on b.UserID = a.UserID
+																											left join LookupUserTitle c on c.ID = b.TItle
+																											left join PositionAppliedFor d on d.UserID = a.UserID
+																											Left join LookupDisciplines e on e.ID = d.FirstDiscipline
+																											Left join LookupDisciplines f on f.ID = d.SecondDiscipline
+																											Left join LookupDisciplines g on g.ID = d.ThirdDiscipline
+																											left join Qualifications h on h.UserID = a.UserID
+																											left join LookupQualificationLevel n on n.ID = h.AcademicLevel
+																											left join LookupInstitutions i on i.InstitutionId = d.FirstOptionInstitutionResponse
+																											left join LookupInstitutions p on p.InstitutionId = d.SecondOptionInstitutionResponse
+																											left join LookupInstitutions o on o.InstitutionId = d.ThirdOptionInstitutionResponse
+																											
+																											left join LookupProvince j on j.ID = d.FirstProvince
+																											left join LookupProvince k on k.ID = d.SecondProvince
+																											left join LookupProvince l on l.ID = d.ThirdProvince
+																					
+																											right join UserContactDetails m on m.UserID = a.UserID
+																											left join HostInstitutionCalls q on q.ID = a.CallID
+																											left join LookupProvince z on z.ID = m.HomeProvince
+																											WHERE a.UserID = "'.$_SESSION['id'].'"  group by a.UserID';				
+													$result = mysqli_query($conn, $query);
+													
+													while($calls = mysqli_fetch_array($result)) {
+														
+														echo '<tr>';
+														echo '<td>' . $calls['CallTitle'] . '</td>';
+														echo '<td>' . $calls['OpenDate'] . '</td>';
+														echo '<td>' . $calls['ClosingDate'] . '</td>';
+															 echo '<td>' . $calls['Responder'] . '</td>';
+															 echo '<td>' . $calls['Response'] . '</td>';
+			
+															 echo '<td>' . $calls['Discipline'] . '</td>';
+													
+															 
+															 echo '<td><div class="icon dripicons-wrong" data-id="'.$calls["ID"].'" data-bs-toggle="modal" modal-title="Confirm Delete Item" data-bs-target="#primary"></div></td>';
+															 echo '</tr>';
+														}
+													//}
+													?>
+													
+												</tbody>
+											</table>
 							
 							
 							<!--primary theme Modal -->
