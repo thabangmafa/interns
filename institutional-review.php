@@ -60,7 +60,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Intern Applic
                                             <div class="row">
 											
 									<form class="form" method="post" action="">		
-									<div class="col-md-4 col-4" style="float:left; margin-right: 5px;">
+									<div class="col-md-4 col-4" style="float:left;">
 									<div class="form-group">
 										<label for="Location">Location</label>
 										<fieldset class="form-group">
@@ -80,7 +80,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Intern Applic
 									</div>
 									</div>
 									
-									<div class="col-md-4 col-4" style="float:left; margin-right: 5px;width:32.333333%">
+									<div class="col-md-4 col-4" style="float:left;">
 									<div class="form-group">
 										<label for="AcademicLevel">Academic Level of Qualification</label>
 										<fieldset class="form-group">
