@@ -226,6 +226,14 @@ $query = "SELECT * FROM ApplicantChecklist
                             
                         </li>
 						
+						<li class="sidebar-item  <?php if($menu_item == "13"){ echo "active"; } ?> ">
+                            <a href="selected-candicates.php" class='sidebar-link '>
+                                <i class="bi bi-stack <?php if($menu_item == "7"){ echo "active"; } ?>"></i>
+                                <span>Application Responses</span>
+                            </a>
+                            
+                        </li>
+						
 						<li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-stack <?php if($menu_item == "12"){ echo "active"; } ?>"></i>

@@ -1,27 +1,20 @@
-<?php 
+<?php
+
 include 'admin/connect.php';
 $conn = OpenCon();
-$menu_item = "4";
-$title = "List of Applications";
+$menu_item = "13";
+$title = "Selected Applications";
 
-$sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='List of Applications' ";
+$sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Selected Applications' ";
 		$result = mysqli_query($conn, $sql);
 		$headings = mysqli_fetch_assoc($result);
 
-if(@$_POST['AppID'] != '')
-{
-	$UpdateApplication = "UPDATE UserApplications SET Status = 'Withdrawn' WHERE CallID = '".$_POST['AppID']."' AND UserID = '".$_SESSION['id']."'";
-	
-	 if(mysqli_query($conn,$UpdateApplication))
-	 {
-		$message = 'Application Successful Withdrawn';
-	 }else{
-		 $message =  'Oops. Something went wrong. Try Again.';
-	 }
-}
  ?>
 <?php require_once("admin/header.php"); ?>
         <?php require_once("menu.php"); ?>
+		<style>
+			strong{color:blue;}
+		</style>
         <div id="main">
             <header class="mb-3">
                 <a href="#" class="burger-btn d-block d-xl-none">
@@ -53,40 +46,64 @@ if(@$_POST['AppID'] != '')
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header alert alert-primary alert-dismissible fade show">
-								<?php echo $headings['Details']; ?>
+								<?php echo @$headings['Details']; ?>
                                     
                                 </div>
                                 <div class="card-content">
 								<?php if(@$message){ ?>	
 								<div class="alert alert-success" role="alert"><?php echo @$message; ?></div>
 								<?php } ?>
+								
+								
+								
                                     <div class="card-body">
+									
+									
                                         
-                                            <div class="row">
+                                           
+									
 											
-											
-							
-							
-							<table class="table table-striped" id="table1">
+												<table class="table table-striped" id="table1">
 
 												<thead>
 													<tr>
-													<th>Title</th>
-													<th>Open Date</th>
-													<th>Closing Date</th>
 														<th>Responder(s)</th>
 														<th>Response</th>
 														
-														
-														<th>Position Applied For</th>
-
-														<th>Withdraw</th>
+														<th>Applicant</th>
+														<th>ID/Passport Number</th>
+														<th>Location</th>
+														<th>Discipline</th>
+														<th>Qualifications</th>
+													
+														<th>Action</th>
 													</tr>
 												</thead>
 												<tbody>
 													<?php
 
-						
+												$where = '';
+												if(@$_SESSION['user_type'] == '1'){
+													
+													$where = ' where (FirstOptionInstitutionResponse != "" || 
+															SecondOptionInstitutionResponse != "" || 
+															ThirdOptionInstitutionResponse != "")';
+												}
+												
+												if(@$_SESSION['user_type'] == '2'){
+													$where = ' where (FirstOptionInstitutionResponse = "'.@$_SESSION['InstitutionID'].'" || 
+															SecondOptionInstitutionResponse = "'.@$_SESSION['InstitutionID'].'" || 
+															ThirdOptionInstitutionResponse = "'.@$_SESSION['InstitutionID'].'")';
+												}
+												if(@$_SESSION['user_type'] == '3'){
+													
+													$where = ' where (FirstOptionInstitutionResponse IN (SELECT distinct InstitutionID FROM ProspectiveMentors WHERE Status = "Approved" AND lower(Email) = lower("'.@$_SESSION['email'].'")) || 
+															SecondOptionInstitutionResponse IN (SELECT distinct InstitutionID FROM ProspectiveMentors WHERE Status = "Approved" AND lower(Email) = lower("'.@$_SESSION['email'].'")) || 
+															ThirdOptionInstitutionResponse IN (SELECT distinct InstitutionID FROM ProspectiveMentors WHERE Status = "Approved" AND lower(Email) = lower("'.@$_SESSION['email'].'")))';
+													
+												}
+												
+												
 												$query = 'SELECT 
 												CONCAT(
 												"1st: ",CASE WHEN i.Name != "" THEN i.Name ELSE "" END ,
@@ -98,24 +115,26 @@ if(@$_POST['AppID'] != '')
 												"<br />2nd: ",CASE WHEN SecondOptionStatus != "" THEN SecondOptionStatus ELSE "" END ,
 												"<br />3rd: ",CASE WHEN ThirdOptionStatus != "" THEN ThirdOptionStatus ELSE "" END ) Response,
 												
-												a.ID,
-												q.Title as CallTitle,
-												q.OpenDate,
-												q.ClosingDate,
-												
+												a.ID, 
+												z.Name as Home, 
+												c.Title, 
+												b.Initials,
+												b.LastName,
+												b.IDNumber,
+												b.PassportNumber, 
 												CONCAT(
 													"1st: ", e.Name, " (" , j.Name, ")", 
 													"<br />2nd: ", CASE WHEN f.Name != "" THEN f.Name ELSE "N/A" END, " (" , CASE WHEN k.Name != "" THEN k.Name ELSE "N/A" END, ")", 
 													"<br />3rd: ", CASE WHEN g.Name != "" THEN g.Name ELSE "N/A" END, " (" , CASE WHEN l.Name != "" THEN l.Name ELSE "N/A" END, ")" ) as Discipline,  
-												 a.Status FROM UserApplications a 
+												GROUP_CONCAT(DISTINCT  CONCAT( h.NameOfDegree," (",n.Name,") - ",CASE WHEN h.Completed = "Yes" THEN "Completed" ELSE "Not Completed" END) SEPARATOR "<br />") NameOfDegree, a.Status FROM UserApplications a 
 																											right join RegistrationDetails b on b.UserID = a.UserID
 																											left join LookupUserTitle c on c.ID = b.TItle
 																											left join PositionAppliedFor d on d.UserID = a.UserID
 																											Left join LookupDisciplines e on e.ID = d.FirstDiscipline
 																											Left join LookupDisciplines f on f.ID = d.SecondDiscipline
 																											Left join LookupDisciplines g on g.ID = d.ThirdDiscipline
-																											
-																											
+																											left join Qualifications h on h.UserID = a.UserID
+																											left join LookupQualificationLevel n on n.ID = h.AcademicLevel
 																											left join LookupInstitutions i on i.InstitutionId = d.FirstOptionInstitutionResponse
 																											left join LookupInstitutions p on p.InstitutionId = d.SecondOptionInstitutionResponse
 																											left join LookupInstitutions o on o.InstitutionId = d.ThirdOptionInstitutionResponse
@@ -125,25 +144,24 @@ if(@$_POST['AppID'] != '')
 																											left join LookupProvince l on l.ID = d.ThirdProvince
 																					
 																											right join UserContactDetails m on m.UserID = a.UserID
-																											left join HostInstitutionCalls q on q.ID = a.CallID
 																											left join LookupProvince z on z.ID = m.HomeProvince
-																											WHERE a.UserID = "'.$_SESSION['id'].'"  group by a.UserID';				
+																											'.$where.'
+																											group by a.UserID';				
 													$result = mysqli_query($conn, $query);
-													
+
 													while($calls = mysqli_fetch_array($result)) {
 														
 														echo '<tr>';
-														echo '<td>' . $calls['CallTitle'] . '</td>';
-														echo '<td>' . $calls['OpenDate'] . '</td>';
-														echo '<td>' . $calls['ClosingDate'] . '</td>';
-														 echo '<td>' . $calls['Responder'] . '</td>';
-														 echo '<td>' . $calls['Response'] . '</td>';
-		
-														 echo '<td>' . $calls['Discipline'] . '</td>';
-												
-														 
-														 echo '<td><div class="icon dripicons-wrong" data-id="'.$calls["ID"].'" data-bs-toggle="modal" modal-title="Confirm Delete Item" data-bs-target="#primary"></div></td>';
-														 echo '</tr>';
+															 echo '<td>' . $calls['Responder'] . '</td>';
+															 echo '<td>' . $calls['Response'] . '</td>';
+															 echo '<td>' . $calls['Title'].' ' . $calls['Initials'] . ' ' .$calls['LastName'] . '</td>';
+															 echo '<td>' . $calls['IDNumber'].$calls['PassportNumber'] . '</td>';
+															 echo '<td>' . $calls['Home'] . '</td>';
+															 echo '<td>' . $calls['Discipline'] . '</td>';
+															 echo '<td>' . ucwords($calls['NameOfDegree']) . '</td>';
+															 
+															 echo '<td><div class="icon dripicons-gear" data-id="'.$calls["ID"].'" data-bs-toggle="modal" modal-title="Respond to Application" data-bs-target="#primary"></div></td>';
+															 echo '</tr>';
 														}
 													//}
 													?>
@@ -152,46 +170,47 @@ if(@$_POST['AppID'] != '')
 											</table>
 							
 							
+			
+									<form class="form">
 							<!--primary theme Modal -->
-							<form class="form" action="" method="POST">
                                                     <div class="modal fade text-left" id="primary" tabindex="-1"
                                                         role="dialog" aria-labelledby="myModalLabel160"
                                                         aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"
                                                             role="document">
                                                             <div class="modal-content">
-                                                                <div class="modal-header bg-danger">
+                                                                <div class="modal-header bg-success">
                                                                     <h5 class="modal-title white" id="myModalLabel160">
-                                                                        Confirm Withdraw Application
+                                                                        Review Application
                                                                     </h5>
                                                                     <button type="button" class="close"
                                                                         data-bs-dismiss="modal" aria-label="Close">
                                                                         <i data-feather="x"></i>
                                                                     </button>
                                                                 </div>
+																
                                                                 <div class="modal-body">
-																<input type="hidden" class="form-control" id="AppID" value="" name="AppID">
-                                                                    Are you sure you want to withdraw this application?
+                                                                    <div class="fetched-data"></div>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button"
                                                                         class="btn btn-light-secondary"
                                                                         data-bs-dismiss="modal">
                                                                         <i class="bx bx-x d-block d-sm-none"></i>
-                                                                        <span class="d-none d-sm-block">No</span>
+                                                                        <span class="d-none d-sm-block">Cancel</span>
                                                                     </button>
-                                                                    <button type="submit" name="" value="submit" class="btn btn-primary ml-1">
+                                                                    <button type="button" class="btn btn-primary ml-1"
+                                                                         id="update">
                                                                         <i class="bx bx-check d-block d-sm-none"></i>
-                                                                        <span class="d-none d-sm-block">Yes</span>
+                                                                        <span class="d-none d-sm-block">Submit</span>
                                                                     </button>
-																	
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-											</form>	
-												
-												
+							
+
+                                        </form>				
 												
 													
 												
@@ -239,13 +258,101 @@ if(@$_POST['AppID'] != '')
 	 
 
     $('#primary').on('show.bs.modal', function (e) {
-        var id = $(e.relatedTarget).data('id');
+       var rowid = $(e.relatedTarget).data('id');
 	
-        
-				$('#AppID').attr('value', id);
+	
+        $.ajax({
+            type : 'post',
+            url : 'admin/applications/fetch.php', //Here you will fetch records 
+            data :  'rowid='+ rowid, //Pass $id
+            success : function(data){
+            $('.fetched-data').html(data);//Show fetched data from database
+
 			
+            }
         });
+		
      });
 	 
+	 
+	 
+	 $(document).on('click', '#InterviewDateSet', function(){
+		   var recordid = $('#recordid').val();
+		   var InterviewDate = $('#InterviewDate').val();
+
+		   $.ajax({
+			url:"admin/applications/update.php",
+			method:"POST",
+			data:{
+				UpdateRecordid:recordid,
+				InterviewDate:InterviewDate},
+			success:function(data)
+			{
+			
+			 location.reload();
+			}
+		   });
+			
+   
+   
+  });
+	 
+	 
+	 
+
+	   $(document).on('click', '#update', function(){
+		   var recordid = $('#recordid').val();
+		   var UserID = $('#UserID').val();
+		   var Ref = $('#Ref').val();
+		   var Applicant = $('#Applicant').val();
+		   var applicationid = $('#applicationid').val();
+		   var MentorInstitution = $('#MentorInstitution').val();
+		   
+		   var Status = $('#Status').val();
+		   var Options = $('#Options').val();
+
+		   var Comments = $("#Comments").val();
+		   
+
+		if(MentorInstitution != null){
+		   $.ajax({
+			url:"admin/applications/update.php",
+			method:"POST",
+			data:{
+				recordid:recordid,
+				UserID:UserID,
+				Applicant:Applicant,
+				Ref:Ref,
+				applicationid:applicationid,
+				MentorInstitution:MentorInstitution,				
+				Options:Options, 
+				Status:Status, 
+				Comments:Comments},
+			success:function(data)
+			{
+			if(Status == 'Interview date set'){
+				$('#update').attr('id', 'InterviewDateSet');
+				$('.fetched-data').html('Please confirm interview date: <input type="hidden" name="recordid" id="recordid" value="'+recordid+'" /><input type="date" class="form-control" style="width:20%" name="InterviewDate" id="InterviewDate" />');
+			}else{
+				$('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
+				$('#user_data').DataTable().destroy();
+				location.reload();
+			}
+			 
+			}
+		   });
+		   
+		}else{
+			if(Status != null){
+				alert("You are not aligned to any institution. Please make sure your institution details are correctly captured on the system.");
+			}else{
+				$('#primary').modal('toggle');
+			}
+		}
+		   
+   
+  });
+  
+});	 
 
 </script>
