@@ -239,9 +239,11 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 echo '<tr><td colspan="6"><hr /></td></tr>';
 echo '<input type="hidden" name="InstitutionID" id="InstitutionID" value="'.@$_POST["rowid"].'" />';
 $total = 0;
+$totalAllocated = 0;
 	while(@$Requested = mysqli_fetch_array(@$RequestedInterns))
 	{
 			$total = $total + @$Requested['NumberRequired'];
+			$totalAllocated = $totalAllocated + @$Requested['Allocated']
 				echo '<tr>';
 					echo '<td>'.@$Requested['PrimaryScientificField'].'</td>';
 					echo '<td>'.@$Requested['SecondaryScientificField'].'</td>';
@@ -264,10 +266,10 @@ $total = 0;
 	echo '<tr>';
 					echo '<td></td>';
 					echo '<td></td>';
-					echo '<td class="btn btn-success">Total Required <span class="badge bg-transparent">'.$total.'</span></td>';
+					echo '<td class="btn btn-success">Total Requested <span class="badge bg-transparent">'.@$total.'</span></td>';
 					echo '<td></td>';
 					echo '<td></td>';
-					echo '<td></td>';
+					echo '<td class="btn btn-success">Total Allocated <span class="badge bg-transparent">'.@$totalAllocated.'</span>></td>';
 				echo '</tr>';
 	echo '<tr><td colspan="6"><hr /></td></tr>';
 	
