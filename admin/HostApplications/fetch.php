@@ -269,7 +269,7 @@ $totalAllocated = 0;
 					echo '<td class="btn btn-success">Total Requested <span class="badge bg-transparent">'.@$total.'</span></td>';
 					echo '<td></td>';
 					echo '<td></td>';
-					echo '<td class="btn btn-success">Total Allocated <span class="badge bg-transparent">'.@$totalAllocated.'</span>></td>';
+					echo '<td class="btn btn-success">Total Allocated <span class="badge bg-transparent">'.@$totalAllocated.'</span></td>';
 				echo '</tr>';
 	echo '<tr><td colspan="6"><hr /></td></tr>';
 	
