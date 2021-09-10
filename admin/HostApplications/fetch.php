@@ -243,7 +243,7 @@ $totalAllocated = 0;
 	while(@$Requested = mysqli_fetch_array(@$RequestedInterns))
 	{
 			$total = $total + @$Requested['NumberRequired'];
-			$totalAllocated = $totalAllocated + @$Requested['Allocated']
+			$totalAllocated = $totalAllocated + @$Requested['Allocated'];
 				echo '<tr>';
 					echo '<td>'.@$Requested['PrimaryScientificField'].'</td>';
 					echo '<td>'.@$Requested['SecondaryScientificField'].'</td>';
