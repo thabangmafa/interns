@@ -249,6 +249,9 @@ $query = "SELECT * FROM ApplicantChecklist
 								<li class="submenu-item <?php if($title == "Institution Applications"){ echo "active"; } ?>">
                                     <a href="host-review.php">Institution Applications</a>
                                 </li>
+								<li class="submenu-item <?php if($title == "Host Institution Allocation Review"){ echo "active"; } ?>">
+                                    <a href="host-review-ha.php">Host Institution Allocation Review</a>
+                                </li>
                                 
                             </ul>
                         </li>
