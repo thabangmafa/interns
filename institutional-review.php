@@ -60,7 +60,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Intern Applic
                                             <div class="row">
 											
 									<form class="form" method="post" action="">		
-									<div class="col-md-4 col-4" style="float:left;">
+									<div class="col-md-3 col-3" style="float:left;">
 									<div class="form-group">
 										<label for="Location">Location</label>
 										<fieldset class="form-group">
@@ -80,7 +80,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Intern Applic
 									</div>
 									</div>
 									
-									<div class="col-md-4 col-4" style="float:left;">
+									<div class="col-md-3 col-3" style="float:left;">
 									<div class="form-group">
 										<label for="AcademicLevel">Academic Level of Qualification</label>
 										<fieldset class="form-group">
@@ -98,7 +98,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Intern Applic
 													
                                     </div>
 									
-									<div class="col-md-4 col-4" style="float:left">
+									<div class="col-md-3 col-3" style="float:left">
 										<div class="form-group">
 										<label for="Discipline">Discipline/Area of Specialisation</label>
 											<fieldset class="form-group">
@@ -705,6 +705,20 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Intern Applic
 										</div>
 									</div>
 									
+									<div class="col-md-3 col-3" style="float:left;">
+									<div class="form-group">
+										<label for="Disability">Disability</label>
+										<fieldset class="form-group">
+											<select class="choices form-select" id="Disability" name="Disability">
+												<option></option>
+												<option value="Yes" <?php if(@$_POST['Disability'] == "Yes"){ echo "selected='selected'";} ?>>Yes</option>
+												<option value="No" <?php if(@$_POST['Disability'] == "No"){ echo "selected='selected'";} ?>>No</option>
+												
+											</select>
+										</fieldset>
+									</div>
+									</div>
+									
 									<div class="col-12 d-flex justify-content-end">
 														<button type="submit" class="btn btn-primary me-1 mb-1" name="Submit" value="Submit">Search Applications</button>
 														
@@ -730,7 +744,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Intern Applic
 												<tbody>
 													<?php
 
-											if (@$_POST['Location'] != '' || @$_POST['AcademicLevel'] != '' || @$_POST['Discipline'] != '') {
+											if (@$_POST['Location'] != '' || @$_POST['AcademicLevel'] != '' || @$_POST['Discipline'] != '' || @$_POST['Disability'] != '') {
 												$where = '';
 												$FirstLocation = '';
 												$SecondLocation = '';
@@ -739,6 +753,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Intern Applic
 												$FirstDiscipline = '';
 												$SecondDiscipline = '';
 												$ThirdDiscipline = '';
+												$Disability = '';
 												
 												if(@$_POST['Location'] != ''){
 													$FirstLocation = ' d.FirstProvince = "'.@$_POST['Location'].'" and ';
@@ -756,9 +771,13 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Intern Applic
 													$AcademicLevel .= ' h.AcademicLevel = "'.@$_POST['AcademicLevel'].'" AND ';
 												}
 												
-												$where .= ' and (( '.$FirstLocation.$AcademicLevel.$FirstDiscipline.'" 1=1") 
-												 or ( '.$SecondLocation.$AcademicLevel.$SecondDiscipline.'" 1=1")
-												 or ( '.$ThirdLocation.$AcademicLevel.$ThirdDiscipline.'" 1=1"))
+												if(@$_POST['Disability'] != ''){
+													$Disability .= ' b.Disability = "'.@$_POST['Disability'].'" AND ';
+												}
+												
+												$where .= ' and (( '.$FirstLocation.$AcademicLevel.$FirstDiscipline.$Disability.'" 1=1") 
+												 or ( '.$SecondLocation.$AcademicLevel.$SecondDiscipline.$Disability.'" 1=1")
+												 or ( '.$ThirdLocation.$AcademicLevel.$ThirdDiscipline.$Disability.'" 1=1"))
 												
 												';
 												
