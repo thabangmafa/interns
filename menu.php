@@ -215,16 +215,8 @@ $query = "SELECT * FROM ApplicantChecklist
                             </ul>
                         </li>
 						<?php }
-
-						if(@$_SESSION['user_type'] == '1'){ 
-						?>
-						<li class="sidebar-item  <?php if($menu_item == "7"){ echo "active"; } ?> ">
-                            <a href="manage-calls.php" class='sidebar-link '>
-                                <i class="bi bi-stack <?php if($menu_item == "7"){ echo "active"; } ?>"></i>
-                                <span>Manage Calls</span>
-                            </a>
-                            
-                        </li>
+						
+						if (strpos(@$_SESSION['ip_address'], '152.112.') !== false) { ?>
 						
 						<li class="sidebar-item  <?php if($menu_item == "13"){ echo "active"; } ?> ">
                             <a href="selected-candicates.php" class='sidebar-link '>
@@ -255,6 +247,20 @@ $query = "SELECT * FROM ApplicantChecklist
                                 
                             </ul>
                         </li>
+						
+						<?php }
+
+						if(@$_SESSION['user_type'] == '1'){ 
+						?>
+						<li class="sidebar-item  <?php if($menu_item == "7"){ echo "active"; } ?> ">
+                            <a href="manage-calls.php" class='sidebar-link '>
+                                <i class="bi bi-stack <?php if($menu_item == "7"){ echo "active"; } ?>"></i>
+                                <span>Manage Calls</span>
+                            </a>
+                            
+                        </li>
+						
+						
 						
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>

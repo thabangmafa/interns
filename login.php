@@ -60,7 +60,8 @@ if (isset($_POST['Email']) && isset($_POST['Password'])) {
             if (strtolower($row['Email']) === $uname) {
             	$_SESSION['username'] = $row['UserName'];
             	$_SESSION['email'] = $row['Email'];
-            	$_SESSION['id'] = $row['UserID'];
+            	$_SESSION['ip_address'] = $ip_address;
+				$_SESSION['id'] = $row['UserID'];
 				$_SESSION['user_type'] = $row['UserType'];
 				if($row['UserType'] == '4'){
 					$_SESSION['headingType'] = 'Intern';
