@@ -71,7 +71,14 @@ $References = mysqli_query($conn,$query);
 $query = 'SELECT distinct a.InstitutionID, b.Name FROM ProspectiveMentors a
 left join `LookupInstitutions` b on b.InstitutionId = a.InstitutionID
 left join users c on c.Email = a.Email 
- WHERE c.UserID = "'.$_SESSION["id"].'" and a.Status = "Approved"';
+ WHERE c.UserID = "'.$_SESSION["id"].'" and a.Status = "Approved"
+ 
+ union 
+ 
+ SELECT a.InstitutionID, b.Name FROM HostAdministrator a
+left join LookupInstitutions b on b.InstitutionId = a.InstitutionID and b.IsActive = "1"
+WHERE b.IsActive = "1" and a.UserID = "'.$_SESSION['id'].'" and a.Status = "Approved"
+ ';
 
 $MentorInstitutions = mysqli_query($conn,$query);
 
