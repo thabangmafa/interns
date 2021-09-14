@@ -36,9 +36,8 @@ if($_POST["recordid"] != '' && $_POST['MentorInstitution'] != '')
  $Option = $options[2];
  
  
- $sql = "SELECT distinct c.Email, CASE WHEN FirstName != '' THEN CONCAT(FirstName , ' ' , LastName) ELSE a.UserName END Mentor, d.Name as Institution, e.TelephoneNumber FROM users a 
+ $sql = "SELECT distinct a.Email, CONCAT(b.FirstName,' ', b.LastName) as Mentor, d.Name as Institution, e.TelephoneNumber FROM users a 
 	left join RegistrationDetails b on b.UserID = a.UserID
-	left join ProspectiveMentors c on c.Email = a.Email
 	left join LookupInstitutions d on d.InstitutionId = c.InstitutionID
 	left join UserContactDetails e on e.UserID = a.UserID
  WHERE a.UserID = '".$_SESSION['id']."' and d.InstitutionId = '".$MentorInstitution."'";
@@ -95,10 +94,45 @@ DSI-HSRC Internship Programme Team
 
 Please do not reply to this message. Replies to this message are routed to an unmonitored mailbox.
 ';
-	$headers = "From: noreply@hsrc.ac.za" . "\r\n";
+$headers = "From: noreply@hsrc.ac.za" . "\r\n";
 
-				mail($email,$subject,$txt,$headers);	 
+mail($email,$subject,$txt,$headers);	 
 	 
+}
+
+
+if($Status == 'To be interviewed'){
+	
+$Fromemail = "dsi_hsrc_internship.queries@hsrc.ac.za";	
+$toemail = "tmafa@hsrc.ac.za";	 
+$subject = "HSRC Interns Portal Feedback";		 
+		 
+$txt = '
+
+Dear '.$Applicant.' 
+
+Thank you for submitting your application on the DSI-HSRC Internship Management portal. 
+
+I am pleased to inform you that '.$mentor['Institution'].'  would like to extend an invitation for an interview for the position of a two year DSI-HSRC internship programme.  
+
+Please respond to this email by <date> to let us know if you are available. 
+
+For more information regarding the interview, please login on the portal  
+
+ 
+
+We look forward to hearing from you 
+
+Kind regards 
+
+'.$mentor['Mentor'].',
+'.$mentor['Email'].',
+'.$mentor['TelephoneNumber'];
+
+$headers = "From: " . $Fromemail . "\r\n";
+
+mail($toemail,$subject,$txt,$headers);
+	
 }
 	 
 	echo 'Data Updated';
