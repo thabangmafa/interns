@@ -88,6 +88,7 @@ $headers = "From: noreply@hsrc.ac.za" . "\r\n";
 $headers .= "MIME-Version: 1.0" . "\r\n";
 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 $headers .= 'Cc: thabang.mafa@gmail.com';
+$headers .= 'Cc: tmafa@hsrc.ac.za';
 
 $sql = "SELECT distinct * FROM EmailTemplates WHERE Title='".$Status."' ";
 
