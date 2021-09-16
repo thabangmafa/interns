@@ -96,11 +96,13 @@ $sql = "SELECT distinct * FROM EmailTemplates WHERE Title='".$Status."' ";
 
 //replace template var with value
 $token = array(
-    'name_of_institution'  => $name_of_institution,
-    'name_of_mentor' => $name_of_mentor,
-    'telephone_number_of_mentor' => $telephone_number_of_mentor,
-    'email_address_of_mentor'=> $email_address_of_mentor,
-	'candidates_name'=> $candidates_name
+    'name_of_institution'  => @$name_of_institution,
+    'name_of_mentor' => @$name_of_mentor,
+    'telephone_number_of_mentor' => @$telephone_number_of_mentor,
+    'email_address_of_mentor'=> @$email_address_of_mentor,
+	'candidates_name'=> @$candidates_name,
+	'interview_date'=> @$interview_date,
+	'applicant_email'=> @$applicant_email
 );
 
 foreach($token as $key=>$val){
@@ -109,9 +111,10 @@ foreach($token as $key=>$val){
 
 
 $emailContent = strtr($emailDetails['Details'],$varMap);
+$EmailTo = strtr($emailDetails['EmailTo'],$varMap);
 
 
-//mail($emailDetails['EmailTo'],$subject,$emailDetails['Details'],$headers);
+//mail($EmailTo,$subject,$emailDetails['Details'],$headers);
 mail($email,$subject,$emailContent,$headers);
 
 
