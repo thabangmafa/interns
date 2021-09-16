@@ -102,7 +102,9 @@ $token = array(
     'email_address_of_mentor'=> @$email_address_of_mentor,
 	'candidates_name'=> @$candidates_name,
 	'interview_date'=> @$interview_date,
-	'applicant_email'=> @$applicant_email
+	'applicant_email'=> @$applicant_email,
+	'response_comments'=> @$Comments
+	
 );
 
 foreach($token as $key=>$val){
