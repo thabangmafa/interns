@@ -929,50 +929,6 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Intern Applic
      });
 	 
 	 
-/*	 
-	 $(document).on('click', '#InterviewDateSet', function(){
-		   var recordid = $('#recordid').val();
-		   var InterviewDate = $('#InterviewDate').val();
-		   
-		   var UserID = $('#UserID').val();
-		   var Ref = $('#Ref').val();
-		   var Applicant = $('#Applicant').val();
-		   var applicationid = $('#applicationid').val();
-		   var MentorInstitution = $('#MentorInstitution').val();
-		   
-		   var Status = $('#Status').val();
-		   var Options = $('#Options').val();
-
-		   var Comments = $("#Comments").val();
-
-		   $.ajax({
-			url:"admin/applications/update.php",
-			method:"POST",
-			data:{
-				UpdateRecordid:recordid,
-				InterviewDate:InterviewDate,
-				recordid:recordid,
-				UserID:UserID,
-				Applicant:Applicant,
-				Ref:Ref,
-				applicationid:applicationid,
-				MentorInstitution:MentorInstitution,				
-				Options:Options, 
-				Status:Status, 
-				Comments:Comments},
-			success:function(data)
-			{
-			
-			 //location.reload();
-			}
-		   });
-			
-   
-   
-  });
-  
- */
-	 
 	 $(document).on('change', '#Status', function(){
 		 if($(this).val() == 'Interview date set'){
 			$('.internview-data').html('<div class="form-group"><label for="InterviewDate">Interview Date & Time <span style="color:red">*</span></label><input type="datetime-local" id="InterviewDate" name="InterviewDate" value="" class="form-control"></div>');

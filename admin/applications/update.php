@@ -87,7 +87,7 @@ $subject = "DSI-HSRC Internship Programme";
 $headers = "From: noreply@hsrc.ac.za" . "\r\n";
 $headers .= "MIME-Version: 1.0" . "\r\n";
 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-$headers .= 'Cc: thabang.mafa@gmail.com,tmafa@hsrc.ac.za';
+$headers .= 'Cc: dsi_hsrc_internship.queries@hsrc.ac.za,' . $email_address_of_mentor;
 
 $sql = "SELECT distinct * FROM EmailTemplates WHERE Title='".$Status."' ";
 
@@ -109,14 +109,10 @@ foreach($token as $key=>$val){
     $varMap[sprintf($key)] = $val;
 }
 
-
 $emailContent = strtr($emailDetails['Details'],$varMap);
 $EmailTo = strtr($emailDetails['EmailTo'],$varMap);
 
-
-//mail($EmailTo,$subject,$emailDetails['Details'],$headers);
-mail($email,$subject,$emailContent,$headers);
-
+mail($EmailTo,$subject,$emailDetails['Details'],$headers);
 
 	echo 'Data Updated';
  }else{
