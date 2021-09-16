@@ -490,8 +490,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 		
 		
 		
-		echo '<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%;">Position Applied For.</div>';
-		//echo '<input type="hidden" name=""'
+	echo '<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%;">Position Applied For.</div>';
 	echo '<table class="mb-0" style="width:100%">';
 	echo '<tbody>';
 	//Language Proficiency
@@ -569,14 +568,18 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 			
 			echo '</select></td></tr>';
 			echo '<tr><td colspan="4"><hr /></td></tr>';
-				echo '<tr><td colspan="2">Select Option';
+				echo '<tr><td><div class="col-md-12 col-12">
+				<div class="form-group">
+						<label for="InterviewDate">Select Option</label>';
 				echo '<select class="choices form-select" id="Options" name="Options">';
 					echo '<option value="'.$PositionApplied['FirstProvince'].'~'.$PositionApplied['FirstDiscipline'].'~First">Option 1</option>';
 					echo '<option value="'.$PositionApplied['SecondProvince'].'~'.$PositionApplied['SecondDiscipline'].'~Second">Option 2</option>';
 					echo '<option value="'.$PositionApplied['ThirdProvince'].'~'.$PositionApplied['ThirdDiscipline'].'~Third">Option 3</option>';
 				echo '</select>';
 				
-				echo '</td><td colspan="2">Select Response';
+				echo '</div></div></td><td colspan="2">
+				<div class="col-md-12 col-12"><div class="form-group">
+						<label for="InterviewDate">Select Response</label>';
 				echo '<select class="choices form-select" id="Status" name="Status">';
 				echo '<option></option>';
 					echo '<option>To be interviewed</option>';
@@ -584,8 +587,16 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 					echo '<option>Interview unsuccessful</option>';
 					echo '<option>Offer to be made</option>';
 					echo '<option>Application withdrawn</option>';
-				echo '</select></td></tr>'; 
+				echo '</select></div></div></td>
+				<td>
+				<div class="col-md-12 col-12 internview-data">
+					
+				</div>
+				</td>
+				</tr>';
+
 				
+
 				echo '<tr><td colspan="4"><hr /></td></tr>';
 				echo '<tr><td colspan="4">Comments<textarea class="form-control" id="Comments" name="Comments" rows="3" style="width:100%" placeholder="Type any comments here...">'.$PositionApplied['Comments'].'</textarea></td></tr>'; 
 				}

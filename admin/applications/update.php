@@ -3,16 +3,17 @@ include '../connect.php';
 $conn = OpenCon();
 
 
-if($_POST["UpdateRecordid"] != '')
+if(@$_POST["InterviewDate"] != '')
 {
-	$recordid = mysqli_real_escape_string($conn,$_POST["UpdateRecordid"]);
-	$InterviewDate = mysqli_real_escape_string($conn,$_POST["InterviewDate"]);
+	$recordid = mysqli_real_escape_string($conn,$_POST["recordid"]);
+	@$interview_date = mysqli_real_escape_string($conn,@$_POST["InterviewDate"]);
 	
 	$query = "UPDATE `PositionAppliedFor` SET 
-	InternviewDate='".$InterviewDate."'
+	InternviewDate='".$interview_date."'
 	WHERE ID = '".$recordid."'";
  
 	mysqli_query($conn,$query);
+	@$interview_date = str_replace('T',' at ',@$interview_date);
  
 }
 
@@ -35,14 +36,29 @@ if($_POST["recordid"] != '' && $_POST['MentorInstitution'] != '')
  $Discipline = $options[1];
  $Option = $options[2];
  
+ $sql = "SELECT distinct Email FROM users WHERE UserID='".$UserID."' ";
+		$result = mysqli_query($conn, $sql);
+		$getemail = mysqli_fetch_assoc($result);
+		$applicant_email = $getemail['Email'];
  
- $sql = "SELECT distinct a.Email, CONCAT(b.FirstName,' ', b.LastName) as Mentor, d.Name as Institution, e.TelephoneNumber FROM users a 
+ 
+ $sql = "SELECT distinct a.Email, CONCAT(b.FirstName,' ', b.LastName) as Mentor, CASE WHEN d.Name != '' THEN d.Name ELSE g.Name END as Institution, e.TelephoneNumber FROM users a 
 	left join RegistrationDetails b on b.UserID = a.UserID
+	left join ProspectiveMentors c on lower(c.Email) = lower(a.Email)
+	left join HostAdministrator f on f.UserID = a.UserID
 	left join LookupInstitutions d on d.InstitutionId = c.InstitutionID
+	left join LookupInstitutions g on g.InstitutionId = f.InstitutionID
 	left join UserContactDetails e on e.UserID = a.UserID
- WHERE a.UserID = '".$_SESSION['id']."' and d.InstitutionId = '".$MentorInstitution."'";
+	
+ WHERE a.UserID = '".$_SESSION['id']."' and (d.InstitutionId = '".$MentorInstitution."' || f.InstitutionID = '".$MentorInstitution."')";
 		$result = mysqli_query($conn, $sql);
 		$mentor = mysqli_fetch_assoc($result);
+
+$name_of_institution = $mentor['Institution'];
+$name_of_mentor = $mentor['Mentor'];
+$telephone_number_of_mentor = $mentor['TelephoneNumber'];
+$email_address_of_mentor = $mentor['Email'];
+$candidates_name = $Applicant;
 		
 	$st	= $Status;
 	if($Status == 'Interview unsuccessful'){
@@ -66,75 +82,19 @@ $FirstQuery = "UPDATE `UserApplications` SET
 
  if(mysqli_query($conn,$query))
  {
-
-if($Status == 'Offer to be made'){
-
-$email = "dsi_hsrc_internship.queries@hsrc.ac.za";		 
-$subject = "HSRC Interns Portal Feedback";		 
-		 
-$txt = 'Dear Administrator 
-
-A host institution would like to make an offer to the following applicant:
-
-Reference:  '.$Ref.'
-Applicant:  '.$Applicant.' 
-Province:  '.$Province.' 
-Discipline:  '.$Discipline.' 
-
------------------------------------------------------
-
-Person processing application: 
-Name:  '.$mentor['Mentor'].' 
-Telephone: '.$mentor['TelephoneNumber'].' 
-Email Address:  '.$mentor['Email'].'
-Host Institution:  '.$mentor['Institution'].' 
-
-Regards
-DSI-HSRC Internship Programme Team
-
-Please do not reply to this message. Replies to this message are routed to an unmonitored mailbox.
-';
+$email = "tmafa@hsrc.ac.za";		 
+$subject = "DSI-HSRC Internship Programme";	
 $headers = "From: noreply@hsrc.ac.za" . "\r\n";
 
-mail($email,$subject,$txt,$headers);	 
-	 
-}
+$sql = "SELECT distinct * FROM EmailTemplates WHERE Title='".$Status."' ";
+
+		$result = mysqli_query($conn, $sql);
+		$emailDetails = mysqli_fetch_assoc($result);
+
+//mail($emailDetails['EmailTo'],$subject,$emailDetails['Details'],$headers);
+mail($email,$subject,$emailDetails['Details'],$headers);
 
 
-if($Status == 'To be interviewed'){
-	
-$Fromemail = "dsi_hsrc_internship.queries@hsrc.ac.za";	
-$toemail = "tmafa@hsrc.ac.za";	 
-$subject = "HSRC Interns Portal Feedback";		 
-		 
-$txt = '
-
-Dear '.$Applicant.' 
-
-Thank you for submitting your application on the DSI-HSRC Internship Management portal. 
-
-I am pleased to inform you that '.$mentor['Institution'].'  would like to extend an invitation for an interview for the position of a two year DSI-HSRC internship programme.  
-
-Please respond to this email by <date> to let us know if you are available. 
-
-For more information regarding the interview, please login on the portal  
-
- 
-
-We look forward to hearing from you 
-
-Kind regards 
-
-'.$mentor['Mentor'].',
-'.$mentor['Email'].',
-'.$mentor['TelephoneNumber'];
-
-$headers = "From: " . $Fromemail . "\r\n";
-
-mail($toemail,$subject,$txt,$headers);
-	
-}
-	 
 	echo 'Data Updated';
  }else{
 	 echo 'Update not done';

@@ -929,33 +929,11 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Intern Applic
      });
 	 
 	 
-	 
+/*	 
 	 $(document).on('click', '#InterviewDateSet', function(){
 		   var recordid = $('#recordid').val();
 		   var InterviewDate = $('#InterviewDate').val();
-
-		   $.ajax({
-			url:"admin/applications/update.php",
-			method:"POST",
-			data:{
-				UpdateRecordid:recordid,
-				InterviewDate:InterviewDate},
-			success:function(data)
-			{
-			
-			 location.reload();
-			}
-		   });
-			
-   
-   
-  });
-	 
-	 
-	 
-
-	   $(document).on('click', '#update', function(){
-		   var recordid = $('#recordid').val();
+		   
 		   var UserID = $('#UserID').val();
 		   var Ref = $('#Ref').val();
 		   var Applicant = $('#Applicant').val();
@@ -966,7 +944,60 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Intern Applic
 		   var Options = $('#Options').val();
 
 		   var Comments = $("#Comments").val();
-		   
+
+		   $.ajax({
+			url:"admin/applications/update.php",
+			method:"POST",
+			data:{
+				UpdateRecordid:recordid,
+				InterviewDate:InterviewDate,
+				recordid:recordid,
+				UserID:UserID,
+				Applicant:Applicant,
+				Ref:Ref,
+				applicationid:applicationid,
+				MentorInstitution:MentorInstitution,				
+				Options:Options, 
+				Status:Status, 
+				Comments:Comments},
+			success:function(data)
+			{
+			
+			 //location.reload();
+			}
+		   });
+			
+   
+   
+  });
+  
+ */
+	 
+	 $(document).on('change', '#Status', function(){
+		 if($(this).val() == 'Interview date set'){
+			$('.internview-data').html('<div class="form-group"><label for="InterviewDate">Interview Date & Time <span style="color:red">*</span></label><input type="datetime-local" id="InterviewDate" name="InterviewDate" value="" class="form-control"></div>');
+		 }else{
+			 $('.internview-data').html('');
+		 }
+	 });
+	 
+
+	   $(document).on('click', '#update', function(){
+		   var recordid = $('#recordid').val();
+		   var UserID = $('#UserID').val();
+		   var Ref = $('#Ref').val();
+		   var Applicant = $('#Applicant').val();
+		   var applicationid = $('#applicationid').val();
+		   var MentorInstitution = $('#MentorInstitution').val();
+		   var InterviewDate = $('#InterviewDate').val();
+		   var Status = $('#Status').val();
+		   var Options = $('#Options').val();
+
+		   var Comments = $("#Comments").val();
+		  if(Status === 'Interview date set' && $('#InterviewDate').val().length === 0){
+			  alert('Please select internview date');
+			  exit;
+		  }
 
 		if(MentorInstitution != null){
 		   $.ajax({
@@ -981,17 +1012,15 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Intern Applic
 				MentorInstitution:MentorInstitution,				
 				Options:Options, 
 				Status:Status, 
-				Comments:Comments},
+				Comments:Comments,
+				InterviewDate:InterviewDate},
 			success:function(data)
 			{
-			if(Status == 'Interview date set'){
-				$('#update').attr('id', 'InterviewDateSet');
-				$('.fetched-data').html('Please confirm interview date: <input type="hidden" name="recordid" id="recordid" value="'+recordid+'" /><input type="date" class="form-control" style="width:20%" name="InterviewDate" id="InterviewDate" />');
-			}else{
+			
 				$('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
 				$('#user_data').DataTable().destroy();
 				location.reload();
-			}
+			
 			 
 			}
 		   });

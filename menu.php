@@ -216,7 +216,10 @@ $query = "SELECT * FROM ApplicantChecklist
                         </li>
 						<?php }
 						
-						if (strpos(@$_SESSION['ip_address'], '152.112.') !== false) { ?>
+					
+						
+						
+						if (@$_SESSION['user_type'] == '3' || @$_SESSION['user_type'] == '2' || @$_SESSION['user_type'] == '1') { ?>
 						
 						<li class="sidebar-item  <?php if($menu_item == "13"){ echo "active"; } ?> ">
                             <a href="selected-candicates.php" class='sidebar-link '>
@@ -235,15 +238,20 @@ $query = "SELECT * FROM ApplicantChecklist
 								<li class="submenu-item <?php if($title == "Intern Applications"){ echo "active"; } ?>">
                                     <a href="institutional-review.php">Intern Applications</a>
                                 </li>
+								<?php if(@$_SESSION['InstitutionID']){ ?>
+								<li class="submenu-item <?php if($title == "Host Institution Allocation Review"){ echo "active"; } ?>">
+                                    <a href="host-review-ha.php">Host Institution Allocation Review</a>
+                                </li>
+								<?php } ?>
+								<?php if(@$_SESSION['user_type'] == '1'){ ?>
                                 <li class="submenu-item <?php if($title == "Mentor Applications"){ echo "active"; } ?>">
                                     <a href="mentors-review.php">Mentor Applications</a>
                                 </li>
 								<li class="submenu-item <?php if($title == "Institution Applications"){ echo "active"; } ?>">
                                     <a href="host-review.php">Institution Applications</a>
                                 </li>
-								<li class="submenu-item <?php if($title == "Host Institution Allocation Review"){ echo "active"; } ?>">
-                                    <a href="host-review-ha.php">Host Institution Allocation Review</a>
-                                </li>
+								<?php } ?>
+								
                                 
                             </ul>
                         </li>
@@ -251,6 +259,12 @@ $query = "SELECT * FROM ApplicantChecklist
 						<?php }
 
 						if(@$_SESSION['user_type'] == '1'){ 
+						
+						
+						
+						
+						
+						
 						?>
 						<li class="sidebar-item  <?php if($menu_item == "7"){ echo "active"; } ?> ">
                             <a href="manage-calls.php" class='sidebar-link '>
@@ -273,6 +287,9 @@ $query = "SELECT * FROM ApplicantChecklist
                                 </li>
                                 <li class="submenu-item <?php if($title == "Page Headings"){ echo "active"; } ?>">
                                     <a href="headings.php">Page Headings</a>
+                                </li>
+								<li class="submenu-item <?php if($title == "Email Templates"){ echo "active"; } ?>">
+                                    <a href="email-templates.php">Email Templates</a>
                                 </li>
                                 
                             </ul>
