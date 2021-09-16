@@ -90,10 +90,26 @@ $sql = "SELECT distinct * FROM EmailTemplates WHERE Title='".$Status."' ";
 
 		$result = mysqli_query($conn, $sql);
 		$emailDetails = mysqli_fetch_assoc($result);
-		$txt = $emailDetails['Details'];
+
+//replace template var with value
+$token = array(
+    'name_of_institution'  => $name_of_institution,
+    'name_of_mentor' => $name_of_mentor,
+    'telephone_number_of_mentor' => $telephone_number_of_mentor,
+    'email_address_of_mentor'=> $email_address_of_mentor,
+	'candidates_name'=> $candidates_name
+);
+
+foreach($token as $key=>$val){
+    $varMap[sprintf($key)] = $val;
+}
+
+
+$emailContent = strtr($emailDetails['Details'],$varMap);
+
 
 //mail($emailDetails['EmailTo'],$subject,$emailDetails['Details'],$headers);
-mail($email,$subject,$txt,$headers);
+mail($email,$subject,$emailContent,$headers);
 
 
 	echo 'Data Updated';
