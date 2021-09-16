@@ -87,7 +87,7 @@ $subject = "DSI-HSRC Internship Programme";
 $headers = "From: noreply@hsrc.ac.za" . "\r\n";
 $headers .= "MIME-Version: 1.0" . "\r\n";
 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-$headers .= 'Cc: dsi_hsrc_internship.queries@hsrc.ac.za,' . $email_address_of_mentor;
+$headers .= 'Cc: dsi_hsrc_internship.queries@hsrc.ac.za,' . @$email_address_of_mentor;
 
 $sql = "SELECT distinct * FROM EmailTemplates WHERE Title='".$Status."' ";
 
