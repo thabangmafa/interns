@@ -294,7 +294,7 @@ if(@$_SESSION["InstitutionID"] != '')
 	}
 	
 	echo '<div class="alert alert-info" style="margin-top: 2%; margin-bottom: 2%;">Profile of Requested Interns.
-	<a href="mentors-review.php?id='.@$_POST["rowid"].'" style="float:right" class="btn btn-danger">
+	<a href="mentors-review.php?id='.@$_SESSION['InstitutionID'].'" style="float:right" class="btn btn-danger">
                                             Approved Mentors <span class="badge bg-transparent">'.$Mentor['Mentors'].'</span>
                                         </a></div>';
 	echo '<table class="mb-0" style="width:100%">';
