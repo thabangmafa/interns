@@ -90,9 +90,10 @@ $sql = "SELECT distinct * FROM EmailTemplates WHERE Title='".$Status."' ";
 
 		$result = mysqli_query($conn, $sql);
 		$emailDetails = mysqli_fetch_assoc($result);
+		$txt = $emailDetails['Details'];
 
 //mail($emailDetails['EmailTo'],$subject,$emailDetails['Details'],$headers);
-mail($email,$subject,$emailDetails['Details'],$headers);
+mail($email,$subject,$txt,$headers);
 
 
 	echo 'Data Updated';
