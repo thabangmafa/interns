@@ -132,7 +132,7 @@ foreach($token as $key=>$val){
 $emailContent = strtr($applications['Details'],$varMap);
 $EmailTo = strtr($applications['EmailTo'],$varMap);
 
-mail($EmailTo,$subject,$emailContent,$headers);
+//mail($EmailTo,$subject,$emailContent,$headers);
 
 }
 
