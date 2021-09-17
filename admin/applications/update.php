@@ -114,7 +114,7 @@ foreach($token as $key=>$val){
 $emailContent = strtr($emailDetails['Details'],$varMap);
 $EmailTo = strtr($emailDetails['EmailTo'],$varMap);
 
-mail($EmailTo,$subject,$emailDetails['Details'],$headers);
+mail($EmailTo,$subject,$emailContent,$headers);
 
 	echo 'Data Updated';
  }else{
