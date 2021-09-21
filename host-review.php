@@ -234,12 +234,6 @@ if(@$id != '' && @$_POST['Submit'] == ''){
     <script src="assets/js/bootstrap.bundle.min.js"></script>
 	
 	<script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
-    <script>
-        // Simple Datatable
-        let table1 = document.querySelector('#table1');
-        let dataTable = new simpleDatatables.DataTable(table1);
-    </script>
-
     <script src="assets/js/main.js"></script>
 </body>
 
@@ -251,9 +245,28 @@ if(@$id != '' && @$_POST['Submit'] == ''){
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
   
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script> 
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script> 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script> 
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script> 
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script> 
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.2/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.0/css/buttons.dataTables.min.css" />
+
+  
 <script type="text/javascript" language="javascript" >
+
  $(document).ready(function(){
 	 
+
+    $('#table1').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+
+            'excel', 'print'
+        ]
+    } ); 
 
     $('#primary').on('show.bs.modal', function (e) {
        var rowid = $(e.relatedTarget).data('id');
