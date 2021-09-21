@@ -52,7 +52,7 @@ $result = mysqli_query($conn,$query);
 
 
 
-$query = 'SELECT distinct a.InstitutionID,a.Allocated,a.ID,b.Name as PrimaryScientificField, c.Name as SecondaryScientificField, a.NumberRequired, d.Name as QualificationLevel, e.Name as Location FROM `ProfileOfRequestedInterns` a 
+$query = 'SELECT distinct a.InstitutionID,CASE WHEN a.Allocated = "null" THEN 0 ELSE a.Allocated END as Allocated,a.ID,b.Name as PrimaryScientificField, c.Name as SecondaryScientificField, a.NumberRequired, d.Name as QualificationLevel, e.Name as Location FROM `ProfileOfRequestedInterns` a 
 left join LookupStudyField b on b.ID = a.PrimaryScientificField
 left join LookupStudyField c on c.ID = a.SecondaryScientificField
 left join LookupQualificationLevel d on d.ID = a.QualificationLevel
