@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 include 'admin/connect.php';
 $conn = OpenCon();
 
