@@ -920,6 +920,8 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Intern Applic
 
  $(document).ready(function(){
 	 
+	 
+	 
 
     $('#table1').DataTable( {
         dom: 'Bfrtip',
@@ -992,10 +994,10 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Intern Applic
 				InterviewDate:InterviewDate},
 			success:function(data)
 			{
-			PrintScreen();
+
 				$('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
 				$('#user_data').DataTable().destroy();
-				//location.reload();
+				location.reload();
 			
 			 
 			}
