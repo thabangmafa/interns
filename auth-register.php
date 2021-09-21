@@ -51,9 +51,10 @@ if (isset($_POST['Username']) && isset($_POST['Password'])
 		$row = mysqli_fetch_assoc($result);
 		$error = '';
 		
-
-		if($row['Email'] === $email){
-			$error .= 'Email is already registered.';
+		if(@$row['Email']){
+			if(@$row['Email'] === $email){
+				$error .= 'Email is already registered.';
+			}
 		}
 		
 
