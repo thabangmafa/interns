@@ -61,7 +61,7 @@ $email_address_of_mentor = $mentor['Email'];
 $candidates_name = $Applicant;
 		
 	$st	= $Status;
-	if($Status == 'Interview unsuccessful'){
+	if($Status == 'Interview unsuccessful' || $Status == 'Application withdrawn'){
 		$st	= 'Pending';
 	}
 
