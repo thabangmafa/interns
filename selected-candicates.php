@@ -97,9 +97,9 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Selected Appl
 												}
 												if(@$_SESSION['user_type'] == '3'){
 													
-													$where = ' where (FirstOptionInstitutionResponse IN (SELECT distinct InstitutionID FROM ProspectiveMentors WHERE Status = "Approved" AND lower(Email) = lower("'.@$_SESSION['email'].'")) || 
-															SecondOptionInstitutionResponse IN (SELECT distinct InstitutionID FROM ProspectiveMentors WHERE Status = "Approved" AND lower(Email) = lower("'.@$_SESSION['email'].'")) || 
-															ThirdOptionInstitutionResponse IN (SELECT distinct InstitutionID FROM ProspectiveMentors WHERE Status = "Approved" AND lower(Email) = lower("'.@$_SESSION['email'].'")))';
+													$where = ' where (FirstOptionInstitutionResponse IN (SELECT distinct InstitutionID FROM ProspectiveMentors WHERE lower(Email) = lower("'.@$_SESSION['email'].'")) || 
+															SecondOptionInstitutionResponse IN (SELECT distinct InstitutionID FROM ProspectiveMentors WHERE lower(Email) = lower("'.@$_SESSION['email'].'")) || 
+															ThirdOptionInstitutionResponse IN (SELECT distinct InstitutionID FROM ProspectiveMentors WHERE lower(Email) = lower("'.@$_SESSION['email'].'")))';
 													
 												}
 												
