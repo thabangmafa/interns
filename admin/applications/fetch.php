@@ -81,6 +81,13 @@ WHERE b.IsActive = "1" and a.UserID = "'.$_SESSION['id'].'" and a.Status = "Appr
  ';
 
 $MentorInstitutions = mysqli_query($conn,$query);
+while(@$MentorInstitution = mysqli_fetch_array(@$MentorInstitutions))
+					{
+						
+
+							@$Inst .= '<option value="'.@$MentorInstitution['InstitutionID'].'">'.@$MentorInstitution['Name'].'</option>';
+						
+					}
 
 
 $query = 'SELECT d.ID, a.ID as applicationid,FirstOptionStatus,SecondOptionStatus,ThirdOptionStatus,FirstOptionInstitutionResponse,SecondOptionInstitutionResponse,ThirdOptionInstitutionResponse,a.Comments, a.Status, j.Name as FirstProvince, k.Name as SecondProvince, l.Name as ThirdProvince, e.Name as FirstDiscipline, f.Name as SecondDiscipline, g.Name as ThirdDiscipline FROM UserApplications a 
@@ -558,13 +565,13 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				
 				echo '<tr><td colspan="4">Your Institution';
 						echo '<select class="choices form-select" id="MentorInstitution" name="MentorInstitution">';
-				while(@$MentorInstitution = mysqli_fetch_array(@$MentorInstitutions))
-					{
+				//while(@$MentorInstitution = mysqli_fetch_array(@$MentorInstitutions))
+				//	{
 						
-
-							echo '<option value="'.@$MentorInstitution['InstitutionID'].'">'.@$MentorInstitution['Name'].'</option>';
+							echo @$Inst;
+							//echo '<option value="'.@$MentorInstitution['InstitutionID'].'">'.@$MentorInstitution['Name'].'</option>';
 						
-					}
+				//	}
 			
 			echo '</select></td></tr>';
 			echo '<tr><td colspan="4"><hr /></td></tr>';
