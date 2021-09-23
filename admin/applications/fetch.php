@@ -84,7 +84,7 @@ $MentorInstitutions = mysqli_query($conn,$query);
 while(@$MentorInstitution = mysqli_fetch_array(@$MentorInstitutions))
 					{
 						
-
+							@$instID[] .= @$MentorInstitution['InstitutionID'];
 							@$Inst .= '<option value="'.@$MentorInstitution['InstitutionID'].'">'.@$MentorInstitution['Name'].'</option>';
 						
 					}
@@ -551,12 +551,12 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 				
 				echo '<tr><td colspan="4"><div class="alert alert-success" style="margin-top: 2%; margin-bottom: 2%;">Respond to application by select the option and feedback.</div></td></tr>';
 				
-				
+
 				if(	@$_SESSION['user_type'] != '1' && 
 					$PositionApplied['Status'] == 'Offer to be made' && 
-					!@in_array(@$PositionApplied['FirstOptionInstitutionResponse'], mysqli_fetch_array(@$MentorInstitutions)) && 
-					!@in_array(@$PositionApplied['SecondOptionInstitutionResponse'], mysqli_fetch_array(@$MentorInstitutions)) &&
-					!@in_array(@$PositionApplied['ThirdOptionInstitutionResponse'], mysqli_fetch_array(@$MentorInstitutions))
+					!@in_array(@$PositionApplied['FirstOptionInstitutionResponse'], $instID) && 
+					!@in_array(@$PositionApplied['SecondOptionInstitutionResponse'], $instID) &&
+					!@in_array(@$PositionApplied['ThirdOptionInstitutionResponse'], $instID)
 				){
 					
 					
