@@ -64,6 +64,10 @@ $candidates_name = $Applicant;
 	if($Status == 'Interview unsuccessful' || $Status == 'Application withdrawn'){
 		$st	= 'Pending';
 	}
+	
+	if($Status == 'No longer available'){
+		$st	= 'Withdrawn';
+	}
 
 $FirstQuery = "UPDATE `UserApplications` SET 
  Status='".$st."'
@@ -82,6 +86,7 @@ $FirstQuery = "UPDATE `UserApplications` SET
 
  if(mysqli_query($conn,$query))
  {
+	 if($Status == 'No longer available'){
 $email = "tmafa@hsrc.ac.za";		 
 $subject = "DSI-HSRC Internship Programme";	
 $headers = "From: noreply@hsrc.ac.za" . "\r\n";
@@ -115,7 +120,7 @@ $emailContent = strtr($emailDetails['Details'],$varMap);
 $EmailTo = strtr($emailDetails['EmailTo'],$varMap);
 
 mail($EmailTo,$subject,$emailContent,$headers);
-
+	 }
 	echo 'Data Updated';
  }else{
 	 echo 'Update not done';

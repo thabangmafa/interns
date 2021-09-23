@@ -594,6 +594,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 					echo '<option>Interview unsuccessful</option>';
 					echo '<option>Offer to be made</option>';
 					echo '<option>Application withdrawn</option>';
+					echo '<option>No longer available</option>';
 				echo '</select></div></div></td>
 				<td>
 				<div class="col-md-12 col-12 internview-data">
