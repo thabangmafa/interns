@@ -86,7 +86,7 @@ $FirstQuery = "UPDATE `UserApplications` SET
 
  if(mysqli_query($conn,$query))
  {
-	 if($Status == 'No longer available'){
+	 if($Status != 'No longer available'){
 $email = "tmafa@hsrc.ac.za";		 
 $subject = "DSI-HSRC Internship Programme";	
 $headers = "From: noreply@hsrc.ac.za" . "\r\n";
