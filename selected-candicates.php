@@ -69,8 +69,9 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Selected Appl
 													<tr>
 														<th>Responder(s)</th>
 														<th>Response</th>
-														
+														<th style="display:none">Mentor</th>
 														<th>Applicant</th>
+														<th style="display:none">Applicant Email</th>
 														<th>ID/Passport Number</th>
 														<th>Location</th>
 														<th>Discipline</th>
@@ -114,13 +115,15 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Selected Appl
 												"1st: ",CASE WHEN FirstOptionStatus != "" THEN FirstOptionStatus ELSE "" END ,
 												"<br />2nd: ",CASE WHEN SecondOptionStatus != "" THEN SecondOptionStatus ELSE "" END ,
 												"<br />3rd: ",CASE WHEN ThirdOptionStatus != "" THEN ThirdOptionStatus ELSE "" END ) Response,
-												
+												CASE WHEN CONCAT(aa.FirstName, " ", aa.LastName) IS NULL THEN bb.UserName ELSE CONCAT(aa.FirstName, " ", aa.LastName) END Mentor,
+	
 												a.ID, 
 												z.Name as Home, 
 												c.Title, 
 												b.Initials,
 												b.LastName,
 												b.IDNumber,
+												m.PrimaryEmail,
 												b.PassportNumber, 
 												CONCAT(
 													"1st: ", e.Name, " (" , j.Name, ")", 
@@ -145,16 +148,20 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Selected Appl
 																					
 																											right join UserContactDetails m on m.UserID = a.UserID
 																											left join LookupProvince z on z.ID = m.HomeProvince
+																											left join RegistrationDetails aa on aa.UserID = d.UpdatedBy
+																											left join users bb on bb.UserID = d.UpdatedBy
+																											
 																											'.$where.'
 																											group by a.UserID';				
 													$result = mysqli_query($conn, $query);
-
 													while($calls = mysqli_fetch_array($result)) {
 														
 														echo '<tr>';
 															 echo '<td>' . $calls['Responder'] . '</td>';
 															 echo '<td>' . $calls['Response'] . '</td>';
+															 echo '<td style="display:none">' . $calls['Mentor'] . '</td>';
 															 echo '<td>' . $calls['Title'].' ' . $calls['Initials'] . ' ' .$calls['LastName'] . '</td>';
+															 echo '<td style="display:none">' . $calls['PrimaryEmail'] . '</td>';
 															 echo '<td>' . $calls['IDNumber'].$calls['PassportNumber'] . '</td>';
 															 echo '<td>' . $calls['Home'] . '</td>';
 															 echo '<td>' . $calls['Discipline'] . '</td>';
