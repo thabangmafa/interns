@@ -70,6 +70,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Selected Appl
 														<th>Responder(s)</th>
 														<th>Response</th>
 														<th style="display:none">Mentor</th>
+														<th style="display:none">Mentor Email</th>
 														<th style="display:none">Date of Status Change</th>
 														<th>Applicant</th>
 														<th style="display:none">Applicant Email</th>
@@ -117,7 +118,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Selected Appl
 												"<br />2nd: ",CASE WHEN SecondOptionStatus != "" THEN SecondOptionStatus ELSE "" END ,
 												"<br />3rd: ",CASE WHEN ThirdOptionStatus != "" THEN ThirdOptionStatus ELSE "" END ) Response,
 												CASE WHEN CONCAT(aa.FirstName, " ", aa.LastName) IS NULL THEN bb.UserName ELSE CONCAT(aa.FirstName, " ", aa.LastName) END Mentor,
-	
+												bb.Email as MentorEmail,
 												a.ID, 
 												z.Name as Home, 
 												c.Title, 
@@ -162,6 +163,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Selected Appl
 															 echo '<td>' . $calls['Responder'] . '</td>';
 															 echo '<td>' . $calls['Response'] . '</td>';
 															 echo '<td style="display:none">' . $calls['Mentor'] . '</td>';
+															 echo '<td style="display:none">' . $calls['MentorEmail'] . '</td>';
 															 echo '<td style="display:none">' . $calls['UpdatedDate'] . '</td>';
 															 echo '<td>' . $calls['Title'].' ' . $calls['Initials'] . ' ' .$calls['LastName'] . '</td>';
 															 echo '<td style="display:none">' . $calls['PrimaryEmail'] . '</td>';
