@@ -27,6 +27,7 @@ if (@$_POST['EducationalandProfessional'] != '' || @$_POST['GoalsandAspirations'
 		Awards = '$Awards', 
 		Platform = '$Platform',
 		CommunityEngagement = '$CommunityEngagement' WHERE UserID = '".$_SESSION['id']."'");
+
 		$message = "Details successfully updated.";
 	}else{
 		mysqli_query($conn,"INSERT INTO UserProfile(UserID,EducationalandProfessional,GoalsandAspirations,Awards,CommunityEngagement,Platform) 
@@ -38,6 +39,9 @@ if (@$_POST['EducationalandProfessional'] != '' || @$_POST['GoalsandAspirations'
 	
 }
 
+$sql = "SELECT distinct * FROM UserProfile WHERE UserID='".$_SESSION['id']."' ";
+		$result = mysqli_query($conn, $sql);
+		$row = mysqli_fetch_assoc($result);
 
 
  ?>
