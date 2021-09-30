@@ -802,6 +802,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Intern Applic
 																											left join LookupProvince z on z.ID = m.HomeProvince
 																											WHERE a.Status not in ("Withdrawn","Interview date set","Application withdrawn") '.$where.' group by a.UserID';				
 													$result = mysqli_query($conn, $query);
+													//echo $query;
 													while($calls = mysqli_fetch_array($result)) {
 														
 														echo '<tr>';
@@ -858,6 +859,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Intern Applic
                                                                         <i class="bx bx-check d-block d-sm-none"></i>
                                                                         <span class="d-none d-sm-block">Submit</span>
                                                                     </button>
+																	<a onclick="PrintScreen()">Click me</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -915,9 +917,34 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Intern Applic
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.2/css/jquery.dataTables.min.css" />
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.0/css/buttons.dataTables.min.css" />
 
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
   
 <script type="text/javascript" language="javascript" >
+function PrintScreen() {
+    var HTML_Width = $(".fetched-data").width();
+    var HTML_Height = $(".fetched-data").height();
+    var top_left_margin = 15;
+    var PDF_Width = HTML_Width + (top_left_margin * 2);
+    var PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+    var canvas_image_width = HTML_Width;
+    var canvas_image_height = HTML_Height;
 
+    var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+
+    html2canvas($(".fetched-data")[0]).then(function (canvas) {
+        var imgData = canvas.toDataURL("image/jpeg", 1.0);
+        var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
+        pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+        for (var i = 1; i <= totalPDFPages; i++) { 
+            pdf.addPage(PDF_Width, PDF_Height);
+            pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+        }
+        pdf.save("application.pdf");
+
+    });
+}
  $(document).ready(function(){
 	 
 	 
