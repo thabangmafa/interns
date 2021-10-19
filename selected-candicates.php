@@ -76,6 +76,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Selected Appl
 														<th style="display:none">Applicant Email</th>
 														<th>ID/Passport Number</th>
 														<th>Location</th>
+														<th style="display:none">Disability</th>
 														<th>Discipline</th>
 														<th>Qualifications</th>
 													
@@ -127,6 +128,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Selected Appl
 												b.IDNumber,
 												d.UpdatedDate,
 												m.PrimaryEmail,
+												aa.Disability,
 												b.PassportNumber, 
 												CONCAT(
 													"1st: ", e.Name, " (" , j.Name, ")", 
@@ -169,6 +171,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Selected Appl
 															 echo '<td style="display:none">' . $calls['PrimaryEmail'] . '</td>';
 															 echo '<td>' . $calls['IDNumber'].$calls['PassportNumber'] . '</td>';
 															 echo '<td>' . $calls['Home'] . '</td>';
+															 echo '<td>' . $calls['Disability'] . '</td>';
 															 echo '<td>' . $calls['Discipline'] . '</td>';
 															 echo '<td>' . ucwords($calls['NameOfDegree']) . '</td>';
 															 
