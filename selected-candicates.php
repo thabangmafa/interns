@@ -171,7 +171,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Selected Appl
 															 echo '<td style="display:none">' . $calls['PrimaryEmail'] . '</td>';
 															 echo '<td>' . $calls['IDNumber'].$calls['PassportNumber'] . '</td>';
 															 echo '<td>' . $calls['Home'] . '</td>';
-															 echo '<td>' . $calls['Disability'] . '</td>';
+															 echo '<td style="display:none">' . $calls['Disability'] . '</td>';
 															 echo '<td>' . $calls['Discipline'] . '</td>';
 															 echo '<td>' . ucwords($calls['NameOfDegree']) . '</td>';
 															 
