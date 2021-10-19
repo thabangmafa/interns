@@ -128,7 +128,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Selected Appl
 												b.IDNumber,
 												d.UpdatedDate,
 												m.PrimaryEmail,
-												aa.Disability,
+												CASE WHEN b.Disability != "" THEN b.Disability ELSE "No" END AS Disability,
 												b.PassportNumber, 
 												CONCAT(
 													"1st: ", e.Name, " (" , j.Name, ")", 
