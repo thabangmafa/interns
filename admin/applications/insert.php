@@ -17,7 +17,7 @@ if(isset($_POST["name"], $_POST["type"], $_POST["status"]))
 	 
 	 $query = "INSERT INTO `HostAdministrator`(UserID, InstitutionID, Status) VALUES('$Administrator', '$InstitutionID', 'Approved')";
 	 mysqli_query($conn,$query);
-	 echo $query;
+
   echo 'Data Inserted';
  }else{
 	 echo 'Data Not Inserted';
