@@ -117,7 +117,7 @@ if(isset($_POST["rowid"]) && $_POST["rowid"] != '000')
 		$userid = $row['UserID'];
 		$ref = $row['Reference'];
 		$applicant = $row['Title'] . ' ' . $row['Initials'] . ' ' .$row['FirstName'] . ' ' .$row['LastName'];
-		echo '<table class="mb-0">';
+		echo '<table class="mb-0" style="margin-left:30px;">';
 					
 			echo '<tbody>';
 				echo '<tr>';
