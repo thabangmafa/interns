@@ -836,6 +836,7 @@ chartIndonesia.render();
 chartAmerica.render();
 chartEurope.render();
 chartProfileVisit.render();
+chartVisitorsRace.render();
 chartVisitorsProfile.render()
 chartInternsQualifications.render()
 </script>
