@@ -135,6 +135,36 @@ if (@$_POST['InstitutionID'] != '') {
                                     </div>
                                 </div>
                             </div>
+							
+							<div class="col-6 col-lg-4 col-md-6">
+                                <div class="card">
+                                    <div class="card-body px-3 py-4-5">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="stats-icon green">
+                                                    <i class="iconly-boldWork"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <h6 class="text-muted font-semibold">No. Req. Interns</h6>
+                                                <h6 class="font-extrabold mb-0">
+												<?php
+				
+													$query = "SELECT sum(NumberRequired) NumberRequired FROM ProfileOfRequestedInterns";
+													$result = mysqli_query($conn, $query);
+
+													while($Institution = mysqli_fetch_array($result)) {
+													 echo '<a href="#">' . $Institution['NumberRequired'] . '</a>';
+													}
+
+												?>
+												
+												</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <!--div class="col-6 col-lg-3 col-md-6">
                                 <div class="card">
                                     <div class="card-body px-3 py-4-5">
