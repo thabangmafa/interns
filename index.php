@@ -725,7 +725,7 @@ let optionsVisitorsProfile  = {
 
 let optionsVisitorsRace  = {
 	series: raceCount,
-	labels: RaceName,
+	labels: raceName,
 	colors: ['#435ebe','#55c6e8','#0C2D48'],
 	chart: {
 		type: 'donut',
