@@ -63,7 +63,7 @@ if (@$_POST['InstitutionID'] != '') {
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">No. of Interns Applied</h6>
+                                                <h6 class="text-muted font-semibold">#Interns Applied</h6>
                                                 <h6 class="font-extrabold mb-0"><?php
 				
 													$query = "SELECT count(distinct a.UserID) inst FROM UserApplications a
@@ -90,7 +90,7 @@ if (@$_POST['InstitutionID'] != '') {
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">No. of Mentors Applied</h6>
+                                                <h6 class="text-muted font-semibold">#Mentors Applied</h6>
                                                 <h6 class="font-extrabold mb-0"><?php
 				
 													$query = "SELECT count(distinct Email) inst FROM ProspectiveMentors WHERE Status != 'Delete'";
@@ -116,7 +116,7 @@ if (@$_POST['InstitutionID'] != '') {
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">No. of Hosts Applied</h6>
+                                                <h6 class="text-muted font-semibold">#Hosts Applied</h6>
                                                 <h6 class="font-extrabold mb-0">
 												<?php
 				
@@ -146,7 +146,7 @@ if (@$_POST['InstitutionID'] != '') {
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">No. Req. Interns</h6>
+                                                <h6 class="text-muted font-semibold">#Req. Interns</h6>
                                                 <h6 class="font-extrabold mb-0">
 												<?php
 				
