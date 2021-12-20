@@ -490,6 +490,18 @@ if (@$_POST['InstitutionID'] != '') {
 									</div>
                             </div>
                         </div>
+						<div class="card">
+                            <div class="card-header">
+                                <h4>Interns Race</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="chart-visitors-race">
+										<div class="spinner-border text-primary" role="status">
+												<span class="visually-hidden">Loading...</span>
+											</div>
+									</div>
+                            </div>
+                        </div>
 						<?php } ?>
 						
 						
@@ -627,6 +639,22 @@ $genCount = $genCount."]";
 $genName = $genName.'"]';
 
 
+//Get interns Race
+$query = "SELECT count(DISTINCT a.UserID) as CN, b.Race as Name from `UserApplications` a right join RegistrationDetails c on c.UserID = a.UserID left join LookupRace b on b.ID = c.Race right join UserContactDetails d on d.UserID = a.UserID WHERE b.Race is not NULL and a.Status != 'Withdrawn' and d.UserID is not NULL group by b.Race order by Name";
+$result = mysqli_query($conn, $query);
+$raceCount = "[";
+$raceName = '["';
+while($internRace = mysqli_fetch_array($result)) {
+	$raceCount .= $internRace['CN'] . ',';
+	$raceName .= $internRace['Name'] . '","';
+}
+$raceCount = rtrim($raceCount,',');
+$raceName = rtrim($raceName,'","');
+
+$raceCount = $raceCount."]";
+$raceName = $raceName.'"]';
+
+
 CloseCon($conn);
 
 												
@@ -643,6 +671,10 @@ var quaName = <?php echo $quaName; ?>;
 
 var genCount = <?php echo $genCount; ?>;
 var genName = <?php echo $genName; ?>;
+
+var raceCount = <?php echo $raceCount; ?>;
+var raceName = <?php echo $raceName; ?>;
+
 
 var optionsProfileVisit = {
 	annotations: {
@@ -672,6 +704,28 @@ var optionsProfileVisit = {
 let optionsVisitorsProfile  = {
 	series: genCount,
 	labels: genName,
+	colors: ['#435ebe','#55c6e8','#0C2D48'],
+	chart: {
+		type: 'donut',
+		width: '100%',
+		height:'350px'
+	},
+	legend: {
+		position: 'bottom'
+	},
+	plotOptions: {
+		pie: {
+			donut: {
+				size: '30%'
+			}
+		}
+	}
+}
+
+
+let optionsVisitorsRace  = {
+	series: raceCount,
+	labels: RaceName,
 	colors: ['#435ebe','#55c6e8','#0C2D48'],
 	chart: {
 		type: 'donut',
@@ -772,6 +826,7 @@ let optionsIndonesia = {
 
 var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit"), optionsProfileVisit);
 var chartVisitorsProfile = new ApexCharts(document.getElementById('chart-visitors-profile'), optionsVisitorsProfile)
+var chartVisitorsRace = new ApexCharts(document.getElementById('chart-visitors-race'), optionsVisitorsRace)
 var chartInternsQualifications = new ApexCharts(document.getElementById('chart-interns-qualifications'), optionsInternsQualifications)
 var chartEurope = new ApexCharts(document.querySelector("#chart-europe"), optionsEurope);
 var chartAmerica = new ApexCharts(document.querySelector("#chart-america"), optionsAmerica);
