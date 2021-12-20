@@ -53,7 +53,7 @@ if (@$_POST['InstitutionID'] != '') {
                     <div class="col-12 col-lg-9">
 					<?php if(@$_SESSION['user_type'] == '1'){ ?>
                         <div class="row">
-                            <div class="col-6 col-lg-4 col-md-6">
+                            <div class="col-3 col-lg-3 col-md-3">
                                 <div class="card">
                                     <div class="card-body px-3 py-4-5">
                                         <div class="row">
@@ -80,7 +80,7 @@ if (@$_POST['InstitutionID'] != '') {
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 col-lg-4 col-md-6">
+                            <div class="col-3 col-lg-3 col-md-3">
                                 <div class="card">
                                     <div class="card-body px-3 py-4-5">
                                         <div class="row">
@@ -106,7 +106,7 @@ if (@$_POST['InstitutionID'] != '') {
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 col-lg-4 col-md-6">
+                            <div class="col-3 col-lg-3 col-md-3">
                                 <div class="card">
                                     <div class="card-body px-3 py-4-5">
                                         <div class="row">
@@ -136,7 +136,7 @@ if (@$_POST['InstitutionID'] != '') {
                                 </div>
                             </div>
 							
-							<div class="col-6 col-lg-4 col-md-6">
+							<div class="col-3 col-lg-3 col-md-3">
                                 <div class="card">
                                     <div class="card-body px-3 py-4-5">
                                         <div class="row">
