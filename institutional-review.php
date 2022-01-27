@@ -738,6 +738,8 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Intern Applic
 														<th>Discipline</th>
 														<th>Qualifications</th>
 														<th>Status</th>
+														<th>Disability</th>
+														<th>Disability Details</th>
 														<th>Action</th>
 													</tr>
 												</thead>
@@ -782,7 +784,7 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Intern Applic
 												';
 												
 												
-												$query = 'SELECT a.ID, CONCAT("DSI/HSRC/2021/", a.CallID,"/", a.UserID) as Reference,z.Name as Home, c.Title, b.Initials,b.LastName,b.IDNumber,b.PassportNumber, 
+												$query = 'SELECT a.ID, b.DisabilityDetails, b.Disability, CONCAT("DSI/HSRC/2021/", a.CallID,"/", a.UserID) as Reference,z.Name as Home, c.Title, b.Initials,b.LastName,b.IDNumber,b.PassportNumber, 
 												CONCAT("1st: ", e.Name, " (" , j.Name, ")", "<br />2nd: ", CASE WHEN f.Name != "" THEN f.Name ELSE "N/A" END, " (" , CASE WHEN k.Name != "" THEN k.Name ELSE "N/A" END, ")", "<br />3rd: ", CASE WHEN g.Name != "" THEN g.Name ELSE "N/A" END, " (" , CASE WHEN l.Name != "" THEN l.Name ELSE "N/A" END, ")" ) as Discipline,  
 												GROUP_CONCAT(DISTINCT  CONCAT( h.NameOfDegree," (",n.Name,") - ",CASE WHEN h.Completed = "Yes" THEN "Completed" ELSE "Not Completed" END) SEPARATOR "<br />") NameOfDegree, a.Status FROM UserApplications a 
 																											right join RegistrationDetails b on b.UserID = a.UserID
@@ -816,6 +818,8 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Intern Applic
 															 echo '<td>' . ucwords($calls['NameOfDegree']) . '</td>';
 															 if($calls['Status'] == 'Pending'){ echo '<td>Submitted to HSRC</td>'; }else{ echo '<td>' . $calls['Status']. '</td>'; }
 															 echo '<td><div class="icon dripicons-gear" data-id="'.$calls["ID"].'" data-bs-toggle="modal" modal-title="Respond to Application" data-bs-target="#primary"></div></td>';
+															 echo '<td>' . $calls['Disability'] . '</td>';
+															 echo '<td>' . $calls['DisabilityDetails'] . '</td>';
 															 echo '</tr>';
 														}
 													}
