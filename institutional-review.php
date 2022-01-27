@@ -738,8 +738,8 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Intern Applic
 														<th>Discipline</th>
 														<th>Qualifications</th>
 														<th>Status</th>
-														<th style="display:nonre">Disability</th>
-														<th style="display:nonre">Disability Details</th>
+														<th style="display:none">Disability</th>
+														<th style="display:none">Disability Details</th>
 														<th>Action</th>
 													</tr>
 												</thead>
@@ -817,8 +817,8 @@ $sql = "SELECT distinct Details FROM LookupHeadings WHERE Section='Intern Applic
 															 echo '<td>' . $calls['Discipline'] . '</td>';
 															 echo '<td>' . ucwords($calls['NameOfDegree']) . '</td>';
 															 if($calls['Status'] == 'Pending'){ echo '<td>Submitted to HSRC</td>'; }else{ echo '<td>' . $calls['Status']. '</td>'; }
-															 echo '<td style="display:nonre">' . $calls['Disability'] . '</td>';
-															 echo '<td style="display:nonre">' . $calls['DisabilityDetails'] . '</td>';
+															 echo '<td style="display:none">' . $calls['Disability'] . '</td>';
+															 echo '<td style="display:none">' . $calls['DisabilityDetails'] . '</td>';
 															 echo '<td><div class="icon dripicons-gear" data-id="'.$calls["ID"].'" data-bs-toggle="modal" modal-title="Respond to Application" data-bs-target="#primary"></div></td>';
 															 
 															 echo '</tr>';
